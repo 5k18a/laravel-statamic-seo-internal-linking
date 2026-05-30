@@ -1,0 +1,115 @@
+title: 'About Image With Text Section'
+fields:
+  -
+    handle: text_content
+    field:
+      type: group
+      display: 'Text Content'
+      fields:
+        -
+          handle: heading
+          field:
+            type: text
+            display: Heading
+            placeholder: 'Building Trust, One Brick at a Time'
+            validate:
+              - required
+        -
+          handle: description
+          field:
+            type: textarea
+            display: Description
+            instructions: 'Add the main paragraph text'
+            placeholder: 'At Orion Construction, we don’t just build structures — we shape the future...'
+        -
+          handle: features
+          field:
+            type: replicator
+            display: 'Feature List'
+            instructions: 'Add bullet points with check icons'
+            sets:
+              feature_item:
+                display: 'Feature Item'
+                fields:
+                  -
+                    handle: text
+                    field:
+                      type: text
+                      display: 'Feature Text'
+                      placeholder: '99+ Successfully Completed Projects'
+        -
+          handle: primary_button
+          field:
+            type: group
+            display: 'Primary Button'
+            fields:
+              -
+                handle: label
+                field:
+                  type: text
+                  display: 'Button Label'
+                  placeholder: 'Discover Orion'
+              -
+                handle: link
+                field:
+                  type: link
+                  display: 'Button Link'
+                  placeholder: /about
+        -
+          handle: secondary_button
+          field:
+            type: group
+            display: 'Secondary Button'
+            fields:
+              -
+                handle: phone_number
+                field:
+                  type: text
+                  display: 'Phone Number'
+                  placeholder: '+1 234 5678 999'
+              -
+                handle: link
+                field:
+                  type: link
+                  display: 'Phone Link'
+                  placeholder: 'tel:+12345678999'
+  -
+    handle: image_section
+    field:
+      type: group
+      display: 'Image Section'
+      fields:
+        -
+          handle: image
+          field:
+            type: assets
+            display: 'Main Image'
+            instructions: 'Upload the right-side image (e.g., discover-banner.webp)'
+            mode: single
+            max_files: 1
+        -
+          handle: review_block
+          field:
+            type: group
+            display: 'Customer Review Block'
+            fields:
+              -
+                handle: review_count
+                field:
+                  type: text
+                  display: 'Review Count'
+                  placeholder: 23K+
+              -
+                handle: review_label
+                field:
+                  type: text
+                  display: 'Review Label'
+                  placeholder: 'Customers Review'
+              -
+                handle: customer_images
+                field:
+                  type: assets
+                  display: 'Customer Images'
+                  instructions: 'Upload multiple customer review images'
+                  mode: list
+                  max_files: 6

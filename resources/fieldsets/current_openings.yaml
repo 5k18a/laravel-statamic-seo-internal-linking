@@ -1,0 +1,15 @@
+title: 'Current Openings'
+fields:
+  -
+    handle: section_title
+    field:
+      default: 'Current Openings'
+      type: text
+      display: 'Section Title'
+  -
+    handle: collections_field
+    field:
+      max_items: 1
+      mode: select
+      type: collections
+      display: Collections

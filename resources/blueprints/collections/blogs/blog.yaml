@@ -1,0 +1,211 @@
+title: Blog
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              validate:
+                - required
+          -
+            handle: order_by
+            field:
+              default: '1'
+              type: integer
+              display: 'Order by'
+              validate:
+                - required
+              always_save: false
+          -
+            handle: image
+            field:
+              max_files: 1
+              min_files: 1
+              container: assets
+              type: assets
+              display: image
+          -
+            handle: galleries
+            field:
+              container: assets
+              type: assets
+              display: Galleries
+          -
+            handle: team
+            field:
+              max_items: 1
+              mode: select
+              collections:
+                - teams
+              type: entries
+              display: Team
+          -
+            handle: date_field
+            field:
+              earliest_date: '2025-10-17'
+              type: date
+              display: Date
+          -
+            handle: shot_description
+            field:
+              type: textarea
+              display: 'Shot Description'
+          -
+            handle: content
+            field:
+              remove_empty_nodes: false
+              type: bard
+              display: Content
+              listable: true
+              buttons:
+                - h2
+                - h3
+                - bold
+                - italic
+                - unorderedlist
+                - orderedlist
+                - removeformat
+                - quote
+                - anchor
+                - image
+                - table
+                - h1
+                - h4
+                - h5
+                - h6
+                - small
+                - alignleft
+                - aligncenter
+                - alignright
+                - alignjustify
+              sets:
+                quote_section:
+                  display: 'Quote Section'
+                  sets:
+                    quote_section:
+                      display: 'Quote Section'
+                      fields:
+                        -
+                          handle: quote_text
+                          field:
+                            type: textarea
+                            display: 'Quote Text'
+                        -
+                          handle: client_name
+                          field:
+                            type: text
+                            display: 'Client Name'
+                        -
+                          handle: client_role
+                          field:
+                            type: text
+                            display: 'Client Role / Company'
+                    list_section:
+                      display: 'List Section'
+                      fields:
+                        -
+                          handle: list_section
+                          field:
+                            type: replicator
+                            display: 'List Section'
+                            collapse: true
+                            sets:
+                              new_set_group:
+                                display: 'New Set Group'
+                                sets:
+                                  new_set:
+                                    display: 'New Set'
+                                    fields:
+                                      -
+                                        handle: title
+                                        field:
+                                          type: text
+                                          display: Title
+                                      -
+                                        handle: description
+                                        field:
+                                          type: textarea
+                                          display: Description
+                    image_section:
+                      display: 'Image Section'
+                      fields:
+                        -
+                          handle: images
+                          field:
+                            container: assets
+                            type: assets
+                            display: Images
+                    dynamic_table:
+                      display: 'Dynamic Table'
+                      instructions: 'Create any table dynamically'
+                      fields:
+                        -
+                          handle: table_head
+                          field:
+                            type: grid
+                            display: 'Table Header'
+                            fields:
+                              -
+                                handle: col_name
+                                field:
+                                  type: text
+                                  display: 'Column Name'
+                        -
+                          handle: table_body
+                          field:
+                            type: grid
+                            display: 'Table Rows'
+                            fields:
+                              -
+                                handle: cell_1
+                                field:
+                                  type: text
+                                  display: 'Column 1'
+                              -
+                                handle: cell_2
+                                field:
+                                  type: text
+                                  display: 'Column 2'
+                              -
+                                handle: cell_3
+                                field:
+                                  type: text
+                                  display: 'Column 3'
+          -
+            handle: categories
+            field:
+              mode: select
+              taxonomies:
+                - categories
+              type: terms
+              display: categories
+          -
+            handle: related_blog_title
+            field:
+              default: 'Related Blogs'
+              type: text
+              display: 'Related Blog Title'
+          -
+            handle: blog_related
+            field:
+              mode: select
+              collections:
+                - blogs
+              type: entries
+              display: 'Blog Related'
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'

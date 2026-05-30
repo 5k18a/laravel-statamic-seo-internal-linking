@@ -1,0 +1,25 @@
+title: 'Featured Projects'
+fields:
+  -
+    handle: section_title
+    field:
+      type: text
+      display: 'Section Title'
+  -
+    handle: button_text
+    field:
+      type: text
+      display: 'Button Text'
+  -
+    handle: button_link
+    field:
+      type: text
+      display: 'Button Link'
+  -
+    handle: projects
+    field:
+      mode: select
+      collections:
+        - projects
+      type: entries
+      display: projects

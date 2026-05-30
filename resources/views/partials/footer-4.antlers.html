@@ -1,0 +1,116 @@
+{{ footer }}
+<footer class="relative overflow-hidden">
+            <!-- container -->
+            <div class="bg-primary-900">
+                <div class="container">
+                    <div class="border-t border-black 2xl:py-20 1xl:py-16 xl:py-14 md:py-12 py-9 text-black">
+                        <div class="flex items-start xl:flex-nowrap flex-wrap 2xl:gap-[160px] 1xl:gap-[85px] xl:gap-[60px] md:gap-y-10 gap-y-7 gap-x-[50px]">
+                            <div class="xl:flex-2 w-full">
+                                <div class="">
+                                    <a href="/">
+                                        {{ setting }}{{ logo_white }}<img src="{{ url }}" alt="img"
+                                            class="max-w-[150px] lg:max-w-[190px] xl:max-w-full" loading="lazy" />{{ /logo_white }}{{ /setting }}
+                                    </a>
+                                    <p class="text-white 2xl:mt-[30px] md:mt-5 mt-[18px] font-light">
+                                         {{ description }}
+                                    </p>
+                                    <form class="flex flex-col gap-2 2xl:mt-10 xl:mt-8 md:mt-6 mt-5 get-free-quote-form">
+                                    <div class="flex justify-end sm:flex-row flex-col">
+                                        <input type="email" placeholder="Your Email address" name="email" id="email" class="block bg-white px-4 py-3 w-full outline-none text-sm sm:text-base 2xl:text-lg text-[#4E4E4E] opacity-100"/>
+                                        <button class="btn btn-dark-reverse 1xl:!px-[30px] !px-6 sm:mt-0 mt-3">
+                                            {{ newsletter_button_text }}
+                                        </button>
+                                    </div>
+                                    <p class="form-message" style="display:none;"></p>
+                                    </form>
+                                    <p class="2xl:mt-9 xl:mt-6 mt-4 text-white">
+                                        {{ copyright_text }}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="sm:flex-1 w-full 1xl:whitespace-nowrap">
+                                <h4 class="xl:mb-4 md:mb-3 mb-2.5 text-white">
+                                    {{ useful_link_title }}
+                                </h4>
+                                <ul class="flex flex-col items-start xl:gap-y-[10px] gap-y-2">
+                                    {{ links }}
+                                    <li class="text-white hover:underline underline-offset-2 p !font-light">
+                                        <a href="{{ url }}">{{ title }}</a>
+                                    </li>
+                                     {{ /links }}
+                                </ul>
+                            </div>
+
+                            <div class="sm:flex-1 w-full 1xl:whitespace-nowrap">
+                                <h4 class="xl:mb-4 md:mb-3 mb-2.5 text-white">
+                                    {{ our_services_title }}
+                                </h4>
+                                {{ if service_entries }}
+                                <ul class="flex flex-col items-start xl:gap-y-[10px] gap-y-2">
+                                    {{ service_entries limit="7" }}
+                                    <li class="text-white hover:underline underline-offset-2 p !font-light">
+                                        <a href="/service/{{ slug }}">{{ title }}</a>
+                                    </li>
+                                    {{ /service_entries }}
+                                </ul>
+                                {{ /if }}
+                            </div>
+
+                            <div class="lg:flex-2 w-full">
+                                <h4 class="xl:mb-4 mb-3 text-white">{{ our_branches_title }}</h4>
+                                <div class="divide-y divide-[#FFFFFF26]">
+                                    <!-- India Address -->
+                                    {{ branches }}
+                                    <div class="xl:mb-[28px] md:mb-6 mb-[18px] xl:pb-[28px] md:pb-6 pb-[18px]">
+                                        <p
+                                            class="font-medium flex items-center justify-start 1xl:mb-[14px] mb-[10px] xl:gap-[14px] gap-3 text-white">
+                                            {{ country_flag }}<img src="{{ url }}" alt="in" class="w-full h-full 1xl:max-w-[30px] max-w-[25px]" loading="lazy" /> {{ /country_flag }}
+                                                {{ country_name }}
+                                        </p>
+                                        <a href="{{ maps_url }}"
+                                            target="_blank" rel="noopener noreferrer"class="block w-full !!font-light text-start text-white hover:underline decoration-white sm:underline-offset-4 underline-offset-2 p">
+                                            {{ address }}
+                                        </a>
+                                    </div>
+                                    {{ /branches }}
+                                    <!-- Germany Address -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-black xl:py-6 py-5">
+                <div class="container text-center">
+                     {{ setting }}
+                    <div class="w-full container flex items-center justify-between md:flex-row flex-col gap-4">
+                        <div
+                            class="flex flex-wrap items-center justify-center xl:gap-5 lg:gap-3 sm:gap-2 gap-x-4 gap-y-1 text-sm md:text-base">
+                            <!-- Email -->
+                            <a href="mailto:{{ email }}" class="text-white hover:underline underline-offset-2 p font-normal">
+                                {{ email }}
+                            </a>
+
+                            <span class="text-white sm:block hidden">|</span>
+
+                            <!-- Phone -->
+                            <a href="tel:{{ phone_number }}" class="text-white hover:underline underline-offset-2 p font-normal">
+                                {{ phone_number }}
+                            </a>
+                        </div>
+                        <div class="flex flex-wrap items-center justify-center xl:gap-9 lg:gap-7 sm:gap-4 gap-x-4 gap-y-1">
+                       
+                        {{ socials }}
+                            <a href="{{ url }}" target="_blank" class="text-white hover:underline underline-offset-2 p font-normal">
+                                {{ title }}
+                            </a>
+                            {{ /socials }}
+                           
+                        </div>
+                    </div>
+                     {{ /setting }}
+                </div>
+            </div>
+        </footer>
+        {{ /footer }}

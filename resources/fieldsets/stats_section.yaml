@@ -1,0 +1,26 @@
+title: 'Stats Section'
+fields:
+  -
+    handle: statistics_items
+    field:
+      type: replicator
+      display: 'Statistics Items'
+      sets:
+        new_set_group:
+          display: 'New Set Group'
+          sets:
+            stat_item:
+              display: 'Stat Item'
+              fields:
+                -
+                  handle: number
+                  field:
+                    type: text
+                    display: Number
+                    instructions: 'Enter the number or value (e.g., 450+)'
+                -
+                  handle: label
+                  field:
+                    type: text
+                    display: Label
+                    instructions: 'Enter the description (e.g., Completed Projects)'

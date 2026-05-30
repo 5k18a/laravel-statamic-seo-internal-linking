@@ -1,0 +1,21 @@
+socials:
+  -
+    id: mhcy1vq6
+    title: Facebook
+    platform: facebook-f
+    url: 'https://www.facebook.com/sharer/sharer.php?u='
+  -
+    id: mhcy24ek
+    title: Twitter
+    platform: x-twitter
+    url: 'https://twitter.com/intent/tweet?url='
+  -
+    id: mhcy2gfo
+    title: LinkedIn
+    platform: linkedin-in
+    url: 'https://www.linkedin.com/sharing/share-offsite/?url='
+  -
+    id: mhcy3t8b
+    title: Instagram
+    platform: instagram
+    url: 'https://www.instagram.com/'

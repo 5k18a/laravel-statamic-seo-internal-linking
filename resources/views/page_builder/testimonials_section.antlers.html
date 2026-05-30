@@ -1,0 +1,425 @@
+{{ if show_type == 'home-page-one' }}
+<section class="our-testimonials-section relative z-0 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] md:mb-[50px] mb-8">
+  <div class="absolute left-0 w-full h-full sm:flex hidden items-center justify-center z-0">
+    <img src="{{ theme:asset }}assets/images/testimonials-bg-shape.svg" alt="img" class="max-w-full" loading="lazy" />
+  </div>
+  <div class="container relative z-1">
+    <div class="flex flex-col items-center justify-center 2xl:mb-11 lg:mb-8 sm:mb-6 mb-4 2xl:gap-10 1xl:gap-6 lg:gap-5 gap-2">
+      <h2>{{ section_title }}</h2>
+      <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" fill="none" class="xl:w-[60px] xl:h-[60px] lg:w-[54px] lg:h-[54px] md:w-[50px] md:h-[50px] sm:w-[45px] sm:h-[45px] w-[40px] h-[40px] flex-shrink-0 fill-primary-900">
+        <g clip-path="url(#clip0_3670_1750)">
+          <path d="M4.28624 52.2857H17.1431L25.7144 34.8003V8.57227H0.000610352V34.8003H12.8575L4.28624 52.2857ZM38.5713 52.2857H51.4281L59.9994 34.8003V8.57227H34.2856V34.8003H47.1425L38.5713 52.2857Z"
+          />
+        </g>
+      </svg>
+    </div>
+
+    <!-- start Testimonials slider -->
+    <!-- Main slider -->
+    <div class="all-testimonial relative">
+      <div class="swiper testimonial 2xl:max-w-[70%] 1xl:max-w-[75%] xl:max-w-[78%] sm:max-w-[80%] w-full">
+        <div class="swiper-wrapper">
+          {{ testimonials }}
+          <div class="swiper-slide" data-name="-Kriti Jonnas" data-role="ACP Group">
+            <div>
+              <h6 class="font-normal font-lexend text-black 1xl:!leading-[40px] xl:!leading-[34px] lg:!leading-[30px] !leading-[24px] text-center"> “{{ content }}”
+              </h6>
+            </div>
+          </div>
+          {{ /testimonials }}
+        </div>
+      </div>
+
+      <div thumbsSlider="" class="swiper user 2xl:max-w-[540px] lg:max-w-[520px] md:max-w-[320px] max-w-[240px] w-full 1xl:mt-[50px] md:mt-[40px] mt-[30px]">
+        <div class="swiper-wrapper items-center">
+          {{ testimonials }}
+          <div class="swiper-slide flex items-center justify-center cursor-pointer">
+            <img src="{{ image }} {{ url }} {{ /image }}" class="rounded-full 2xl:w-[60px] 2xl:h-[60px] xl:w-[56px] xl:h-[56px] w-[53px] h-[53px]" loading="lazy" />
+          </div>
+          {{ /testimonials }}
+        </div>
+      </div>
+      <div class="client-info text-center 2xl:mt-10 1xl:mt-8 lg:mt-6 mt-[14px]">
+        <h6 id="client-name" class="h4 font-medium mb-0"></h6>
+        <p id="client-role" class="p2 font-light mb-0 text-[#464343]"></p>
+      </div>
+      <div class="swiper-arrows sm:absolute relative top-[22%] sm:w-full w-[88px] sm:h-auto mx-auto left-0 h-full 2xl:mt-0sm:mt-10 mt-[20px] px-10 pb-[25px]">
+        <div class="swiper-button-next text-primary-900 xl:mr-[45px]"></div>
+        <div class="swiper-button-prev text-primary-900 xl:ml-[45px]"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{ elseif show_type == 'home-page-two' }}
+
+<section class="relative 2xl:-mt-[100px] 1xl:-mt-20 lg:-mt-[70px] sm:-mt-[50px] -mt-10 overflow-visible">
+  <div class="absolute 2xl:-left-[200px] lg:-left-[170px] -left-[140px] right-0 2xl:w-[60%] 2xl:h-[60%] lg:w-[58%] lg:h-[92%] w-[62%] h-full top-auto bottom-0 sm:flex hidden items-center justify-center z-0 opacity-60">
+    <img src="{{ theme:asset }} assets/images/testimonials-bg-shape.svg" alt="img" class="w-full" loading="lazy" decoding="async" />
+  </div>
+  <div class="container-2 relative testimonials-2 2xl:py-[100px] 1xl:py-20 lg:py-[70px] sm:py-[50px] py-10">
+    <!-- Heading -->
+    <div class="flex items-center justify-between 2xl:mb-[85px] 1xl:mb-[60px] xl:mb-[50px] md:mb-[44px] mb-5">
+      <h2>{{ section_title }}</h2>
+      {{ if button_text }}
+      <div class="w-auto md:flex hidden items-center justify-end gap-4">
+        <a href="{{ button_link }}" class="btn btn-primary-reverse sm:block hidden">{{ button_text }}</a>
+      </div>
+      {{ /if }}
+    </div>
+    <!-- slider testimonial -->
+    <div class="flex md:flex-row flex-col xl:gap-[100px] lg:gap-[70px] gap-[20px] relative">
+      <div class="swiper testimonial-2 md:w-[62%] w-full relative h-fit">
+        <div class="swiper-wrapper">
+          <!-- 1st testimonial -->
+          {{ testimonials }}
+          <div class="swiper-slide h-auto">
+            <!-- Left -->
+            <div>
+              <div class="2xl:mb-[100px] 1xl:mb-[70px] lg:mb-[50px] mb-9">
+                <div class="flex items-center gap-1 1xl:mb-12 xl:mb-9 md:mb-7 sm:mb-6 mb-[22px]">
+
+                  {{ loop from="1" to="5" }}
+                  <span class="flex items-center gap-[6px]">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="{{ if index <= rating }}  {{ else }}none{{ /if }}" width="24" height="22" viewBox="0 0 24 22" class="flex-shrink-0 xl:w-6 xl:h-6 sm:w-[22px] sm:h-[22px] w-[18px] h-[18px] {{ if index <= rating }} fill-primary-900 {{ else }} stroke-primary-900 {{ /if }}">
+                      <path d="M11.0489 0.927049C11.3483 0.0057385 12.6517 0.00573993 12.9511 0.927051L14.9187 6.98278C15.0526 7.3948 15.4365 7.67376 15.8697 7.67376H22.2371C23.2058 7.67376 23.6086 8.91338 22.8249 9.48278L17.6736 13.2254C17.3231 13.4801 17.1764 13.9314 17.3103 14.3435L19.2779 20.3992C19.5773 21.3205 18.5228 22.0866 17.7391 21.5172L12.5878 17.7746C12.2373 17.5199 11.7627 17.5199 11.4122 17.7746L6.2609 21.5172C5.47719 22.0866 4.42271 21.3205 4.72206 20.3992L6.68969 14.3435C6.82356 13.9314 6.6769 13.4801 6.32642 13.2254L1.17511 9.48278C0.391392 8.91338 0.794168 7.67376 1.76289 7.67376H8.13026C8.56349 7.67376 8.94744 7.3948 9.08132 6.98278L11.0489 0.927049Z" />
+                    </svg>
+                  </span>
+                  {{ /loop }}
+
+
+                </div>
+                <h6 class="md:mb-6 font-normal font-lexend 1xl:leading-9 xl:leading-8 sm:leading-[29px] leading-[24px] lg:line-clamp-8 line-clamp-6">
+                  “{{ content }}”
+                </h6>
+              </div>
+              <div class="overflow-hidden relative before:block sm:before:pt-[109%] before:pt-[90%] !block md:w-full sm:w-1/2 w-full mx-auto md:!hidden sm:mb-7 mb-5 ml-0">
+                <img src="{{ image }} {{ url }} {{ /image }}" class="w-full h-full object-cover absolute top-0 bottom-0 left-0 right-0" loading="lazy" decoding="async" />
+              </div>
+              <!-- Author + Logo -->
+              <div class="flex min-[376px]:items-center tems-start min-[376px]:flex-row flex-col xl:gap-[42px] lg:gap-[38px] sm:gap-9 gap-[18px]">
+                <div>
+                  <h4>{{ title }}</h4>
+                  <p>- {{ company }}</p>
+                </div>
+                <div class="w-[0.5px] h-[65px] bg-[#D9D9D9] min-[376px]:block hidden"></div>
+                <div class="xl:w-auto lg:w-[30%] md:w-[35%] sm:w-[30%] w-[35%]">
+                  <img src="{{ company_logo }} {{ url }} {{ /company_logo }}" alt="Logo" class="h-full w-full" loading="lazy" decoding="async" />
+                </div>
+              </div>
+            </div>
+          </div>
+          {{ /testimonials }}
+        </div>
+      </div>
+      <div class="md:w-[30%] w-full md:!block !hidden">
+        <div thumbsSlider class="swiper client-2">
+          <div class="swiper-wrapper">
+            {{ testimonials }}
+            <div class="swiper-slide">
+              <div class="overflow-hidden relative lg:before:pt-[109%] before:pt-[120%] before:block">
+                <img src="{{ image }} {{ url }} {{ /image }}" class="w-full h-full object-cover absolute top-0 bottom-0 left-0 right-0" loading="lazy" decoding="async" />
+              </div>
+            </div>
+            {{ /testimonials }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex gap-2 project-custom-arrow sm:absolute relative top-auto 2xl:bottom-[14%] lg:bottom-[13%] md:bottom-[12.5%] bottom-[8%] right-0 lg:left-[56%] md:left-[67%] left-auto mt-[22px]">
+      <div class="swiper-button-prev arrow-slider absolute flex-shrink-0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="23" viewBox="0 0 36 23" fill="none" class="flex-shrink-0">
+          <g clip-path="url(#clip0_100_117)">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M5.44814 12.7576L13.6838 20.9907L11.831 22.8409L0.439209 11.4491L11.831 0.0546875L13.6838 1.90752L5.44814 10.1406H31.4113V12.7576H5.44814Z" fill="currentColor" />
+          </g>
+        </svg>
+      </div>
+      <div class="swiper-button-next arrow-slider absolute flex-shrink-0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="37" height="23" viewBox="0 0 37 23" fill="none" class="flex-shrink-0">
+          <g clip-path="url(#clip0_100_119)">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M31.4795 12.7576L23.2438 20.9907L25.0966 22.8409L36.4884 11.4491L25.0966 0.0546875L23.2438 1.90752L31.4795 10.1406H5.5163V12.7576H31.4795Z" fill="currentColor" />
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{ elseif show_type == 'home-page-three' }}
+<section class="relative 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] md:mb-[50px] mb-8">
+  <div class="container">
+    <div class="flex justify-between items-start md:flex-row flex-col w-full md:gap-10">
+      <div class="xl:w-[35%] md:w-[37%] w-full">
+        <div class="md:mb-5 mb-7">
+          <h2 class="md:mb-[18px] mb-[10px]">
+            {{ section_title }}
+          </h2>
+          <p class="md:mb-9 mb-6 text-gray-400">
+            {{ description }}
+          </p>
+          {{ if button_text }}<a href="{{ button_link }}" class="btn btn-primary">{{ button_text }}</a>{{ /if }}
+        </div>
+      </div>
+      <div class="2xl:w-[54%] 1xl:w-[55%] md:w-[58%] w-full teimonials-3">
+        {{ testimonials }}
+        <div class="testimonial border-t border-black/10 md:pt-6 xl:pb-9 md:pb-6 py-6 flex lg:flex-row flex-col 2xl:gap-[118px] 1xl:gap-20 lg:gap-10 gap-4">
+          <div class="shrink-0 lg:max-w-[185px] xl:max-w-[210px] w-full flex flex-col items-start gap-1">
+            <h5 class="font-semibold">{{ title }}</h5>
+            <p class="text-gray-400">- {{ company }}</p>
+          </div>
+          <div class="w-full flex flex-col items-start 1xl:gap-6 lg:gap-4 gap-3">
+            {{ if short_title }}
+            <h6 class="font-lexend font-medium">
+              “{{ short_title }}”
+            </h6>
+            {{ /if }}
+            {{ if content }}
+            <p class="text-[#372F2F] font-normal">
+              {{ content }}
+            </p>
+            {{ /if }}
+          </div>
+        </div>
+        {{ /testimonials }}
+      </div>
+    </div>
+  </div>
+</section>
+{{ elseif show_type == 'home-page-four' }}
+
+<section class="relative 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] md:mb-[50px] mb-8">
+  <div class="container">
+    <div class="testimonial-home-4">
+      <div class="flex items-center sm:justify-between justify-center 2xl:mb-[50px] 1xl:mb-11 md:mb-9 mb-7 2xl:pb-[34px] 1xl:pb-[30px] md:pb-6 pb-4 w-full border-b border-[#0000004D]">
+        <h2>{{ section_title }}</h2>
+        <div class="sm:flex hidden gap-2 project-custom-arrow relative">
+          <div class="swiper-button-prev arrow-slider absolute flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="23" viewBox="0 0 36 23" fill="none" class="flex-shrink-0">
+              <g clip-path="url(#clip0_100_117)">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M5.44814 12.7576L13.6838 20.9907L11.831 22.8409L0.439209 11.4491L11.831 0.0546875L13.6838 1.90752L5.44814 10.1406H31.4113V12.7576H5.44814Z" fill="currentColor" />
+              </g>
+            </svg>
+          </div>
+          <div class="swiper-button-next arrow-slider absolute flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="23" viewBox="0 0 37 23"
+            fill="none" class="flex-shrink-0">
+            <g clip-path="url(#clip0_100_119)">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M31.4795 12.7576L23.2438 20.9907L25.0966 22.8409L36.4884 11.4491L25.0966 0.0546875L23.2438 1.90752L31.4795 10.1406H5.5163V12.7576H31.4795Z"fill="currentColor" />
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="swiper testimonial-3">
+      <div class="swiper-wrapper">
+        <!-- testimonial - 1 -->
+        {{ testimonials }}
+        <div class="swiper-slide">
+          <div class="bg-white flex flex-col sm:flex-row sm:items-start items-center 2xl:gap-10 1xl:gap-8 sm:gap-6 gap-[18px]">
+            <div class="flex-shrink-0 2xl:w-[120px] 2xl:h-[120px] 1xl:w-[110px] 1xl:h-[110px] xl:w-[100px] xl:h-[100px] w-[85px] h-[85px] overflow-hidden rounded-full">
+              <img src="{{ image }} {{ url }} {{ /image }}" alt="{{ title }}" class="w-full h-full object-cover" />
+            </div>
+            <div class="flex-1">
+              <div class="flex justify-between items-center sm:flex-row flex-col sm:text-start text-center sm:gap-4 gap-3 2xl:mb-5 1xl:mb-4 sm:mb-3 mb-4">
+                <div>
+                  <h4 class="font-semibold">{{ title }}</h4>
+                  <p class="text-dark-400">- {{ company }}</p>
+                </div>
+                <div class="flex items-center gap-[5px] text-green-700">
+                  {{ loop from="1" to="5" }}
+
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="{{ if index <= rating }}  {{ else }}none{{ /if }}" width="24" height="22" viewBox="0 0 24 22" class="flex-shrink-0 xl:w-6 xl:h-6 sm:w-[22px] sm:h-[22px] w-[18px] h-[18px] {{ if index <= rating }} fill-primary-900 {{ else }} stroke-primary-900 {{ /if }}">
+                    <path d="M11.0489 0.927049C11.3483 0.0057385 12.6517 0.00573993 12.9511 0.927051L14.9187 6.98278C15.0526 7.3948 15.4365 7.67376 15.8697 7.67376H22.2371C23.2058 7.67376 23.6086 8.91338 22.8249 9.48278L17.6736 13.2254C17.3231 13.4801 17.1764 13.9314 17.3103 14.3435L19.2779 20.3992C19.5773 21.3205 18.5228 22.0866 17.7391 21.5172L12.5878 17.7746C12.2373 17.5199 11.7627 17.5199 11.4122 17.7746L6.2609 21.5172C5.47719 22.0866 4.42271 21.3205 4.72206 20.3992L6.68969 14.3435C6.82356 13.9314 6.6769 13.4801 6.32642 13.2254L1.17511 9.48278C0.391392 8.91338 0.794168 7.67376 1.76289 7.67376H8.13026C8.56349 7.67376 8.94744 7.3948 9.08132 6.98278L11.0489 0.927049Z" />
+                  </svg>
+
+                  {{ /loop }}
+
+                </div>
+              </div>
+              <h6 class="font-medium font-lexend 1xl:mb-4 mb-3 sm:text-start text-center">
+                “{{ short_title }}”
+              </h6>
+              <p class="font-normal text-[#372F2F] sm:text-start text-center">{{ content }}</p>
+            </div>
+          </div>
+        </div>
+        {{ /testimonials }}
+      </div>
+    </div>
+    <div class="flex sm:hidden gap-2 project-custom-arrow relative mt-5 mx-auto">
+      <div class="swiper-button-prev arrow-slider absolute flex-shrink-0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="23" viewBox="0 0 36 23" fill="none" class="flex-shrink-0">
+          <g clip-path="url(#clip0_100_117)">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M5.44814 12.7576L13.6838 20.9907L11.831 22.8409L0.439209 11.4491L11.831 0.0546875L13.6838 1.90752L5.44814 10.1406H31.4113V12.7576H5.44814Z" fill="currentColor" />
+          </g>
+        </svg>
+      </div>
+      <div class="swiper-button-next arrow-slider absolute flex-shrink-0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="37" height="23" viewBox="0 0 37 23" fill="none" class="flex-shrink-0">
+          <g clip-path="url(#clip0_100_119)">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M31.4795 12.7576L23.2438 20.9907L25.0966 22.8409L36.4884 11.4491L25.0966 0.0546875L23.2438 1.90752L31.4795 10.1406H5.5163V12.7576H31.4795Z" fill="currentColor" />
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+{{ elseif show_type == 'about-page' }}
+
+<section class="relative 2xl:-mt-[100px] 1xl:-mt-20 lg:-mt-[70px] sm:-mt-[50px] -mt-10">
+  <div class="absolute 2xl:-left-[200px] lg:-left-[170px] -left-[140px] right-0 2xl:w-[60%] 2xl:h-[60%] lg:w-[58%] lg:h-[92%] w-[62%] h-full top-auto bottom-0 sm:flex hidden items-center justify-center z-0 opacity-60">
+    <img src="{{ theme:asset }}assets/images/testimonials-bg-shape.svg" alt="img" class="w-full" loading="lazy" />
+  </div>
+  <div class="container-2 relative testimonials-2 2xl:py-[100px] 1xl:py-20 lg:py-[70px] sm:py-[50px] py-10">
+    <!-- Heading -->
+    <div class="flex items-center justify-between 2xl:mb-[85px] 1xl:mb-[60px] xl:mb-[50px] md:mb-[44px] mb-5">
+      <h2>{{ section_title }}</h2>
+      {{ if button_text }}
+      <div class="w-auto md:flex hidden items-center justify-end gap-4">
+        <a href="{{ button_link }}" class="btn btn-primary-reverse sm:block hidden">{{ button_text }}</a>
+      </div>
+      {{ /if }}
+    </div>
+    <!-- slider testimonial -->
+    <div class="flex md:flex-row flex-col xl:gap-[100px] lg:gap-[70px] gap-[20px] relative">
+      <div class="swiper testimonial-2 md:w-[62%] w-full relative h-fit">
+        <div class="swiper-wrapper">
+          <!-- 1st testimonial -->
+          {{ testimonials }}
+          <div class="swiper-slide h-auto">
+            <!-- Left -->
+            <div>
+              <div class="2xl:mb-[100px] 1xl:mb-[70px] lg:mb-[50px] mb-9">
+                <div class="flex items-center gap-1 1xl:mb-12 xl:mb-9 md:mb-7 sm:mb-6 mb-[22px]">
+
+                  {{ loop from="1" to="5" }}
+                  <span class="flex items-center gap-[6px]">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="{{ if index <= rating }}  {{ else }}none{{ /if }}" width="24" height="22" viewBox="0 0 24 22" class="flex-shrink-0 xl:w-6 xl:h-6 sm:w-[22px] sm:h-[22px] w-[18px] h-[18px] {{ if index <= rating }} fill-primary-900 {{ else }} stroke-primary-900 {{ /if }}">
+                      <path d="M11.0489 0.927049C11.3483 0.0057385 12.6517 0.00573993 12.9511 0.927051L14.9187 6.98278C15.0526 7.3948 15.4365 7.67376 15.8697 7.67376H22.2371C23.2058 7.67376 23.6086 8.91338 22.8249 9.48278L17.6736 13.2254C17.3231 13.4801 17.1764 13.9314 17.3103 14.3435L19.2779 20.3992C19.5773 21.3205 18.5228 22.0866 17.7391 21.5172L12.5878 17.7746C12.2373 17.5199 11.7627 17.5199 11.4122 17.7746L6.2609 21.5172C5.47719 22.0866 4.42271 21.3205 4.72206 20.3992L6.68969 14.3435C6.82356 13.9314 6.6769 13.4801 6.32642 13.2254L1.17511 9.48278C0.391392 8.91338 0.794168 7.67376 1.76289 7.67376H8.13026C8.56349 7.67376 8.94744 7.3948 9.08132 6.98278L11.0489 0.927049Z" />
+                    </svg>
+                  </span>
+                  {{ /loop }}
+
+                </div>
+                <h6 class="md:mb-6 font-normal font-lexend 1xl:leading-9 xl:leading-8 sm:leading-[29px] leading-[24px] lg:line-clamp-8 line-clamp-6">
+                  “{{ content }}”
+                </h6>
+              </div>
+              <div class="overflow-hidden relative before:block sm:before:pt-[109%] before:pt-[90%] !block md:w-full sm:w-1/2 w-full mx-auto md:!hidden sm:mb-7 mb-5 ml-0">
+                <img src="{{ image }} {{ url }} {{ /image }}" class="w-full h-full object-cover absolute top-0 bottom-0 left-0 right-0" loading="lazy" decoding="async" />
+              </div>
+              <!-- Author + Logo -->
+              <div class="flex min-[376px]:items-center tems-start min-[376px]:flex-row flex-col xl:gap-[42px] lg:gap-[38px] sm:gap-9 gap-[18px]">
+                <div>
+                  <h4>{{ title }}</h4>
+                  <p>- {{ company }}</p>
+                </div>
+                <div class="w-[0.5px] h-[65px] bg-[#D9D9D9] min-[376px]:block hidden"></div>
+                <div class="xl:w-auto lg:w-[30%] md:w-[35%] sm:w-[30%] min-[376px]:w-[39%] w-1/2">
+                  <img src="{{ company_logo }} {{ url }} {{ /company_logo }}" alt="Logo" class="h-full w-full" loading="lazy" decoding="async" />
+                </div>
+              </div>
+            </div>
+          </div>
+          {{ /testimonials }}
+        </div>
+      </div>
+      <div class="md:w-[30%] w-full md:!block !hidden">
+        <div thumbsSlider class="swiper client-2">
+          <div class="swiper-wrapper">
+            {{ testimonials }}
+            <div class="swiper-slide">
+              <div class="overflow-hidden relative lg:before:pt-[109%] before:pt-[120%] before:block">
+                <img src="{{ image }} {{ url }} {{ /image }}" class="w-full h-full object-cover absolute top-0 bottom-0 left-0 right-0" loading="lazy" decoding="async" />
+              </div>
+            </div>
+            {{ /testimonials }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex gap-2 project-custom-arrow sm:absolute relative top-auto 2xl:bottom-[14%] lg:bottom-[13%] md:bottom-[12.5%] bottom-[8%] right-0 lg:left-[56%] md:left-[67%] left-auto mt-[22px]">
+      <div class="swiper-button-prev arrow-slider absolute flex-shrink-0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="23" viewBox="0 0 36 23" fill="none" class="flex-shrink-0">
+          <g clip-path="url(#clip0_100_117)">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M5.44814 12.7576L13.6838 20.9907L11.831 22.8409L0.439209 11.4491L11.831 0.0546875L13.6838 1.90752L5.44814 10.1406H31.4113V12.7576H5.44814Z" fill="currentColor" />
+          </g>
+        </svg>
+      </div>
+      <div class="swiper-button-next arrow-slider absolute flex-shrink-0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="37" height="23" viewBox="0 0 37 23" fill="none" class="flex-shrink-0">
+          <g clip-path="url(#clip0_100_119)">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M31.4795 12.7576L23.2438 20.9907L25.0966 22.8409L36.4884 11.4491L25.0966 0.0546875L23.2438 1.90752L31.4795 10.1406H5.5163V12.7576H31.4795Z" fill="currentColor" />
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+{{ elseif show_type == 'testimonial-page' }}
+
+<div class="container lg:py-[70px] md:py-[60px] sm:py-[38px] py-[34px]">
+  <h2 class="2xl:mb-[60px] 1xl:mb-12 lg:mb-10 md:mb-8 sm:mb-6 mb-5 sm:text-start text-center" data-aos="fade-right" data-aos-delay="2500">
+    {{ section_title }}
+  </h2>
+
+  {{ if collections == "testimonials" }}
+  {{ collection:testimonials as="testimonials" paginate="{pagination}" limit="{limit}" }}
+  {{ /if }}
+
+  <div class="grid_append grid lg:grid-cols-2 grid-cols-1 2xl:gap-x-[100px] xl:gap-x-[90px] lg:gap-x-[60px]">
+    {{ testimonials }}
+   
+      <!-- testimonial - 1 -->
+      <div class="bg-white border-t border-[#00000026] flex flex-col sm:flex-row sm:items-start items-center 2xl:gap-10 1xl:gap-8 sm:gap-6 gap-[18px] 2xl:py-[55px] 1xl:py-[50px] xl:py-[45px] py-8 w-full grid-item-append" data-aos="fade-up">
+        <div class="flex-shrink-0 2xl:w-[120px] 2xl:h-[120px] 1xl:w-[105px] 1xl:h-[105px] xl:w-[100px] xl:h-[100px] w-[85px] h-[85px] overflow-hidden rounded-full">
+          <img src="{{ image }} {{ url }} {{ /image }}" alt="Sophie T." class="w-full h-full object-cover" />
+        </div>
+        <div class="flex-1">
+          <div class="flex justify-between items-center sm:flex-row flex-col sm:text-start text-center sm:gap-4 gap-3 2xl:mb-5 1xl:mb-4 sm:mb-3 mb-4">
+            <div>
+              <h4 class="font-medium">{{ title }}</h4>
+              <p>- {{ company }}</p>
+            </div>
+            <div class="flex items-center gap-[5px] text-green-700">
+              {{ loop from="1" to="5" }}
+              <span class="flex items-center gap-[6px]">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="{{ if index <= rating }}  {{ else }}none{{ /if }}" width="24" height="22" viewBox="0 0 24 22" class="flex-shrink-0 xl:w-6 xl:h-6 sm:w-[22px] sm:h-[22px] w-[18px] h-[18px] {{ if index <= rating }} fill-primary-900 {{ else }} stroke-primary-900 {{ /if }}">
+                  <path d="M11.0489 0.927049C11.3483 0.0057385 12.6517 0.00573993 12.9511 0.927051L14.9187 6.98278C15.0526 7.3948 15.4365 7.67376 15.8697 7.67376H22.2371C23.2058 7.67376 23.6086 8.91338 22.8249 9.48278L17.6736 13.2254C17.3231 13.4801 17.1764 13.9314 17.3103 14.3435L19.2779 20.3992C19.5773 21.3205 18.5228 22.0866 17.7391 21.5172L12.5878 17.7746C12.2373 17.5199 11.7627 17.5199 11.4122 17.7746L6.2609 21.5172C5.47719 22.0866 4.42271 21.3205 4.72206 20.3992L6.68969 14.3435C6.82356 13.9314 6.6769 13.4801 6.32642 13.2254L1.17511 9.48278C0.391392 8.91338 0.794168 7.67376 1.76289 7.67376H8.13026C8.56349 7.67376 8.94744 7.3948 9.08132 6.98278L11.0489 0.927049Z" />
+                </svg>
+              </span>
+              {{ /loop }}
+            </div>
+          </div>
+          <h6 class="font-medium font-lexend 1xl:mb-4 mb-3 sm:text-start text-center">
+            “{{ short_title }}”
+          </h6>
+          <p class="font-normal text-[#372F2F] sm:text-start text-center">
+            {{ content }}
+          </p>
+        </div>
+      </div>
+
+    {{ /testimonials }}
+
+  </div>
+  {{ paginate }}
+  <input type="hidden" class="lastPage" value="{{ total_pages }}">
+  <input type="hidden" class="currentPage" value="{{ current_page }}">
+  {{ if next_page }} 
+  <div class="load-more-wrap 2xl:mt-20 1xl:mt-17 lg:mt-15 md:mt-12 mt-9 flex justify-center">
+    <div class="load-btn text-center">
+      <a href="{{ next_page }}" class="btn ajax-load-more-grid">Load More 
+        <img src="{{theme:asset}}assets/images/loading-spinner.svg" alt="loader" class="loading-spin object-cover animate-spin hidden"></a>
+      </div>
+    </div>
+    {{ /if }}
+    {{ /paginate }} 
+    {{ if collections == "testimonials" }}
+    {{ /collection:testimonials }}
+    {{ /if }}
+  </div>
+
+  {{ /if }}

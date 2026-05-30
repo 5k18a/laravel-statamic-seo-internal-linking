@@ -1,0 +1,11 @@
+title: Projects
+template: project/show
+revisions: false
+route: '/project/{slug}'
+date_behavior:
+  past: public
+  future: private
+sites:
+  - en
+  - pl
+propagate: true

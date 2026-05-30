@@ -1,0 +1,19 @@
+<section class="relative overflow-hidden 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] sm:mb-[50px] mb-10">
+    <div class="about-mission relative overflow-hidden">
+        <div class="container md:px-4 p-0">
+            <div class="w-full relative top-0 right-0 1xl:h-[calc(100vh-12vh)] xl:h-[670px] lg:h-[600px] md:h-[500px] sm:h-[450px] h-full order-1 lg:order-2">
+                <img src="{{ image }} {{ url }} {{ /image }}" alt="img" class="h-full w-full object-cover" />
+                <!-- customer's review -->
+                <div class="sm:w-fit w-[90%] absolute 2xl:px-16 1xl:px-8 lg:px-7.5 md:px-7 2xl:py-[50px] md:py-7 sm:p-6 p-3 flex sm:flex-nowrap flex-wrap items-center sm:justify-start justify-center -bottom-[1px] sm:left-auto sm:right-0 left-1/2 -translate-x-1/2 sm:translate-x-0 z-0 bg-white text-center">
+                    <h1 class="mb-0">{{ title }}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end about-mission -->
+{{ page_builder scope="block" }}
+{{ partial src="page_builder/{type}" }}
+{{ /page_builder }}
+
+{{ partial:let-connect-section }}

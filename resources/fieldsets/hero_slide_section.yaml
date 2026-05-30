@@ -1,0 +1,163 @@
+title: 'Hero Slide Section'
+fields:
+  -
+    handle: hero_type
+    field:
+      options:
+        -
+          key: home-page-one
+          value: 'Home One'
+        -
+          key: home-page-two
+          value: 'Home Two'
+        -
+          key: home-page-three
+          value: 'Home Three'
+        -
+          key: home-page-four
+          value: 'Home Four'
+      default: home-page-one
+      type: select
+      display: 'hero type'
+      validate:
+        - required
+  -
+    handle: subtitle
+    field:
+      type: text
+      display: Subtitle
+  -
+    handle: main_title
+    field:
+      type: textarea
+      display: 'Main Title'
+  -
+    handle: hero_slides
+    field:
+      type: replicator
+      display: 'Hero Slides'
+      collapse: true
+      sets:
+        new_set_group:
+          display: 'New Set Group'
+          sets:
+            slide:
+              display: Slide
+              fields:
+                -
+                  handle: title
+                  field:
+                    type: text
+                    display: 'Main Title'
+                    validate:
+                      - required
+                -
+                  handle: subtitle
+                  field:
+                    type: text
+                    display: Subtitle
+                -
+                  handle: description
+                  field:
+                    type: textarea
+                    display: Description
+                -
+                  handle: image
+                  field:
+                    type: assets
+                    display: 'Hero Image'
+                    mode: single
+                    validate:
+                      - required
+                    max_files: 1
+                    container: assets
+                -
+                  handle: button_text
+                  field:
+                    default: 'Contact Now'
+                    type: text
+                    display: 'Button Text'
+                -
+                  handle: button_link
+                  field:
+                    default: /contact
+                    type: text
+                    display: 'Button Link'
+  -
+    handle: hero_thumbnails
+    field:
+      type: replicator
+      display: 'Hero Thumbnails'
+      instructions: 'Add slides for the thumbnail navigation'
+      collapse: true
+      sets:
+        main:
+          display: Main
+          sets:
+            thumb:
+              display: Thumbnail
+              fields:
+                -
+                  handle: sub_title
+                  field:
+                    type: text
+                    display: 'Sub Title'
+                -
+                  handle: short_description
+                  field:
+                    type: text
+                    display: 'Short Description'
+                -
+                  handle: image
+                  field:
+                    type: assets
+                    display: 'Thumbnail Image'
+                    mode: single
+                    max_files: 1
+                    container: assets
+  -
+    handle: clients_section
+    field:
+      type: group
+      display: 'Clients Section'
+      listable: true
+      fields:
+        -
+          handle: client_images
+          field:
+            max_files: 5
+            container: assets
+            type: assets
+            display: 'Client Images'
+        -
+          handle: client_count
+          field:
+            default: 578+
+            type: text
+            display: 'Client Count'
+        -
+          handle: client_text
+          field:
+            default: 'Satisfied client all over the world'
+            type: textarea
+            display: 'Client Text'
+  -
+    handle: logo_circle
+    field:
+      type: group
+      display: 'Logo Circle Overlay'
+      fields:
+        -
+          handle: circle_image
+          field:
+            max_files: 1
+            container: assets
+            type: assets
+            display: 'Circle Text Image'
+        -
+          handle: center_logo
+          field:
+            max_files: 1
+            container: assets
+            type: assets
+            display: 'Center Logo Image'

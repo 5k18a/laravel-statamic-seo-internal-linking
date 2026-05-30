@@ -1,0 +1,19 @@
+---
+id: 035c89fb-c87c-42b4-956e-044cad07c226
+blueprint: package
+title: 'Luxury & Premium Build'
+price: 200
+unit: '/en/ sq.ft'
+description: 'For villas, penthouses, corporate HQ'
+button_text: 'Choose Plan'
+button_link: /en/contact-us
+includes_title: 'INCLUDES:'
+includes_list:
+  - 'High-end architectural design'
+  - 'Imported materials & finishes'
+  - 'Smart home automation setup'
+  - 'Custom landscaping & exterior works'
+  - 'Estimated Timeline: 8–12 Months'
+updated_by: 15c0f104-0188-406c-b4ef-af40e61a13db
+updated_at: 1766723448
+---

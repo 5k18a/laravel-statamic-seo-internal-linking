@@ -1,0 +1,96 @@
+title: 'Package Section'
+fields:
+  -
+    handle: sub_title
+    field:
+      default: 'Our Packages'
+      type: text
+      display: 'Sub Title'
+  -
+    handle: show_type
+    field:
+      options:
+        -
+          key: home-page-one
+          value: 'Home One'
+        -
+          key: home-page-two
+          value: 'Home Two'
+        -
+          key: home-page-three
+          value: 'Home Three'
+        -
+          key: home-page-four
+          value: 'Home Four'
+        -
+          key: package-page
+          value: 'Package page'
+      default: home-page-one
+      type: select
+      display: 'Show Type'
+  -
+    handle: display_type
+    field:
+      label: 'Display Type'
+      type: radio
+      options:
+        -
+          key: list
+          value: List
+        -
+          key: select
+          value: 'Select From Package'
+      default: select
+      span: full
+      display: 'Display Type'
+  -
+    handle: button_text
+    field:
+      default: 'View all Packages'
+      type: text
+      display: 'Button Text'
+      if:
+        display_type: 'equals select'
+  -
+    handle: button_link
+    field:
+      default: /package
+      type: text
+      display: 'Button Link'
+      if:
+        display_type: 'equals select'
+  -
+    handle: package
+    field:
+      mode: select
+      collections:
+        - packages
+      type: entries
+      display: Packages
+      if:
+        display_type: 'equals select'
+  -
+    handle: collections
+    field:
+      max_items: 1
+      mode: select
+      type: collections
+      display: Collections
+      if:
+        display_type: 'equals list'
+  -
+    handle: limit
+    field:
+      default: '0'
+      type: integer
+      display: Limit
+      if:
+        display_type: 'equals list'
+  -
+    handle: pagination
+    field:
+      default: 'false'
+      type: text
+      display: Pagination
+      if:
+        display_type: 'equals list'

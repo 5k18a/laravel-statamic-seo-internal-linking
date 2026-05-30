@@ -1,0 +1,97 @@
+title: 'Testimonials Section'
+fields:
+  -
+    handle: show_type
+    field:
+      options:
+        -
+          key: home-page-one
+          value: 'Home One'
+        -
+          key: home-page-two
+          value: 'Home Two'
+        -
+          key: home-page-three
+          value: 'Home Three'
+        -
+          key: home-page-four
+          value: 'Home Four'
+        -
+          key: about-page
+          value: About
+        -
+          key: testimonial-page
+          value: 'Testimonial Page'
+      default: home-page-one
+      type: select
+      display: 'Show Type'
+  -
+    handle: display_type
+    field:
+      options:
+        -
+          key: list
+          value: List
+        -
+          key: select
+          value: Select
+      default: list
+      type: select
+      display: 'View Type'
+  -
+    handle: section_title
+    field:
+      default: 'What Our Clients Say'
+      type: text
+      display: 'Section Title'
+  -
+    handle: testimonials
+    field:
+      mode: select
+      collections:
+        - testimonials
+      type: entries
+      display: Testimonials
+      if:
+        display_type: 'equals list'
+  -
+    handle: description
+    field:
+      type: textarea
+      display: Description
+  -
+    handle: button_text
+    field:
+      type: text
+      display: 'Button Text'
+  -
+    handle: button_link
+    field:
+      default: /testimonials
+      type: text
+      display: 'Button Link'
+  -
+    handle: collections
+    field:
+      max_items: 1
+      mode: select
+      type: collections
+      display: Collections
+      if:
+        display_type: 'equals select'
+  -
+    handle: pagination
+    field:
+      default: 'false'
+      type: text
+      display: Pagination
+      if:
+        display_type: 'equals select'
+  -
+    handle: limit
+    field:
+      default: '0'
+      type: integer
+      display: Limit
+      if:
+        display_type: 'equals select'

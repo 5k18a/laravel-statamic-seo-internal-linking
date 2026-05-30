@@ -1,0 +1,121 @@
+title: 'Our Work Process Section'
+fields:
+  -
+    handle: section_background_color
+    field:
+      default: '#EFEFEF'
+      type: color
+      display: 'Section Background Color'
+  -
+    handle: left_images
+    field:
+      type: group
+      display: 'Left Side Images'
+      fields:
+        -
+          handle: main_image
+          field:
+            max_files: 1
+            container: assets
+            type: assets
+            display: 'Main Image'
+        -
+          handle: small_image
+          field:
+            max_files: 1
+            container: assets
+            type: assets
+            display: 'Overlapping Small Image'
+        -
+          handle: badge_text
+          field:
+            placeholder: 'ORION CONSTRUCTION • ORION CONSTRUCTION •'
+            type: text
+            display: 'Circle Badge Text'
+            instructions: 'Text that rotates around the circular badge'
+        -
+          handle: badge_icon
+          field:
+            max_files: 1
+            container: assets
+            type: assets
+            display: 'Badge Center Icon'
+            instructions: 'Upload the arrow or center icon'
+  -
+    handle: right_content
+    field:
+      type: group
+      display: 'Right Side Content'
+      fields:
+        -
+          handle: section_title
+          field:
+            default: 'Our Work Process'
+            type: text
+            display: 'Section Title'
+        -
+          handle: description
+          field:
+            type: textarea
+            display: Description
+        -
+          handle: process_steps
+          field:
+            type: replicator
+            display: 'Process Steps'
+            sets:
+              new_set_group:
+                display: 'New Set Group'
+                sets:
+                  setp:
+                    display: Setp
+                    fields:
+                      -
+                        handle: step_icon
+                        field:
+                          max_files: 1
+                          container: assets
+                          type: assets
+                          display: 'Step Icon'
+                      -
+                        handle: step_title
+                        field:
+                          type: text
+                          display: 'Step Title'
+                      -
+                        handle: step_description
+                        field:
+                          type: textarea
+                          display: 'Step Description'
+  -
+    handle: buttons
+    field:
+      type: group
+      display: Buttons
+      fields:
+        -
+          handle: primary_button_text
+          field:
+            default: 'Learn More About Us'
+            type: text
+            display: 'Primary Button Text'
+        -
+          handle: primary_button_link
+          field:
+            default: /about
+            type: text
+            display: 'Primary Button Link'
+        -
+          handle: secondary_button_text
+          field:
+            placeholder: '+1 234 5678 999'
+            default: '+1 234 5678 999'
+            type: text
+            display: 'Secondary Button Text'
+        -
+          handle: secondary_button_link
+          field:
+            placeholder: 'tel:+12345678999'
+            default: 'tel:+12345678999'
+            type: text
+            display: 'Secondary Button Link'

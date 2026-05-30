@@ -1,0 +1,32 @@
+<section class="relative 2xl:mb-[160px] xl:mb-[140px] lg:mb-[120px] md:mb-[50px] mb-8 z-1 bg-primary-900 overflow-visible 2xl:pt-[110px] lg:pt-[85px]">
+    <div class="absolute 2xl:w-[55%] lg:w-[67%] lg:block hidden w-full h-auto top-0 bottom-0 left-0 z-0 opacity-[12%] pointer-events-none 2xl:pt-[110px] lg:pt-[85px]">
+        <img src="{{ theme:asset }}assets/images/home-4-why-us-banner.png" alt="let's connect" class="w-full h-full object-cover object-top" loading="lazy" />
+    </div>
+    <div class="flex items-normal justify-between lg:flex-row flex-col-reverse">
+        <div class="container pl-0">
+            <!-- Left Section -->
+            <div class="2xl:w-[45%] lg:w-[50%] w-full">
+                <div class>
+                    <div
+                    class="flex sm:items-start items-center sm:text-start text-center flex-col 2xl:py-[160px] 1xl:py-[120px] xl:py-[100px] lg:py-[90px] md:py-[60px] sm:py-11 py-10 relative z-1">
+                    <h6 class="sub-title text-white 1xl:mb-[44px] sm:mb-[34px] mb-[22px]">
+                        {{ heading_small }}
+                    </h6>
+                    <h1 class="text-white 1xl:mb-6 md:mb-4 mb-3">
+                        {{ heading_large }}
+                    </h1>
+                    <p class="text-white xl:mb-[44px] md:mb-9 mb-7">
+                        {{ description }}
+                    </p>
+                    {{ if button_text }} <a href="{{ button_link }}" class="apply-btn btn btn-green-bg">{{ button_text }}</a>{{ /if }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Section -->
+        <div class="lg:w-[45%] w-full h-full lg:absolute relative md:right-0 md:left-auto 2xl:-bottom-[90px] xl:-bottom-[75px] lg:-bottom-[55px] z-10 lg:block hidden">
+            <img src="{{right_image}}{{url}}{{/right_image}}" alt="img" class="w-full h-full object-cover" loading="lazy" />
+        </div>
+    </div>
+</div>
+</section>

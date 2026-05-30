@@ -1,0 +1,42 @@
+show_preloader: images/preloader.svg
+favicon: images/favicon.png
+logo: images/logo-dark.svg
+logo_white: images/logo-white.svg
+phone_number: '+1 234 5678 999'
+email: info@orionconstruction.com
+socials:
+  -
+    id: mgt154hu
+    title: Facebook
+    platform: facebook-f
+    url: 'https://www.facebook.com/'
+  -
+    id: mgt15dsy
+    title: Instagram
+    platform: instagram
+    url: 'https://www.instagram.com/'
+  -
+    id: mgt15sb7
+    title: Twitter
+    platform: x-twitter
+    url: 'https://x.com/'
+  -
+    id: mgt16tmi
+    title: Youtube
+    platform: youtube
+    url: 'https://www.youtube.com/'
+header_btn_text: 'Get Estimate'
+header_btn_url: /quotation
+address: 'Schillerplatz 9, 3rd Floor, Business Tower City Center, 173, Germany'
+map_url: 'https://www.google.com/maps?q=Schillerplatz+9,+Business+Tower+City+Center,+173,+Germany'
+header_select: header-1
+footer_select: footer-1
+blog_single_page: blog-detail-three
+enquiry_form_title: 'Enquiry Form'
+sub_title: 'Architecture & Design'
+section_description: 'Explore innovative concepts, modern aesthetics, and functional design strategies that bring construction projects to life with creativity and purpose.'
+browse_all_label: 'Browse all Posts'
+dropdown_label: 'Browse By:'
+sub_comment_title: 'Leave a Comment'
+section_comment_description: 'We’d love to hear your thoughts! Share your feedback, ideas, or questions below your comment helps keep the conversation going.'
+comment_button_text: 'Leave Comment'

@@ -1,0 +1,114 @@
+    <section class="relative 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] md:mb-[50px] mb-8 z-1">
+        <div class="container pl-0">
+            <div class="flex items-center justify-between md:flex-row flex-col-reverse 2xl:gap-[120px] 1xl:gap-[100px] xl:gap-[70px] lg:gap-[65px] gap-[30px]">
+                <!-- Left Section -->
+                {{ touch_with_us }}
+                <div class="xl:w-[32%] lg:w-[50%] md:w-[44%] w-full">
+                    <div class="bg-primary-900 relative before:bg-primary-900 before:w-[500%] before:h-full before:absolute before:left-0 before:top-0 before:-ml-[499%] after:w-[500%] after:h-full after:absolute after:left-0 after:top-0 after:-mr-[499%] after:bg-primary-900 md:after:hidden">
+                        <div class="absolute z-0 w-full h-full top-0 left-0 bottom-0 right-0">
+                            <img src="{{ theme:asset }}assets/images/let's-connect-bg.svg" alt="let's connect" class="w-full h-full object-cover" loading="lazy" />
+                        </div>
+                        <div class="w-auto flex sm:items-start items-center flex-col md:pr-4 pl-0 2xl:pt-[115px] 2xl:pb-[110px] 1xl:pt-[80px] xl:pt-[65px] xl:pb-[80px] sm:py-[50px] py-10 relative z-1">
+                            <h2 class="text-white 2xl:text-[45px] 1xl:text-4xl xl:text-[38px] text-[30px] shrink-0 xl:leading-4xl lg:leading-[30px] leading-[28px] 1xl:mb-[50px] xl:mb-[40px] mb-[30px]">
+                                {{ sub_title }}
+                            </h2>
+
+                            <!--  Address -->
+                            {{ offices }}
+                            <div class="1xl:mb-[42px] lg:mb-[38px] mb-7">
+                                <p class="font-medium flex items-center sm:justify-start justify-center 1xl:mb-[15px] mb-[10px] xl:gap-4 gap-2 text-white">
+                                    <img src="{{ flag }} {{ url }} {{ /flag }}" alt="in" class="w-full h-full 1xl:max-w-[30px] max-w-[25px]" loading="lazy" />{{ country }}:
+                                </p>
+                                <a href="{{ map_link }}" target="_blank" rel="noopener noreferrer" class="block 2xl:w-[65%] lg:w-[80%] md:w-[95%] w-full font-light sm:text-start text-center text-white hover:underline decoration-white sm:underline-offset-4 underline-offset-2">
+                                    {{ address }}
+                                </a>
+                            </div>
+                            {{ /offices }}
+
+                            <!-- Contact -->
+                            <div class="flex flex-col">
+                                <p class="font-medium lg:mb-[15px] mb-2 sm:text-start text-center text-white">
+                                    {{ content_title }}:
+                                </p>
+                                <a href="mailto:{{ email }}" class="p font-light sm:text-start text-center text-white hover:underline decoration-white sm:underline-offset-4 underline-offset-2">
+                                    {{ email }}
+                                </a>
+                                <a href="tel:{{ phone }}" class="p font-light sm:text-start text-center text-white hover:underline decoration-white sm:underline-offset-4 underline-offset-2">
+                                    {{ phone }}
+                                </a>
+                            </div>
+
+                            <!-- Social Icons -->
+                            {{ if socials }}
+                            <div class="flex 2xl:space-x-[25px] lg:space-x-[22px] space-x-[18px] lg:mt-[47px] sm:mt-[38px] mt-7">
+                                {{ socials }}
+                                <a href="{{ url }}" class="2xl:w-[50px] 2xl:h-[50px] xl:w-12 xl:h-12 md:w-11 md:h-11 sm:w-10 sm:h-10 w-9 h-9 flex items-center justify-center rounded-full bg-white group">
+                                    <i class="xl:h-[22px] xl:w-[22px] w-5 h-5 text-primary-900 group-hover:text-black transition-all ease-in-out fa-brands fa-{{ platform }}"></i>
+                                </a>
+                                {{ /socials }}
+                            </div>
+                            {{ /if }}
+                        </div>
+                    </div>
+                </div>
+                {{ /touch_with_us }}
+                <!-- Right Section -->
+                <div class="bg-white flex flex-col justify-center 1xl:w-[61%] lg:w-[53%] md:w-[53%] w-full">
+                    <div class="md:px-0">
+                        {{ touch_with_us }}
+                        <div class="1xl:mb-[38px] xl:mb-7 mb-[22px]">
+                            <h2 class="font-medium 1xl:mb-3 mb-2">
+                                {{ heading }}
+                            </h2>
+                            <p>
+                                {{ subheading }}
+                            </p>
+                        </div>
+                        {{ /touch_with_us }}  
+
+                        {{ form:contact id="contactForm" ajax="true" }}
+                        {{ csrf }}
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 2xl:gap-[30px] 1xl:gap-6 xl:gap-[20px] gap-[15px]">
+                            {{ fields }}
+                            {{ unless handle == 'company' or handle == 'choose_plan' or handle == 'budget' or handle == 'file_upload' }}
+                            <div class="relative {{ if type == 'textarea' || handle == 'name' }}sm:col-span-2{{ /if }}">
+                                {{ if type == "textarea" ||  type == 'text' || type == 'email' }}
+                                <label for="{{ handle }}" class="block mb-1.5 p text-black">
+                                  {{ display }}  {{ if validate }}
+                                  {{ if validate contains="required" }}*{{ /if }}
+                                  {{ /if }}
+                              </label>
+                              {{ /if }}
+
+                              {{ if type == "textarea" }}
+                              <textarea id="{{ handle }}" name="{{ handle }}" {{ if required }}required{{ /if }} class="w-full xl:px-3 px-2 1xl:py-[14px] py-2.5 border border-black focus:border-primary-900 outline-none 1xl:min-h-[160px] xl:min-h-[148px] lg:min-h-[130px] sm:min-h-[100px] min-h-[90px] resize-y"></textarea>
+                              {{ elseif handle == 'name' }}
+                              <input id="{{ handle }}" name="{{ handle }}" type="{{ if type == 'text' || type == 'email' }}{{ type }}{{ else }}text{{ /if }}" {{ if required }}required{{ /if }} class="w-full px-2 py-2.5 2xl:py-[14px] border border-black focus:border-primary-900 outline-none" />
+                              {{ elseif type == 'text' || type == 'email' }}
+                              <input id="{{ handle }}" name="{{ handle }}" type="{{ if type == 'text' || type == 'email' }}{{ type }}{{ else }}text{{ /if }}" {{ if required }}required{{ /if }} class="w-full px-2 py-2.5 2xl:py-[14px] border border-black focus:border-primary-900 outline-none" />
+                              {{ /if }}
+
+                              <!-- Error message placeholder -->
+                              <div class="text-red-500 mt-2 opacity-0 transition-all ease-in-out error-message hidden items-center gap-2" data-error-for="{{ handle }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+                                    <path d="M9.35 9.35H7.65V4.25H9.35M9.35 12.75H7.65V11.05H9.35M8.5 0C7.38376 0 6.27846 0.219859 5.24719 0.647024C4.21592 1.07419 3.27889 1.70029 2.48959 2.48959C0.895533 4.08365 0 6.24566 0 8.5C0 10.7543 0.895533 12.9163 2.48959 14.5104C3.27889 15.2997 4.21592 15.9258 5.24719 16.353C6.27846 16.7801 7.38376 17 8.5 17C10.7543 17 12.9163 16.1045 14.5104 14.5104C16.1045 12.9163 17 10.7543 17 8.5C17 7.38376 16.7801 6.27846 16.353 5.24719C15.9258 4.21592 15.2997 3.27889 14.5104 2.48959C13.7211 1.70029 12.7841 1.07419 11.7528 0.647024C10.7215 0.219859 9.61624 0 8.5 0Z"
+                                    fill="#D21C1C" />
+                                </svg>
+                                <span class="field-error error-text p2" data-error-for="{{ handle }}"></span>
+                            </div>
+                        </div>
+                        {{ /unless }}
+                        {{ /fields }}
+
+                    </div>
+                    <button type="submit" class="btn btn-primary xl:mt-[26px] mt-6">Submit</button>
+                    <p id="successMessage"class="form-message bg-primary-900/12 hidden top-0 right-auto mt-5 w-fit text-primary-900 px-4 py-2 transform translate-x-0 transition-all">                    </p>
+
+                    {{ /form:contact }}
+                </div>  
+            </div>
+        </div>
+    </div>
+</div>
+</section>

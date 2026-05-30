@@ -1,0 +1,31 @@
+<section class="relative overflow-hidden 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] sm:mb-[50px] mb-10">
+    <div class="about-mission relative overflow-hidden">
+        <div class="container md:px-4 p-0">
+            <div class="w-full relative top-0 right-0 1xl:h-[calc(100vh-12vh)] lg:h-[670px] md:h-[430px] sm:h-[350px] h-[262px]">
+                <img src="{{ banner }} {{ url }} {{ /banner }}" alt="img" class="h-full w-full object-cover" />
+                <!-- customer's review -->
+                <div class="whitespace-nowrap xl:max-w-[32%] lg:max-w-[35%] max-w-[77%] w-full absolute 2xl:px-16 1xl:px-8 md:px-5 2xl:py-[50px] xl:py-7 lg:py-6 sm:p-5 p-3 flex sm:flex-nowrap flex-wrap items-center lg:justify-start justify-center -bottom-[1px] lg:left-auto lg:right-0 left-1/2 -translate-x-1/2 lg:translate-x-0 z-0 bg-white">
+                    <h1 class="mb-0 shrink-0">{{ banner_title }}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end about-mission -->
+
+<!-- start text -->
+<section class="overflow-hidden relative 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] sm:mb-[50px] mb-10 z-1">
+    <div class="container">
+        {{ if intro_text }}
+        <h4 class="2xl:mb-10 md:mb-8 mb-[30px] tracking-[0.3px]">
+          {{ intro_text }}
+      </h4>
+      {{ /if }}
+      {{ if description }}
+      <p>
+        {{ description }}
+    </p>
+    {{ /if }}
+</div>
+</section>
+        <!-- end text -->

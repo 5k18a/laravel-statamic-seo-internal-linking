@@ -1,0 +1,135 @@
+{{ if show_type == 'package-page' }}
+<div class="container lg:py-[70px] md:py-[60px] sm:py-[38px] py-[34px] 2xl:max-w-[1700px]">
+    <h2 class="2xl:mb-[60px] 1xl:mb-12 lg:mb-10 md:mb-8 sm:mb-6 mb-5 sm:text-start text-center">
+        {{ sub_title }}
+    </h2>
+    <!-- Grid -->
+    <!-- Residential Build -->
+    {{ if collections == "packages" }}
+
+    {{ collection:{collections} as="packages" paginate="{pagination}" limit="{limit}" }}
+    {{ /if }}
+    <div class="grid xl:grid-cols-2 grid-cols-1 2xl:gap-10 1xl:gap-8 sm:gap-[30px] gap-5 grid_append">
+        {{ packages }}
+
+        <div class="relative border border-[#00000026] 2xl:p-[38px] md:p-[27px] p-5 bg-white flex items-start sm:flex-row flex-col justify-between 2xl:gap-[30px] 1xl:gap-[18px] xl:gap-4.5 md:gap-8 gap-5 w-full grid-item-append">
+            {{ if tag }}<div class="p2 mostPopular-tag">{{ tag }}</div>{{ /if }}
+            <div class="xl:w-auto md:w-1/2 w-full">
+                <h4 class="font-medium 2xl:mb-3.5 1xl:mb-3 xl:mb-[7px] mb-3">
+                    {{ title }}
+                </h4>
+                <h3 class="2xl:mb-2 1xl:mb-[10px] xl:mb-[5px] mb-[10px] shrink-0 text-primary-900">
+                    ${{ price }}
+                    <span class="p font-normal text-gray-400">{{ unit }}</span>
+                </h3>
+                <p class="2xl:mb-6 xl:mb-4 mb-5 text-gray-400 2xl:w-[257px] 1xl:w-[224px] xl:w-[210px] sm:w-[100%]">
+                    {{ description }}
+                </p>
+                {{ if button_text }}
+                <a href="{{ button_link }}" class="btn btn-primary apply-btn" data-job-id="{{ id }}">
+                    {{ button_text }}
+                </a>
+                {{ /if }}
+            </div>
+            <div class="xl:w-auto md:w-1/2 w-full">
+                <p class="p2 !font-medium 2xl:mb-[22px] md:mb-4 mb-[10px] text-primary-900">
+                    {{ includes_title }}
+                </p>
+                <ul class="1xl:space-y-2 space-y-1.5">
+                    {{ includes_list }}
+                    <li class="flex items-start 2xl:gap-3 gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" class="flex shrink-0 mt-[6px] 2xl:w-[20px] 2xl:h-[20px] 1xl:w-[18px] 1xl:h-[18px] w-[16px] h-[16px] fill-primary-900">
+                            <path d="M10 0C4.47719 0 0 4.47719 0 10C0 15.5231 4.47719 20 10 20C15.5231 20 20 15.5231 20 10C20 4.47719 15.5231 0 10 0ZM10 18.7697C5.17531 18.7697 1.25 14.8247 1.25 9.99996C1.25 5.17527 5.17531 1.24996 10 1.24996C14.8247 1.24996 18.75 5.17529 18.75 9.99996C18.75 14.8246 14.8247 18.7697 10 18.7697ZM13.9909 6.34094L8.12373 12.245L5.48154 9.60281C5.23748 9.35875 4.84186 9.35875 4.59748 9.60281C4.35342 9.84688 4.35342 10.2425 4.59748 10.4866L7.69092 13.5803C7.93498 13.8241 8.33061 13.8241 8.57498 13.5803C8.60311 13.5522 8.62719 13.5215 8.64906 13.4897L14.8753 7.22498C15.1191 6.98092 15.1191 6.58529 14.8753 6.34094C14.6309 6.09688 14.2353 6.09688 13.9909 6.34094Z"
+                            />
+                        </svg>
+                        <p>{{ value }}</p>
+                    </li>
+                    {{ /includes_list }}
+                </ul>
+            </div>
+        </div>
+        {{ /packages }}
+    </div>
+    {{ paginate }}
+    <input type="hidden" class="lastPage" value="{{ total_pages }}">
+    <input type="hidden" class="currentPage" value="{{ current_page }}">
+    {{ if next_page }} 
+    <div class="load-more-wrap 2xl:mt-20 1xl:mt-17 lg:mt-15 md:mt-12 mt-9 flex justify-center">
+        <div class="load-btn" style="text-align: center;">
+            <a href="{{ next_page }}" class="btn ajax-load-more-grid">Load More <img src="{{theme:asset}}assets/images/loading-spinner.svg" alt="loader" class="loading-spin object-cover animate-spin hidden"></a>
+        </div>
+    </div>
+    {{ /if }}
+    {{ /paginate }} 
+    {{ if collections == "packages" }}
+    {{ /collection:{collections} }}
+    {{ /if }}
+</div>
+{{ elseif show_type == 'home-page-two' }}
+    
+     <section class="relative 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] md:mb-[50px] mb-8">
+        <div class="container-2">
+          <div>
+            <!-- Header -->
+            <div
+              class="flex sm:items-center items-start justify-between w-full sm:flex-row flex-col sm:gap-4 2xl:mb-10 1xl:mb-8 md:mb-7 sm:mb-5 mb-3">
+              <h2 class="m-0">{{ sub_title }}</h2>
+              {{ if button_text }}
+              <div class="w-auto sm:flex hidden items-center justify-end">
+                <a href="{{ button_link }}" class="btn btn-primary-reverse sm:block hidden">
+                 {{ button_text }}
+                </a>
+              </div>
+              {{ /if }}
+            </div>
+            <!-- Grid -->
+            <div class="grid xl:grid-cols-2 grid-cols-1 2xl:gap-10 1xl:gap-8 sm:gap-7 gap-5">
+              <!-- Residential Build -->
+              {{ package limit="4" }}
+              <div
+                class="relative border border-[#00000026] 2xl:p-[38px] sm:p-[27px] p-5 bg-white flex items-start justify-start sm:flex-row flex-col 2xl:gap-[30px] 1xl:gap-[18px] xl:gap-[15px] md:gap-8 gap-5 w-full">
+                {{ if tag }}<div class="p2 mostPopular-tag">{{ tag }}</div>{{ /if }}
+                <div class="2xl:w-[257px] 1xl:w-[224px] xl:w-[210px] md:w-1/2 sm:w-[70%] w-full">
+                  <h4 class="font-medium 2xl:mb-[18px] 1xl:mb-[14px] xl:mb-[7px] mb-3">
+                    {{ title }}
+                  </h4>
+                  <h3 class="2xl:mb-[14px] 1xl:mb-[10px] xl:mb-[5px] mb-[10px] shrink-0 text-primary-900">
+                   ${{ price }}
+                    <span class="p font-normal text-gray-400">{{ unit }}</span>
+                  </h3>
+                  <p class="2xl:mb-6 xl:mb-4 mb-5 text-gray-400">
+                   {{ description }}
+                  </p>
+                  {{ if button_text }}
+                  <a href="{{ button_link }}" class="btn btn-primary apply-btn" data-job-id="{{ id }}">
+                    {{ button_text }}
+                  </a>
+                  {{ /if }}
+                </div>
+                <div class="xl:w-auto md:w-1/2 w-full">
+                  <p class="p2 !font-medium 2xl:mb-[22px] md:mb-4 mb-[10px] text-primary-900">
+                    {{ includes_title }}
+                  </p>
+                  {{ if includes_list }}
+                  <ul class="1xl:space-y-2 space-y-1.5">
+                    {{ includes_list }}
+                    <li class="flex items-start 2xl:gap-3 gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                        class="flex shrink-0 mt-[6px] 2xl:w-[20px] 2xl:h-[20px] 1xl:w-[18px] 1xl:h-[18px] w-[16px] h-[16px] fill-primary-900">
+                        <path
+                          d="M10 0C4.47719 0 0 4.47719 0 10C0 15.5231 4.47719 20 10 20C15.5231 20 20 15.5231 20 10C20 4.47719 15.5231 0 10 0ZM10 18.7697C5.17531 18.7697 1.25 14.8247 1.25 9.99996C1.25 5.17527 5.17531 1.24996 10 1.24996C14.8247 1.24996 18.75 5.17529 18.75 9.99996C18.75 14.8246 14.8247 18.7697 10 18.7697ZM13.9909 6.34094L8.12373 12.245L5.48154 9.60281C5.23748 9.35875 4.84186 9.35875 4.59748 9.60281C4.35342 9.84688 4.35342 10.2425 4.59748 10.4866L7.69092 13.5803C7.93498 13.8241 8.33061 13.8241 8.57498 13.5803C8.60311 13.5522 8.62719 13.5215 8.64906 13.4897L14.8753 7.22498C15.1191 6.98092 15.1191 6.58529 14.8753 6.34094C14.6309 6.09688 14.2353 6.09688 13.9909 6.34094Z" />
+                      </svg>
+                      <p>{{ value }}</p>
+                    </li>
+                     {{ /includes_list }}
+                  </ul>
+                  {{ /if }}
+                </div>
+              </div>
+              {{ /package }}
+            </div>
+          </div>
+        </div>
+      </section>
+
+{{ /if }}

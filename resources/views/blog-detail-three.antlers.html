@@ -1,0 +1,392 @@
+        <!-- start blog-detail heading section -->
+        <div class="relative overflow-hidden lg:mt-[70px] sm:mt-12 mt-[30px] sm:mb-[50px] mb-10">
+            <div class="container min-[1252px]:!max-w-[1252px] mx-auto">
+                <div class="flex items-center sm:gap-[15px] gap-[10px] md:mb-[30px] mb-[25px]">
+                    <img src="{{ team.member_info:photo }}{{ url }}{{ /team.member_info:photo }}" alt="blog-detail"
+                    class="md:w-10 md:h-10 w-[35px] h-[35px] rounded-full object-cover" />
+                    <p class="font-medium text-primary-900 uppercase">
+                        By
+                        <a href="/team/{{ team.slug }}" 
+                        class="border-b border-primary-900 hover:text-primary-900 text-black uppercase">{{ team.title }}</a>
+                        - {{ date_field format="F Y" }} - {{ form:submissions in="blog_comment" blog_id:contains="{ id }" }}
+    {{ if first }}
+        - {{ total_results }} comments
+    {{ /if }}
+{{ /form:submissions }}
+                    </p>
+                </div>
+                <h2>{{ title }}</h2>
+            </div>
+        </div>
+        <!-- End blog-detail heading section -->
+
+        <!-- start about-mission -->
+        <section class="relative overflow-hidden xl:mb-[60px] md:mb-10 sm:mb-8 mb-6">
+            <div class="about-mission relative overflow-hidden">
+                <div class="container min-[1720px]:!max-w-[1720px] md:!px-4 !p-0">
+                    <div
+                    class="w-full relative top-0 right-0 1xl:h-[calc(100vh-12vh)] xl:h-[670px] lg:h-[600px] md:h-[500px] sm:h-[450px] h-full order-1 lg:order-2">
+                    <img src="{{ image }}{{ url }}{{ /image }}" alt="img" class="h-full w-full object-cover" />
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end about-mission -->
+
+    <!-- start blog-detail section -->
+    <section class="relative overflow-hidden 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] sm:mb-[50px] mb-10">
+        <div class="container min-[1252px]:max-w-[1252px] w-full mx-auto">
+            <div class="blog-details-content">
+                <div class="1xl:pb-[54px] xl:pb-11 sm:pb-8 pb-5">
+                    {{ content }}
+                    {{ if type == "quote_section" }}
+
+                    <blockquote class="border-l-5 border-primary-900 1xl:px-10 md:py-7 sm:py-6 xl:px-10 sm:px-8 p-4 bg-primary-900/12 1xl:mt-[30px] sm:mt-6 mt-4 lg:mb-4 mb-2">
+                        <p class="h6 text-black 2xl:!leading-[35px] xl:!leading-[34px] lg:!leading-[30px] !leading-[24px] font-medium">
+                            “{{ quote_text }}”
+                        </p>
+                        <div class="flex items-center justify-between sm:mt-8 mt-5">
+                            <div class="client-info">
+                                <h6 id="client-name" class="h5 font-medium mb-0 text-[#3E2924]">
+                                    {{ client_name }}
+
+                                </h6>
+                                <p id="client-role" class="!p-0 font-light mb-0 text-gray-400">
+                                    - {{ client_role }}
+                                </p>
+                            </div>
+                            <svg width="70" height="48" viewBox="0 0 70 48" fill="none" class="xl:w-[70px] xl:h-[48px] lg:w-[54px] lg:h-[54px] md:w-[50px] md:h-[50px] sm:w-[43px] sm:h-[30px] w-[40px] h-[40px] flex-shrink-0 fill-primary-900" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.0286 44.6089L18.9879 29.1274C18.4631 29.4197 17.8504 29.6232 17.1496 29.7378C16.4489 29.8523 15.7497 29.9111 15.052 29.9141C10.8052 29.9141 7.23479 28.4476 4.34087 25.5147C1.44696 22.5787 0 19.0595 0 14.957C0 10.737 1.44696 7.18915 4.34087 4.31349C7.23479 1.43783 10.8052 0 15.052 0C19.1805 0 22.7206 1.43783 25.6721 4.31349C28.6237 7.18915 30.0995 10.737 30.0995 14.957C30.0995 16.4009 29.9205 17.7558 29.5625 19.0219C29.2046 20.2879 28.695 21.483 28.0337 22.6074L13.9372 46.8696C13.734 47.2012 13.4655 47.4725 13.1318 47.6835C12.7981 47.8945 12.419 48 11.9943 48C11.1267 48 10.4745 47.6232 10.0377 46.8696C9.60088 46.1161 9.59785 45.3625 10.0286 44.6089ZM49.9291 44.6089L58.8885 29.1319C58.3637 29.4213 57.7509 29.6232 57.0502 29.7378C56.3495 29.8523 55.6502 29.9111 54.9525 29.9141C50.7057 29.9141 47.1353 28.4476 44.2414 25.5147C41.3475 22.5818 39.9005 19.0625 39.9005 14.957C39.9005 10.6767 41.3475 7.1153 44.2414 4.2728C47.1353 1.43029 50.7057 0.00602864 54.9525 0C59.0811 0 62.6211 1.43783 65.5727 4.31349C68.5242 7.18915 70 10.737 70 14.957C70 16.4009 69.821 17.7558 69.4631 19.0219C69.1051 20.2879 68.597 21.483 67.9388 22.6074L53.8378 46.8696C53.6345 47.2012 53.3661 47.4725 53.0324 47.6835C52.6987 47.8945 52.3195 48 51.8948 48C51.0273 48 50.3751 47.6232 49.9383 46.8696C49.5014 46.1161 49.4984 45.3625 49.9291 44.6089Z" fill-opacity="0.2" />
+                            </svg>
+                        </div>
+                    </blockquote>
+
+                    {{ elseif type == "list_section" }}
+                    <ul class="custom-list">
+                        {{ list_section }}
+                        <li>
+                            {{ if title }}<strong>{{ title }}</strong>{{ /if }}
+                            {{ description }}
+
+                        </li>
+                        {{ /list_section }}
+
+                    </ul>
+
+                    {{ elseif type == "image_section" }}
+
+                    <div class="grid sm:grid-cols-2 grid-cols-1 w-full xl:gap-10 lg:gap-9 sm:gap-6 gap-5 2xl:mt-[40px] xl:mt-[30px] sm:mt-6 mt-4 lg:mb-4 mb-2">
+                        {{ image }}
+                        <div class="overflow-hidden relative 1xl:before:pt-[69%] before:pt-[65%] before:block">
+                            <a href="/blog/{{ slug }}" class="absolute top-0 left-0 w-full h-full block">
+                                <img src="{{ url }}" alt="img" class="h-full w-full object-cover" loading="lazy" />
+                            </a>
+                        </div>
+                        {{ /image }}
+                    </div>
+
+                    {{ else }}
+                    {{ text }}
+                    {{ /if }}
+                    {{ /content }}
+
+
+                </div>
+
+                <div
+                class="flex flex-wrap gap-[18px] items-center justify-between lg:pt-[30px] pt-6 1xl:mb-18 xl:mb-16 lg:mb-14 mb-11 border-t border-[#00000026]">
+                <div
+                class="flex items-center flex-wrap w-full md:w-auto xl:gap-5 lg:gap-4 md:gap-3 gap-2.5">
+                <h6 class="sub-title max-[640px]:text-sm !tracking-[0.8px] xl:mr-2.5">
+                    category :
+                </h6>
+                {{ categories }}
+                <a href="/blog/category/{{ slug }}"
+                class="font-light bg-gray-200 hover:bg-primary-900 xl:py-2 lg:1.5 sm:py-1 py-0.5 md:px-[15px] px-[10px] hover:text-white leading-7 xl:text-[18px] sm:text-[16px] max-[640px]:text-[14px]">{{ title }}</a>
+                {{ /categories }}
+            </div>
+            {{ social_share }}
+            <div>
+                <div class="reative flex justify-end">
+                    <div class="flex items-center w-full md:w-auto">
+                        <h6 class="sub-title max-[640px]:text-sm !tracking-[0.8px] mr-5">
+                            Share :
+                        </h6>
+
+                        <ul class="flex items-center justify-center md:justify-start lg:space-x-6 space-x-[15px] !p-0">
+                            <!-- facebook -->
+                            {{ socials }}
+                            <li class="my-0">
+                                <a href="{{ url }} {{config:app.url}}blog/{{ slug }}" target="_blank" class="w-[36px] h-[36px] sm:w-[40px] sm:h-[40px] lg:w-[45px] lg:h-[45px] xl:w-[50px] xl:h-[50px] transition-all rounded-full bg-gray-200 flex items-center justify-center text-primary-900 hover:bg-primary-900 hover:text-white">
+                                    <i class="fa-brands fa-{{ platform }}"></i>
+                                </a>
+                            </li>
+                            {{ /socials }}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {{ /social_share }}
+        </div>
+    </div>
+
+    {{ form:submissions in="blog_comment" blog_id:contains="{ id }"  sort="date:desc" paginate="5" as="comments" }}
+    <!-- start comments section -->
+    <div class="relative 1xl:mb-20 lg:mb-[70px] md:mb-[50px] mb-8 z-1">
+        {{ if no_results }}
+        <div class="w-full sm:flex-row flex-col sm:gap-4 2xl:mb-9 1xl:mb-8 lg:mb-7 md:mb-6 sm:mb-5 mb-3">
+            <h3 class="m-0 font-normal">Comments (0)</h3>
+        </div>
+        {{ else }}
+        <div class="w-full sm:flex-row flex-col sm:gap-4 2xl:mb-9 1xl:mb-8 lg:mb-7 md:mb-6 sm:mb-5 mb-3">
+            <h3 class="m-0 font-normal">Comments ({{ total_results }})</h3>
+        </div>
+        {{ /if }}
+
+        <!-- comments List -->
+        <div class="comments-list divide-y divide-[#0000001A] border-y border-[#00000026] grid_append">
+            <!-- comments Item -->
+            {{ comments }}
+            {{ if parent_id == 'null' }}
+            <div class="xl:pt-[37px] xl:pb-10 pt-[22px] pb-[30px] grid-item-append">
+                <div class="flex items-start justify-between sm:flex-nowrap flex-wrap w-full md:gap-[35px] sm:gap-[25px] gap-[22px]">
+                    <div class="overflow-hidden relative before:pt-[100%] before:block w-full h-full md:max-w-[110px] max-w-[80px]">
+                        <a href="javascript:;" class="absolute top-0 left-0 w-full h-full block">
+                            {{ if image }}
+                            <img src="{{ image }}{{ url }}{{ /image }}" alt="{{ first_name }}" class="h-full w-full object-cover" loading="lazy" />
+                            {{ else }}
+                            <img src="{{ theme:asset }}assets/images/comments1.webp" alt="img" class="h-full w-full object-cover" loading="lazy" />
+                            {{ /if }}
+                        </a>
+                    </div>
+                    <div class="comments-content">
+                        <div class="flex items-center justify-between 1xl:mb-4 mb-[15px]">
+                            <a href="javascript:;" class="flex sm:items-center items-start sm:flex-row flex-col md:gap-[17px] gap-[5px]">
+                                <h4 class="hover:text-primary-900">
+                                    {{ first_name }} {{ last_name }}
+                                </h4>
+                                <p class="text-[#464343]">-
+                                {{ date format="d M, Y g:ia" }}</p>
+                            </a>
+                            <a href="javascript:;" data-blog_id="{{ blog_id }}" data-parent_id="{{ id }}" class="sm:flex items-center gap-[7px] hidden" data-aos="fade-up">
+                                <svg width="20" class="sm:w-5 sm:h-5 w-4 h-4 fill-primary-900" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M10 18L0 10L10 2V7C15.523 7 20 11.477 20 17C20 17.2733 19.9893 17.5433 19.968 17.81C19.2043 16.3582 18.0584 15.1428 16.654 14.295C15.2497 13.4473 13.6404 12.9995 12 13H10V18Z" />
+                                </svg>
+                                <span class="p max-[640px]:text-[13px] px-0 leading-7 text-primary-900 border-b border-primary-900 hover:text-black !font-el-messiri sm:!tracking-[3.6px] !tracking-[2.5px] uppercase">Reply</span>
+                            </a>
+                        </div>
+                        <div>
+                            <p class="text-gray-400 font-normal"> {{ message }} </p>
+                        </div>
+
+                        <!-- replay btn -->
+                        <a href="javascript:;" data-blog_id="{{ blog_id }}" data-parent_id="{{ id }}" class="flex items-center gap-[7px] sm:hidden mt-5">
+                            <svg width="16" height="13" viewBox="0 0 16 13" fill="none" class="fill-primary-900" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7.89528 12.0593L0 6.12974L7.89528 0.200195V3.90616C12.2558 3.90616 15.7906 7.22448 15.7906 11.3181C15.7906 11.5207 15.7821 11.7208 15.7653 11.9185C15.1623 10.8424 14.2576 9.94154 13.1488 9.3132C12.0401 8.68485 10.7695 8.35293 9.47433 8.35332H7.89528V12.0593Z" />
+                            </svg>
+                            <span class="px-0 leading-[22px] text-primary-900 border-b border-primary-900 hover:text-black font-el-messiri sm:tracking-[3.6px] tracking-[2.5px] uppercase text-[13.34px]">Reply</span>
+                        </a>
+                    </div>
+                </div>
+
+                {{ form:submissions in="blog_comment" parent_id:contains="{ id }" blog_id:contains="{ blog_id }" }}
+                {{ if parent_id != 'null' }}
+                <div class="flex items-stretch justify-between sm:flex-nowrap flex-wrap w-full md:gap-[35px] sm:gap-[25px] gap-[22px] sm:ml-6 lg:mt-[35px] sm:mt-7 mt-5">
+                    <div class="border-l block border-[#00000026] sm:h-auto h-[30px] sm:w-auto w-full sm:m-0 ml-3">
+                    </div>
+                    <div class="overflow-hidden relative before:pt-[100%] before:block w-full h-full md:max-w-[110px] max-w-[80px]">
+                        <a href="javascript:;" class="absolute top-0 left-0 w-full h-full block">
+                            {{ if image }}
+                            <img src="{{ image }}{{ url }}{{ /image }}" alt="{{ first_name }}" class="h-full w-full object-cover" loading="lazy" />
+                            {{ else }}
+                            <img src="{{ theme:asset }}assets/images/comments1.webp" alt="img" class="h-full w-full object-cover" loading="lazy" />
+                            {{ /if }}
+                        </a>
+                    </div>
+                    <div class="comments-content">
+                        <div class="flex items-center justify-between 1xl:mb-4 mb-[15px]">
+                            <a href="javascript:;" class="flex sm:items-center items-start sm:flex-row flex-col md:gap-[17px] gap-[5px]">
+                                <h4 class="hover:text-primary-900">{{ first_name }} {{ last_name }}</h4>
+                                <p class="text-[#464343]">-
+                                {{ date format="d M, Y g:ia" }}</p>
+                            </a>
+                        </div>
+                        <div>
+                            <p class="text-gray-400 font-normal"> {{ message }}</p>
+                        </div>
+                    </div>
+                </div>
+                {{ /if }}
+                {{ /form:submissions }}
+            </div>
+            {{ /if }}
+            {{ /comments }}
+
+        </div>
+
+        {{ paginate }}
+        <input type="hidden" class="lastPage" value="{{ total_pages }}">
+        <input type="hidden" class="currentPage" value="{{ current_page }}">
+        {{ if next_page }} 
+        <div class="load-more-wrap 2xl:mt-10 lg:mt-6 mt-5 flex justify-center">
+            <div class="load-btn" style="text-align: center;">
+                <a href="{{ next_page }}" class="btn btn-primary gap-2 ajax-load-more-grid">Load More 
+                    <img src="{{theme:asset}}assets/images/loading-spinner.svg" alt="loader" class="loading-spin object-cover animate-spin hidden"></a>
+                </div>
+            </div>
+            {{ /if }}
+            {{ /paginate }}  
+        </div>
+        {{ /form:submissions }}
+        <!-- end comments section -->
+
+        <!-- Start Leave Comment section -->
+        <section class="relative 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] md:mb-[50px] mb-8 z-1">
+            <div class="flex items-stretch justify-between lg:flex-row flex-col-reverse 1xl:gap-[90px] xl:gap-[70px] lg:gap-[65px] gap-[30px]">
+                <div class="bg-white flex flex-col justify-center w-full" id="comment-form">
+                    <div class="md:px-0 2xl:ml-10 xl:ml-8 sm:ml-6 ml-3">
+                        {{ setting }}
+                        <div class="2xl:mb-[42px] xl:mb-7 mb-[22px]">
+                            <h2 class="sm:text-start text-center font-medium 1xl:mb-3 mb-2">
+                                {{ sub_comment_title }}
+                            </h2>
+                            <p class="sm:text-start text-center text-black">{{ section_comment_description }}</p>
+                        </div>
+                        {{ /setting }}
+                        {{ form:blog_comment id="commentForm" ajax="true" novalidate }}
+
+                        {{ csrf }}
+                        <input type="hidden" id="blog_id" name="blog_id" class="d-none" value="{{ id }}" />
+                        <input type="hidden" id="parent_id" name="parent_id" class="d-none" value="null" />
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 2xl:gap-[30px] 1xl:gap-6 xl:gap-[20px] gap-[15px]">
+                            {{ fields }}
+
+                            {{ if type == "textarea" }}
+
+                            <div class="relative sm:col-span-2 col-span-1">
+                                <label for="{{ handle }}" class="block xl:mb-3 mb-1.5 p text-black">
+                                    {{ display }} {{ if validate }}{{ if validate contains="required" }}*{{ /if }}{{ /if }}
+                                </label>
+                                <textarea id="{{ handle }}" name="{{ handle }}"class="w-full xl:px-3 px-2 1xl:py-[14px] py-2.5 border border-black focus:border-primary-900 outline-none 1xl:min-h-[160px] xl:min-h-[148px] lg:min-h-[130px] sm:min-h-[100px] min-h-[90px] resize-y"></textarea>
+                                <!-- Error message with SVG icon -->
+                                <div class="text-red-500 mt-2 opacity-0 transition-all ease-in-out error-message hidden items-center gap-2" data-error-for="{{ handle }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+                                        <path d="M9.35 9.35H7.65V4.25H9.35M9.35 12.75H7.65V11.05H9.35M8.5 0C7.38376 0 6.27846 0.219859 5.24719 0.647024C4.21592 1.07419 3.27889 1.70029 2.48959 2.48959C0.895533 4.08365 0 6.24566 0 8.5C0 10.7543 0.895533 12.9163 2.48959 14.5104C3.27889 15.2997 4.21592 15.9258 5.24719 16.353C6.27846 16.7801 7.38376 17 8.5 17C10.7543 17 12.9163 16.1045 14.5104 14.5104C16.1045 12.9163 17 10.7543 17 8.5C17 7.38376 16.7801 6.27846 16.353 5.24719C15.9258 4.21592 15.2997 3.27889 14.5104 2.48959C13.7211 1.70029 12.7841 1.07419 11.7528 0.647024C10.7215 0.219859 9.61624 0 8.5 0Z" fill="#D21C1C" />
+                                    </svg>
+                                    <span class="field-error error-text p2" data-error-for="{{ handle }}"></span>
+                                </div>
+                            </div>
+
+                            {{ elseif type == "assets" }}
+                            <div class="relative sm:col-span-2 col-span-1">
+                                <label for="{{ handle }}" class="block xl:mb-3 mb-1.5 p text-black">{{ display }} {{ if validate }} {{ if validate contains="required" }}*{{ /if }} {{ /if }}
+                                </label>
+                                <input type="file" id="{{ handle }}" name="{{ handle }}" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" />
+                                <div class="flex items-center xl:px-3 px-2 1xl:py-2.5 xl:py-[7px] md:py-[10.5px] py-2 border focus:border-primary-900 outline-none">
+                                    <button type="button" id="fileUpload" name="fileUpload"
+                                    class="px-4 1xl:py-[6px] xl:py-[5px] md:py-[2px] py-1 bg-primary-900/26 text-black xl:text-sm text-[13px] font-normal uppercase transition-all">
+                                    CHOOSE FILE
+                                </button>
+
+                                <p id="fileLabel" class="px-4 text-black flex-1">
+                                    No File Choosen
+                                </p>
+                            </div>
+                            <div class="text-red-500 mt-2 opacity-0 transition-all ease-in-out error-message hidden items-center gap-2" data-error-for="{{ handle }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+                                    <path d="M9.35 9.35H7.65V4.25H9.35M9.35 12.75H7.65V11.05H9.35M8.5 0C7.38376 0 6.27846 0.219859 5.24719 0.647024C4.21592 1.07419 3.27889 1.70029 2.48959 2.48959C0.895533 4.08365 0 6.24566 0 8.5C0 10.7543 0.895533 12.9163 2.48959 14.5104C3.27889 15.2997 4.21592 15.9258 5.24719 16.353C6.27846 16.7801 7.38376 17 8.5 17C10.7543 17 12.9163 16.1045 14.5104 14.5104C16.1045 12.9163 17 10.7543 17 8.5C17 7.38376 16.7801 6.27846 16.353 5.24719C15.9258 4.21592 15.2997 3.27889 14.5104 2.48959C13.7211 1.70029 12.7841 1.07419 11.7528 0.647024C10.7215 0.219859 9.61624 0 8.5 0Z" fill="#D21C1C" />
+                                </svg>
+                                <span class="field-error error-text p2" data-error-for="{{ handle }}"></span>
+                            </div>
+                        </div>
+
+                            {{ elseif handle != "blog_id" and handle != "parent_id" }}
+
+                            <div class="relative">
+                                <label for="{{ handle }}" class="block xl:mb-3 mb-1.5 p text-black">{{ display }} {{ if validate }} {{ if validate contains="required" }}*{{ /if }} {{ /if }}
+                                </label>
+                                <input type="{{ type }}" id="{{ handle }}" name="{{ handle }}" class="w-full xl:px-3 px-2 1xl:py-[14px] py-2.5 border border-black focus:border-primary-900 outline-none" />
+
+                                <!-- Error message with SVG icon -->
+                                <div class="text-red-500 mt-2 opacity-0 transition-all ease-in-out error-message hidden items-center gap-2" data-error-for="{{ handle }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+                                        <path d="M9.35 9.35H7.65V4.25H9.35M9.35 12.75H7.65V11.05H9.35M8.5 0C7.38376 0 6.27846 0.219859 5.24719 0.647024C4.21592 1.07419 3.27889 1.70029 2.48959 2.48959C0.895533 4.08365 0 6.24566 0 8.5C0 10.7543 0.895533 12.9163 2.48959 14.5104C3.27889 15.2997 4.21592 15.9258 5.24719 16.353C6.27846 16.7801 7.38376 17 8.5 17C10.7543 17 12.9163 16.1045 14.5104 14.5104C16.1045 12.9163 17 10.7543 17 8.5C17 7.38376 16.7801 6.27846 16.353 5.24719C15.9258 4.21592 15.2997 3.27889 14.5104 2.48959C13.7211 1.70029 12.7841 1.07419 11.7528 0.647024C10.7215 0.219859 9.61624 0 8.5 0Z" fill="#D21C1C" />
+                                    </svg>
+                                    <span class="field-error error-text p2" data-error-for="{{ handle }}"></span>
+                                </div>
+                            </div>
+                            {{ /if }}
+                            {{ /fields }}
+
+
+                        </div>
+                        {{ setting }}
+                        <button type="submit" class="btn btn-primary 2xl:mt-[26px] xl:mt-5 mt-4">
+                            {{ comment_button_text }}
+                        </button>
+                        {{ /setting }}
+
+                        <p id="successMessage"class="form-message bg-primary-900/12 hidden top-0 right-auto mt-5 w-fit text-primary-900 px-4 py-2 transform translate-x-0 transition-all"></p>
+                        {{ /form:blog_comment }}
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Let's Comment section -->
+
+        <!-- start Related Blogs section -->
+        {{ if blog_related }}
+        <section class="relative blog-grid-slider">
+            <div class="flex items-center justify-between lg:mb-[42px] md:mb-10 sm:mb-[34px] mb-7 relative">
+                <div class="w-fit">
+                    <h2 class="title w-fit">{{ related_blog_title }}</h2>
+                </div>
+                <div class="flex gap-2 project-custom-arrow relative">
+                    <div class="swiper-button-prev arrow-slider absolute flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="23" viewBox="0 0 36 23" fill="none" class="flex-shrink-0">
+                            <g clip-path="url(#clip0_100_117)">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M5.44814 12.7576L13.6838 20.9907L11.831 22.8409L0.439209 11.4491L11.831 0.0546875L13.6838 1.90752L5.44814 10.1406H31.4113V12.7576H5.44814Z" fill="currentColor" />
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="swiper-button-next arrow-slider absolute flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="37" height="23" viewBox="0 0 37 23" fill="none" class="flex-shrink-0">
+                            <g clip-path="url(#clip0_100_119)">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M31.4795 12.7576L23.2438 20.9907L25.0966 22.8409L36.4884 11.4491L25.0966 0.0546875L23.2438 1.90752L31.4795 10.1406H5.5163V12.7576H31.4795Z" fill="currentColor" />
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper blogs-2 related-blogs-2 pr-2 sm:pr-[10%] lg:pr-[17%]">
+                <div class="swiper-wrapper">
+                    <!-- blog box - 1 -->
+                    {{ blog_related limit="6" }}
+                    <div class="swiper-slide !h-auto">
+                        <div class="blog-box group">
+                            <div class="blog-img-before">
+                                <a href="/blog/{{ slug }}" class="absolute top-0 left-0 w-full h-full block">
+                                    <img src="{{ image }} {{ url }} {{ /image }}" alt="img" class="h-full w-full object-cover" />
+                                </a>
+                            </div>
+                            <div class="blog-content-box">
+                                <p class="p2 blog-date"><a href="/author/{{ team.slug }}"> By  {{ team.title }}</a> - {{ date_field format="F d, Y" }}</p>
+                                <h4 class="blog-title">
+                                    <a href="/blog/{{ slug }}" class="group-hover:text-primary-900">
+                                        {{ title }}
+                                    </a>
+                                </h4>
+                                <p class="m-0 text-gray-400">{{ shot_description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {{ /blog_related }}
+                </div>
+            </div>
+        </section>
+        {{ /if }}
+        <!-- end Related Blogs section -->
+    </div>
+</section>
+        <!-- End blog-detail section -->

@@ -1,0 +1,125 @@
+<section class="relative xl:py-[70px] md:py-[60px] sm:py-[38px] py-[34px]">
+    
+     
+
+
+    <div class="container relative">
+        <div class="flex items-center justify-between md:flex-row flex-col lg:mb-[50px] mb-10 relative md:text-left text-center">
+            {{ collection:teams as="temas" }}
+            {{ temas }}
+            {{ if slug == "{ team_slug }"  }}
+            <div class="w-fit">
+                <h2 class="title md:mb-4 sm:mb-3 mb-2"> {{ title }}</h2>
+                <p class="2xl:max-w-[65%] lg:max-w-[80%] md:max-w-[90%] w-full text-[#464343]">
+                    {{ member_info:short_bio }}
+                </p>
+            </div>
+            
+
+
+            {{ social_share }}
+            <div class="flex flex-row justify-center 1xl:gap-[18px] sm:gap-[15px] gap-[14px] md:mt-0 mt-[25px]">
+
+              {{ socials }}
+              <a href="{{ url }} {{config:app.url}}team/{{ slug }}" target="_blank" class="!p-1 btn btn-primary rounded-full flex-shrink-0 2xl:!w-[50px] 2xl:!h-[50px] xl:!w-[40px] xl:!h-[40px] !w-[35px] !h-[35px] overflow-hidden">
+                <i class="fa-brands fa-{{ platform }}"></i>
+            </a>
+            {{ /socials }}
+
+        </div>
+        {{ /social_share }}
+        {{ /if }}
+        {{ /temas }}
+        {{ /collection:teams }}
+
+    </div>
+
+        <div class="flex sm:items-center items-start sm:flex-nowrap flex-wrap sm:gap-[18px] gap-2 justify-between w-full border-b border-[#00000026] xl:pb-[28px] sm:pb-6 pb-[22px] xl:mb-11 lg:mb-9 md:mb-7 mb-[25px] relative">
+            <p class="m-0 font-lexend font-light normal-case sm:text-center text-start text-black cursor-default md:block hidden">
+               {{ setting }} {{ browse_all_label }}{{ /setting }}
+            </p>
+
+            <!-- Dropdown -->
+            <div x-data="{ open: false }" class="md:w-auto w-full">
+                <button @click="open = !open" class="flex items-center w-full md:justify-center justify-between">
+                    <p>
+                       {{ setting }}{{ dropdown_label }}{{ /setting }}
+                        <span class="ml-1 font-normal">{{ current_category:title or 'All' }}</span>
+                    </p>
+                    <svg class="ml-1 h-4 w-4 transform transition-transform duration-200" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+
+                <!-- Dropdown menu -->
+                <div x-show="open" @click.outside="open = false" x-transition class="max-w-[350px] absolute right-0 md:mt-[28.5px] mt-[23px] w-full bg-white shadow-[0_3px_10px_0_rgba(0,0,0,0.15)] z-40 xl:px-[30px] sm:py-[7px] md:px-6 px-4">
+                    <ul class="divide-y divide-[#0000001A]">
+                        {{ taxonomy:categories }}
+                        <li class="group/service">
+                            <a href="/blog/category/{{ slug }}" class="block sm:py-[16px] py-[14px] text-black group-hover/service:text-primary-900 transition-colors">
+                                {{ title }}
+                            </a>
+                        </li>
+                        {{ /taxonomy:categories }}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        {{ collection:teams as="teams" slug:contains="{ team_slug }" }}
+        {{ if teams }}
+        {{ teams }}
+        
+        {{ collection:blogs as="blogs" team:contains="{ id }"  paginate="true" limit="6" }}
+        <div class="blogs-2 grid xl:grid-cols-3 sm:grid-cols-2 grid-cols-1 w-full 2xl:gap-[42px] lg:gap-8 md:gap-6 gap-[25px] grid_append">
+            <!-- blog box - 1 -->
+             {{ if blogs }}
+            {{ blogs }}
+            
+            <div class="blog-box group grid-item-append">
+                <div class="blog-img-before">
+                    <a href="/blog/{{ slug }}" class="absolute top-0 left-0 w-full h-full block">
+                        <img src="{{ image }}{{ url }}{{ /image }}" alt="img" class="h-full w-full object-cover" />
+                    </a>
+                </div>
+                <div class="blog-content-box">
+                    <p class="p2 blog-date"><a href="/author/{{ team.slug }}"> By  {{ team.title }}</a> - {{ date_field format="F j, Y" }}</p>
+                    <h4 class="blog-title">
+                        <a href="/blog/{{ slug }}" class="group-hover:text-primary-900">
+                            {{ title }}
+                        </a>
+                    </h4>
+                    <p class="m-0 text-gray-400">{{ shot_description | truncate:200:"..." }}</p>
+                </div>
+            </div> 
+           
+            {{ /blogs }}
+            {{ else }}
+            <div class="text-center py-10">
+                <p class="text-primary-900 text-lg">No blog posts found in this author.</p>
+            </div>
+            {{ /if }}
+        </div>
+
+           {{ paginate }}
+    <input type="hidden" class="lastPage" value="{{ total_pages }}">
+    <input type="hidden" class="currentPage" value="{{ current_page }}">
+    {{ if next_page }} 
+    <div class="load-more-wrap 2xl:mt-20 1xl:mt-17 lg:mt-15 md:mt-12 mt-9 flex justify-center">
+        <div class="load-btn" style="text-align: center;">
+            <a href="{{ next_page }}" class="btn ajax-load-more-grid">Load More <img src="{{theme:asset}}assets/images/loading-spinner.svg" alt="loader" class="loading-spin object-cover animate-spin hidden"></a>
+        </div>
+    </div>
+    {{ /if }}
+    {{ /paginate }}
+    
+    {{ /collection:blogs }}
+    {{ /teams }}
+    {{ /else }}
+    <div class="text-center py-10">
+        <p class="text-primary-900 text-lg">No blog posts found in this author.</p>
+    </div>
+    {{ /if }}
+    {{ /collection:teams }}
+    </div>
+</section>

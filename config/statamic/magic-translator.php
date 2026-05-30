@@ -1,0 +1,123 @@
+<?php
+
+declare(strict_types=1);
+
+return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Exclude Blueprints
+    |--------------------------------------------------------------------------
+    |
+    | Blueprint patterns (dot notation: "collection.blueprint") to exclude from
+    | automatic fieldtype injection and action visibility.
+    |
+    | Supports wildcard patterns, e.g. "pages.*" to exclude an entire collection.
+    |
+    */
+
+    'exclude_blueprints' => [],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Translation Service
+    |--------------------------------------------------------------------------
+    |
+    | Which translation service to use. Supported: "prism", "deepl"
+    |
+    */
+
+    'service' => env('MAGIC_TRANSLATOR_SERVICE', 'prism'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Max Units Per Request
+    |--------------------------------------------------------------------------
+    |
+    | Maximum number of translation units to send in a single API request.
+    | Set to null to send all units in one request (default).
+    | DeepL has a hard limit of 50 texts per request.
+    |
+    */
+
+    'max_units_per_request' => env('MAGIC_TRANSLATOR_MAX_UNITS_PER_REQUEST'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Log Payloads
+    |--------------------------------------------------------------------------
+    |
+    | Whether to log request/response payloads — prompts, raw provider
+    | responses, and translated text. Metadata (token usage, models,
+    | unit counts, finish reasons) is always emitted at `debug` level
+    | when LOG_LEVEL=debug is set, independent of this flag.
+    |
+    | Opt in only when you need to inspect actual prompts or translations.
+    | Payloads may contain user content; keep this off in production
+    | unless you've reviewed your log retention/access controls.
+    |
+    */
+
+    'log_payloads' => (bool) env('MAGIC_TRANSLATOR_LOG_PAYLOADS', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Queue
+    |--------------------------------------------------------------------------
+    |
+    | The queue connection and name to use for translation jobs.
+    |
+    */
+
+    'queue' => [
+        'connection' => env('MAGIC_TRANSLATOR_QUEUE_CONNECTION', null),
+        'name' => env('MAGIC_TRANSLATOR_QUEUE_NAME', null),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Prism Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Configuration for the Prism (LLM) translation service.
+    |
+    */
+
+    'prism' => [
+        'provider' => env('MAGIC_TRANSLATOR_PROVIDER', 'openai'),
+        'model' => env('MAGIC_TRANSLATOR_MODEL', 'gpt-5-mini'),
+        // Long-form translation requests often exceed generic API defaults.
+        // Keep these transport limits addon-scoped so translation reliability
+        // does not depend on global Prism settings.
+        'request_timeout' => env('MAGIC_TRANSLATOR_PRISM_REQUEST_TIMEOUT', 120),
+        'connect_timeout' => env('MAGIC_TRANSLATOR_PRISM_CONNECT_TIMEOUT', 15),
+        'retry_attempts' => env('MAGIC_TRANSLATOR_PRISM_RETRY_ATTEMPTS', 1),
+        'retry_sleep_ms' => env('MAGIC_TRANSLATOR_PRISM_RETRY_SLEEP_MS', 1000),
+        'prompts' => [
+            'system' => 'magic-translator::prompts.system',
+            'user' => 'magic-translator::prompts.user',
+            'overrides' => [
+                // 'ja' => ['system' => 'magic-translator::prompts.system-ja'],
+            ],
+        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | DeepL Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Configuration for the DeepL translation service.
+    |
+    */
+
+    'deepl' => [
+        'api_key' => env('DEEPL_API_KEY'),
+        'formality' => 'default',
+        'overrides' => [
+            // 'de' => ['formality' => 'prefer_more'],
+            // 'ja' => ['formality' => 'prefer_more'],
+        ],
+    ],
+
+];

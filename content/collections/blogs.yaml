@@ -1,0 +1,11 @@
+title: Blogs
+template: blog/show
+revisions: false
+route: '/blog/{slug}'
+date_behavior:
+  past: public
+  future: private
+sites:
+  - en
+  - pl
+propagate: true

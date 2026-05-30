@@ -1,0 +1,31 @@
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: background_image
+            field:
+              max_files: 1
+              container: assets
+              type: assets
+              display: 'Background Image'
+          -
+            handle: sub_title
+            field:
+              default: 'Quotation Form'
+              type: text
+              display: 'Sub Title'
+          -
+            handle: section_description
+            field:
+              default: 'Easily generate an estimated cost for your construction, renovation, or interior project by filling in the details below.'
+              type: textarea
+              display: 'Section Description'
+          -
+            handle: button_text
+            field:
+              default: 'Get Quotation'
+              type: text
+              display: 'Button Text'

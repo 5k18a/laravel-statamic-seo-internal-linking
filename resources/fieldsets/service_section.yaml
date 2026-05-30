@@ -1,0 +1,54 @@
+title: 'Service Section'
+fields:
+  -
+    handle: show_type
+    field:
+      options:
+        -
+          key: home-page-one
+          value: 'Home One'
+        -
+          key: home-page-two
+          value: 'Home Two'
+        -
+          key: home-page-three
+          value: 'Home Three'
+        -
+          key: home-page-four
+          value: 'Home Four'
+        -
+          key: service-page-one
+          value: 'Service One'
+        -
+          key: service-page-two
+          value: 'Service Two'
+        -
+          key: service-page-three
+          value: 'Service Three'
+      default: home-page-one
+      type: select
+      display: 'Show Type'
+  -
+    handle: sub_title
+    field:
+      type: text
+      display: 'Sub Title'
+  -
+    handle: button_text
+    field:
+      default: 'View all Services'
+      type: text
+      display: 'Button Text'
+  -
+    handle: collections
+    field:
+      max_items: 1
+      mode: select
+      type: collections
+      display: Collections
+  -
+    handle: limit
+    field:
+      default: '0'
+      type: integer
+      display: Limit

@@ -1,0 +1,70 @@
+{{ if blog or services or projects }}
+
+<div class="2xl:!px-10 xl:!px-7 lg:!px-5 !px-0 lg:w-full w-[90%] lg:mx-0 mx-auto">
+   <div class="divide-y divide-[#E5E5E5]">
+      {{ if services }}
+      <div class=" 1xl:py-5 py-4">
+         <p class="text-dark-400 sm:mb-5 mb-4 sm:text-sm text-xs font-medium uppercase">Recent
+            Search Services:</p>
+         <div>
+            <ul
+               class="text-black p2 list-disc pl-[18px] grid sm:grid-cols-3 grid-cols-1 gap-3 w-full justify-between item-start">
+               {{ services limit="5" }}
+               <li><a href="/service/{{ slug }}">{{ title }}</a></li>
+               {{ /services }}
+            </ul>
+            {{ if services | count > 5 }}
+            <div class="search_view_btn sm:mt-5 mt-4"><a href="/services?s=" class="toggle-view-btn btn btn-primary "
+                  data-type="services" data-query="{{ query }}">View All</a></div>
+            {{ /if }}
+         </div>
+      </div>
+      {{ /if }}
+      {{ if services }}
+      
+      {{ /if }}
+      {{ if blog }}
+      <div class="mb-3 1xl:py-5 py-4">
+         <p class="text-dark-400 1xl:mb-5 mb-3 sm:text-sm text-xs font-medium uppercase">Recent Search Blogs:</p>
+         <div class="grid xl:grid-cols-3 sm:grid-cols-2 grid-cols-1 2xl:gap-x-[65px] lg:gap-6 gap-4">
+            {{ blog limit="5" }}
+            <a href="/blog/{{ slug }}" class="flex items-center 2xl:gap-5 gap-3.5">
+               <div class="2xl:w-[100px] 2xl:h-[80px] xl:w-[95px] xl:h-[75px] w-[85px] h-[70px] flex-shrink-0">
+                  <img src="{{ image }} {{ url }} {{ /image }}" alt="blog-1" class="w-full h-full object-cover" />
+               </div>
+               <p class="p2 !font-normal">{{ title }}</p>
+            </a>
+            {{ /blog }}
+         </div>
+         {{ if blog | count > 5 }}
+         <div class="search_view_btn sm:mt-5 mt-4"><a href="/blogs?s=" class="toggle-view-btn btn btn-primary" data-type="blogs"
+               data-query="{{ query }}">View All</a></div>
+         {{ /if }}
+      </div>
+      {{ /if }}
+      {{ if blog }}
+      
+      {{ /if }}
+      {{ if projects }}
+      <div class="mb-3  1xl:py-5 py-4">
+         <p class="text-dark-400 1xl:mb-5 mb-3 sm:text-sm text-xs font-medium uppercase">Recent Search Projects:</p>
+         <div class="grid xl:grid-cols-3 sm:grid-cols-2 grid-cols-1 2xl:gap-x-[65px] lg:gap-6 gap-4">
+            {{ projects limit="5" }}
+            <a href="/project/{{ slug }}" class="flex items-center 2xl:gap-5 gap-3.5">
+               <div class="2xl:w-[100px] 2xl:h-[80px] xl:w-[95px] xl:h-[75px] w-[85px] h-[70px] flex-shrink-0">
+                  <img src="{{ image }} {{ url }} {{ /image }}" alt="blog-1" class="w-full h-full object-cover" />
+               </div>
+               <p class="p2 !font-normal">{{ title }}</p>
+            </a>
+            {{ /projects }}
+         </div>
+         {{ if projects | count > 5 }}
+         <div class="search_view_btn sm:mt-5 mt-4"><a href="/projects?s=" class="toggle-view-btn btn btn-primary"
+               data-type="projects" data-query="{{ query }}">View All</a></div>
+         {{ /if }}
+      </div>
+      {{ /if }}
+   </div>
+   {{ else }}
+   <p class="text-black/50 uppercase text-center font-lexend mb-5">No Data Found.</p>
+   {{ /if }}

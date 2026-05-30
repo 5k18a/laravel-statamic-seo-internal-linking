@@ -1,0 +1,43 @@
+title: 'Career Banner'
+fields:
+  -
+    handle: heading_small
+    field:
+      type: text
+      display: 'Small Heading'
+      instructions: 'Small subheading text above the main title.'
+      default: 'Careers with us'
+  -
+    handle: heading_large
+    field:
+      type: text
+      display: 'Main Heading'
+      default: 'Build Your Future With Orion Construction'
+  -
+    handle: description
+    field:
+      type: textarea
+      display: Description
+      antlers: true
+      default: "At Orion Construction, every beam placed and every site managed is a reflection of our people — the skilled, passionate professionals who bring our vision to life. We're not just looking for workers. We're looking for team members."
+  -
+    handle: button_text
+    field:
+      type: text
+      display: 'Button Text'
+      default: 'Submit Your Resume'
+  -
+    handle: button_link
+    field:
+      type: text
+      display: 'Button Link'
+      default: /contact
+  -
+    handle: right_image
+    field:
+      type: assets
+      display: 'Right Image'
+      container: assets
+      folder: images
+      max_files: 1
+      instructions: 'Image displayed on the right side of the banner.'

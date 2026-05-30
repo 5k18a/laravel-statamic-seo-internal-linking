@@ -1,0 +1,39 @@
+title: 'Project Quotation Banner'
+fields:
+  -
+    handle: background_image
+    field:
+      type: assets
+      display: 'Background Image'
+      max_files: 1
+      instructions: 'Upload the banner background image'
+  -
+    handle: heading
+    field:
+      type: text
+      display: Heading
+      instructions: 'Main title text (e.g. “Ready to Start Your Project?”)'
+  -
+    handle: description
+    field:
+      type: textarea
+      display: Description
+      instructions: 'Short paragraph text under the heading'
+  -
+    handle: quote_text
+    field:
+      type: text
+      display: 'Quote Text'
+      instructions: 'Highlighted text inside the colored box (e.g. “Designed with Precision, Built to Last”)'
+  -
+    handle: button_text
+    field:
+      type: text
+      display: 'Button Text'
+      default: 'Get Quotation'
+  -
+    handle: button_url
+    field:
+      type: text
+      display: 'Button URL'
+      instructions: 'Link for the quotation button'

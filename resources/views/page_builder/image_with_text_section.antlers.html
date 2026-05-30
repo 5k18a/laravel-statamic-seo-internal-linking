@@ -1,0 +1,31 @@
+<section class="about-image-with-text-section overflow-hidden relative 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] md:mb-[50px] mb-10">
+    <div class="container lg:flex items-stretch justify-between 2xl:gap-[80px] xl:gap-[60px] lg:gap-[60px] gap-9">
+        <div class="1xl:w-[48.3%] lg:w-1/2">
+            <div class="relative h-full">
+                <div class="overflow-hidden relative h-full">
+                    <img src="{{ image }} {{ url }} {{ /image }}" alt="img" class="w-full h-full object-cover" />
+                </div>
+            </div>
+        </div>
+        <div class="1xl:w-[46.6%] lg:w-1/2 w-full lg:pb-10 lg:pt-10 pt-[35px]">
+            <div class="">
+                <!-- Heading -->
+                <h2 class="1xl:mb-[30px] mb-[10px]">{{ heading }}</h2>
+                <p class="1xl:mb-8 xl:mb-6 mb-5">{{ description }}</p>
+                <ul class="custom-list 1xl:space-y-3 space-y-2.5">
+                    {{ features }}
+                    <li class="flex items-start 2xl:gap-3 gap-2">
+                        <p>
+                            <span class="font-medium">{{ highlight }} </span>
+                            {{ text }}
+                        </p>
+                    </li>
+                    {{ /features }}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <p class="xl:mt-[70px] lg:mt-12 md:mt-10 mt-7">{{ description }}</p>
+    </div>
+</section>

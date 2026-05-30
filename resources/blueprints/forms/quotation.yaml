@@ -1,0 +1,256 @@
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: looking_for
+            field:
+              options:
+                -
+                  key: new-construction
+                  value: 'New Construction'
+                -
+                  key: renovation
+                  value: Renovation
+                -
+                  key: interior-work
+                  value: 'Interior Work'
+                -
+                  key: other
+                  value: Other
+              type: radio
+              display: "I'm Looking For"
+              validate:
+                - required
+              listable: true
+              sortable: false
+              duplicate: false
+              inline: true
+              default: new-construction
+              always_save: false
+          -
+            handle: city
+            field:
+              type: text
+              display: City
+              validate:
+                - required
+              placeholder: 'Enter city'
+          -
+            handle: area
+            field:
+              type: text
+              display: Area
+              validate:
+                - required
+              placeholder: 'Enter area'
+          -
+            handle: address
+            field:
+              type: text
+              display: 'Project Site Address'
+              validate:
+                - required
+              placeholder: 'Enter project site address'
+          -
+            handle: project_type
+            field:
+              options:
+                -
+                  key: residential
+                  value: Residential
+                -
+                  key: commercial
+                  value: Commercial
+                -
+                  key: industrial
+                  value: Industrial
+                -
+                  key: infrastructure
+                  value: Infrastructure
+              type: select
+              display: 'Project Type'
+              validate:
+                - required
+              default: residential
+          -
+            handle: construction_type
+            field:
+              options:
+                -
+                  key: new-build
+                  value: 'New Build'
+                -
+                  key: renovation
+                  value: Renovation
+                -
+                  key: extension
+                  value: Extension
+                -
+                  key: remodeling
+                  value: Remodeling
+              type: select
+              display: 'Construction Type'
+              validate:
+                - required
+              default: new-build
+          -
+            handle: built_up_area
+            field:
+              type: text
+              display: 'Built-up Area (sq.ft)'
+              validate:
+                - required
+                - numeric
+              placeholder: 'Built-up Area (sq.ft)'
+          -
+            handle: plot_size
+            field:
+              type: text
+              display: 'Plot Size (sq.ft)'
+              validate:
+                - required
+                - numeric
+              placeholder: 'Plot Size (sq.ft)'
+          -
+            handle: floors
+            field:
+              type: text
+              display: 'No. of Floors'
+              validate:
+                - required
+                - numeric
+              placeholder: 'No. of floors'
+          -
+            handle: material
+            field:
+              options:
+                -
+                  key: standard
+                  value: 'Standard (budget-friendly)'
+                -
+                  key: premium
+                  value: 'Premium (higher quality)'
+                -
+                  key: custom
+                  value: 'Custom (tailored materials)'
+              type: radio
+              display: Material
+              validate:
+                - required
+              default: standard
+          -
+            handle: flooring_type
+            field:
+              options:
+                -
+                  key: tiles
+                  value: Tiles
+                -
+                  key: marble
+                  value: Marble
+                -
+                  key: granite
+                  value: Granite
+                -
+                  key: wooden
+                  value: Wooden
+              type: radio
+              display: 'Flooring Type'
+              validate:
+                - required
+              default: tiles
+          -
+            handle: wall_finish
+            field:
+              options:
+                -
+                  key: paint
+                  value: Paint
+                -
+                  key: wallpaper
+                  value: Wallpaper
+                -
+                  key: texture
+                  value: 'Texture Finish'
+              type: radio
+              display: 'Wall Finish'
+              validate:
+                - required
+              default: paint
+          -
+            handle: furnishing
+            field:
+              options:
+                -
+                  key: unfurnished
+                  value: 'Unfurnished (basic structure)'
+                -
+                  key: semi-furnished
+                  value: 'Semi-Furnished (basic fittings)'
+                -
+                  key: fully-furnished
+                  value: 'Fully Furnished (complete interiors)'
+              type: radio
+              display: Furnishing
+              validate:
+                - required
+              default: unfurnished
+          -
+            handle: budget
+            field:
+              type: text
+              display: 'Estimated Budget (₹)'
+              validate:
+                - required
+                - numeric
+              placeholder: 'Estimated budget (₹)'
+          -
+            handle: start_date
+            field:
+              input_type: date
+              type: text
+              display: 'Expected Start Date'
+              placeholder: 'Expected start date'
+          -
+            handle: completion_date
+            field:
+              input_type: date
+              type: text
+              display: 'Expected Completion Timeline'
+              placeholder: 'Expected completion timeline'
+          -
+            handle: full_name
+            field:
+              type: text
+              display: 'Full Name'
+              validate:
+                - required
+              placeholder: 'Full Name'
+          -
+            handle: phone_number
+            field:
+              type: text
+              display: 'Phone Number'
+              validate:
+                - required
+              placeholder: 'Phone number'
+          -
+            handle: email
+            field:
+              type: text
+              display: Email
+              validate:
+                - required
+                - email
+              placeholder: Email
+          -
+            handle: company_name
+            field:
+              type: text
+              display: 'Company Name'
+              validate:
+                - required
+              placeholder: 'Company name'

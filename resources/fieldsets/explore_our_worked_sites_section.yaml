@@ -1,0 +1,51 @@
+title: 'Explore Our Worked Sites Section'
+fields:
+  -
+    handle: section_title
+    field:
+      default: 'Explore Our Worked Sites'
+      type: text
+      display: 'Section Title'
+  -
+    handle: section_description
+    field:
+      type: textarea
+      display: 'Section Description'
+  -
+    handle: button_text
+    field:
+      default: 'Discuss New Project Now!'
+      type: text
+      display: 'Button Text'
+  -
+    handle: button_link
+    field:
+      default: /contact
+      type: text
+      display: 'Button Link'
+  -
+    handle: gallery_images
+    field:
+      max_files: 4
+      container: assets
+      type: assets
+      display: 'Gallery Images'
+  -
+    handle: review_count
+    field:
+      type: text
+      display: 'Review Count'
+      instructions: 'Number of customer reviews shown beside customer images.'
+  -
+    handle: review_text
+    field:
+      type: text
+      display: 'Review Text'
+      instructions: 'Label below the review count.'
+  -
+    handle: customer_images
+    field:
+      max_files: 4
+      container: assets
+      type: assets
+      display: 'Customer Images'

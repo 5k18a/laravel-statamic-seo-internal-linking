@@ -1,0 +1,88 @@
+  <section class="our-story-section relative lg:pb-0 sm:pb-14 pb-10 z-20">
+        <div class="relative py-0 lg:pt-5 lg:pb-14 overflow-hidden story">
+          <div class="relative z-1">
+            <div class="container">
+              <h2 class="lg:max-w-[45%] w-full 2xl:-mb-[100px] lg:-mb-[65px] mb-0 relative z-2">
+                {{ section_title }}
+              </h2>
+              <div
+                class="2xl:max-w-[76%] xl:max-w-[89%] lg:max-w-[91%] w-full bg-white relative pb-8 lg:pb-10 2xl:pb-12 lg:pr-10 pr-0 2xl:pt-[145px] 1xl:pt-[85px] lg:pt-[85px] pt-6">
+                <div
+                  class="2xl:max-w-[91%] xl:max-w-[98%] max-w-full flex md:flex-row flex-col md:items-center 2xl:gap-20 1xl:gap-14 xl:gap-[43px] lg:gap-10 gap-5">
+                    {{ video }}
+                  <div>
+                    <!-- Thumbnail with Play Button -->
+                    <div class="relative xl:w-[340px] md:w-[310px] w-full md:h-full h-[300px]">
+                      {{ thumbnail }}<img src="{{ url }}" alt="Video Thumbnail" class="w-full h-full object-cover"
+                        loading="lazy" />{{ /thumbnail }}
+                      <button id="playBtn" class="absolute inset-0 flex items-center justify-center">
+                        <div
+                          class="bg-[#FFFFFFB2] border border-white backdrop-blur-sm rounded-full xl:w-[80px] xl:h-[80px] w-[70px] h-[70px] flex items-center justify-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none"
+                            class="ml-1.5 xl:w-10 xl:h-10 w-9 h-9 fill-primary-900 stroke-primary-900">
+                            <path
+                              d="M13.812 9.07404C13.6298 8.96602 13.4223 8.90815 13.2105 8.9063C12.9987 8.90445 12.7902 8.95869 12.6061 9.06351C12.4221 9.16833 12.269 9.32 12.1626 9.50311C12.0561 9.68621 12 9.89424 12 10.106V37.894C12 38.1058 12.0561 38.3139 12.1626 38.497C12.269 38.6801 12.4221 38.8317 12.6061 38.9366C12.7902 39.0414 12.9987 39.0956 13.2105 39.0938C13.4223 39.0919 13.6298 39.0341 13.812 38.926L37.258 25.032C37.4371 24.9258 37.5854 24.7748 37.6884 24.5938C37.7915 24.4129 37.8456 24.2083 37.8456 24C37.8456 23.7918 37.7915 23.5872 37.6884 23.4062C37.5854 23.2253 37.4371 23.0743 37.258 22.968L13.812 9.07404Z"
+                               stroke-width="4" stroke-linecap="round"
+                              stroke-linejoin="round" />
+                          </svg>
+                        </div>
+                      </button>
+                    </div>
+                   
+
+                    <!-- Video Modal -->
+                    <div id="videoModal"
+                      class="z-[99999] fixed inset-0 bg-black/80 hidden items-center justify-center transition-all pt-[60px]">
+                      <div class="relative flex flex-col items-center justify-center gap-2 px-4">
+                        <button id="closeBtn" type="button" class="relative flex items-center justify-end w-full">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none">
+                            <path
+                              d="M12 10.943L5.807 4.75L4.75 5.807L10.943 12L4.75 18.193L5.807 19.25L12 13.057L18.193 19.25L19.25 18.193L13.057 12L19.25 5.807L18.193 4.75L12 10.943Z"
+                              fill="white" fill-opacity="0.6" />
+                          </svg>
+                        </button>
+                        <video id="storyVideo" class="2xl:w-[960px] xl:w-[890px] w-[750px] h-full z-[50]" controls>
+                          <source src="{{ video_url }}" type="video/mp4" />
+                        </video>
+                      </div>
+                    </div>
+                  </div>
+                   {{ /video }}
+                  <div class="2xl:space-y-[22px] xl:space-y-[16px] space-y-3 py-[10px] z-2">
+                    {{ description }}
+                    <p>{{ content|raw }}</p>
+                    {{ /description }}
+                    <div class="flex items-center flex-wrap 1xl:gap-9 xl:gap-7 sm:gap-6 gap-4 2xl:mt-10 lg:mt-8 mt-6">
+                     <a href="{{ primary_button:link }}" class="btn btn-primary-reverse">{{ primary_button:label }}</a> 
+                      <a href="{{ secondary_button:link }}"
+                        class="btn pl-0 flex items-center sm:gap-3 gap-1 p-0 hover:text-primary-900 focus:text-primary-900 active:text-primary-900 transition-all ease-in-out w-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                          class="xl:w-6 xl:h-6 sm:w-[22px] sm:h-[22px] w-[18px] h-[18px] stroke-primary-900">
+                          <path
+                            d="M13 2C15.3869 2 17.6761 2.94821 19.364 4.63604C21.0518 6.32387 22 8.61305 22 11M13 6C14.3261 6 15.5979 6.52678 16.5355 7.46447C17.4732 8.40215 18 9.67392 18 11M13.832 16.568C14.0385 16.6628 14.2712 16.6845 14.4917 16.6294C14.7122 16.5744 14.9073 16.4458 15.045 16.265L15.4 15.8C15.5863 15.5516 15.8279 15.35 16.1056 15.2111C16.3833 15.0723 16.6895 15 17 15H20C20.5304 15 21.0391 15.2107 21.4142 15.5858C21.7893 15.9609 22 16.4696 22 17V20C22 20.5304 21.7893 21.0391 21.4142 21.4142C21.0391 21.7893 20.5304 22 20 22C15.2261 22 10.6477 20.1036 7.27208 16.7279C3.89642 13.3523 2 8.7739 2 4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H7C7.53043 2 8.03914 2.21071 8.41421 2.58579C8.78929 2.96086 9 3.46957 9 4V7C9 7.31049 8.92771 7.61672 8.78885 7.89443C8.65 8.17214 8.44839 8.41371 8.2 8.6L7.732 8.951C7.54842 9.09118 7.41902 9.29059 7.36579 9.51535C7.31256 9.74012 7.33878 9.97638 7.44 10.184C8.80668 12.9599 11.0544 15.2048 13.832 16.568Z"
+                           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <span class="font-light">{{ secondary_button:phone_number }}</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="absolute top-0 right-14 w-[40%] h-full z-[1] lg:block hidden">
+                  <img src="{{ theme:asset }}assets/images/about-us-banner.svg" alt="img" class="h-full" loading="lazy" />
+                </div>
+              </div>
+              <div
+                class="lg:absolute lg:right-0 lg:top-0 relative 1xl:w-[33%] lg:w-[36%] w-full lg:h-full sm:h-[400px] h-[300px] lg:hidden block">
+                {{ right_side_image }}<img src="{{ url }}" alt="img" class="w-full h-full object-cover"
+                  loading="lazy" />{{ /right_side_image }}
+              </div>
+            </div>
+          </div>
+          <div
+            class="lg:absolute lg:right-0 lg:top-0 relative min-[1921px]:w-1/2 1xl:w-[33%] lg:w-[36%] w-full lg:h-full sm:h-[500px] h-full lg:block hidden">
+            {{ right_side_image }}<img src="{{ url }}" alt="img" class="w-full h-full object-cover"
+              loading="lazy" />{{ /right_side_image }}
+          </div>
+        </div>
+      </section>

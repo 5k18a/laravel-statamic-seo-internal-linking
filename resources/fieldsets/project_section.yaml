@@ -1,0 +1,110 @@
+title: 'Project Section'
+fields:
+  -
+    handle: show_type
+    field:
+      options:
+        -
+          key: home-page-one
+          value: 'Home One'
+        -
+          key: home-page-two
+          value: 'Home Two'
+        -
+          key: home-page-three
+          value: 'Home Three'
+        -
+          key: home-page-four
+          value: 'Home Four'
+        -
+          key: project-page-one
+          value: 'Project One'
+        -
+          key: project-page-two
+          value: 'Project Two'
+        -
+          key: project-page-three
+          value: 'Project Three'
+      default: home-page-one
+      type: select
+      display: 'Show Type'
+  -
+    handle: section_title
+    field:
+      default: 'Projects That Build Our Legacy'
+      type: text
+      display: 'Section Title'
+  -
+    handle: display_type
+    field:
+      label: 'Display Type'
+      type: radio
+      options:
+        -
+          key: list
+          value: List
+        -
+          key: select
+          value: 'Select From Project'
+      default: select
+      span: full
+      display: 'Display Type'
+  -
+    handle: intro
+    field:
+      type: textarea
+      display: 'Intro Paragraph'
+      if:
+        display_type: 'equals select'
+  -
+    handle: button_text
+    field:
+      default: 'View all Projects'
+      type: text
+      display: 'Button Text'
+      if:
+        display_type: 'equals select'
+  -
+    handle: button_link
+    field:
+      default: /project
+      type: text
+      display: 'Button Link'
+      if:
+        display_type: 'equals select'
+  -
+    handle: projects
+    field:
+      mode: select
+      collections:
+        - projects
+      type: entries
+      display: Projects
+      if:
+        display_type: 'equals select'
+  -
+    handle: collections
+    field:
+      max_items: 1
+      mode: select
+      type: collections
+      display: Collections
+      always_save: false
+      if:
+        display_type: 'equals list'
+  -
+    handle: limit
+    field:
+      default: '0'
+      type: integer
+      display: Limit
+      if:
+        display_type: 'equals list'
+  -
+    handle: pagination
+    field:
+      default: 'false'
+      type: text
+      display: Pagination
+      if:
+        display_type: 'equals list'

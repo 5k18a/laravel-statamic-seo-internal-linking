@@ -1,0 +1,101 @@
+title: 'Team Section'
+fields:
+  -
+    handle: show_type
+    field:
+      options:
+        -
+          key: home-page-one
+          value: 'Home One'
+        -
+          key: home-page-two
+          value: 'Home Two'
+        -
+          key: home-page-three
+          value: 'Home Three'
+        -
+          key: home-page-four
+          value: 'Home Four'
+        -
+          key: team-page-one
+          value: 'Team One'
+        -
+          key: team-page-two
+          value: 'Team Two'
+        -
+          key: about-page
+          value: About
+      default: home-page-one
+      type: select
+      display: 'Show Type'
+  -
+    handle: team_section
+    field:
+      default: 'Team You Trust'
+      type: text
+      display: 'Team Section'
+  -
+    handle: button_text
+    field:
+      default: 'View Full Team'
+      type: text
+      display: 'Button Text'
+  -
+    handle: display_type
+    field:
+      label: 'Display Type'
+      type: radio
+      options:
+        -
+          key: list
+          value: List
+        -
+          key: select
+          value: 'Select From Project'
+      default: select
+      span: full
+      display: 'Display Type'
+  -
+    handle: button_link
+    field:
+      default: /team
+      type: text
+      display: 'Button Link'
+      if:
+        display_type: 'equals select'
+  -
+    handle: team_members
+    field:
+      mode: select
+      collections:
+        - teams
+      type: entries
+      display: 'Team Members'
+      if:
+        display_type: 'equals select'
+  -
+    handle: collections
+    field:
+      max_items: 1
+      mode: select
+      type: collections
+      display: Collections
+      always_save: false
+      if:
+        display_type: 'equals list'
+  -
+    handle: limit
+    field:
+      default: '0'
+      type: integer
+      display: Limit
+      if:
+        display_type: 'equals list'
+  -
+    handle: pagination
+    field:
+      default: 'false'
+      type: text
+      display: Pagination
+      if:
+        display_type: 'equals list'

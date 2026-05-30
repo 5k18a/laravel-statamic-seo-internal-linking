@@ -1,0 +1,86 @@
+title: 'Career Section'
+fields:
+  -
+    handle: section_title
+    field:
+      type: text
+      display: 'Section Title'
+      instructions: 'Main heading of the careers section.'
+  -
+    handle: intro_paragraph_1
+    field:
+      type: textarea
+      display: 'Introduction Paragraph 1'
+      instructions: 'Top introduction text about careers at Orion.'
+  -
+    handle: intro_paragraph_2
+    field:
+      type: textarea
+      display: 'Introduction Paragraph 2'
+      instructions: 'Second paragraph explaining opportunities and roles.'
+  -
+    handle: video_thumbnail
+    field:
+      type: assets
+      display: 'Video Thumbnail'
+      container: assets
+      folder: images
+      max_files: 1
+  -
+    handle: video_file
+    field:
+      type: assets
+      display: 'Video File'
+      container: assets
+      folder: videos
+      max_files: 1
+  -
+    handle: video_alt_text
+    field:
+      type: text
+      display: 'Video Alt Text'
+      instructions: 'Alternative text for video thumbnail.'
+  -
+    handle: right_content
+    field:
+      type: textarea
+      display: 'Right Section Content'
+      instructions: 'Description next to the video.'
+  -
+    handle: highlights
+    field:
+      type: replicator
+      display: 'Career Highlights'
+      instructions: 'Add bullet points about working at Orion.'
+      sets:
+        item:
+          display: 'Highlight Item'
+          fields:
+            -
+              handle: text
+              field:
+                type: text
+                display: 'Highlight Text'
+  -
+    handle: benefits_section_title
+    field:
+      type: text
+      display: 'Benefits Section Title'
+      instructions: 'Heading for the benefits area.'
+  -
+    handle: benefits_columns
+    field:
+      type: grid
+      display: 'Benefits Columns'
+      instructions: 'Add benefit items shown in two columns.'
+      fields:
+        -
+          handle: title
+          field:
+            type: text
+            display: 'Benefit Title'
+        -
+          handle: description
+          field:
+            type: textarea
+            display: 'Benefit Description'

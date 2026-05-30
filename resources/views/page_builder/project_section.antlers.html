@@ -1,0 +1,374 @@
+{{ if show_type == 'home-page-two' }}
+<section class="relative 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] md:mb-[50px] mb-8 bg-gray-300">
+  <div class="container-2">
+    <div class="2xl:py-[90px] 1xl:py-[75px] xl:py-[70px] lg:py-[65px] md:py-[60px] py-10 our-projects-home-2">
+
+      <div class="flex items-end justify-between 1xl:mb-10 md:mb-8 mb-[22px] w-full">
+        <div class="flex flex-col items-start 2xl:gap-[30px] xl:gap-[25px] lg:gap-5 sm:gap-4 gap-2.5">
+          <h6 class="sub-title">{{ section_title }}</h6>
+          <h2>{{ intro }}</h2>
+        </div>
+        <div class="flex gap-2 project-custom-arrow relative">
+          <div class="swiper-button-prev arrow-slider absolute flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="23" viewBox="0 0 36 23" fill="none" class="flex-shrink-0">
+              <g clip-path="url(#clip0_100_117)">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M5.44814 12.7576L13.6838 20.9907L11.831 22.8409L0.439209 11.4491L11.831 0.0546875L13.6838 1.90752L5.44814 10.1406H31.4113V12.7576H5.44814Z" fill="black" />
+              </g>
+            </svg>
+          </div>
+          <div class="swiper-button-next arrow-slider absolute flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="23" viewBox="0 0 37 23" fill="none" class="flex-shrink-0">
+              <g clip-path="url(#clip0_100_119)">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M31.4795 12.7576L23.2438 20.9907L25.0966 22.8409L36.4884 11.4491L25.0966 0.0546875L23.2438 1.90752L31.4795 10.1406H5.5163V12.7576H31.4795Z" fill="black" />
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="swiper projects-2">
+        <div class="swiper-wrapper">
+          <!-- projects box - 1 -->
+          {{ projects }}
+          <div class="swiper-slide !h-auto project">
+            <div class="project-box group">
+              <div class="project-img-before">
+                <a href="/project/{{ slug }}" class="absolute top-0 left-0 w-full h-full block">
+                  <img src="{{ image }} {{ url }} {{ /image }}" alt="{{ title }}" class="h-full w-full object-cover transition-all ease-in-out" />
+                </a>
+                <a href="/project/{{ slug }}" class="project-arrow hidden group-hover:flex">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="69" height="69" viewBox="0 0 69 69" fill="none" class="2xl:w-[69px] xl:w-[63px] sm:w-[55px] w-10">
+                    <path d="M24.8251 24.825H44.5722M44.5722 24.825V44.572M44.5722 24.825L24.8251 44.572" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </a>
+              </div>
+              <div class="project-location">
+                {{ details }}
+                {{ if label == 'Location' }}
+                <p class="p2 tracking-[0.8px] !font-medium mb-4.5 uppercase text-primary-900">
+                  {{ value }}
+                </p>
+                {{ /if }}
+                {{ /details }}
+                <h4 class="mb-3">
+                  <a href="/project/{{ slug }}" class="group-hover:text-primary-900">
+                    {{ title }}
+                  </a>
+                </h4>
+                <p class="text-gray-400">{{ overview_section:overvie | strip_tags | truncate:300 }}</p>
+
+              </div>
+            </div>
+          </div>
+          {{ /projects }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ elseif show_type == 'home-page-three' }}
+
+<section class="relative 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] md:mb-[50px] mb-8 overflow-clip">
+  <div class="container">
+    <div class="max-w-[1253px] mx-auto relative">
+      <div class="relative">
+        <!-- Sticky Header (only sticks below lg) -->
+        <div id="stickyHeader" class="text-center py-[10px] lg:mb-[50px] mb-[22px] sticky lg:top-0 md:top-[85px] sm:top-[75px] top-[60px] z-4 bg-white lg:relative transition-all duration-300">
+          <h2 class="lg:mb-5 md:mb-4 mb-3">
+            {{ section_title }}
+          </h2>
+          <p class="m-0 mx-auto md:w-[85%] w-full text-gray-400">{{ intro }}</p>
+        </div>
+
+        <div class="relative">
+          <!-- Card 1 -->
+          {{ projects }}
+          <div class="sticky md:top-[260px] top-[233px] lg:top-0 lg:relative overflow-hidden rounded-4xl md:rounded-5xl lg:rounded-6xl 
+          2xl:before:pt-[45%] 1xl:before:pt-[42%] lg:before:pt-[45%] sm:before:pt-[54%] before:pt-[76%] before:block z-2
+          {{ if not last }}  lg:-mb-[25%] duration-700 lg:hover:mb-10 sm:mb-7 mb-4 cursor-pointer {{ /if }}">
+          <!-- Background Image -->
+          <div class="absolute top-0 left-0 w-full h-full our-projects-bg before:w-full">
+            <img src="{{ image }} {{ url }} {{ /image }}" alt="img" class="h-full w-full object-cover" />
+          </div>
+
+          <!-- Overlay (clickable) -->
+          <a href="/project/{{ slug }}" class="absolute top-0 left-0 w-full h-full p-4 sm:p-5 md:p-8 lg:p-10 z-50 flex flex-col justify-between group">
+            <!-- Gradient Layer -->
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-20 h-[80%] bottom-0 top-auto">
+            </div>
+
+            <!-- Arrow (top) -->
+            <div class="flex items-start justify-end group-hover:opacity-100 opacity-0 z-5">
+              <div class="2xl:w-[85px] 2xl:h-[85px] xl:w-[70px] xl:h-[70px] md:w-[65px] md:h-[65px] w-[55px] h-[55px] rounded-full bg-white/80 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 69 69" class="2xl:w-[69px] lg:w-[63px] sm:w-[55px] w-10 text-black">
+                  <path d="M24.8251 24.825H44.5722M44.5722 24.825V44.572M44.5722 24.825L24.8251 44.572" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+            </div>
+
+            <!-- Text (bottom) -->
+            <div class="text-left 2xl:mb-5 1xl:mb-3 mb-0 z-5">
+              {{ details }}
+              {{ if label == 'Location' }}
+              <p class="sub-title xl:mb-4 md:mb-3 mb-2 text-white !tracking-normal !font-normal">
+                {{ value }}
+              </p> 
+              {{ /if }}
+              {{ /details }}
+              <h3 class="text-white mb-0 2xl:text-[45px] 1xl:text-[38px] md:text-[30px] sm:text-[26px] text-[22px] !font-light">
+                {{ title }}
+              </h3>
+            </div>
+          </a>
+        </div>
+        {{ /projects }}
+      </div>
+    </div>
+    {{ if button_text }}
+    <div class="xl:mt-12 mt-8">
+      <a href="{{ button_link }}" class="btn btn-primary mx-auto">{{ button_text }}</a>
+    </div>
+    {{ /if }}
+  </div>
+</div>
+</section>
+
+{{ elseif show_type == 'home-page-four' }}
+
+<section class="relative overflow-hidden 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] md:mb-[50px] mb-8 h-fit">
+  <div class="bg-primary-900 h-[85%] w-full absolute z-0"></div>
+  <div class="container relative 2xl:pt-[100px] 1xl:pt-20 lg:pt-[70px] md:pt-[50px] pt-10">
+    <div class="sm:flex items-center sm:justify-between justify-center xl:mb-[50px] md:mb-10 sm:mb-[30px] mb-5">
+      <h2 class="mb-0 text-white sm:text-start text-center">
+        {{ section_title }}
+      </h2>
+      {{ if button_text }}
+      <div class="w-auto items-center sm:justify-end justify-center mt-2">
+        <a href="{{ button_link }}" class="btn btn-green-bg sm:m-0 mx-auto">{{ button_text }}</a>
+      </div>
+      {{ /if }}
+    </div>
+    <div class="project-2">
+      <div class="swiper project-slider !overflow-visible">
+        <div class="swiper-wrapper">
+          <!-- Our Project-1 -->
+          {{ projects }}
+          <div class="swiper-slide">
+            <div class="group">
+              <div class="overflow-hidden relative before:pt-[85%] before:block">
+                <a href="/project/{{ slug }}" class="absolute top-0 left-0 w-full h-full block">
+                  <img src="{{ image }} {{ url }} {{ /image }}" alt="img" class="h-full w-full object-cover" loading="lazy" />
+
+                  <!-- Overlay inside same link -->
+                  <div class="absolute top-0 left-0 w-full h-full flex-col justify-between p-5 bg-gradient-to-b from-black/0 to-black/45">
+                    <div class="mr-0 ml-auto 2xl:w-[85px] 2xl:h-[85px] xl:w-[70px] xl:h-[70px] md:w-[60px] md:h-[60px] w-[55px] h-[55px] rounded-full bg-white/80 lg:hidden lg:group-hover:flex flex items-center justify-center hover:bg-white hover:text-primary-900">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="69" height="69" viewBox="0 0 69 69" fill="none" class="2xl:w-[69px] xl:w-[63px] sm:w-[55px] w-10">
+                        <path d="M24.8251 24.825H44.5722M44.5722 24.825V44.572M44.5722 24.825L24.8251 44.572" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </div>
+                    <div class="absolute xl:bottom-7 md:bottom-5 bottom-3 md:left-7 left-5">
+                      <h4 class="text-white">{{ title }}</h4>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+          {{ /projects }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ elseif show_type == 'project-page-one' }}
+{{ if display_type == 'list' }}
+
+
+<div class="container xl:py-[70px] md:py-[50px] sm:py-[38px] py-[34px]">
+  <h2 class="2xl:mb-[60px] 1xl:mb-[50px] lg:mb-10 md:mb-8 sm:mb-6 mb-5 sm:text-start text-center">
+    {{ section_title }}
+  </h2>
+  {{ if collections == "projects" }}
+  {{ collection:projects as="projects" paginate="{pagination}" limit="{limit}" title:contains="{ get:s }" slug:contains="{ get:s }"  }}
+  {{ /if }}
+  <div class="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 1xl:gap-[50px] xl:gap-[40px] gap-8 grid_append">
+    <!-- project-1 -->
+    {{ projects }}
+    <div class="group grid-item-append">
+      <div class="overflow-hidden relative sm:before:pt-[115%] before:pt-[104%] before:block">
+        <a href="/project/{{ slug }}" class="absolute top-0 left-0 w-full h-full block">
+          <img src="{{ image }} {{ url }} {{ /image }}" alt="project-1" class="h-full w-full object-cover" loading="lazy" />
+        </a>
+        <a href="/project/{{ slug }}" class="2xl:w-[85px] 2xl:h-[85px] lg:w-[70px] lg:h-[70px] sm:w-[65px] sm:h-[65px] w-[55px] h-[55px] rounded-full bg-white/80 items-center justify-center absolute top-3 lg:top-5 right-3 lg:right-5 hover:bg-white hover:text-primary-900 hidden group-hover:flex">
+          <svg xmlns="http://www.w3.org/2000/svg" width="69" height="69" viewBox="0 0 69 69" fill="none" class="2xl:w-[69px] lg:w-[63px] sm:w-[55px] w-10">
+            <path d="M24.8251 24.825H44.5722M44.5722 24.825V44.572M44.5722 24.825L24.8251 44.572" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+      </div>
+      <div class="xl:mt-7 mt-4">
+        <h5 class="project-name">
+          <a href="/project/{{ slug }}" class="group-hover:text-primary-900">{{ title }}</a>
+        </h5>
+      </div>
+    </div>
+    {{ /projects }}
+  </div>
+  {{ paginate }}
+  <input type="hidden" class="lastPage" value="{{ total_pages }}">
+  <input type="hidden" class="currentPage" value="{{ current_page }}">
+  {{ if next_page }} 
+  <div class="load-more-wrap 2xl:mt-20 1xl:mt-17 lg:mt-15 md:mt-12 mt-9 flex justify-center">
+    <div class="load-btn" style="text-align: center;">
+      <a href="{{ next_page }}" class="btn ajax-load-more-grid">Load More <img src="{{theme:asset}}assets/images/loading-spinner.svg" alt="loader" class="loading-spin object-cover animate-spin hidden"></a>
+    </div>
+  </div>
+  {{ /if }}
+  {{ /paginate }}  
+  {{ if collections == "projects" }}
+  {{ /collection:projects }}
+  {{ /if }}
+</div>
+
+
+{{ /if }}
+{{ elseif show_type == 'project-page-two' }}
+<div class="main-wrapper bg-white overflow-hidden projects-2">
+  <div class="container xl:py-[70px] md:py-[60px] sm:py-[38px] py-[34px]">
+    <h1 class="h2 2xl:mb-[60px] 1xl:mb-[50px] xl:mb-10 md:mb-8 sm:mb-6 mb-5 sm:text-start text-center">
+      {{ section_title }}
+    </h1>
+    {{ if collections == "projects" }}
+    {{ collection:projects as="projects" paginate="{pagination}" limit="{limit}" }}
+    {{ /if }}
+    <div class="grid xl:grid-cols-3 sm:grid-cols-2 grid-cols-1 1xl:gap-[50px] xl:gap-[40px] md:gap-8 sm:gap-7 gap-[22px] grid_append">
+      <!-- project-1 -->
+      {{ projects }}
+      <div class="group/project h-auto relative project grid-item-append">
+        <div class="project-box">
+          <div class="relative overflow-hidden 2xl:before:pt-[63%] xl:before:pt-[60%] lg:before:pt-[56.5%] before:pt-[61%] before:block">
+            <a href="/project/{{ slug }}" class="absolute top-0 left-0 w-full h-full block">
+              <img src="{{ image }} {{ url }} {{ /image }}" alt="img" class="h-full w-full object-cover transition-all ease-in-out" />
+            </a>
+            <a href="/project/{{ slug }}" class="project-arrow hidden group-hover/project:flex transition-all ease-in-out">
+              <svg xmlns="http://www.w3.org/2000/svg" width="69" height="69" viewBox="0 0 69 69" fill="none" class="2xl:w-[69px] xl:w-[63px] sm:w-[55px] w-12 h-auto">
+                <path d="M24.8251 24.825H44.5722M44.5722 24.825V44.572M44.5722 24.825L24.8251 44.572" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </a>
+          </div>
+          <div class="project-location">
+            {{ details }}
+            {{ if label == 'Location' }}
+            <p class="p2 !tracking-[0.8px] !font-medium 1xl:mb-4 mb-3 uppercase text-primary-900">{{ value }}</p>
+            {{ /if }}
+            {{ /details }}
+            <h4 class="1xl:mb-4 md:mb-3 mb-2">
+              <a href="/project/{{ slug }}" class="group-hover/project:text-primary-900">
+                {{ title }}
+              </a>
+            </h4>
+            <p class="text-gray-400">
+              {{ overview_section:overvie | strip_tags | truncate:300 }}
+            </p>
+          </div>
+        </div>
+      </div>
+      {{ /projects }}
+    </div>
+
+    {{ paginate }}
+    <input type="hidden" class="lastPage" value="{{ total_pages }}">
+    <input type="hidden" class="currentPage" value="{{ current_page }}">
+    {{ if next_page }} 
+    <div class="load-more-wrap 2xl:mt-20 1xl:mt-17 lg:mt-15 md:mt-12 mt-9 flex justify-center">
+      <div class="load-btn" style="text-align: center;">
+        <a href="{{ next_page }}" class="btn ajax-load-more-grid">Load More <img src="{{theme:asset}}assets/images/loading-spinner.svg" alt="loader" class="loading-spin object-cover animate-spin hidden"></a>
+      </div>
+    </div>
+    {{ /if }}
+    {{ /paginate }}  
+
+    {{ if collections == "projects" }}
+    {{ /collection:projects }}
+    {{ /if }}
+  </div>
+
+</div>
+{{ elseif show_type == 'project-page-three' }}
+
+<div class="overflow-clip relative">
+<div class="container xl:py-[70px] lg:pb-[60px] lg:pt-[40px] sm:pb-[38px] pb-[34px]">
+  <!-- Sticky Header (only sticks below lg) -->
+  <div id="stickyHeader" class="text-center lg:py-0 pb-5 md:pt-10 pt-[18px] xl:mb-[50px] lg:mb-7 sticky 1xl:top-32 lg:top-28 sm:top-21 top-13 z-4 bg-white lg:relative transition-all duration-300">
+    <h1 class="h2 text-center">{{ section_title }}</h1>
+  </div>
+  {{ if collections == "projects" }}
+  {{ collection:projects as="projects" paginate="{pagination}" limit="{limit}" }}
+  {{ /if }}
+  <section class="relative overflow-visible">
+    <div class="max-w-[1253px] mx-auto relative">
+      <div class="relative grid_append mb-32">
+        <!-- Card 1 -->
+        {{ projects }}
+        <div class="sticky 1xl:top-32 lg:top-30 md:top-50 sm:top-43 sm:top-49 top-41 {{ if last }} lg:mb-0  {{ else }} lg:-mb-[25%] lg:hover:mb-10 sm:mb-7 mb-5  {{ /if }} lg:relative overflow-hidden rounded-4xl md:rounded-5xl lg:rounded-6xl 2xl:before:pt-[44%] xl:before:pt-[42%] lg:before:pt-[45%] sm:before:pt-[54%] before:pt-[76%] before:block duration-700 z-2 cursor-pointer grid-item-append">
+          <!-- Background Image -->
+          <div class="absolute top-0 left-0 w-full h-full our-projects-bg before:w-full">
+            <img src="{{ image }} {{ url }} {{ /image }}" alt="img" class="h-full w-full object-cover" />
+          </div>
+
+          <!-- Overlay (clickable) -->
+          <a href="/project/{{ slug }}" class="absolute top-0 left-0 w-full h-full p-4 sm:p-5 md:p-8 lg:p-10 2xl:p-[50px] z-50 flex flex-col justify-between group">
+            <!-- Gradient Layer -->
+            <div
+            class="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-20 h-[80%] bottom-0 top-auto">
+          </div>
+
+          <!-- Arrow (top) -->
+          <div class="flex items-start justify-end group-hover:opacity-100 opacity-0 z-5">
+            <div class="2xl:w-[85px] 2xl:h-[85px] xl:w-[70px] xl:h-[70px] md:w-[65px] md:h-[65px] w-[55px] h-[55px] rounded-full bg-white/80 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 69 69" class="2xl:w-[69px] lg:w-[63px] sm:w-[55px] w-10 text-black">
+                <path d="M24.8251 24.825H44.5722M44.5722 24.825V44.572M44.5722 24.825L24.8251 44.572" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Text (bottom) -->
+          <div class="text-left 2xl:mb-5 1xl:mb-5 mb-0 z-5">
+            {{ details }}
+            {{ if label == 'Location' }}
+            <p class="sub-title xl:mb-4 sm:mb-3 mb-1.5 text-white tracking-normal font-light max-[640px]:!text-sm">
+              {{ value }}
+            </p>
+            {{ /if }}
+            {{ /details }}
+            <h3
+            class="text-white mb-0 2xl:text-[45px] 1xl:text-[38px] md:text-[30px] sm:text-[26px] text-[22px]">
+            {{ title }}
+          </h3>
+        </div>
+      </a>
+    </div>
+    {{ /projects }}
+  </div>
+</div>
+</section>
+
+{{ paginate }}
+<input type="hidden" class="lastPage" value="{{ total_pages }}">
+<input type="hidden" class="currentPage" value="{{ current_page }}">
+{{ if next_page }} 
+<div class="load-more-wrap 2xl:pt-20 1xl:pt-17 lg:pt-15 md:pt-12 pt-9 flex justify-center">
+  <div class="load-btn text-center">
+    <a href="{{ next_page }}" class="btn ajax-load-more-grid">Load More 
+      <img src="{{theme:asset}}assets/images/loading-spinner.svg" alt="loader" class="object-cover animate-spin hidden"></a>
+    </div>
+  </div>
+  {{ /if }}
+  {{ /paginate }} 
+  {{ if collections == "projects" }}
+  {{ /collection:projects }}
+  {{ /if }}
+</div>
+</div>
+
+
+{{ /if }}

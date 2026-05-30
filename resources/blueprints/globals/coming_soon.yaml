@@ -1,0 +1,71 @@
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: background_image
+            field:
+              type: assets
+              container: assets
+              folder: images
+              max_files: 1
+              display: 'Background Image'
+              instructions: 'Upload or select the banner image for the background.'
+          -
+            handle: heading
+            field:
+              type: text
+              display: 'Main Heading'
+              instructions: 'The main title text displayed at the top.'
+              default: 'We Are Coming Very Soon!'
+          -
+            handle: description
+            field:
+              type: textarea
+              display: Description
+              instructions: 'Short description shown below the heading.'
+              default: 'Our brand-new website is under construction to bring you a better way to explore our services, showcase our projects, and connect with Orion Construction.'
+          -
+            handle: countdown_items
+            field:
+              type: replicator
+              display: Countdown Blocks
+              instructions: "Add or edit the countdown blocks (Days, Hours, Minutes, Seconds)"
+              sets:
+                item:
+                  display: Countdown Item
+                  fields:
+                    -
+                      handle: label
+                      field:
+                        type: text
+                        display: Label
+                        placeholder: DAYS
+                    -
+                      handle: value
+                      field:
+                        type: integer
+                        display: Value
+                        placeholder: 52
+          -
+            handle: subscribe_text
+            field:
+              type: text
+              display: 'Subscribe Section Title'
+              default: 'SUBSCRIBE TO OUR LIST'
+          -
+            handle: subscribe_placeholder
+            field:
+              type: text
+              display: 'Email Placeholder'
+              default: 'Your Email address'
+          -
+            handle: subscribe_button
+            field:
+              type: text
+              display: 'Subscribe Button Label'
+              default: Submit
+          -
+            import: social_section

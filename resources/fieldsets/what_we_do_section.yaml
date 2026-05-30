@@ -1,0 +1,39 @@
+title: 'What We Do Section'
+fields:
+  -
+    handle: section_title
+    field:
+      default: 'What We do?'
+      type: text
+      display: 'Section Title'
+  -
+    handle: items
+    field:
+      type: replicator
+      display: items
+      duplicate: false
+      sets:
+        new_set_group:
+          display: 'New Set Group'
+          sets:
+            service_item:
+              display: 'Service Item'
+              fields:
+                -
+                  handle: icon
+                  field:
+                    max_files: 1
+                    container: assets
+                    type: assets
+                    display: icon
+                -
+                  handle: title
+                  field:
+                    type: text
+                    display: 'Service Title'
+                -
+                  handle: description
+                  field:
+                    type: textarea
+                    display: Description
+                    instructions: 'Add a short description for this service'

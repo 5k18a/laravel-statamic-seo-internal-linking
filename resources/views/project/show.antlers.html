@@ -1,0 +1,218 @@
+<!-- start about-mission -->
+<section class="relative overflow-hidden 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] sm:mb-[50px] mb-10">
+    <div class="about-mission relative overflow-hidden">
+        <div class="lg:container mx-auto lg:px-4 p-0">
+            <div class="w-full relative top-0 right-0 1xl:h-[calc(100vh-12vh)] xl:h-[670px] lg:h-[600px] md:h-[500px] sm:h-[450px] h-full order-1 lg:order-2">
+                <img src="{{ image }} {{url}} {{ /image }}" alt="img" class="h-full w-full object-cover" />
+                <!-- customer's review -->
+                <div class="sm:w-fit w-[90%] absolute 2xl:px-16 1xl:px-8 lg:px-7.5 md:px-7 2xl:py-[50px] md:py-7 sm:p-6 p-3 flex sm:flex-nowrap flex-wrap items-center sm:justify-start justify-center -bottom-[1px] sm:left-auto sm:right-0 left-1/2 -translate-x-1/2 sm:translate-x-0 z-0 bg-white text-center">
+                    <h1 class="mb-0">{{ title }}</h1>
+                </div>
+            </div>
+            <div class="2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] sm:mb-[50px] mb-10 bg-primary-900 2xl:py-[53px] 2xl:px-[74px] 1xl:p-11 p-9">
+                <div class="lg:flex grid xl:grid-cols-5 lg:grid-cols-4 sm:grid-cols-3 grid-cols-1 justify-between xl:gap-4 gap-8">
+                    <!-- items -->
+                    {{ details }}
+                    <div class="sm:text-left text-center">
+                        <h4 class="text-white mb-2">{{ label }}</h4>
+                        <h6 class="font-lexend text-white">{{ value }}</h6>
+                    </div>
+                    {{ /details }}
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <h2 class="mb-5">{{ overview_section:overview_title }}</h2>
+            {{ overview_section:overvie }}
+            <div class="1xl:mt-[45px] md:mt-9 mt-4">
+                <h4 class="mb-5">{{ project_highlights:project_highlights_title }}</h4>
+                <div class="w-full">
+                    <ul class="custom-list grid sm:grid-cols-2 grid-cols-1 justify-between sm:gap-x-4 gap-y-2">
+                        {{ project_highlights:highlights }}
+                        <li class="flex items-start 2xl:gap-3 gap-2">
+                            <p>
+                                <b>{{ highlight_text }}</b>
+                            </p>
+                        </li>
+                        {{ /project_highlights:highlights }}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end about-mission -->
+
+<!-- START  SECTION COMPONENT -->
+<section class="gallery-section relative 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] sm:mb-[50px] mb-10 z-1">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between md:pb-[35px] pb-[25px]">
+            <h2 class="mb-0">{{ gallery_section:gallery_title }}</h2>
+            <div class="flex gap-2 project-custom-arrow relative h-[-webkit-fill-available] 1xl:w-[100px] lg:w-[85px] w-[75px]">
+                <div class="swiper-button-prev arrow-slider absolute flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="23" viewBox="0 0 36 23" fill="none" class="flex-shrink-0">
+                        <g clip-path="url(#clip0_100_117)">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M5.44814 12.7576L13.6838 20.9907L11.831 22.8409L0.439209 11.4491L11.831 0.0546875L13.6838 1.90752L5.44814 10.1406H31.4113V12.7576H5.44814Z" fill="currentColor" />
+                        </g>
+                    </svg>
+                </div>
+                <div class="swiper-button-next arrow-slider absolute flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="37" height="23" viewBox="0 0 37 23" fill="none" class="flex-shrink-0">
+                        <g clip-path="url(#clip0_100_119)">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M31.4795 12.7576L23.2438 20.9907L25.0966 22.8409L36.4884 11.4491L25.0966 0.0546875L23.2438 1.90752L31.4795 10.1406H5.5163V12.7576H31.4795Z" fill="currentColor" />
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="swiper gallery-wrapper">
+            <div class="swiper-wrapper teams-cards">
+                <!-- Team Member 1 -->
+                {{ gallery_section.images limit="4" }}
+                <div class="swiper-slide team-member">
+                    <div class="relative group cursor-pointer">
+                        <div class="relative overflow-hidden 2xl:before:pt-[680px] 1xl:before:pt-[550px] xl:before:pt-[450px] lg:before:pt-[360px] md:before:pt-[400px] sm:before:pt-[350px] min-[280px]:before:pt-[280px] before:pt-[280px] before:block">
+                            <img src="{{ url }}" alt="Nizahr Gems" class="absolute top-0 bottom-0 right-0 left-0 w-full h-full object-cover transition-all duration-500" loading="lazy" loading="lazy" />
+                        </div>
+                    </div>
+                </div>
+                {{ /gallery_section.images }}
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END TEAM SECTION COMPONENT -->
+
+<!-- start our history section -->
+<section class="relative 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] sm:mb-[50px] mb-10">
+    <div class="container">
+        <h2 class="xl:mb-[50px] mb-[30px]">{{ project_milestones:project_milestones_title }}</h2>
+        <!-- history List -->
+        <div class="history-list grid grid-cols-1 2xl:gap-10 1xl:gap-9 gap-[35px]">
+            <!-- history Item -->
+            {{ project_milestones:project_milestones }}
+            <div class="history-item flex relative md:flex-row flex-col overflow-hidden">
+                <div class="history-image-before">
+                    <img src="{{ background_image }} {{ url }} {{ /background_image }}" alt="Construction" class="absolute top-0 left-0 right-0 bottom-0 w-full h-full object-cover" />
+                </div>
+                <div class="hidden lg:flex flex-col items-center">
+                    <div class="lg:w-[31px] lg:h-[31px] w-6 h-6 overflow-hidden rounded-full border-2 border-primary-900 flex-shrink-0">
+                    </div>
+                    <div class="w-[2px] h-full bg-primary-900"></div>
+                </div>
+                <div class="2xl:ml-[31px] md:ml-5 ml-0 flex flex-col justify-center">
+                    <h6 class="font-lexend mb-[15px] text-primary-900">
+                        {{ year_range }}
+                    </h6>
+                    <h3 class="mb-3 font-normal">
+                        {{ title }}
+                    </h3>
+                    {{ description }}
+                </div>
+            </div>
+            {{ /project_milestones:project_milestones }}
+        </div>
+    </div>
+</section>
+<!-- end our history section -->
+
+<!-- start team section -->
+<section class="relative 2xl:mb-[100px] lg:mb-[70px] sm:mb-[50px] mb-10 bg-[#EFEFEF] 2xl:py-[90px] 1xl:py-[80px] lg:py-[70px] sm:py-[50px] py-10">
+    <div class="container">
+        <!-- Heading & Button -->
+        <div class="flex sm:items-center items-start justify-between w-full sm:flex-row flex-col gap-5 xl:mb-[55px] md:mb-9 sm:mb-7 mb-5">
+            <h2>{{ team_section:professional_team_title }}</h2>
+            {{ if team_section:button_text }}<a href="/teams" class="btn btn-primary-reverse sm:!flex !hidden">{{ team_section:button_text }}</a>{{ /if }}
+        </div>
+
+        <!-- Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 2xl:gap-[55px] 1xl:gap-[45px] xl:gap-9 lg:gap-7 sm:gap-10 gap-[30px]">
+            <!-- Team Member -->
+            {{ if team_section:collections == "teams" }}
+            {{ collection:teams as="teams" limit="4" }}
+            {{ /if }}
+            {{ teams }}
+            <div class="text-center group">
+                <a href="/team/{{slug}}">
+                    <div class="relative overflow-hidden before:block sm:before:pt-[104%] before:pt-[100%] xl:mb-6 sm:mb-5 mb-[18px]">
+                        <img src="{{ member_info:photo }} {{ url }} {{ /member_info:photo }}" alt="Nizarh Gems" class="absolute top-0 left-0 w-full h-full object-cover" />
+                    </div>
+                    <h5 class="text-start group-hover:text-primary-900 font-normal">
+                        {{ title }}
+                    </h5>
+                </a>
+
+                <p class="text-start text-dark-400">{{ member_info:designation }}</p>
+                {{ social_share }}
+                <div class="flex flex-row 2xl:gap-[18px] 1xl:gap-[15px] gap-[10px] 2xl:mt-[22px] xl:mt-[18px] mt-4">
+                    {{ socials }}
+                    <a href="{{ url }} {{config:app.url}}team/{{ slug }}" target="_blank" class="p-1 flex items-center justify-center btn-primary rounded-full flex-shrink-0 2xl:w-[50px] 2xl:h-[50px] xl:w-[40px] xl:h-[40px] lg:w-[37px] lg:h-[37px] sm:w-[42px] sm:h-[42px] w-[40px] h-[40px] overflow-hidden">
+                        <i class="fa-brands fa-{{ platform }}"></i>
+                    </a>
+                    {{ /socials }}
+                </div>
+                {{ /social_share }}
+            </div>
+            {{ /teams }}
+            {{ if team_section:collections == "teams" }}
+            {{ /collection:teams }}
+            {{ /if }}
+        </div>
+    </div>
+</section>
+<!-- end team section -->
+
+<!-- Start Let's Connect section -->
+
+
+{{ partial:let-connect-section }}
+<!-- End Let's Connect section -->
+
+<!-- start project -->
+{{ if related_projects:related_project }}
+<div class="overflow-hidden projects-2 2xl:mb-[100px] lg:mb-[70px] sm:mb-[50px] mb-10">
+    <div class="container">
+        <!-- Heading & Button -->
+        <div class="flex sm:items-center items-start justify-between w-full sm:flex-row flex-col gap-5 xl:mb-10 md:mb-9 sm:mb-7 mb-5">
+            <h2>{{ related_projects:related_project_title }}</h2>
+            {{ if related_projects:button_text }}<a href="/projects" class="btn btn-primary-reverse sm:!flex !hidden">{{ related_projects:button_text }}</a> {{ /if }}
+        </div>
+        <div class="grid xl:grid-cols-3 sm:grid-cols-2 grid-cols-1 1xl:gap-[50px] xl:gap-[40px] md:gap-8 sm:gap-7 gap-[22px]">
+            <!-- project-1 -->
+            {{ related_projects:related_project limit="3" }}
+            <div class="group/project h-auto relative project">
+                <div class="project-box !bg-[#F6F6F6]">
+                    <div class="relative overflow-hidden 2xl:before:pt-[56.5%] xl:before:pt-[59%] md:before:pt-[56.5%] before:pt-[61%] before:block">
+                        <a href="/project/{{ slug }}" class="absolute top-0 left-0 w-full h-full block">
+                            <img src="{{ image }} {{ url }} {{ /image }}" alt="img" class="h-full w-full object-cover transition-all ease-in-out" />
+                        </a>
+                        <a href="/project/{{ slug }}" class="project-arrow hidden group-hover/project:flex transition-all ease-in-out">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="69" height="69" viewBox="0 0 69 69" fill="none" class="2xl:w-[69px] xl:w-[63px] sm:w-[55px] w-12 h-auto">
+                                <path d="M24.8251 24.825H44.5722M44.5722 24.825V44.572M44.5722 24.825L24.8251 44.572" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="project-location">
+                        {{ details }}
+                        {{ if label == 'Location' }}
+                        <p class="p2 tracking-[0.8px] !font-medium uppercase text-primary-900 1xl:mb-4 md:mb-3 mb-2">
+                            {{ value }}
+                        </p>
+                        {{ /if }}
+                        {{ /details }}
+                        <h4 class="1xl:mb-4 md:mb-3 mb-2">
+                            <a href="/project/{{ slug }}" class="group-hover/project:text-primary-900">
+                                {{ title }}
+                            </a>
+                        </h4>
+                        <p class="text-gray-400">
+                            {{ overview_section:overvie | strip_tags | truncate:300 }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {{ /related_projects:related_project }}
+        </div>
+    </div>
+</div>
+{{ /if }}

@@ -1,0 +1,13 @@
+<svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="solar:align-horizonta-spacing-linear" clip-path="url(#clip0_110_214)">
+<g id="Group">
+<path id="Vector" d="M1.09375 1.29633V33.7037M33.9062 1.29633V33.7037" stroke="black" stroke-width="2" stroke-linecap="round"/>
+<path id="Vector_2" d="M17.4999 4.53705C14.0619 4.53705 12.3447 4.53705 11.2765 5.48659C10.2083 6.43612 10.2083 7.96251 10.2083 11.0185V23.9815C10.2083 27.0375 10.2083 28.5639 11.2765 29.5134C12.3447 30.463 14.0619 30.463 17.4999 30.463C20.9379 30.463 22.6551 30.463 23.7234 29.5134C24.7916 28.5639 24.7916 27.0375 24.7916 23.9815V11.0185C24.7916 7.96251 24.7916 6.43612 23.7234 5.48659C22.6551 4.53705 20.9379 4.53705 17.4999 4.53705Z" stroke="black" stroke-width="2"/>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_110_214">
+<rect width="35" height="35" fill="white"/>
+</clipPath>
+</defs>
+</svg>

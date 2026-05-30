@@ -1,0 +1,285 @@
+{{ if show_type == 'home-page-four' }}
+
+<section class="relative 2xl:mb-[100px] lg:mb-[70px] sm:mb-[50px] mb-10 bg-[#EFEFEF] 2xl:py-[90px] 1xl:py-[80px] lg:py-[70px] sm:py-[50px] py-10">
+  <div class="container">
+    <!-- Heading & Button -->
+    <div class="flex sm:items-center items-start justify-between w-full sm:flex-row flex-col gap-5 xl:mb-[55px] md:mb-9 sm:mb-7 mb-5">
+      <h2>{{ team_section }}</h2>
+      {{ if button_text }}<a href="{{ button_link }}" class="btn btn-primary-reverse sm:!flex !hidden">{{ button_text }}</a>{{ /if }}
+    </div>
+
+    <!-- Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 2xl:gap-[55px] 1xl:gap-[45px] xl:gap-9 lg:gap-7 sm:gap-10 gap-[30px]">
+      <!-- Team Member -->
+      {{ team_members limit="4" }}
+      <div class="text-center group">
+        <a href="/team/{{slug}}">
+          <div class="relative overflow-hidden before:block sm:before:pt-[104%] before:pt-[100%] xl:mb-6 sm:mb-5 mb-[18px]">
+            {{ member_info:photo }}
+            <img src="{{ url }}" alt="{{ title }}" class="absolute top-0 left-0 w-full h-full object-cover" />
+            {{ /member_info:photo }}
+          </div>
+          <h5 class="text-start group-hover:text-primary-900 font-normal">
+            {{ title }}
+          </h5>
+        </a>
+        <p class="text-start text-dark-400">{{ member_info:designation }}</p>
+        {{ social_share }}
+        <div class="flex flex-row 2xl:gap-[18px] 1xl:gap-[15px] gap-[10px] 2xl:mt-[22px] xl:mt-[18px] mt-4">
+
+          {{ socials }}
+          <a href="{{ url }} {{config:app.url}}team/{{ slug }}" target="_blank" class="p-1 flex items-center justify-center btn-primary rounded-full flex-shrink-0 2xl:w-[50px] 2xl:h-[50px] xl:w-[40px] xl:h-[40px] lg:w-[37px] lg:h-[37px] sm:w-[42px] sm:h-[42px] w-[40px] h-[40px] overflow-hidden">
+            <i class="fa-brands fa-{{ platform }}"></i>
+          </a>
+          {{ /socials }}
+
+        </div>
+        {{ /social_share }}
+      </div>
+      {{ /team_members }}
+    </div>
+    {{ if button_text }}
+    <div class="sm:hidden flex mt-6">
+      <a href="{{ button_link }}" class="btn btn-primary-reverse">{{ button_text }}</a>
+    </div>
+    {{ /if }}
+  </div>
+</section>
+
+{{ elseif show_type == 'home-page-one' }}
+<section class="team-section relative 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] md:mb-[50px] mb-8 z-1">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="sm:flex items-center justify-between md:pb-[30px] sm:pb-6 pb-4 2xl:mb-[60px] 1xl:mb-[50px] md:mb-[42px] sm:mb-[34px] mb-[30px] border-b border-[#0000004D]">
+      <h2 class="mb-0">{{ team_section }}</h2>
+      {{ if button_text }}
+      <div class="w-fit sm:flex hidden items-center justify-end">
+        <a href="{{ button_link }}" class="btn btn-primary-reverse">{{ button_text }}</a>
+      </div>
+      {{ /if }}
+    </div>
+    <div class="swiper team">
+      <div class="swiper-wrapper teams-cards">
+
+        {{ team_members }}
+        <div class="swiper-slide">
+          <div class="team-member">
+            <div class="relative group cursor-pointer">
+              <div class="relative overflow-hidden 2xl:before:pt-[440px] 1xl:before:pt-[375px] xl:before:pt-[335px] lg:before:pt-[360px] md:before:pt-[400px] sm:before:pt-[350px] min-[375px]:before:pt-[375px] before:pt-[316px] before:block">
+                {{ member_info:photo }} <img src="{{ url }}" alt="{{ title }}" class="absolute top-0 bottom-0 right-0 left-0 w-full h-full object-cover grayscale transition-all duration-500" loading="lazy" loading="lazy" />
+                {{ /member_info:photo }}
+                <div class="absolute inset-0 bg-transparent group-hover:bg-black/40 transition-all duration-500 cursor-auto">
+                </div>
+
+                <!-- Social Media Icons -->
+                {{ social_share }}
+                <div class="absolute 2xl:top-[30px] 2xl:right-[30px] 1xl:top-6 1xl:right-6 top-[22px] sm:right-[22px] right-[15px] flex flex-col 2xl:gap-[15px] 1xl:gap-3 gap-[10px] lg:opacity-0 opacity-100 lg:group-hover:opacity-100 transition-all duration-500 z-10">
+                  {{ socials }}
+                  <a href="{{ url }} {{config:app.url}}team/{{ slug }}" target="_blank" class="lg:group-hover:delay-0 member-social">
+                    <i class="fa-brands fa-{{ platform }}"></i>
+                  </a>
+                  {{ /socials }}
+                </div>
+                {{ /social_share }}
+
+                <!-- Member Info -->
+                <div class="flex flex-col absolute 2xl:bottom-7 2xl:left-7 1xl:bottom-6 1xl:left-6 bottom-[18px] left-[18px] lg:transform lg:translate-y-2 lg:group-hover:translate-y-0 lg:opacity-0 lg:group-hover:opacity-100 transition-all duration-500">
+                  <a href="/team/{{ slug }}" class="w-fit">
+                    <h5 class="h4 text-white m-0 font-light lg:translate-0 lg:hover:translate-x-2 transition-all ease-in-out">
+                      {{ title }}
+                    </h5>
+                  </a>
+                  <p class="text-white">{{ member_info:designation }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {{ /team_members }}
+      </div>
+    </div>
+    {{ if button_text }}
+    <div class="flex items-center justify-between mt-6 sm:hidden">
+      <a href="{{ button_link }}" class="btn btn-primary-reverse">{{ button_text }}
+      </a>
+    </div>
+    {{ /if }}
+  </div>
+</section>
+{{ elseif show_type == 'team-page-one' }}
+
+  <div class="container xl:py-[70px] md:py-[60px] sm:py-[38px] py-[34px]">
+                <h2 class="2xl:mb-[60px] 1xl:mb-[50px] xl:mb-10 md:mb-8 sm:mb-6 mb-5 sm:text-start text-center">
+                    {{ team_section }}
+                </h2>
+                 {{ if collections == "teams" }}
+                {{ collection:teams as="teams" paginate="{pagination}" limit="{limit}" }}
+                {{ /if }}
+                <div
+                    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:gap-[55px] 1xl:gap-[45px] xl:gap-9 lg:gap-7 gap-[30px] grid_append">
+                    <!-- Team Member 1 -->
+                    {{ teams }}
+                    <div class="text-center group grid-item-append">
+                        <a href="/team/{{ slug }}">
+                            <div
+                                class="relative overflow-hidden before:block sm:before:pt-[104%] before:pt-[96%] 1xl:mb-6 mb-4">
+                                <img src="{{ member_info:photo }} {{ url }} {{ /member_info:photo }}" alt="Nizarh Gems"
+                                    class="absolute top-0 left-0 w-full h-full object-cover" />
+                            </div>
+                            <h5 class="text-start group-hover:text-primary-900 font-normal text-black">
+                                {{ title }}
+                            </h5>
+                        </a>
+                        <p class="text-start text-dark-400">{{ member_info:designation }}</p>
+
+                        {{ social_share }}
+                        <div class="flex flex-row 2xl:gap-[18px] 1xl:gap-[15px] gap-[10px] 2xl:mt-[22px] xl:mt-[18px] mt-3 flex-wrap">
+                          {{ socials }}
+                          <a href="{{ url }} {{config:app.url}}team/{{ slug }}" target="_blank" class="p-1 flex items-center justify-center btn-primary rounded-full flex-shrink-0 2xl:w-[50px] 2xl:h-[50px] xl:w-[40px] xl:h-[40px] w-[37px] h-[37px] overflow-hidden">
+                            <i class="fa-brands fa-{{ platform }}"></i>
+                          </a>
+                          {{ /socials }}
+                        </div>
+                        {{ /social_share }}
+
+                    </div>
+                    {{ /teams }}
+                </div>
+
+                {{ paginate }}
+                <input type="hidden" class="lastPage" value="{{ total_pages }}">
+                <input type="hidden" class="currentPage" value="{{ current_page }}">
+                {{ if next_page }} 
+                <div class="load-more-wrap 2xl:mt-20 1xl:mt-17 lg:mt-15 md:mt-12 mt-9 flex justify-center">
+                  <div class="load-btn" style="text-align: center;">
+                    <a href="{{ next_page }}" class="btn ajax-load-more-grid">Load More <img src="{{theme:asset}}assets/images/loading-spinner.svg" alt="loader" class="loading-spin object-cover animate-spin hidden"></a>
+                  </div>
+                </div>
+              {{ /if }}
+              {{ /paginate }} 
+
+              {{ if collections == "teams" }}
+                {{ /collection:teams }}
+                {{ /if }} 
+
+            </div>
+
+            {{ elseif show_type == 'team-page-two' }}
+
+             <div class="container xl:py-[70px] md:py-[60px] sm:py-[38px] py-[34px]">
+                <h2 class="2xl:mb-[60px] 1xl:mb-[50px] xl:mb-10 md:mb-8 sm:mb-6 mb-5 sm:text-start text-center">
+                   {{ team_section }}
+                </h2>
+                {{ if collections == "teams" }}
+                {{ collection:teams as="teams" paginate="{pagination}" limit="{limit}" }}
+                {{ /if }}
+                <div
+                    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:gap-[55px] 1xl:gap-[45px] xl:gap-8 lg:gap-7 gap-[30px] grid_append">
+                    <!-- Team Member 1 -->
+                     {{ teams }}
+                    <div class="team-member grid-item-append">
+                        <div class="relative group cursor-pointer">
+                            <div class="relative overflow-hidden before:pt-[113%] before:block">
+                                <img src="{{ member_info:photo }} {{ url }} {{ /member_info:photo }}" alt="Nizahr Gems"
+                                    class="absolute top-0 bottom-0 right-0 left-0 w-full h-full object-cover grayscale transition-all duration-300"
+                                    loading="lazy" loading="lazy" />
+                                <div
+                                    class="absolute inset-0 lg:bg-transparent group-hover:bg-black/40 bg-black/40 transition-all duration-300 cursor-auto">
+                                </div>
+
+                                <!-- Social Media Icons -->
+
+                                {{ social_share }}
+                                <div class="absolute 2xl:top-[30px] 2xl:right-[30px] 1xl:top-6 1xl:right-6 top-[14px] right-[15px] flex flex-col 2xl:gap-[15px] 1xl:gap-3 gap-[10px] lg:opacity-0 opacity-100 lg:group-hover:opacity-100 transition-all duration-300 z-10">
+                                  {{ socials }}
+                                  <a href="{{ url }} {{config:app.url}}team/{{ slug }}" target="_blank" class="lg:group-hover:delay-0 member-social">
+                                    <i class="fa-brands fa-{{ platform }}"></i>
+                                  </a>
+                                  {{ /socials }}
+                                </div>
+                                {{ /social_share }}
+                               
+
+                                <!-- Member Info -->
+                                <div
+                                    class="flex flex-col absolute 2xl:bottom-7 2xl:left-7 1xl:bottom-6 1xl:left-6 bottom-[18px] left-[18px] lg:transform lg:translate-y-2 lg:group-hover:translate-y-0 lg:opacity-0 lg:group-hover:opacity-100 transition-all duration-300">
+                                    <a href="/team/{{ slug }}" class="w-fit">
+                                        <h5
+                                            class="h4 text-white m-0 font-light lg:translate-0 lg:hover:translate-x-2 transition-all ease-in-out">
+                                            {{ title }}
+                                        </h5>
+                                    </a>
+                                    <p class="text-white">{{ member_info:designation }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     {{ /teams }}
+                </div>
+
+                {{ paginate }}
+                <input type="hidden" class="lastPage" value="{{ total_pages }}">
+                <input type="hidden" class="currentPage" value="{{ current_page }}">
+                {{ if next_page }} 
+                <div class="load-more-wrap 2xl:mt-20 1xl:mt-17 lg:mt-15 md:mt-12 mt-9 flex justify-center">
+                  <div class="load-btn" style="text-align: center;">
+                    <a href="{{ next_page }}" class="btn ajax-load-more-grid">Load More <img src="{{theme:asset}}assets/images/loading-spinner.svg" alt="loader" class="loading-spin object-cover animate-spin hidden"></a>
+                  </div>
+                </div>
+              {{ /if }}
+              {{ /paginate }} 
+
+              {{ if collections == "teams" }}
+                {{ /collection:teams }}
+                {{ /if }} 
+            </div>
+
+            {{ elseif show_type == 'about-page' }}
+
+<section class="relative 2xl:mb-[100px] lg:mb-[70px] sm:mb-[50px] mb-10 bg-[#EFEFEF] 2xl:py-[90px] 1xl:py-[80px] lg:py-[70px] sm:py-[50px] py-10">
+  <div class="container">
+    <!-- Heading & Button -->
+    <div class="flex sm:items-center items-start justify-between w-full sm:flex-row flex-col gap-5 xl:mb-[55px] md:mb-9 sm:mb-7 mb-5">
+      <h2>{{ team_section }}</h2>
+      {{ if button_text }}<a href="{{ button_link }}" class="btn btn-primary-reverse sm:!flex !hidden">{{ button_text }}</a>{{ /if }}
+    </div>
+
+    <!-- Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 2xl:gap-[55px] 1xl:gap-[45px] xl:gap-9 lg:gap-7 sm:gap-10 gap-[30px]">
+      <!-- Team Member -->
+      {{ team_members limit="4" }}
+      <div class="text-center group">
+        <a href="/team/{{slug}}">
+          <div class="relative overflow-hidden before:block sm:before:pt-[104%] before:pt-[100%] xl:mb-6 sm:mb-5 mb-[18px]">
+            {{ member_info:photo }}
+            <img src="{{ url }}" alt="{{ title }}" class="absolute top-0 left-0 w-full h-full object-cover" />
+            {{ /member_info:photo }}
+          </div>
+          <h5 class="text-start group-hover:text-primary-900 font-normal">
+            {{ title }}
+          </h5>
+        </a>
+        <p class="text-start text-dark-400">{{ member_info:designation }}</p>
+        {{ social_share }}
+        <div class="flex flex-row 2xl:gap-[18px] 1xl:gap-[15px] gap-[10px] 2xl:mt-[22px] xl:mt-[18px] mt-4">
+
+          {{ socials }}
+          <a href="{{ url }} {{config:app.url}}team/{{ slug }}" target="_blank" class="p-1 flex items-center justify-center btn-primary rounded-full flex-shrink-0 2xl:w-[50px] 2xl:h-[50px] xl:w-[40px] xl:h-[40px] lg:w-[37px] lg:h-[37px] sm:w-[42px] sm:h-[42px] w-[40px] h-[40px] overflow-hidden">
+            <i class="fa-brands fa-{{ platform }}"></i>
+          </a>
+          {{ /socials }}
+
+        </div>
+        {{ /social_share }}
+      </div>
+      {{ /team_members }}
+    </div>
+    {{ if button_text }}
+    <div class="sm:hidden flex mt-6">
+      <a href="{{ button_link }}" class="btn btn-primary-reverse">{{ button_text }}</a>
+    </div>
+    {{ /if }}
+  </div>
+</section>
+
+{{ /if }}

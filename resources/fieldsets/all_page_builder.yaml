@@ -1,0 +1,233 @@
+title: 'all page builder'
+fields:
+  -
+    handle: page_builder
+    field:
+      collapse: true
+      type: replicator
+      display: 'Page Builder'
+      localizable: true
+      sets:
+        new_set_group:
+          display: 'New Set Group'
+          sets:
+            hero_slide_section:
+              display: 'Hero Slide Section'
+              fields:
+                -
+                  import: hero_slide_section
+            our_story_section:
+              display: 'Our Story Section'
+              fields:
+                -
+                  import: our_story_section
+            service_section:
+              display: 'Service Section'
+              fields:
+                -
+                  import: service_section
+            overview_section:
+              display: 'Overview Section'
+              fields:
+                -
+                  import: overview_section
+            logos_slider:
+              display: 'Logos Slider'
+              fields:
+                -
+                  import: logos_slider
+            image_with_text_section:
+              display: 'Image with Text Section'
+              fields:
+                -
+                  import: image_with_text_section
+            how_it_works_section:
+              display: 'How It Works Section'
+              fields:
+                -
+                  import: how_it_works_section
+            featured_projects:
+              display: 'Featured Projects'
+              fields:
+                -
+                  import: featured_projects
+            why_choose_orion_section:
+              display: 'Why Choose Orion Section'
+              fields:
+                -
+                  import: why_choose_orion_section
+            explore_our_worked_sites_section:
+              display: 'Explore Our Worked Sites Section'
+              fields:
+                -
+                  import: explore_our_worked_sites_section
+            team_section:
+              display: 'Team Section'
+              fields:
+                -
+                  import: team_section
+            testimonials_section:
+              display: 'Testimonials Section'
+              fields:
+                -
+                  import: testimonials_section
+            faq_section:
+              display: 'FAQ Section'
+              fields:
+                -
+                  import: faq_section
+            latest_blogs_section:
+              display: 'Latest Blogs Section'
+              fields:
+                -
+                  import: latest_blogs_section
+            trusted_partners_section:
+              display: 'Trusted Partners Section'
+              fields:
+                -
+                  import: trusted_partners_section
+            what_we_do_section:
+              display: 'What We Do Section'
+              fields:
+                -
+                  import: what_we_do_section
+            about_vision_section:
+              display: 'About Vision Section'
+              fields:
+                -
+                  import: about_vision_section
+            quality_materials_section:
+              display: 'Quality Materials Section'
+              fields:
+                -
+                  import: quality_materials_section
+            why_choose_us_section:
+              display: 'Why Choose Us Section'
+              fields:
+                -
+                  import: why_choose_us_section
+            project_section:
+              display: 'Project Section'
+              fields:
+                -
+                  import: project_section
+            who_we_are_section:
+              display: 'Who We Are Section'
+              fields:
+                -
+                  import: who_we_are_section
+            our_work_process_section:
+              display: 'Our Work Process Section'
+              fields:
+                -
+                  import: our_work_process_section
+            instagram_gallery_section:
+              display: 'Instagram Gallery Section'
+              fields:
+                -
+                  import: instagram_gallery_section
+            stats_section:
+              display: 'Stats Section'
+              fields:
+                -
+                  import: stats_section
+            about_image_with_text_section:
+              display: 'About Image With Text Section'
+              fields:
+                -
+                  import: about_image_with_text_section
+            text_slider_section:
+              display: 'Text Slider Section'
+              fields:
+                -
+                  import: text_slider_section
+            gallery_section:
+              display: 'Gallery Section'
+              fields:
+                -
+                  import: gallery_section
+            feature_image_with_points:
+              display: 'Feature Image with Points'
+              fields:
+                -
+                  import: feature_image_with_points
+            project_quotation_banner:
+              display: 'Project Quotation Banner'
+              fields:
+                -
+                  import: project_quotation_banner
+            terms_condition_section:
+              display: 'Terms Condition Section'
+              fields:
+                -
+                  import: terms_condition_section
+            privacy_policy_section:
+              display: 'Privacy Policy Section'
+              fields:
+                -
+                  import: privacy_policy_section
+            contact_section:
+              display: 'Contact Section'
+              fields:
+                -
+                  import: contact_section
+            confidence_section:
+              display: 'Confidence Section'
+              fields:
+                -
+                  import: confidence_section
+            blog_section:
+              display: 'Blog Section'
+              fields:
+                -
+                  import: blog_section
+            category_header_section:
+              display: 'Category Header Section'
+              fields:
+                -
+                  import: category_header_section
+            career_banner:
+              display: 'Career Banner'
+              fields:
+                -
+                  import: career_banner
+            career_section:
+              display: 'Career Section'
+              fields:
+                -
+                  import: career_section
+            current_openings:
+              display: 'Current Openings'
+              fields:
+                -
+                  import: current_openings
+            recruitment_process:
+              display: 'Recruitment Process'
+              fields:
+                -
+                  import: recruitment_process
+            work_with_us:
+              display: 'Work With Us'
+              fields:
+                -
+                  import: work_with_us
+            about_section:
+              display: 'About Section'
+              fields:
+                -
+                  import: about_section
+            mission_vision:
+              display: 'Mission Vision'
+              fields:
+                -
+                  import: mission_vision
+            project_history:
+              display: 'Project History'
+              fields:
+                -
+                  import: project_history
+            package_section:
+              display: 'Package Section'
+              fields:
+                -
+                  import: package_section

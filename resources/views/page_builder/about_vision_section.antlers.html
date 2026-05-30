@@ -1,0 +1,23 @@
+<section class="relative 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] md:mb-[50px] mb-8">
+  <div class="container">
+    <div class="flex md:flex-row flex-col 1xl:gap-[68px] xl:gap-[50px] md:gap-[35px] sm:gap-7 gap-4">
+      <div class="w-full order-2 md:order-1">
+        <div class="rounded-5xl relative overflow-hidden before:pt-[47%] before:block">
+          <img src="{{ left_image }}{{ url }}{{ /left_image }}" alt="img" class="absolute top-0 left-0 bottom-0 right-0 w-full h-full block object-cover" />
+        </div>
+        <div class="2xl:mt-20 1xl:mt-14 xl:mt-10 mt-8 2xl:w-[77%] 1xl:w-[93%] w-full">
+          <h2 class="2xl:mb-7 xl:mb-5 mb-4">
+            {{ section_title }}
+          </h2>
+          <p class="xl:mb-7 mb-5 text-dark-400">{{ description }}</p>
+          {{ if button_text }}<a href="{{ button_link }}" class="btn btn-primary">{{ button_text }}</a>{{ /if }}
+        </div>
+      </div>
+      <div class="w-full order-1 md:order-2 h-auto">
+        <div class="rounded-5xl relative overflow-hidden md:before:pt-[100%] sm:before:pt-[75%] before:pt-[100%] before:block h-full">
+          <img src="{{ right_image }} {{ url }} {{ /right_image }}" alt="img" class="absolute top-0 left-0 bottom-0 right-0 w-full h-full block object-cover" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

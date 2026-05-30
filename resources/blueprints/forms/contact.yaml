@@ -1,0 +1,58 @@
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: name
+            field:
+              type: text
+              display: 'Full Name'
+              validate:
+                - required
+          -
+            handle: email
+            field:
+              type: text
+              display: 'Email Address'
+              validate:
+                - required
+                - email
+                - 'unique:form_submissions,enquiry,email'
+              always_save: false
+          -
+            handle: company
+            field:
+              type: text
+              display: Company
+          -
+            handle: phone
+            field:
+              type: text
+              display: Phone
+              always_save: false
+              validate:
+                - 'regex:/^\+?[0-9\s\-\(\)]{7,15}$/'
+          -
+            handle: choose_plan
+            field:
+              type: text
+              display: 'Choose Plan'
+          -
+            handle: budget
+            field:
+              type: text
+              display: Budget
+          -
+            handle: message
+            field:
+              type: textarea
+              display: Message
+          -
+            handle: file_upload
+            field:
+              max_files: 5
+              container: assets
+              type: assets
+              display: 'File Upload'

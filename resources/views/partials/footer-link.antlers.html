@@ -1,0 +1,18 @@
+<!-- JS Libraries and Custom Scripts -->
+<script src="{{ theme:asset src='assets/js/jquery.min.js' }}" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/js/all.min.js"></script>
+<script src="{{ theme:asset src='assets/js/swiper-bundle.min.js' }}" defer></script>
+<script src="{{ theme:asset src='assets/js/alpine.min.js' }}" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="module" src="{{ theme:asset src='assets/js/custom.js' }}?v={{ now format="YmdHis" }}"></script>
+<!-- <script type="module" src="{{ theme:asset src='assets/js/custom.js' }}?v={{ now format="YmdHis" }}"></script> -->
+
+<!-- AOS Initialization and Global Variables -->
+<script>
+   AOS.init();
+  const newsLetterUrl = "{{ route:newsLetter }}";
+  const headerSearch = "{{ route:header.search }}";
+  const contactAdd = "{{ route:contact.add }}";
+  const is_homepage = {{ is_homepage ? 'true' : 'false' }};
+</script>

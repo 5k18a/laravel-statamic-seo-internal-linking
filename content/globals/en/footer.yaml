@@ -1,0 +1,82 @@
+useful_link_title: 'Useful Links'
+our_services_title: 'Our Services'
+our_branches_title: 'Our Branches'
+copyright_text: '© All rights reserved to Orion Constructions'
+newsletter_button_text: Submit
+description: 'Orion Construction is a leading construction company delivering high-quality infrastructure, commercial, and residential projects.'
+privacy_policy: /en/privacy-policy
+privacy_policy_label: 'Privacy policy'
+terms_conditions_url: /en/terms-and-conditions
+terms_conditions_label: 'Terms & conditions'
+footer_image: images/footer-bg.webp
+links:
+  -
+    id: mgt4dkau
+    title: Home
+    url: /en
+    type: new_set
+    enabled: true
+  -
+    id: mgt4efzw
+    title: 'About Us'
+    url: /en/about-us
+    type: new_set
+    enabled: true
+  -
+    id: mgt4f1bo
+    title: 'Our Services'
+    url: /en/services
+    type: new_set
+    enabled: true
+  -
+    id: mgt4f78t
+    title: Projects
+    url: /en/projects
+    type: new_set
+    enabled: true
+  -
+    id: mgt4fgc3
+    title: 'Our Blogs'
+    url: /en/blogs
+    type: new_set
+    enabled: true
+  -
+    id: mgt4fmjv
+    title: Careers
+    url: /en/career
+    type: new_set
+    enabled: true
+  -
+    id: mgt4fy8c
+    title: 'Contact Us'
+    url: /en/contact-us
+    type: new_set
+    enabled: true
+branches:
+  -
+    id: mgt4dlwc
+    country_name: 'INDIA:'
+    country_flag: images/india-flag.webp
+    maps_url: 'https://www.google.com/maps/place/Plot+No.+2,+4th+Floor,+Skyline+Business+Park,+Noida,+Uttar+Pradesh+201301,+India'
+    address: 'Plot No. 2, 4th Floor, Skyline Business Park, Noida, Uttar Pradesh 201301, India'
+    type: new_set
+    enabled: true
+  -
+    id: mgt4gzq3
+    country_name: 'GERMANY:'
+    country_flag: images/germany-flag.webp
+    maps_url: 'https://www.google.com/maps/place/Schillerplatz+9,+3rd+Floor,+Business+Tower+City+Center,+173,+Germany'
+    address: 'Schillerplatz 9, 3rd Floor, Business Tower City Center, 173, Germany'
+    type: new_set
+    enabled: true
+follow_text: 'Follow us here :'
+newsletter_title: 'Let’s build something great together.'
+newsletter_description: 'Whether you’re planning a new project, looking for expert advice, or want to collaborate, we’re here to help. Reach out today our team is ready to discuss.'
+service_entries:
+  - d43bcc27-9312-4895-a882-1e33476bc0a1
+  - f966443e-fdf4-46b7-b317-0a8ace311410
+  - 32297519-f0c1-479f-adaa-9bc6194d2a1c
+  - 15bbfcdc-fa8a-4421-aaa4-d71b30db6753
+  - cf7f6782-ba10-476a-9ee0-83878500a520
+  - 6608109f-ac6b-4364-a68e-98522c04c8fe
+  - 5f023b7c-053b-4380-a118-b6f252fee7a2

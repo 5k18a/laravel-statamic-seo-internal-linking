@@ -1,0 +1,6 @@
+title: 'Error Page'
+sites:
+  en:
+    origin: null
+  pl:
+    origin: en

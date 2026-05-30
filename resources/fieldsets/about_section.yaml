@@ -1,0 +1,32 @@
+title: 'About Section'
+fields:
+  -
+    handle: banner
+    field:
+      type: assets
+      display: 'Banner Image'
+      container: assets
+      folder: about
+      max_files: 1
+      instructions: 'Upload the banner image displayed at the top of the page.'
+  -
+    handle: banner_title
+    field:
+      type: text
+      display: 'Banner Title'
+      instructions: 'This text appears on top of the banner image.'
+      default: 'About Us'
+  -
+    handle: intro_text
+    field:
+      type: textarea
+      display: 'Intro Paragraph'
+      instructions: 'Main introductory paragraph under the About Us heading.'
+      antlers: true
+  -
+    handle: description
+    field:
+      type: textarea
+      display: Description
+      instructions: 'Detailed paragraph explaining company mission and values.'
+      antlers: true

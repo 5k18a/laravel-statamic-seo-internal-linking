@@ -1,0 +1,17 @@
+{{ page_builder scope="block" }}
+    {{ if type != 'trusted_partners_section' }}
+    {{ partial src="page_builder/{type}" }}
+    {{ /if }}
+{{ /page_builder }}
+
+
+<!-- Start Let's Connect section -->
+{{ partial:let-connect-section }}
+<!-- End Let's Connect section -->
+
+
+{{ page_builder scope="block" }}
+    {{ if type == 'trusted_partners_section' }}
+    {{ partial src="page_builder/{type}" }}
+    {{ /if }}
+{{ /page_builder }}

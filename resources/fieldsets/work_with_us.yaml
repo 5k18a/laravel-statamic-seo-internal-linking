@@ -1,0 +1,43 @@
+title: 'Work With Us'
+fields:
+  -
+    handle: section_title
+    field:
+      type: text
+      display: 'Section Title'
+      instructions: "Heading for this section (e.g., 'Work With Us')."
+  -
+    handle: work_items
+    field:
+      type: replicator
+      display: 'Work Items'
+      instructions: "Add and manage the content cards for 'Work With Us' (e.g., Our Culture, Career Growth, etc.)."
+      collapse: true
+      sets:
+        main:
+          display: Main
+          sets:
+            item:
+              display: 'Work Item'
+              fields:
+                -
+                  handle: icon
+                  field:
+                    type: assets
+                    display: 'Icon Image'
+                    instructions: 'Upload an icon (SVG or PNG).'
+                    container: assets
+                    folder: icons
+                    max_files: 1
+                -
+                  handle: title
+                  field:
+                    type: text
+                    display: Title
+                    instructions: "Title of the item (e.g., 'Our Culture')."
+                -
+                  handle: description
+                  field:
+                    type: textarea
+                    display: Description
+                    instructions: 'Short description shown under the title.'

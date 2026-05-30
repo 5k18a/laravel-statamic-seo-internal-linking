@@ -1,0 +1,197 @@
+title: Team
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              display: Title
+              validate:
+                - required
+          -
+            handle: member_info
+            field:
+              type: group
+              display: 'Member Info'
+              sortable: false
+              replicator_preview: false
+              fields:
+                -
+                  handle: photo
+                  field:
+                    type: assets
+                    display: Photo
+                    max_files: 1
+                    container: assets
+                    min_files: 1
+                -
+                  handle: designation
+                  field:
+                    type: text
+                    display: Designation
+                    placeholder: 'e.g. Founder, CEO'
+                -
+                  handle: short_bio
+                  field:
+                    type: textarea
+                    display: 'Short Description'
+                    placeholder: 'Brief intro paragraph about the person'
+                -
+                  handle: details
+                  field:
+                    type: replicator
+                    display: Details
+                    sets:
+                      main:
+                        display: Main
+                        sets:
+                          info_item:
+                            display: 'Info Item'
+                            fields:
+                              -
+                                handle: label
+                                field:
+                                  type: text
+                                  display: Label
+                                  placeholder: 'e.g. Email, Phone, Location'
+                              -
+                                handle: value
+                                field:
+                                  type: text
+                                  display: Value
+                                  placeholder: 'e.g. nizahr.gems@company.com'
+                -
+                  handle: biography_title
+                  field:
+                    default: Biography
+                    type: text
+                    display: 'Biography Title'
+                -
+                  handle: biography
+                  field:
+                    type: markdown
+                    display: Biography
+                    instructions: 'Full biography content of the member'
+                -
+                  handle: skill_title
+                  field:
+                    default: 'Our Skills'
+                    type: text
+                    display: 'Skill Title'
+                -
+                  handle: skill_description
+                  field:
+                    type: textarea
+                    display: 'Skill Description'
+                -
+                  handle: skills_section
+                  field:
+                    type: replicator
+                    display: Skills
+                    collapse: true
+                    sets:
+                      main:
+                        display: Main
+                        sets:
+                          skill:
+                            display: Skill
+                            fields:
+                              -
+                                handle: skill_name
+                                field:
+                                  type: text
+                                  display: 'Skill Name'
+                              -
+                                handle: skill_percentage
+                                field:
+                                  type: integer
+                                  display: Percentage
+                                  instructions: 'Skill proficiency percentage (e.g., 92)'
+                -
+                  handle: expertise_section
+                  field:
+                    type: grid
+                    display: 'Work Expertise'
+                    fields:
+                      -
+                        handle: heading
+                        field:
+                          type: text
+                          display: Heading
+                          placeholder: 'e.g. Work Expertise'
+                      -
+                        handle: description_1
+                        field:
+                          type: textarea
+                          display: 'Description 1'
+                      -
+                        handle: description_2
+                        field:
+                          type: textarea
+                          display: 'Description 2'
+                      -
+                        handle: highlights
+                        field:
+                          type: list
+                          display: 'Key Highlights'
+                          instructions: 'Short bullet points (e.g. Vision-Driven Growth)'
+                -
+                  handle: project_milestones_title
+                  field:
+                    default: 'Project Milestones'
+                    type: text
+                    display: 'Project Milestones Title'
+                -
+                  handle: milestones
+                  field:
+                    type: replicator
+                    display: 'Project Milestones'
+                    instructions: 'Timeline of the member’s career'
+                    sets:
+                      main:
+                        display: Main
+                        sets:
+                          milestone:
+                            display: Milestone
+                            fields:
+                              -
+                                handle: year_range
+                                field:
+                                  type: text
+                                  display: 'Year Range'
+                                  placeholder: 'e.g. 2021 – 2025'
+                              -
+                                handle: title
+                                field:
+                                  type: text
+                                  display: Title
+                                  placeholder: 'e.g. Global Growth & Innovation (Dubai, UAE)'
+                              -
+                                handle: image
+                                field:
+                                  type: assets
+                                  display: 'Background Image'
+                                  max_files: 1
+                                  container: assets
+                              -
+                                handle: description
+                                field:
+                                  type: markdown
+                                  display: Description
+                                  placeholder: 'Milestone details paragraph'
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'

@@ -1,0 +1,216 @@
+tree:
+  -
+    id: 0c24fac8-1f9d-449f-aa94-ac9021aa9ef6
+    title: 'About Orion'
+    url: /en/about-us
+  -
+    id: a7feb3d5-91e3-41ff-94ae-f969e2edb62a
+    title: Projects
+    url: /en/projects
+    data:
+      menu_type: project-list
+      project_entries:
+        - 0960496c-40bd-4061-9e79-f74e3bf2dcaa
+        - 930b2660-8020-4da4-a48c-5a89242ac209
+        - f881146c-f217-4370-a4f5-79d69e2c5e51
+        - 3a9e9898-fec3-4f0f-adf0-5b13a60b6a63
+        - 339182d4-7ccd-483f-9d0e-5d24bb1ba1fe
+      button_text: 'View Projects'
+      button_link: /en/projects
+      copyright_text: '© All rights reserved to Orion Constructions'
+  -
+    id: 0f64feda-3c94-4b43-98f5-0e39fadceca2
+    title: Services
+    url: /en/services
+    data:
+      menu_type: service-list
+      service_entries:
+        - 6608109f-ac6b-4364-a68e-98522c04c8fe
+        - cf7f6782-ba10-476a-9ee0-83878500a520
+        - 51297aee-5cc5-468c-b966-afe9d983a98e
+        - 32297519-f0c1-479f-adaa-9bc6194d2a1c
+        - 7184853b-de2c-40cd-9c2e-80322aa4f918
+        - 9fcd3c44-26b5-4ca9-8263-86273e6b71ee
+        - c7285522-8701-40c5-989c-454fd29bc371
+      button_text: 'View Services'
+      button_link: /en/services
+      copyright_text: '© All rights reserved to Orion Constructions'
+  -
+    id: 5e6e966f-4559-408b-85f3-b4ddfbaad27c
+    title: Careers
+    url: /en/career
+  -
+    id: 2c5daf50-82ee-4dfd-a1e4-add4da3ec7db
+    title: Blog
+    url: /en/blogs
+  -
+    id: cf91a0eb-a929-41e6-aa8b-5033a54c6ab6
+    title: Pages
+    url: 'javascript:;'
+    children:
+      -
+        id: 61ff6d93-05b2-4060-bf62-9e4ea74869d5
+        title: Homes
+        url: 'javascript:;'
+        children:
+          -
+            id: 2787bc68-2efd-496a-92ca-00a0c17b031e
+            title: 'Home One'
+            url: /en
+          -
+            id: 47595a2a-a40f-471b-8275-d72af0555035
+            title: 'Home Two'
+            url: /en/home-two
+          -
+            id: c978e1cd-f495-4e1c-9153-edf6a4c091a0
+            title: 'Home Three'
+            url: /en/home-three
+          -
+            id: ffefad16-43e0-41b4-b021-72206f32cd80
+            title: 'Home Four'
+            url: /en/home-four
+      -
+        id: b6f46971-037a-4f06-9eee-7758659a04fc
+        title: 'About Orion'
+        url: /en/about-us
+      -
+        id: 61bf5550-bc40-4a4c-a7b3-83f07aadce4a
+        title: Projects
+        url: 'javascript:;'
+        children:
+          -
+            id: 053754fe-4319-478d-87e7-95f17618b7b8
+            title: 'Project One'
+            url: /en/projects
+          -
+            id: c1ae955f-0886-4d4a-be84-4f489cf5963e
+            title: 'Project Two'
+            url: /en/project-two
+          -
+            id: 491a8a29-5115-492a-8d34-ad83dc81d4f2
+            title: 'Project Three'
+            url: /en/project-three
+          -
+            id: 1dedc6bc-4ba7-46b5-9c28-c292a398fb48
+            title: 'Project Detail'
+            url: /en/project/aerotech-engineering-campus
+      -
+        id: 805c8428-a755-4e87-8dfc-ea0d243f948e
+        title: Services
+        url: 'javascript:;'
+        children:
+          -
+            id: 2a7aac5a-0d00-43e4-924a-316185528f70
+            title: 'Services One'
+            url: /en/services
+          -
+            id: d661cfc7-d8a7-41c3-ac9a-c2f0a83e61cb
+            title: 'Services Two'
+            url: /en/service-two
+          -
+            id: a1eec1f3-ab84-45e1-8433-7ba6cbbff5b7
+            title: 'Services Three'
+            url: /en/service-three
+          -
+            id: f30c4073-8404-4da4-a087-a5290f3f5683
+            title: 'Service Detail'
+            url: /en/service/architectural-design
+      -
+        id: daf37ae8-3414-48c9-adae-fadb5d996b97
+        title: Teams
+        url: 'javascript:;'
+        children:
+          -
+            id: b3d03d20-40ad-463b-acf2-cec7c8bad572
+            title: 'Teams One'
+            url: /en/teams
+          -
+            id: ff07a4fd-96fc-481b-ae3a-6c0f92a78137
+            title: 'Teams Two'
+            url: /en/team-two
+          -
+            id: 8500e37a-da93-4df8-8cdd-5ccb60f9fa77
+            title: 'Team Detail'
+            url: /en/team/alexei-morozov
+      -
+        id: c5a71797-38f5-421a-86c2-ab318f378fc7
+        title: Blogs
+        url: 'javascript:;'
+        children:
+          -
+            id: 0a1674d2-2338-4c30-a7ad-6c272c69a74d
+            title: 'Blog One'
+            url: /en/blogs
+          -
+            id: a5283a75-dd00-4891-8eeb-f856bd2093fe
+            title: 'Blog Two'
+            url: /en/blog-two
+          -
+            id: 3cb40b4b-50bd-435a-9d2f-29d589355584
+            title: 'Blog Three'
+            url: /en/blog-three
+          -
+            id: fb4251be-cf6a-4998-8fbf-18edaf922cc8
+            title: 'Blog Detail'
+            url: /en/blog/5-key-safety-practices-to-follow-on-a-construction-site
+      -
+        id: e9a960ae-3a67-43df-9aac-80924c039050
+        title: Careers
+        url: /en/career
+      -
+        id: 0267f473-168d-482d-be8e-b9552b973350
+        title: 'Contact Us'
+        url: /en/contact-us
+      -
+        id: 6212acc0-8c81-45ef-9704-a3f790d3f137
+        title: 'privacy policy'
+        url: /en/privacy-policy
+      -
+        id: 25e31db4-5ec1-4469-8a4e-e2dafea94b81
+        title: 'terms & conditions'
+        url: /en/terms-and-conditions
+      -
+        id: 09363c4b-044c-488a-83f0-6f00f448e433
+        title: 'Other Pages'
+        url: 'javascript:;'
+        children:
+          -
+            id: a06205fd-6557-4a31-8f66-b30a62d96aeb
+            title: "Faq's"
+            url: /en/faq
+          -
+            id: 357e2964-236c-46e9-ae18-1bad4d208953
+            title: Quotation
+            url: /en/quotation
+          -
+            id: 992d7162-39fc-4f18-a431-d99deef1cfc9
+            title: '404'
+            url: /en/404
+          -
+            id: dda1e0c3-12e7-45a9-b361-5e449d107733
+            title: Coming-Soon
+            url: /en/coming-soon
+          -
+            id: fd82d81c-d35f-412e-8ef8-66e622e81ec9
+            title: Author
+            url: /en/author/fatima-noor
+          -
+            id: b975da0b-f5ee-400d-bb92-3c54d5432b01
+            title: Category
+            url: /en/blog/category/budget-management
+          -
+            id: 76349c0e-9cd7-4c20-ad6f-df6cff2f2fea
+            title: Packages
+            url: /en/packages
+          -
+            id: 71b9b32c-da7e-443d-b15c-d15ab1458094
+            title: Testimonials
+            url: /en/testimonials
+          -
+            id: 5f6577f7-b692-4439-8e06-87c582b7b1ff
+            title: Gallery
+            url: /en/gallery
+  -
+    id: 75759c6e-2b06-4e1a-9436-1b2a05045d79
+    title: 'Contact Us'
+    url: /en/contact-us

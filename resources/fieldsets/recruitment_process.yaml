@@ -1,0 +1,50 @@
+title: 'Recruitment Process'
+fields:
+  -
+    handle: section_title
+    field:
+      type: text
+      display: 'Section Title'
+      instructions: "Heading for the section (e.g., 'Recruitment Process')."
+  -
+    handle: steps
+    field:
+      type: replicator
+      display: 'Recruitment Steps'
+      instructions: 'Add and reorder steps of the recruitment process timeline.'
+      sets:
+        step:
+          display: Step
+          fields:
+            -
+              handle: title
+              field:
+                type: text
+                display: 'Step Title'
+                instructions: "Title of the step (e.g., 'Explore Opportunities')."
+            -
+              handle: description
+              field:
+                type: textarea
+                display: Description
+                instructions: 'Detailed explanation of the step.'
+            -
+              handle: image
+              field:
+                type: assets
+                display: 'Step Image'
+                instructions: 'Upload the image displayed beside this step.'
+                container: assets
+                max_files: 1
+                folder: recruitment
+                restrict: false
+            -
+              handle: layout
+              field:
+                type: select
+                display: 'Layout Direction'
+                instructions: 'Choose image position for this step.'
+                options:
+                  left: 'Image Left'
+                  right: 'Image Right'
+                default: left

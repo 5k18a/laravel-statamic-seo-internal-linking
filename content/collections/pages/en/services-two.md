@@ -1,0 +1,19 @@
+---
+id: c0121ddd-4c63-4269-8a01-fab71a01844e
+blueprint: page
+title: 'Service Two'
+author: 15c0f104-0188-406c-b4ef-af40e61a13db
+template: service-two
+updated_by: 15c0f104-0188-406c-b4ef-af40e61a13db
+updated_at: 1766637109
+page_builder:
+  -
+    id: mhiqenum
+    show_type: service-page-two
+    sub_title: 'Our Services'
+    button_text: 'View all Services'
+    collections: services
+    limit: 9
+    type: service_section
+    enabled: true
+---

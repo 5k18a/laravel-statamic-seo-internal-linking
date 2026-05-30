@@ -1,0 +1,37 @@
+{{ if get:slug }}
+  {{ collection:blog  }}
+  {{ if slug == get:slug }}
+
+
+      {{ if segment_1 == 'blog-detail-one' }}
+        {{ partial:blog-detail-one slug="{slug}" }}
+      {{ elseif segment_1 == 'blog-detail-two' }}
+        {{ partial:blog-detail-two slug="{slug}" }}
+      {{ elseif segment_1 == 'blog-detail-three' }}
+        {{ partial:blog-detail-four slug="{slug}" }}
+      {{ elseif segment_1 == 'blog-detail-four' }}
+        {{ partial:blog-detail-four slug="{slug}" }}
+      {{ /if }}
+
+    
+    {{ /if }}
+  {{ /collection:blog }}
+
+{{ else }}
+
+
+{{ setting }}
+
+{{ if blog_single_page == 'blog-detail-one' }}
+{{ partial:blog-detail-one slug="{segment_2}" }}
+{{ elseif blog_single_page == 'blog-detail-two' }}
+{{ partial:blog-detail-two slug="{segment_2}" }}
+{{ elseif blog_single_page == 'blog-detail-three' }}
+{{ partial:blog-detail-three slug="{segment_2}" }}
+{{ elseif blog_single_page == 'blog-detail-four' }}
+{{ partial:blog-detail-four slug="{segment_2}" }}
+{{ /if }}
+
+{{ /setting }}
+
+{{ /if }}

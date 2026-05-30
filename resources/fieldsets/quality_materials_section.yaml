@@ -1,0 +1,71 @@
+title: 'Quality Materials Section'
+fields:
+  -
+    handle: main_content
+    field:
+      remove_empty_nodes: false
+      type: bard
+      display: 'Main Content'
+      buttons:
+        - h2
+        - h3
+        - bold
+        - italic
+        - unorderedlist
+        - orderedlist
+        - removeformat
+        - quote
+        - anchor
+        - image
+        - table
+        - h1
+        - h4
+        - h5
+        - h6
+        - underline
+        - strikethrough
+        - small
+        - superscript
+        - subscript
+        - code
+        - codeblock
+        - horizontalrule
+        - alignleft
+        - aligncenter
+        - alignright
+        - alignjustify
+      sets:
+        inline_image:
+          display: 'Inline Image'
+          sets:
+            inline_image:
+              display: 'Inline Image'
+              fields:
+                -
+                  handle: image
+                  field:
+                    max_files: 1
+                    container: assets
+                    type: assets
+                    display: Image
+                -
+                  handle: alt_text
+                  field:
+                    type: text
+                    display: 'Alt Text'
+                -
+                  handle: image_style
+                  field:
+                    options:
+                      -
+                        key: images-hover-1
+                        value: 'Hover Style 1'
+                      -
+                        key: images-hover-2
+                        value: 'Hover Style 2'
+                      -
+                        key: rounded
+                        value: 'Rounded Default'
+                    default: rounded
+                    type: select
+                    display: 'Image Style'

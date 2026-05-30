@@ -1,0 +1,260 @@
+<section class="relative">
+    <div class="container lg:py-[70px] md:py-[60px] sm:py-[38px] py-[34px]">
+        <div>
+            <h2 class="text-start 1xl:mb-4.5 md:mb-4 mb-2">{{ sub_title }}</h2>
+            <p>{{ short_description }}</p>
+        </div>
+
+        <div class="flex items-start justify-between lg:flex-row flex-col 2xl:gap-[250px] 1xl:gap-[175px] xl:gap-[140px] lg:gap-[75px] sm:gap-[48px] gap-11">
+            <!-- Form -->
+            <div class="lg:w-3/5 w-full 2xl:mt-[60px] 1xl:mt-12 lg:mt-10 md:mt-8 sm:mt-6 mt-5">
+
+            <form id="contactForm" action="/contact-submit" method="POST" novalidate
+                            class="w-full grid sm:grid-cols-2 grid-cols-1 xl:gap-[30px] sm:gap-6 md:gap-y-6 gap-y-5">
+                            <!-- Name -->
+                            <div class="relative col-span-1">
+                                <label for="name" class="block xl:mb-3 mb-1.5 p text-black">Full Name *</label>
+                                <input type="text" id="name" name="name"
+                                    class="w-full xl:px-3 px-2 2xl:py-[14px] xl:py-3 py-2 border focus:border-primary-900 outline-none" />
+
+                                <!-- Error message with SVG icon -->
+                                <div
+                                    class="text-red-500 mt-2 opacity-0 transition-all ease-in-out error-message hidden items-center gap-2" data-error-for="name">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
+                                        viewBox="0 0 17 17" fill="none">
+                                        <path
+                                            d="M9.35 9.35H7.65V4.25H9.35M9.35 12.75H7.65V11.05H9.35M8.5 0C7.38376 0 6.27846 0.219859 5.24719 0.647024C4.21592 1.07419 3.27889 1.70029 2.48959 2.48959C0.895533 4.08365 0 6.24566 0 8.5C0 10.7543 0.895533 12.9163 2.48959 14.5104C3.27889 15.2997 4.21592 15.9258 5.24719 16.353C6.27846 16.7801 7.38376 17 8.5 17C10.7543 17 12.9163 16.1045 14.5104 14.5104C16.1045 12.9163 17 10.7543 17 8.5C17 7.38376 16.7801 6.27846 16.353 5.24719C15.9258 4.21592 15.2997 3.27889 14.5104 2.48959C13.7211 1.70029 12.7841 1.07419 11.7528 0.647024C10.7215 0.219859 9.61624 0 8.5 0Z"
+                                            fill="#D21C1C" />
+                                    </svg>
+                                    <span class="error-text p2" data-error-for="name"></span>
+                                </div>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="relative col-span-1">
+                                <label for="email" class="block xl:mb-3 mb-1.5 p text-black">Email Address *</label>
+                                <input type="email" id="email" name="email"
+                                    class="w-full xl:px-3 px-2 2xl:py-[14px] xl:py-3 py-2 border focus:border-primary-900 outline-none" />
+                                <!-- Error message with SVG icon -->
+                                <div
+                                    class="text-red-500 mt-2 opacity-0 transition-all ease-in-out error-message hidden items-center gap-2" data-error-for="email">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
+                                        viewBox="0 0 17 17" fill="none">
+                                        <path
+                                            d="M9.35 9.35H7.65V4.25H9.35M9.35 12.75H7.65V11.05H9.35M8.5 0C7.38376 0 6.27846 0.219859 5.24719 0.647024C4.21592 1.07419 3.27889 1.70029 2.48959 2.48959C0.895533 4.08365 0 6.24566 0 8.5C0 10.7543 0.895533 12.9163 2.48959 14.5104C3.27889 15.2997 4.21592 15.9258 5.24719 16.353C6.27846 16.7801 7.38376 17 8.5 17C10.7543 17 12.9163 16.1045 14.5104 14.5104C16.1045 12.9163 17 10.7543 17 8.5C17 7.38376 16.7801 6.27846 16.353 5.24719C15.9258 4.21592 15.2997 3.27889 14.5104 2.48959C13.7211 1.70029 12.7841 1.07419 11.7528 0.647024C10.7215 0.219859 9.61624 0 8.5 0Z"
+                                            fill="#D21C1C" />
+                                    </svg>
+                                    <span class="error-text p2" data-error-for="email"></span>
+                                </div>
+                            </div>
+
+                            <!-- Company -->
+                            <div class="relative col-span-1">
+                                <label for="company" class="block xl:mb-3 mb-1.5 p text-black">Company name </label>
+                                <input type="text" id="company" name="company" 
+                                    class="w-full xl:px-3 px-2 2xl:py-[14px] xl:py-3 py-2 border focus:border-primary-900 outline-none" />
+                                <!-- Error message with SVG icon -->
+                                <div
+                                    class="text-red-500 mt-2 opacity-0 transition-all ease-in-out error-message hidden items-center gap-2" data-error-for="company">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
+                                        viewBox="0 0 17 17" fill="none">
+                                        <path
+                                            d="M9.35 9.35H7.65V4.25H9.35M9.35 12.75H7.65V11.05H9.35M8.5 0C7.38376 0 6.27846 0.219859 5.24719 0.647024C4.21592 1.07419 3.27889 1.70029 2.48959 2.48959C0.895533 4.08365 0 6.24566 0 8.5C0 10.7543 0.895533 12.9163 2.48959 14.5104C3.27889 15.2997 4.21592 15.9258 5.24719 16.353C6.27846 16.7801 7.38376 17 8.5 17C10.7543 17 12.9163 16.1045 14.5104 14.5104C16.1045 12.9163 17 10.7543 17 8.5C17 7.38376 16.7801 6.27846 16.353 5.24719C15.9258 4.21592 15.2997 3.27889 14.5104 2.48959C13.7211 1.70029 12.7841 1.07419 11.7528 0.647024C10.7215 0.219859 9.61624 0 8.5 0Z"
+                                            fill="#D21C1C" />
+                                    </svg>
+                                    <span class="error-text p2" data-error-for="company"></span>
+                                </div>
+                            </div>
+
+                            <!-- Phone number -->
+                            <div class="col-span-1 w-full form-group relative">
+                                <label for="phone" class="block xl:mb-3 mb-1.5 p text-black">Phone</label>
+                                <input id="phone" name="phone" type="tel"
+                                    class="w-full border focus:border-primary-900 outline-none" />
+                                <!-- Error message with SVG icon -->
+                                <div
+                                    class="text-red-500 mt-2 opacity-0 transition-all ease-in-out error-message hidden items-center gap-2" data-error-for="phone">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
+                                        viewBox="0 0 17 17" fill="none">
+                                        <path
+                                            d="M9.35 9.35H7.65V4.25H9.35M9.35 12.75H7.65V11.05H9.35M8.5 0C7.38376 0 6.27846 0.219859 5.24719 0.647024C4.21592 1.07419 3.27889 1.70029 2.48959 2.48959C0.895533 4.08365 0 6.24566 0 8.5C0 10.7543 0.895533 12.9163 2.48959 14.5104C3.27889 15.2997 4.21592 15.9258 5.24719 16.353C6.27846 16.7801 7.38376 17 8.5 17C10.7543 17 12.9163 16.1045 14.5104 14.5104C16.1045 12.9163 17 10.7543 17 8.5C17 7.38376 16.7801 6.27846 16.353 5.24719C15.9258 4.21592 15.2997 3.27889 14.5104 2.48959C13.7211 1.70029 12.7841 1.07419 11.7528 0.647024C10.7215 0.219859 9.61624 0 8.5 0Z"
+                                            fill="#D21C1C" />
+                                    </svg>
+                                    <span class="error-text p2" data-error-for="phone"></span>
+                                </div>
+                            </div>
+
+                            <!-- choose plan -->
+                            <div class="relative col-span-1">
+                                <label for="phone" class="block xl:mb-3 mb-1.5 p text-black">Choose Plan</label>
+
+                                <select id="choose_plan" name="choose_plan" class="w-full xl:px-3 px-2 2xl:py-[14px] xl:py-3 py-2 border focus:border-primary-900 outline-none">
+                                    <option value="">Select Choose Plan</option>
+                                    {{ collection:packages }}
+                                    <option value="{{ id }}"{{ if id == {session:job_id} }}selected{{ /if }}>{{ title }}</option>
+                                    {{ /collection:packages }}
+                                </select>
+                                <div
+                                    class="text-red-500 mt-2 opacity-0 transition-all ease-in-out error-message hidden items-center gap-2" data-error-for="phone">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
+                                        viewBox="0 0 17 17" fill="none">
+                                        <path
+                                            d="M9.35 9.35H7.65V4.25H9.35M9.35 12.75H7.65V11.05H9.35M8.5 0C7.38376 0 6.27846 0.219859 5.24719 0.647024C4.21592 1.07419 3.27889 1.70029 2.48959 2.48959C0.895533 4.08365 0 6.24566 0 8.5C0 10.7543 0.895533 12.9163 2.48959 14.5104C3.27889 15.2997 4.21592 15.9258 5.24719 16.353C6.27846 16.7801 7.38376 17 8.5 17C10.7543 17 12.9163 16.1045 14.5104 14.5104C16.1045 12.9163 17 10.7543 17 8.5C17 7.38376 16.7801 6.27846 16.353 5.24719C15.9258 4.21592 15.2997 3.27889 14.5104 2.48959C13.7211 1.70029 12.7841 1.07419 11.7528 0.647024C10.7215 0.219859 9.61624 0 8.5 0Z"
+                                            fill="#D21C1C" />
+                                    </svg>
+                                    <span class="error-text p2" data-error-for="phone"></span>
+                                </div>
+                            </div>
+
+                            <!-- budget -->
+                            <div class="relative col-span-1">
+                                <label for="budget" class="block xl:mb-3 mb-1.5 p text-black">Budget </label>
+                                <input type="text" id="budget" name="budget"
+                                    class="w-full xl:px-3 px-2 2xl:py-[14px] xl:py-3 py-2 border focus:border-primary-900 outline-none" />
+                                <!-- Error message with SVG icon -->
+                                <div
+                                    class="text-red-500 mt-2 opacity-0 transition-all ease-in-out error-message hidden items-center gap-2" data-error-for="budget">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
+                                        viewBox="0 0 17 17" fill="none">
+                                        <path
+                                            d="M9.35 9.35H7.65V4.25H9.35M9.35 12.75H7.65V11.05H9.35M8.5 0C7.38376 0 6.27846 0.219859 5.24719 0.647024C4.21592 1.07419 3.27889 1.70029 2.48959 2.48959C0.895533 4.08365 0 6.24566 0 8.5C0 10.7543 0.895533 12.9163 2.48959 14.5104C3.27889 15.2997 4.21592 15.9258 5.24719 16.353C6.27846 16.7801 7.38376 17 8.5 17C10.7543 17 12.9163 16.1045 14.5104 14.5104C16.1045 12.9163 17 10.7543 17 8.5C17 7.38376 16.7801 6.27846 16.353 5.24719C15.9258 4.21592 15.2997 3.27889 14.5104 2.48959C13.7211 1.70029 12.7841 1.07419 11.7528 0.647024C10.7215 0.219859 9.61624 0 8.5 0Z"
+                                            fill="#D21C1C" />
+                                    </svg>
+                                    <span class="error-text p2" data-error-for="budget"></span>
+                                </div>
+                            </div>
+
+                            <!-- Message -->
+                            <div class="relative sm:col-span-2 col-span-1">
+                                <label for="message" class="block xl:mb-3 mb-1.5 p text-black">Type your Message 
+                                </label>
+                                <textarea id="message" name="message"  class="w-full xl:px-3 px-2 2xl:py-[14px] xl:py-3 py-2 border border-black custom-scrollbar
+                                       focus:border-primary-900 outline-none
+                                       1xl:min-h-[160px] xl:min-h-[148px] md:min-h-[130px]
+                                       sm:min-h-[115px] min-h-[90px] align-text-top"></textarea>
+                                <!-- Error message with SVG icon -->
+                                <div
+                                    class="text-red-500 mt-2 opacity-0 transition-all ease-in-out error-message hidden items-center gap-2" data-error-for="message">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
+                                        viewBox="0 0 17 17" fill="none">
+                                        <path
+                                            d="M9.35 9.35H7.65V4.25H9.35M9.35 12.75H7.65V11.05H9.35M8.5 0C7.38376 0 6.27846 0.219859 5.24719 0.647024C4.21592 1.07419 3.27889 1.70029 2.48959 2.48959C0.895533 4.08365 0 6.24566 0 8.5C0 10.7543 0.895533 12.9163 2.48959 14.5104C3.27889 15.2997 4.21592 15.9258 5.24719 16.353C6.27846 16.7801 7.38376 17 8.5 17C10.7543 17 12.9163 16.1045 14.5104 14.5104C16.1045 12.9163 17 10.7543 17 8.5C17 7.38376 16.7801 6.27846 16.353 5.24719C15.9258 4.21592 15.2997 3.27889 14.5104 2.48959C13.7211 1.70029 12.7841 1.07419 11.7528 0.647024C10.7215 0.219859 9.61624 0 8.5 0Z"
+                                            fill="#D21C1C" />
+                                    </svg>
+                                    <span class="error-text p2" data-error-for="message"></span>
+                                </div>
+                            </div>
+
+                            <!-- File Upload -->
+                            <div class="sm:col-span-2 col-span-1">
+                                <div id="dropArea" class="border border-dashed border-black 1xl:p-7 xl:p-5 p-4 text-center cursor-pointer relative bg-white transition-all">
+                                    <input type="file" id="file_upload" name="file_upload" multiple class="hidden">
+                                    <label for="file_upload" class="cursor-pointer text-gray-500">
+                                        <div class="flex flex-col items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="51" height="50" viewBox="0 0 51 50" fill="none" class="xl:mb-3 mb-2 1xl:w-[50px] 1xl:h-[50px] xl:w-[46px] xl:h-[46px] sm:w-10 sm:h-10 w-9 h-9 flex-shrink-0 stroke-primary-900">
+                                                <path d="M25.5026 45.8337V27.0837M25.5026 27.0837L32.7943 34.3753M25.5026 27.0837L18.2109 34.3753M42.1693 36.6816C45.2818 35.4628 48.4193 32.6857 48.4193 27.0837C48.4193 18.7503 41.4755 16.667 38.0026 16.667C38.0026 12.5003 38.0026 4.16699 25.5026 4.16699C13.0026 4.16699 13.0026 12.5003 13.0026 16.667C9.52969 16.667 2.58594 18.7503 2.58594 27.0837C2.58594 32.6857 5.72344 35.4628 8.83594 36.6816" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+                                            <p class="text-black xl:mb-4 mb-3">Drop files here or Select Files</p>
+                                            <button type="button" id="uploadButton" class="btn btn-dark-reverse">Browse Files</button>
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <p class="mt-2 text-[#464343]">
+                                    Accepted File Types: .pdf, .ppt, .pptx, .txt, .rtf, .doc, .docx, .xls, .xlsx, .jpeg, .jpg, .png
+                                </p>
+
+                                <div id="fileInfo" class="hidden bg-primary-900/12 py-[13px] px-5 border-b-2 border-primary-900 flex items-center justify-between gap-4 mt-7 flex-wrap">
+                                    <p class="text-black flex items-center justify-start gap-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="xl:w-6 xl:h-6 h-5 w-5 fill-primary-900">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M14 22H10C6.229 22 4.343 22 3.172 20.828C2.001 19.656 2 17.771 2 14V10C2 6.229 2 4.343 3.172 3.172C4.344 2.001 6.239 2 10.03 2C10.636 2 11.121 2 11.53 2.017C11.5167 2.097 11.51 2.17833 11.51 2.261L11.5 5.095C11.5 6.192 11.5 7.162 11.605 7.943C11.719 8.79 11.98 9.637 12.672 10.329C13.362 11.019 14.21 11.281 15.057 11.395C15.838 11.5 16.808 11.5 17.905 11.5H21.957C22 12.034 22 12.69 22 13.563V14C22 17.771 22 19.657 20.828 20.828C19.656 21.999 17.771 22 14 22Z" />
+                                            <path d="M19.352 7.61711L15.392 4.05411C14.265 3.03911 13.702 2.53111 13.009 2.26611L13 5.00011C13 7.35711 13 8.53611 13.732 9.26811C14.464 10.0001 15.643 10.0001 18 10.0001H21.58C21.218 9.29611 20.568 8.71211 19.352 7.61711Z" />
+                                        </svg>
+                                        <span id="fileLabel"></span>
+                                    </p>
+                                    <button id="removeFiles" type="button" class="p2 text-primary-900 hover:underline">Remove</button>
+                                </div>
+
+                                <div
+                                    class="text-red-500 mt-2 opacity-0 transition-all ease-in-out error-message hidden items-center gap-2" data-error-for="file_upload">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
+                                        viewBox="0 0 17 17" fill="none">
+                                        <path
+                                            d="M9.35 9.35H7.65V4.25H9.35M9.35 12.75H7.65V11.05H9.35M8.5 0C7.38376 0 6.27846 0.219859 5.24719 0.647024C4.21592 1.07419 3.27889 1.70029 2.48959 2.48959C0.895533 4.08365 0 6.24566 0 8.5C0 10.7543 0.895533 12.9163 2.48959 14.5104C3.27889 15.2997 4.21592 15.9258 5.24719 16.353C6.27846 16.7801 7.38376 17 8.5 17C10.7543 17 12.9163 16.1045 14.5104 14.5104C16.1045 12.9163 17 10.7543 17 8.5C17 7.38376 16.7801 6.27846 16.353 5.24719C15.9258 4.21592 15.2997 3.27889 14.5104 2.48959C13.7211 1.70029 12.7841 1.07419 11.7528 0.647024C10.7215 0.219859 9.61624 0 8.5 0Z"
+                                            fill="#D21C1C" />
+                                    </svg>
+                                    <span class="error-text p2" data-error-for="file_upload"></span>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <p id="successMessage"class="form-message bg-primary-900/12 hidden top-0 right-auto mt-5 w-fit text-primary-900 px-4 py-2 transform translate-x-0 transition-all">
+                            </p>
+                        </form>
+
+                            <!-- Success Message -->
+            
+
+            </div>
+
+            <div class="w-full lg:w-2/5">
+                <div class="w-auto flex items-start flex-col relative z-1">
+                    <h3 class="1xl:mb-9 xl:mb-8 sm:mb-6 mb-5 font-normal">
+                        {{ section_title }}
+                    </h3>
+                    {{ offices }}
+                    <!--Address -->
+                    <div class="1xl:mb-[38px] xl:mb-[35px] mb-7">
+
+                        <p class="font-medium flex items-center justify-start 1xl:mb-[14px] mb-[10px] xl:gap-4 gap-2">
+                            <img src="{{ flag }} {{ url }} {{ /flag }}" alt="{{ country_name }}" class="w-full h-full 1xl:max-w-[30px] max-w-[25px]" loading="lazy" />{{ country_name }}
+                        </p>
+                        <p class="block 2xl:w-[65%] xl:w-[80%] w-full font-light text-start">{{ address }}</p>
+                        <a href="{{ map_link }}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-[6px] mt-[10px] group">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="19" viewBox="0 0 18 19" fill="none" class="fill-primary-900 group-hover:fill-gray-400 group-active:fill-gray-400 group-focus:fill-gray-400">
+                                <g clip-path="url(#clip0_11000_4739)">
+                                    <path d="M14.6562 2.30377C11.5322 -0.769227 6.46716 -0.769227 3.34316 2.30377C2.60145 3.02841 2.01207 3.894 1.60968 4.84968C1.20729 5.80536 1 6.83184 1 7.86877C1 8.90571 1.20729 9.93219 1.60968 10.8879C2.01207 11.8435 2.60145 12.7091 3.34316 13.4338L8.99917 18.9988L14.6562 13.4338C15.3979 12.7091 15.9873 11.8435 16.3897 10.8879C16.792 9.93219 16.9993 8.90571 16.9993 7.86877C16.9993 6.83184 16.792 5.80536 16.3897 4.84968C15.9873 3.894 15.3979 3.02841 14.6562 2.30377ZM8.99917 10.4988C8.33117 10.4988 7.70417 10.2388 7.23117 9.76677C6.76292 9.29752 6.49994 8.66168 6.49994 7.99877C6.49994 7.33586 6.76292 6.70002 7.23117 6.23077C7.70317 5.75877 8.33117 5.49877 8.99917 5.49877C9.66716 5.49877 10.2952 5.75877 10.7672 6.23077C11.2354 6.70002 11.4984 7.33586 11.4984 7.99877C11.4984 8.66168 11.2354 9.29752 10.7672 9.76677C10.2952 10.2388 9.66716 10.4988 8.99917 10.4988Z" />
+                                </g>
+                            </svg>
+                            <span class="p2 !font-normal text-primary-900 group-hover:text-gray-400 group-active:text-gray-400 group-focus:text-gray-400">{{ get_location_label }}</span>
+                        </a>
+                    </div>
+                    {{ /offices }}
+
+                    <!-- Contact -->
+                    <div class="flex flex-col">
+                        <p class="font-medium xl:mb-[15px] mb-[10px] text-start">
+                            {{ contact_label }}:
+                        </p>
+                        <a href="mailto:{{ contact_email }}" class="p font-light text-start hover:text-primary-900">
+                            {{ contact_email }}
+                        </a>
+                        <a href="tel:{{ contact_phone }}" class="p font-light text-start hover:text-primary-900">
+                            {{ contact_phone }}
+                        </a>
+                    </div>
+
+                    <!-- Social Icons -->
+                    <div class="flex 2xl:space-x-[25px] lg:space-x-[22px] space-x-[18px] 2xl:mt-[50px] 1xl:mt-10 xl:mt-8 mt-7">
+
+                        {{ setting }}
+                        {{ socials }}
+
+                        <a href="{{ url }}" target="_blank" class="2xl:w-[50px] 2xl:h-[50px] xl:w-12 xl:h-12 md:w-11 md:h-11 sm:w-10 sm:h-10 w-9 h-9 text-primary-900 hover:text-black flex items-center justify-center rounded-full bg-[#F6F6F6] group"><i class="xl:h-[22px] xl:w-[22px] w-5 h-5 transition-all ease-in-out fa-brands fa-{{ platform }}"></i></a>
+
+                        {{ /socials }}
+                        {{ /setting }}
+                    </div>
+                    {{ if schedule_meeting_label }}
+                    <div class="flex flex-col items-start xl:mt-14 lg:mt-12 mt-8">
+                        <h3 class="mb-2">{{ schedule_meeting_label }}</h3>
+                        <p class="1xl:mb-9 lg:mb-7 mb-6 xl:max-w-[75%] w-full">{{ schedule_meeting_text }}</p>
+                        <a href="{{ schedule_meeting_link }}" class="btn btn-primary">{{ schedule_meeting_label }}</a>
+                    </div>
+                    {{ /if }}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

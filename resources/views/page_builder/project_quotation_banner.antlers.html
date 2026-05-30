@@ -1,0 +1,25 @@
+<section class="2xl:-mt-[80px] 1xl:-mt-[60px] lg:-mt-[50px] sm:-mt-[30px] bg-cover bg-no-repeat bg-center pb-8 md:pb-12 sm:pt-14 pt-0 md:pt-24 xl:pt-48 relative py-20 before:w-full before:h-full before:absolute before:top-0 before:left-0 before:bg-gradient-to-b before:from-white before:to-white/0"
+        style="background-image: url('{{ background_image  }}{{ url  }}{{ /background_image  }}')">
+        <div class="relative z-1">
+          <div class="container-2">
+            <div class="xl:max-w-[60%] md:max-w-[68%] w-full">
+              <h2 class="md:mb-6 sm:mb-4 mb-[10px] text-left">
+                {{ heading }}
+              </h2>
+              <p class="mb-6 sm:mb-[35px] md:mb-[50px] text-left font-normal text-gray-400">
+                {{ description }}
+              </p>
+            </div>
+            <div
+              class="bg-primary-900 2xl:py-[55px] 2xl:px-[60px] 1xl:py-[50px] 1xl:px-[55px] xl:py-[45px] xl:px-[50px] lg:py-[40px] lg:px-[45px] md:py-[30px] md:px-[25px] sm:p-[22px] p-5 text-center md:text-left flex md:flex-row flex-col items-center justify-between gap-4">
+              <h3
+                class="text-white md:m-0 font-light 2xl:text-[45px] 1xl:text-[38px] lg:text-[30px] md:text-[28px] sm:text-[26px] text-[22px]">
+                - {{ quote_text }}
+              </h3>
+              {{ if button_text }}
+              <a href="{{ button_url }}" class="btn btn btn-green-bg">{{ button_text }}</a>
+              {{ /if }}
+            </div>
+          </div>
+        </div>
+      </section>

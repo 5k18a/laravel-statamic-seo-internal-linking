@@ -1,0 +1,303 @@
+{{ if show_type == 'home-page-one' }}
+<section class="relative 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] md:mb-[50px] mb-8 z-1">
+  <div class="container">
+    <!-- Heading -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 1xl:mb-11 xl:mb-9 mb-7">
+      <div>
+        <h2 class="font-normal">{{ sub_title }}</h2>
+        <p
+          class="2xl:leading-[30px] 1xl:mt-3 xl:mt-2.5 mt-2 text-gray-400 font-light 2xl:w-[60%] xl:w-[62%] lg:w-[71%] md:w-[88%] sm:w-[96%] w-full">
+          {{ section_description }}
+        </p>
+      </div>
+      {{ if button_text }}
+      <div class="sm:block hidden">
+        <a href="{{ button_link }}" class="btn btn-primary-reverse">{{ button_text }}</a>
+      </div>
+      {{ /if }}
+    </div>
+
+    <div class="swiper blogs-1">
+      <div class="swiper-wrapper">
+        <!-- Blog 1 -->
+        {{ blog_items }}
+        <div class="swiper-slide !h-auto">
+          <div class="group border-b border-[#00000026] 2xl:pb-[25px] pb-5 h-full">
+            <div
+              class="overflow-hidden relative 2xl:before:pt-[110%] sm:before:pt-[112%] before:pt-[108%] before:block">
+              <a href="/blog/{{ slug }}" class="absolute top-0 left-0 w-full h-full block">
+                {{ image }} <img src="{{ url }}" alt="img" class="h-full w-full object-cover" loading="lazy" />{{ /image
+                }}
+              </a>
+              <a href="/blog/{{ slug }}"
+                class="2xl:w-[85px] 2xl:h-[85px] xl:w-[68px] xl:h-[68px] sm:w-[62px] sm:h-[62px] w-10 h-10 rounded-full bg-white/80 items-center justify-center absolute top-3 lg:top-5 right-3 lg:right-5 hover:bg-white hover:text-primary-900 hidden group-hover:flex">
+                <svg xmlns="http://www.w3.org/2000/svg" width="69" height="69" viewBox="0 0 69 69" fill="none"
+                  class="h-auto flex-shrink-0 2xl:w-[69px] xl:w-[60px] sm:w-[55px] w-[37px]">
+                  <path d="M24.8251 24.825H44.5722M44.5722 24.825V44.572M44.5722 24.825L24.8251 44.572"
+                    stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </a>
+            </div>
+            <div class="2xl:mt-[42px] 1xl:mt-[26px] md:mt-6 mt-4">
+              <p class="h6 text-primary-900 2xl:mb-[20px] mb-3 font-medium">
+                {{ date_field format="F Y" }}
+              </p>
+              <h5 class="font-medium h4">
+                <a href="/blog/{{ slug }}" class="group-hover:text-primary-900">
+                  {{ title }}
+                </a>
+              </h5>
+            </div>
+          </div>
+        </div>
+        {{ /blog_items }}
+      </div>
+    </div>
+    {{ if button_text }}
+    <div class="block sm:hidden mt-[30px]">
+      <a href="{{ button_link }}" class="btn btn-primary-reverse">{{ button_text }}</a>
+    </div>
+    {{ /if }}
+  </div>
+</section>
+
+{{ elseif show_type == 'home-page-two' }}
+
+<section class="relative 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] md:mb-[50px] mb-8 blog-grid-slider">
+  <div class="container-2 relative">
+    <div class="sm:flex items-end justify-between lg:mb-[50px] md:mb-10 sm:mb-[34px] mb-7 relative">
+      <div class="w-fit">
+        <p class="sub-title 2xl:mb-7 lg:mb-6 md:mb-5 mb-3.5 w-fit">
+          {{ sub_title }}
+        </p>
+        <h2 class="title md:mb-4 sm:mb-3 mb-2.5 w-fit">
+          {{ section_title }}
+        </h2>
+        <p class="lg:max-w-[58%] sm:max-w-[80%] w-full text-[#464343]">
+          {{ section_description }}
+        </p>
+      </div>
+      <div class="sm:flex hidden gap-2 project-custom-arrow relative">
+        <div class="swiper-button-prev arrow-slider absolute flex-shrink-0">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="23" viewBox="0 0 36 23" fill="none"
+            class="flex-shrink-0">
+            <g clip-path="url(#clip0_100_117)">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M5.44814 12.7576L13.6838 20.9907L11.831 22.8409L0.439209 11.4491L11.831 0.0546875L13.6838 1.90752L5.44814 10.1406H31.4113V12.7576H5.44814Z"
+                fill="currentColor" />
+            </g>
+          </svg>
+        </div>
+        <div class="swiper-button-next arrow-slider absolute flex-shrink-0">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="23" viewBox="0 0 37 23" fill="none"
+            class="flex-shrink-0">
+            <g clip-path="url(#clip0_100_119)">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M31.4795 12.7576L23.2438 20.9907L25.0966 22.8409L36.4884 11.4491L25.0966 0.0546875L23.2438 1.90752L31.4795 10.1406H5.5163V12.7576H31.4795Z"
+                fill="currentColor" />
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="swiper blogs-2 pr-2 sm:pr-[10%] lg:pr-[17%] !overflow-visible">
+      <div class="swiper-wrapper">
+        <!-- blog box - 1 -->
+        {{ blog_items }}
+        <div class="swiper-slide !h-auto">
+          <div class="blog-box group">
+            <div class="blog-img-before">
+              <a href="/blog/{{ slug }}" class="absolute top-0 left-0 w-full h-full block">
+                {{ image }} <img src="{{ url }}" alt="img" class="h-full w-full object-cover" />{{ /image }}
+              </a>
+            </div>
+            <div class="blog-content-box">
+              <p class="p2 blog-date">{{ date_field format="F D, Y" }}</p>
+              <h4 class="blog-title">
+                <a href="/blog/{{ slug }}" class="group-hover:text-primary-900">
+                  {{ title }}
+                </a>
+              </h4>
+              <p class="m-0 text-gray-400">
+                {{ shot_description | truncate:200:"..." }}
+              </p>
+            </div>
+          </div>
+        </div>
+        {{ /blog_items }}
+      </div>
+    </div>
+    <div class="flex sm:hidden gap-2 project-custom-arrow relative mt-5">
+      <div class="swiper-button-prev arrow-slider absolute flex-shrink-0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="23" viewBox="0 0 36 23" fill="none"
+          class="flex-shrink-0">
+          <g clip-path="url(#clip0_100_117)">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M5.44814 12.7576L13.6838 20.9907L11.831 22.8409L0.439209 11.4491L11.831 0.0546875L13.6838 1.90752L5.44814 10.1406H31.4113V12.7576H5.44814Z"
+              fill="currentColor" />
+          </g>
+        </svg>
+      </div>
+      <div class="swiper-button-next arrow-slider absolute flex-shrink-0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="23" viewBox="0 0 37 23" fill="none"
+          class="flex-shrink-0">
+          <g clip-path="url(#clip0_100_119)">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M31.4795 12.7576L23.2438 20.9907L25.0966 22.8409L36.4884 11.4491L25.0966 0.0546875L23.2438 1.90752L31.4795 10.1406H5.5163V12.7576H31.4795Z"
+              fill="currentColor" />
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{ elseif show_type == 'home-page-three' }}
+
+<section class="relative 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] md:mb-[50px] mb-8">
+  <div
+    class="1xl:py-20 xl:py-16 md:py-14 sm:py-10 py-8 bg-[#EFEFEF] lg:rounded-t-[90px] md:rounded-t-[70px] sm:rounded-t-[50px] rounded-t-[25px]">
+    <div class="container">
+      <!-- Heading -->
+      <div
+        class="flex flex-col md:flex-row items-center sm:justify-between gap-4 2xl:mb-[55px] 1xl:mb-11 xl:mb-10 mb-7">
+        <div>
+          <h2 class="font-normal md:text-left text-center">
+            {{ sub_title }}
+          </h2>
+          <p
+            class="md:text-left text-center 2xl:leading-[30px] 1xl:mt-3 xl:mt-2.5 mt-2 text-gray-400 font-light 2xl:w-[57%] xl:w-[70%] lg:w-[87%] md:w-[95%] w-full">
+            {{ section_description }}
+          </p>
+        </div>
+        {{ if button_text }}
+        <div class="md:block hidden">
+          <a href="{{ button_link }}" class="btn btn-primary">{{ button_text }}</a>
+        </div>
+        {{ /if }}
+      </div>
+
+      <!-- GRID -->
+      <div id="cardGrid" class="lg:flex grid md:grid-cols-2 grid-cols-1 2xl:gap-8 xl:gap-6 sm:gap-5 gap-4">
+        <!-- 1st card (default featured) -->
+        {{ blog_items limit="4" }}
+        <a href="/blog/{{ slug }}"
+          class="card {{ if first }} lg:flex-3 {{ else }} lg:flex-1 {{ /if }}  xl:rounded-6xl lg:rounded-5xl rounded-4xl group overflow-hidden relative transition-[flex] duration-500 ease-in-out"
+          data-featured="{{ if first }}true{{ else }}false{{ /if }}" {{ if not first }} tabindex="0" {{ /if }}>
+
+          <img src="{{ image }} {{ url }} {{ /image }}" alt="Featured-{{ index + 1 }}"
+            class="w-full 2xl:h-[600px] 1xl:h-[460px] xl:h-[430px] sm:h-[340px] h-60 object-cover block" />
+
+          <!-- overlay (card-content - visible by default for first) -->
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent lg:card-content transition-opacity duration-300">
+          </div>
+          <div
+            class="absolute inset-0 flex flex-col justify-between card-content transition-opacity duration-300 2xl:p-10 1xl:p-8 xl:p-7 lg:p-5 p-4 z-10">
+            <!-- arrow (card-content) -->
+            <div class="flex items-start justify-end z-20">
+              <div
+                class="2xl:w-[85px] 2xl:h-[85px] xl:w-[70px] xl:h-[70px] sm:w-[55px] sm:h-[55px] w-10 h-10 rounded-full bg-white/80 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 69 69"
+                  class="2xl:w-[69px] lg:w-[63px] sm:w-[55px] w-10 text-black">
+                  <path d="M24.8251 24.825H44.5722M44.5722 24.825V44.572M44.5722 24.825L24.8251 44.572"
+                    stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+            </div>
+
+            <!-- text (card-content) -->
+            <div class="text-white w-full sm:m-2.5">
+              <h6 class="font-medium text-white font-lexend 1xl:mb-7 sm:mb-5 mb-3">
+                {{ date_field format="F Y" }}
+              </h6>
+              <h3
+                class="text-white 2xl:text-[45px] 1xl:text-[38px] lg:text-[30px] sm:text-[26px] text-1xl 2xl:leading-4xl 1xl:leading-11 lg:leading-10 sm:leading-[30px] leading-[25px] font-light">
+                {{ title }}
+              </h3>
+            </div>
+          </div>
+        </a>
+        {{ /blog_items }}
+      </div>
+      {{ if button_text }}
+      <div class="block md:hidden mt-8">
+        <a href="{{ button_link }}" class="btn btn-primary">{{ button_text }}</a>
+      </div>
+      {{ /if }}
+    </div>
+  </div>
+</section>
+
+{{ elseif show_type == 'home-page-four' }}
+
+<section class="relative 2xl:mb-[100px] 1xl:mb-20 lg:mb-[60px] md:mb-[50px] mb-8">
+  <div class="container">
+    <div class="sm:flex items-end justify-between lg:mb-[50px] md:mb-10 sm:mb-[34px] mb-7 relative">
+      <div class="w-fit">
+        <h2 class="md:mb-4 sm:mb-3 mb-2 w-fit">{{ sub_title }}</h2>
+        <p class="lg:max-w-[58%] md:max-w-[80%] sm:max-w-[88%] w-full text-gray-400">{{ section_description }}</p>
+      </div>
+      {{ if button_text }}
+      <div>
+        <a href="{{ button_link }}" class="btn btn-primary-reverse sm:!flex !hidden">{{ button_text }}</a>
+      </div>
+      {{ /if }}
+    </div>
+
+    <!-- Content -->
+    <div class="flex items-stretch lg:flex-row flex-col 1xl:gap-[65px] xl:gap-[50px] md:gap-10 sm:gap-8 gap-6 w-full">
+      <!-- Left Big Blog -->
+      {{ blog_items limit="4" }}
+      {{ if first }}
+      <div class="lg:w-[47%] w-full">
+        <div class="group bg-[#F6F6F6] h-full">
+          <a href="/blog/{{ slug }}" class="block relative overflow-hidden sm:before:block sm:before:pt-[47.2%]">
+            {{ image }}<img src="{{ url }}" alt="{{ title }}"
+              class="sm:absolute sm:top-0 sm:left-0 w-full h-full object-cover" />{{ /image }}
+          </a>
+          <div class="xl:p-10 sm:p-6 py-5 px-3">
+            <p class="!font-semibold uppercase text-primary-900 xl:mb-[26px] md:mb-[18px] mb-3 max-[640px]:text-xs">
+              {{ date_field format="F D, Y" }}
+            </p>
+            <h3 class="xl:mb-7 md:mb-4 mb-3 max-[640px]:text-[22px]">
+              <a href="/blog/{{ slug }}" class="block group-hover:text-primary-900 transition-all ease-in-out">
+                {{ title }}
+              </a>
+            </h3>
+            <p class="border-t border-[#00000026] xl:pt-[30px] md:pt-6 pt-4 text-gray-400">{{ shot_description | truncate:200:"..." }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Small Blogs -->
+      <div class="flex flex-col justify-between 2xl:gap-[45px] 1xl:gap-10 gap-6 lg:w-[53%] w-full">
+        {{ else }}
+        <!-- Blog Item -->
+        <div class="flex items-center sm:flex-row flex-col 1xl:gap-9 xl:gap-7.5 sm:gap-6 gap-5 group h-full">
+          <a href="/blog/{{ slug }}" class="block relative overflow-hidden flex-shrink-0 sm:w-[32%] w-full h-full">
+            {{ image }}<img src="{{ url }}" alt="{{ title }}" class="w-full h-full object-cover" />{{ /image }}
+          </a>
+          <div class="">
+            <p class="!font-semibold uppercase text-primary-900 2xl:mb-[18px] xl:mb-3 sm:mb-2 mb-2.5 p2">
+              {{ date_field format="F D, Y" }}
+            </p>
+            <h4 class="2xl:mb-3.5 xl:mb-2.5 mb-1.5 line-clamp-2 text-xl xl:text-[26px] 2xl:text-3xl">
+              <a href="/blog/{{ slug }}"
+                class="block font-semibold text-gray-900 group-hover:text-primary-900 transition-all ease-in-out">
+                {{ title }}
+              </a>
+            </h4>
+            <p class="text-gray-400 mt-1 line-clamp-3">{{ shot_description | truncate:200:"..." }}</p>
+          </div>
+        </div>
+        {{ if last }}
+      </div>
+      {{ /if }}
+      {{ /if }}
+      {{ /blog_items }}
+    </div>
+  </div>
+</section>
+
+{{ /if }}

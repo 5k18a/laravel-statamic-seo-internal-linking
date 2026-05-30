@@ -1,0 +1,39 @@
+<section class="relative 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] sm:mb-[50px] mb-10">
+    <div class="container">
+        <h2 class="xl:mb-[50px] sm:mb-[30px] mb-5">{{ section_title }}</h2>
+        <!-- history List -->
+        <div class="history-list grid grid-cols-1 2xl:gap-10 1xl:gap-9 gap-[35px]">
+            <!-- history Item -->
+            {{ history_items }}
+            <div class="history-item flex relative md:flex-row flex-col overflow-hidden" data-aos="fade-up">
+                <div class="history-image-before">
+                    <img src="{{ image }} {{ url }} {{ /image }}" alt="Construction"
+                    class="w-full h-full object-cover absolute top-0 left-0" />
+                </div>
+                <div class="hidden lg:flex flex-col items-center">
+                    <div class="lg:w-[31px] lg:h-[31px] w-6 h-6 overflow-hidden rounded-full border-2 border-primary-900 flex-shrink-0">
+                    </div>
+                    <div class="w-[2px] h-full bg-primary-900"></div>
+                </div>
+                <div class="2xl:ml-[31px] md:ml-5 ml-0 flex flex-col justify-center">
+                    {{ if subheading }}
+                    <h6 class="font-lexend mb-[15px] text-primary-900">
+                        {{ subheading }}
+                    </h6>
+                    {{ /if }}
+                    {{ if title }}
+                    <h3 class="mb-3 font-normal">
+                        {{ title }}
+                    </h3>
+                    {{ /if }}
+                    {{ if description }}
+                    <p class="text-[#464343]">
+                        {{ description }}
+                    </p>
+                    {{ /if }}
+                </div>
+            </div>
+            {{ /history_items }}
+        </div>
+    </div>
+</section>

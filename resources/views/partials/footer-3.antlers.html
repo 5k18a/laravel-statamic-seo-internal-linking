@@ -1,0 +1,108 @@
+{{ footer }}
+<footer class="relative bg-gray-100 rounded-t-[30px] sm:rounded-t-[60px] md:rounded-t-[70px] xl:rounded-t-[90px] overflow-hidden">
+      <!-- container -->
+      <div class="container">
+        <div
+          class="xl:pt-16 sm:pt-14 pt-10 sm:pb-10 pb-[30px] flex justify-between lg:flex-row flex-col sm:gap-10 gap-6">
+          <div class="2xl:max-w-[45%] lg:max-w-1/2 max-w-full">
+            <h3 class="xl:mb-4 mb-3 font-normal">{{ newsletter_title }}</h3>
+            <p class="lg:m-0 text-gray-400">
+              {{ newsletter_description }}
+            </p>
+          </div>
+          <div class="lg:w-fit w-full lg:pt-6">
+            <form class="flex flex-col gap-2 get-free-quote-form">
+            <div class="flex justify-end sm:flex-row flex-col xl:gap-5 gap-4">
+              <input type="email" placeholder="Your Email address" name="email" id="email" class="block px-4 py-3 w-full lg:w-[300px] xl:w-[415px] bg-transparent outline-none border border-black text-sm sm:text-base 1xl:text-lg text-dark-400 opacity-100"/>
+              <button class="btn btn-dark-reverse">{{ newsletter_button_text }}</button>
+            </div>
+            <p class="form-message" style="display:none;"></p>
+            </form>
+          </div>
+        </div>
+
+        <div class="border-t border-black xl:py-[50px] sm:py-10 py-[30px] text-black">
+          <div
+            class="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 xl:gap-20 lg:gap-14 md:gap-y-10 sm:gap-y-8 gap-y-6.5 gap-x-14">
+            <div class="lg:col-span-1 sm:col-span-2 col-span-1">
+              <div class="2xl:pr-[150px] 1xl:pr-10 pr-0">
+                <a href="/" class="xl:mb-6 mb-4 block">
+                  {{ setting }}{{ logo }}<img src="{{ url }}" alt="img"
+                    class="2xl:max-w-[240px] xl:max-w-[190px] sm:max-w-[170px] max-w-[155px] w-full h-full object-cover" />{{ /logo }}{{ /setting }}
+                </a>
+                <p class="text-black 2xl:mb-8 xl:mb-6 lg:mb-5 mb-4 font-light">
+                 {{ description }}
+                </p>
+                <div class="flex items-center text-center flex-wrap md:text-left w-full md:w-auto gap-2">
+                  <p class="font-medium tracking-[3.6px] uppercase 2xl:mr-8 xl:mr-5 mr-2 max-[640px]:text-sm">
+                     {{ follow_text }}
+                  </p>
+                  <ul class="flex items-center justify-center md:justify-start xl:gap-5 gap-3">
+                    {{ setting }}
+                    {{ socials }}
+                    <li>
+                      <a href="{{ url }}" target="_blank"
+                      class="w-[41px] h-[41px] xl:w-[46px] xl:h-[46px] 2xl:w-[50px] 2xl:h-[50px] transition-all rounded-full bg-gray-200 flex items-center justify-center text-primary-900 hover:bg-primary-900 hover:text-white">
+                      <i class="fa-brands fa-{{ platform }}"></i>
+                    </a>
+                  </li>
+                  {{ /socials }}
+                  {{ /setting }}
+                  </ul>
+                </div>
+              </div>
+            </div>
+            {{ setting }}
+            <div class="2xl:pr-[150px] 1xl:pr-10 pr-0 col-span-1">
+              <h4 class="xl:mb-4 mb-3">Contact Us</h4>
+              <ul class="flex flex-col items-start xl:gap-y-[15px] gap-y-3">
+                <li class="hover:text-primary-900">
+                  <a href="{{ map_url }}"
+                    target="_blank" class="p block">
+                     {{ address }}
+                  </a>
+                </li>
+                <li class="hover:text-primary-900">
+                  <a href="mailto: {{ email }}" class="p block"> {{ email }}</a>
+                </li>
+                <li>
+                  <a href="tel:{{ phone_number }}"
+                    class="btn !px-0 text-primary-900 border-b border-primary-900 hover:text-black !font-medium uppercase !py-0">{{ phone_number }}</a>
+                </li>
+              </ul>
+            </div>
+            {{ /setting }}
+            <div class="col-span-1">
+              <h4 class="2xl:mb-4 mb-3">{{ useful_link_title }}</h4>
+              <ul class="grid grid-flow-col grid-rows-4 items-start xl:gap-[13px] gap-3">
+                 {{ links }}
+                <li class="hover:text-primary-900 p text-black">
+                  <a href="{{ url }}">{{ title }}</a>
+                </li>
+                {{ /links }}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-[#00000014] py-3 md:py-[17px]">
+        <div class="container text-center">
+          <div class="w-ful container flex items-center justify-between md:flex-row flex-col sm:gap-2 gap-1">
+            <p class="font-lexend font-normal mb-0 text-black">
+              {{ copyright_text }}
+            </p>
+            <p
+              class="mb-0 flex items-center justify-center flex-wrap lg:justify-end sm:space-x-5 space-x-3 font-lexend font-normal">
+              {{ if privacy_policy_label }}
+              <a href="{{ privacy_policy }}" class="hover:text-primary-900 text-black">{{ privacy_policy_label }}</a>
+              {{ /if }}
+              {{ if terms_conditions_label }}
+              <span>|</span>
+              <a href="{{ terms_conditions_url }}" class="hover:text-primary-900 text-black">{{ terms_conditions_label }}</a>
+              {{ /if }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    {{ /footer }}

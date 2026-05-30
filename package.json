@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "concurrently \"npm:tailwind:watch\" \"npm:merge:watch\"",
+        "build": "npm run tailwind:build && npm run merge:build",
+
+        "tailwind:watch": "node_modules/.bin/tailwindcss -i ./public/assets/css/tailwind.css -o ./public/assets/css/temp-output.css --watch",
+        "tailwind:build": "node_modules/.bin/tailwindcss -i ./public/assets/css/tailwind.css -o ./public/assets/css/temp-output.css --minify",
+
+        "merge:watch": "shx echo 'Watching CSS...' && shx cat ./public/assets/css/swiper-bundle.css ./public/assets/css/temp-output.css > ./public/assets/css/output.css && shx watch \"./public/assets/css/temp-output.css\" \"shx cat ./public/assets/css/swiper-bundle.css ./public/assets/css/temp-output.css > ./public/assets/css/output.css\"",
+        "merge:build": "shx cat ./public/assets/css/swiper-bundle.css ./public/assets/css/temp-output.css > ./public/assets/css/output.css && shx rm ./public/assets/css/temp-output.css"
+    },
+    "dependencies": {
+        "@tailwindcss/cli": "^4.1.12",
+        "swiper": "^12.0.3",
+        "aos": "^2.3.4",
+        "tailwindcss": "^4.1.12"
+    },
+    "devDependencies": {
+        "concurrently": "^9.0.1",
+        "shx": "^0.4.0"
+    }
+}

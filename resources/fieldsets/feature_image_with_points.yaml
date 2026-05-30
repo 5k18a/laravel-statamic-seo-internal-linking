@@ -1,0 +1,64 @@
+title: 'Feature Image with Points'
+fields:
+  -
+    handle: section_image
+    field:
+      type: assets
+      display: 'Section Image'
+      container: assets
+      max_files: 1
+      instructions: 'Upload the image shown on the left side.'
+  -
+    handle: heading
+    field:
+      type: text
+      display: 'Section Heading'
+      placeholder: 'Example: Our Awards'
+  -
+    handle: description
+    field:
+      type: textarea
+      display: 'Section Description'
+      placeholder: 'Add a short paragraph describing this section.'
+      antlers: true
+  -
+    handle: items
+    field:
+      type: replicator
+      display: 'List Items'
+      instructions: 'Add multiple list items with optional icon and title.'
+      collapse: true
+      fullscreen: false
+      sets:
+        main:
+          display: Main
+          sets:
+            list_item:
+              display: 'List Item'
+              fields:
+                -
+                  handle: icon
+                  field:
+                    type: assets
+                    display: 'Item Icon'
+                    container: assets
+                    max_files: 1
+                    instructions: 'Upload or select an icon for the list item (optional).'
+                -
+                  handle: title
+                  field:
+                    type: text
+                    display: 'Item Title'
+                    placeholder: 'Best Urban Infrastructure Project - 2025'
+  -
+    handle: button_text
+    field:
+      default: 'Contact Us'
+      type: text
+      display: 'Button Text'
+  -
+    handle: button_link
+    field:
+      default: /contact
+      type: text
+      display: 'Button Link'

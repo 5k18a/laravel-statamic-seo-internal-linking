@@ -1,0 +1,96 @@
+title: 'Why Choose Us Section'
+fields:
+  -
+    handle: show_type
+    field:
+      options:
+        -
+          key: home-page-one
+          value: 'Home One'
+        -
+          key: home-page-two
+          value: 'Home Two'
+        -
+          key: home-page-three
+          value: 'Home Three'
+        -
+          key: home-page-four
+          value: 'Home Four'
+      default: home-page-one
+      type: select
+      display: 'Show Type'
+  -
+    handle: section_title
+    field:
+      default: 'Why Choose Us?'
+      type: text
+      display: 'Section Title'
+  -
+    handle: button_text
+    field:
+      default: 'Learn More About Us'
+      type: text
+      display: 'Button Text'
+  -
+    handle: button_link
+    field:
+      default: /about
+      type: text
+      display: 'Button Link'
+  -
+    handle: background_image
+    field:
+      max_files: 1
+      container: assets
+      type: assets
+      display: 'Background Image'
+  -
+    handle: items
+    field:
+      type: replicator
+      display: Items
+      collapse: true
+      sets:
+        new_set_group:
+          display: 'New Set Group'
+          sets:
+            sets:
+              display: Sets
+              fields:
+                -
+                  handle: title
+                  field:
+                    type: text
+                    display: Title
+                -
+                  handle: description
+                  field:
+                    type: textarea
+                    display: Description
+                -
+                  handle: stat_number
+                  field:
+                    placeholder: 45+
+                    type: text
+                    display: 'Stat Number'
+                    instructions: 'Optional — shown below the border'
+                -
+                  handle: stat_label
+                  field:
+                    type: text
+                    display: 'Stat Label'
+                    instructions: 'Optional — label under the stat number'
+                -
+                  handle: icon
+                  field:
+                    container: assets
+                    type: assets
+                    display: Icon
+                    max_files: 1
+                -
+                  handle: feature_image
+                  field:
+                    container: assets
+                    type: assets
+                    display: 'Feature Image'
+                    max_files: 1

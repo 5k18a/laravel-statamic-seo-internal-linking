@@ -1,0 +1,63 @@
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              display: Title
+          -
+            handle: color_option_title
+            field:
+              default: 'color option'
+              type: text
+              display: 'Color option title'
+          -
+            handle: header_type_title
+            field:
+              default: 'Header Type'
+              type: text
+              display: 'Header Type Title'
+          -
+            handle: header_type
+            field:
+              options:
+                -
+                  key: sticky
+                  value: Sticky
+                -
+                  key: static
+                  value: Static
+              default: sticky
+              type: select
+              display: 'Header Type'
+          -
+            handle: theme_options
+            field:
+              type: replicator
+              display: 'Theme Options'
+              sets:
+                new_set_group:
+                  display: 'New Set Group'
+                  sets:
+                    new_set:
+                      display: 'New Set'
+                      fields:
+                        -
+                          handle: name
+                          field:
+                            type: text
+                            display: Name
+                        -
+                          handle: value
+                          field:
+                            type: text
+                            display: 'Value (used in class)'
+                        -
+                          handle: css_class
+                          field:
+                            type: text
+                            display: 'CSS Class'

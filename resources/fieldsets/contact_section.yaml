@@ -1,0 +1,108 @@
+title: 'Contact Section'
+fields:
+  -
+    handle: sub_title
+    field:
+      default: Contact
+      type: text
+      display: 'Sub Title'
+  -
+    handle: short_description
+    field:
+      default: 'We’re happy to assist you with any inquiries or project ideas.'
+      type: textarea
+      display: 'Short Description'
+  -
+    handle: section_title
+    field:
+      type: text
+      display: 'Section Title'
+      instructions: 'Heading above the contact section (e.g., Get in touch)'
+      default: 'Get in touch'
+  -
+    handle: offices
+    field:
+      type: replicator
+      display: 'Office Locations'
+      instructions: 'Add different office addresses'
+      sets:
+        main:
+          display: Main
+          sets:
+            office:
+              display: Office
+              fields:
+                -
+                  handle: country_name
+                  field:
+                    type: text
+                    display: 'Country Name'
+                    placeholder: India
+                -
+                  handle: flag
+                  field:
+                    type: assets
+                    display: 'Flag Image'
+                    max_files: 1
+                    folder: assets/images
+                    instructions: 'Upload country flag'
+                -
+                  handle: address
+                  field:
+                    type: textarea
+                    display: Address
+                -
+                  handle: map_link
+                  field:
+                    type: text
+                    display: 'Google Map Link'
+                    instructions: 'Paste full Google Maps URL'
+                -
+                  handle: get_location_label
+                  field:
+                    default: 'Get Location'
+                    type: text
+                    display: 'Get Location label'
+  -
+    handle: contact_label
+    field:
+      default: CONTACT
+      type: text
+      display: 'Contact Label'
+  -
+    handle: contact_email
+    field:
+      type: text
+      input_type: email
+      display: 'Contact Email'
+      default: info@orionconstruction.com
+  -
+    handle: contact_phone
+    field:
+      type: text
+      display: 'Contact Phone'
+      default: '+1 234 5678 9099'
+  -
+    handle: schedule_meeting_title
+    field:
+      type: text
+      display: 'Schedule Meeting Title'
+      default: 'Schedule meeting'
+  -
+    handle: schedule_meeting_text
+    field:
+      type: textarea
+      display: 'Schedule Meeting Description'
+      default: 'Book a quick session with our experts to discuss your project details.'
+  -
+    handle: schedule_meeting_link
+    field:
+      type: text
+      display: 'Schedule Meeting Button Link'
+      instructions: 'Add Calendly or meeting booking link'
+  -
+    handle: schedule_meeting_label
+    field:
+      default: 'Schedule meeting'
+      type: text
+      display: 'Schedule meeting label'

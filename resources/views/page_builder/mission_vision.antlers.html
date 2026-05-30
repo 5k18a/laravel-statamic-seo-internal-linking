@@ -1,0 +1,28 @@
+<section class="relative 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] sm:mb-[50px] mb-10 z-20">
+    <div class="relative overflow-hidden story flex md:flex-row flex-col items-stretch">
+        <div
+        class="lg:w-[46.2%] md:w-[41%] w-full md:absolute relative z-1 md:h-[80%] h-full md:top-1/2 md:-translate-y-1/2">
+        <img src="{{ image }}  {{ url }} {{ /image }}" alt="img" class="w-full h-full object-cover"
+        loading="lazy" />
+    </div>
+
+    <div
+    class="bg-[#F6F6F6] lg:w-[74%] md:w-[73%] w-full relative 2xl:py-[145px] 1xl:py-[120px] 2xl:pl-96 xl:py-24 xl:pl-80 lg:py-24 lg:pl-60 md:py-14 md:pl-40 py-[30px] ml-auto mr-0">
+    <div class="container max-w-[815px] w-full relative z-1 md:ml-0 md:p-0">
+        <h2 class="sm:mb-5 mb-4">{{section_title }}</h2>
+        {{ if description }}<p class="xl:mb-[28px] mb-[25px] text-[#464343] xl:leading-[30px] leading-7">{{ description }}</p>{{ /if }}
+        {{ if points }}
+        <ul class="space-y-2.5 xl:mb-[40px] mb-[30px] custom-list">
+            {{ points }}
+            <li class="flex items-start 2xl:gap-3 gap-2">
+                <p>{{ text }}</p>
+            </li>
+            {{ /points }}
+            
+        </ul>
+        {{ /if }}
+        {{ if button_text }}<a href="{{ button_url }}" class="btn btn-primary">{{ button_text }}</a>{{ /if }}
+    </div>
+</div>
+</div>
+</section>

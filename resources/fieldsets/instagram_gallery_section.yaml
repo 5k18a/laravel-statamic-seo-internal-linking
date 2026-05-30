@@ -1,0 +1,32 @@
+title: 'Instagram Gallery Section'
+fields:
+  -
+    handle: gallery_section
+    field:
+      type: replicator
+      display: 'Gallery Section'
+      sets:
+        new_set_group:
+          display: 'New Set Group'
+          sets:
+            images:
+              display: Images
+              fields:
+                -
+                  handle: image
+                  field:
+                    max_files: 1
+                    container: assets
+                    type: assets
+                    display: Image
+                -
+                  handle: link
+                  field:
+                    type: text
+                    display: 'Instagram Link'
+                    default: 'https://www.instagram.com/'
+                -
+                  handle: alt_text
+                  field:
+                    type: text
+                    display: 'Alt Text'

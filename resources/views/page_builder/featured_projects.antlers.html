@@ -1,0 +1,51 @@
+<section class="our-work-section relative 2xl:mb-[100px] 1xl:mb-20 lg:mb-[60px] md:mb-[50px] mb-8 z-1 bg-white">
+        <div class="container">
+          <div class="sm:flex items-center justify-between xl:mb-10 md:mb-9 sm:mb-[30px] mb-5">
+            <h2 class="mb-0">{{ section_title }}</h2>
+            {{ if button_text }}
+            <div class="w-auto sm:flex hidden items-center justify-end">
+              <a href="{{ button_link }}" class="btn btn-primary-reverse">{{ button_text }}
+              </a>
+            </div> 
+            {{ /if }}
+          </div>
+          <div class="project-1">
+            <div class="swiper project-slider !overflow-visible">
+              <div class="swiper-wrapper">
+                <!-- Our Project-1 -->
+                {{ projects }}
+                <div class="swiper-slide">
+                  <div class="group">
+                    <div class="overflow-hidden relative 2xl:before:pt-[112%] before:pt-[110%] before:block">
+                      <a href="/project/{{ slug }}" class="absolute top-0 left-0 w-full h-full block">
+                        <img src="{{ image }} {{ url }} {{ /image }}" alt="{{ title }}" class="h-full w-full object-cover" loading="lazy"
+                          decoding="async" />
+                      </a>
+                      <a href="/project/{{ slug }}"
+                        class="2xl:w-[85px] 2xl:h-[85px] xl:w-[68px] xl:h-[68px] sm:w-[62px] sm:h-[62px] w-10 h-10 rounded-full bg-white/80 items-center justify-center absolute top-3 lg:top-5 right-3 lg:right-5 hover:bg-white hover:text-primary-900 hidden group-hover:flex">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="69" height="69" viewBox="0 0 69 69" fill="none"
+                          class="2xl:w-[69px] lg:w-[60px] sm:w-[55px] w-10">
+                          <path d="M24.8251 24.825H44.5722M44.5722 24.825V44.572M44.5722 24.825L24.8251 44.572"
+                            stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </a>
+                    </div>
+                    <div class="xl:mt-7 lg:mt-5 mt-4">
+                      <h5 class="project-name">
+                        <a href="/project/{{ slug }}" class="group-hover:text-primary-900">{{ title }}</a>
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+                {{ /projects }}
+              </div>
+            </div>
+          </div>
+          {{ if button_text }}
+          <div class="flex items-center justify-between mt-4 sm:hidden">
+            <a href="{{ button_link }}" class="btn btn-primary-reverse">{{ button_text }}
+            </a>
+          </div>
+          {{ /if }}
+        </div>
+      </section>

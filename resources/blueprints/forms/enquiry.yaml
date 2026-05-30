@@ -1,0 +1,77 @@
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: full_name
+            field:
+              type: text
+              display: 'Full Name'
+              validate:
+                - required
+          -
+            handle: email
+            field:
+              type: text
+              display: Email
+              validate:
+                - required
+                - email
+          -
+            handle: phone_number
+            field:
+              type: text
+              display: 'Phone Number'
+          -
+            handle: year_of_experience
+            field:
+              options:
+                -
+                  key: 0-1
+                  value: '0-1 Years'
+                -
+                  key: 1-2
+                  value: '1-2 Years'
+                -
+                  key: 2-3
+                  value: '2-3 Years'
+                -
+                  key: 3+
+                  value: '3+ Years'
+              default: 0-1
+              type: select
+              display: 'Year Of Experience'
+              validate:
+                - required
+          -
+            handle: position
+            field:
+              type: text
+              display: Position
+              validate:
+                - required
+          -
+            handle: upload_file
+            field:
+              container: assets
+              type: assets
+              display: 'Upload File'
+              instructions: 'Accepted file types: pdf, doc, Max. file size: 50 MB.'
+              if: 'mimes:pdf,doc,docx  max:51200'
+          -
+            handle: message
+            field:
+              type: textarea
+              display: Message
+              validate:
+                - required
+          -
+            handle: terms
+            field:
+              type: toggle
+              display: Terms
+              instructions: 'I agree to the terms and confirm the information provided is accurate.'
+              validate:
+                - required

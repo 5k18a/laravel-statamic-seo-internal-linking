@@ -1,0 +1,39 @@
+title: 'About Vision Section'
+fields:
+  -
+    handle: left_image
+    field:
+      max_files: 1
+      container: assets
+      type: assets
+      display: 'Left Image'
+  -
+    handle: right_image
+    field:
+      max_files: 1
+      container: assets
+      type: assets
+      display: 'Right Image'
+  -
+    handle: section_title
+    field:
+      default: 'Built on Vision. Driven by Quality.'
+      type: text
+      display: 'Section Title'
+  -
+    handle: description
+    field:
+      type: textarea
+      display: Description
+  -
+    handle: button_text
+    field:
+      default: 'Explore Our Story'
+      type: text
+      display: 'Button Text'
+  -
+    handle: button_link
+    field:
+      default: /blog
+      type: text
+      display: 'Button Link'

@@ -1,0 +1,100 @@
+title: 'Gallery Section'
+fields:
+  -
+    handle: show_type
+    field:
+      options:
+        -
+          key: home-page-one
+          value: 'Home One'
+        -
+          key: home-page-two
+          value: 'Home Two'
+        -
+          key: home-page-three
+          value: 'Home Three'
+        -
+          key: home-page-four
+          value: 'Home Four'
+        -
+          key: gallery-page
+          value: 'Gallery Page'
+      type: select
+      display: 'Show Type'
+  -
+    handle: section_title
+    field:
+      default: 'Our Gallery'
+      type: text
+      display: 'Section Title'
+  -
+    handle: button_text
+    field:
+      default: 'View Gallery'
+      type: text
+      display: 'Button Text'
+  -
+    handle: button_link
+    field:
+      default: /gallery
+      type: text
+      display: 'Button Link'
+      if:
+        show_type: 'not gallery-page'
+  -
+    handle: gallery_row_1
+    field:
+      type: group
+      display: 'Gallery Row 1'
+      if:
+        show_type: 'not gallery-page'
+      fields:
+        -
+          handle: galleries
+          field:
+            mode: select
+            collections:
+              - galleries
+            type: entries
+            display: Galleries
+  -
+    handle: gallery_row_2
+    field:
+      type: group
+      display: 'Gallery Row 2'
+      if:
+        show_type: 'not gallery-page'
+      fields:
+        -
+          handle: galleries
+          field:
+            mode: select
+            collections:
+              - galleries
+            type: entries
+            display: Galleries
+  -
+    handle: collections
+    field:
+      max_items: 1
+      mode: select
+      type: collections
+      display: Collections
+      if:
+        show_type: 'equals gallery-page'
+  -
+    handle: pagination
+    field:
+      default: 'false'
+      type: text
+      display: Pagination
+      if:
+        show_type: 'equals gallery-page'
+  -
+    handle: limit
+    field:
+      default: '0'
+      type: integer
+      display: Limit
+      if:
+        show_type: 'equals gallery-page'

@@ -1,0 +1,39 @@
+title: 'How It Works Section'
+fields:
+  -
+    handle: heading
+    field:
+      type: text
+      display: 'Section Heading'
+      default: 'How It Works'
+      instructions: 'Main heading displayed at the top of the section.'
+  -
+    handle: steps
+    field:
+      type: replicator
+      display: Steps
+      instructions: 'Add each step in the How It Works section.'
+      sets:
+        step_item:
+          display: 'Step Item'
+          fields:
+            -
+              handle: step_number
+              field:
+                type: text
+                display: 'Step Number'
+                placeholder: '01'
+                width: 25
+            -
+              handle: title
+              field:
+                type: text
+                display: 'Step Title'
+                placeholder: Briefing
+                width: 50
+            -
+              handle: description
+              field:
+                type: textarea
+                display: 'Step Description'
+                placeholder: 'We start by listening to your vision, gathering preferences, and setting design objectives.'

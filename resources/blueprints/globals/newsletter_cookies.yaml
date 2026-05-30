@@ -1,0 +1,194 @@
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: newsletter_heading
+            field:
+              type: text
+              display: 'Newsletter Heading'
+          -
+            handle: newsletter_description
+            field:
+              type: textarea
+              display: 'Newsletter Description'
+          -
+            handle: newsletter_image
+            field:
+              type: assets
+              display: 'Newsletter Banner Image'
+              container: assets
+              max_files: 1
+          -
+            handle: newsletter_offer_badge
+            field:
+              type: text
+              display: 'Offer Badge Text'
+              instructions: "Small label shown over the image (e.g., '15% Off')"
+          -
+            handle: newsletter_offer_heading
+            field:
+              type: text
+              display: "Section heading (e.g., '- Launch Offer -')"
+          -
+            handle: newsletter_offer_prefix
+            field:
+              type: text
+              display: 'Offer Text (Before Date)'
+              instructions: "Text before the date (e.g., 'Book before')"
+          -
+            handle: newsletter_offer_date
+            field:
+              type: text
+              display: 'Offer Date'
+              instructions: "The date to highlight (e.g., '30th October')"
+          -
+            handle: newsletter_offer_suffix
+            field:
+              type: text
+              display: 'Offer Text (After Date)'
+              instructions: "Text after the date (e.g., 'and get exclusive early-bird discounts!')"
+          -
+            handle: newsletter_button_text
+            field:
+              type: text
+              display: 'Button Text'
+              default: Subscribe
+      -
+        display: Cookie
+        fields:
+          -
+            handle: heading
+            field:
+              type: text
+              display: Heading
+          -
+            handle: description
+            field:
+              type: textarea
+              display: Description
+          -
+            handle: accept_button
+            field:
+              type: text
+              display: 'Accept Button Text'
+          -
+            handle: settings_button
+            field:
+              type: text
+              display: 'Settings Button Text'
+          -
+            handle: cookie_description
+            field:
+              default: 'At Orion Construction, cookies are our digital building blocks. Some keep the site standing strong, while others help us improve performance and tailor your experience.'
+              type: textarea
+              display: 'Cookie Description'
+          -
+            handle: cookie_header
+            field:
+              default: 'Privacy Preference Center'
+              type: text
+              display: 'Cookie Header'
+          -
+            handle: manage_title
+            field:
+              default: 'Manage Consent Preferences:'
+              type: text
+              display: 'Manage Title'
+          -
+            handle: cookie_categories
+            field:
+              type: replicator
+              display: 'Cookie Categories'
+              sets:
+                new_set_group:
+                  display: 'New Set Group'
+                  sets:
+                    targeting:
+                      display: 'Targeting Cookies'
+                      fields:
+                        -
+                          handle: sub_title
+                          field:
+                            type: text
+                            display: 'Sub Title'
+                        -
+                          handle: description
+                          field:
+                            type: textarea
+                            display: Description
+                        -
+                          handle: enabled
+                          field:
+                            default: true
+                            type: toggle
+                            display: 'Enabled by default'
+                    performance:
+                      display: 'Performance Cookies'
+                      fields:
+                        -
+                          handle: sub_title
+                          field:
+                            type: text
+                            display: 'Sub Title'
+                        -
+                          handle: description
+                          field:
+                            type: textarea
+                            display: Description
+                        -
+                          handle: enabled
+                          field:
+                            default: true
+                            type: toggle
+                            display: 'Enabled by default'
+                    necessary:
+                      display: 'Strictly Necessary Cookies'
+                      fields:
+                        -
+                          handle: sub_title
+                          field:
+                            type: text
+                            display: 'Sub Title'
+                        -
+                          handle: description
+                          field:
+                            type: textarea
+                            display: Description
+                        -
+                          handle: enabled
+                          field:
+                            default: true
+                            type: toggle
+                            display: Enabled
+                    functional:
+                      display: 'Functional Cookies'
+                      fields:
+                        -
+                          handle: sub_title
+                          field:
+                            type: text
+                            display: 'Sub Title'
+                        -
+                          handle: description
+                          field:
+                            type: textarea
+                            display: Description
+                        -
+                          handle: enabled
+                          field:
+                            default: true
+                            type: toggle
+                            display: 'Enabled by default'
+          -
+            handle: reject_all_button
+            field:
+              type: text
+              display: 'Reject All Button'
+          -
+            handle: confirm_choices_button
+            field:
+              type: text
+              display: 'Confirm Choices Button'

@@ -1,0 +1,106 @@
+{{ page_builder scope="block" }}
+{{ partial src="page_builder/{type}" }}
+{{ /page_builder }}
+
+<section class="relative 2xl:mb-[100px] 1xl:mb-20 lg:mb-[60px] md:mb-[50px] mb-8" id="enquiryForm">
+    <div class="container">
+        <h2 class="xl:mb-10 md:mb-7 mb-5">{{ setting }} {{ enquiry_form_title }} {{ /setting }}</h2>
+        {{ form:enquiry id="enquiryForm" ajax="true" }} 
+        {{ csrf }}
+
+<div class="w-full grid xl:grid-cols-3 sm:grid-cols-2 grid-cols-1 1xl:gap-[30px] sm:gap-6 gap-4.5 enquiry-form">
+
+    {{ fields }}
+
+    {{ if type != "toggle" }}
+    <div class="{{ if type == 'textarea' }}xl:col-span-3 sm:col-span-2{{ /if }}">
+        
+        <label for="{{ handle }}" class="block xl:mb-3 mb-1.5 p text-black">
+            {{ display }} {{ if validate }}
+            {{ if validate contains="required" }}*{{ /if }}
+            {{ /if }}
+        </label>
+
+        {{ if type == "select" }}
+
+            <select id="{{ handle }}" name="{{ handle }}"
+                class="w-full xl:px-3 px-2 py-2.5 border border-black focus:border-primary-900 outline-none">
+                <option value="">Please select...</option>
+                {{ foreach:options as="option|label" }}
+                    <option value="{{ option }}">{{ label !== null ? label : option }}</option>
+                {{ /foreach:options }}
+            </select>
+
+        {{ elseif type == "textarea" }}
+
+            <textarea id="{{ handle }}" name="{{ handle }}"
+                class="w-full xl:px-3 px-2 py-2.5 border border-black focus:border-primary-900 outline-none resize-y min-h-[120px]"></textarea>
+
+        {{ elseif type == "assets" }}
+
+            <div class="relative border px-3 py-2.5">
+                <input type="file" name="{{ handle }}" id="{{ handle }}"
+                    class="absolute inset-0 opacity-0 cursor-pointer z-10"
+                    accept=".pdf,.doc,.docx">
+
+                <div class="flex items-center">
+                    <button type="button"
+                        class="px-4 py-1 bg-primary-900/26 text-black text-sm uppercase">
+                        Choose File
+                    </button>
+                    <p class="px-4 text-black flex-1">No file chosen</p>
+                </div>
+            </div>
+
+            {{ if instructions }}
+            <p class="mt-2 text-gray-600 p2">{{ instructions }}</p>
+            {{ /if }}
+
+        {{ elseif handle == "position" }}
+
+            <select id="position" name="position"
+                class="w-full xl:px-3 px-2 py-2.5 border border-black focus:border-primary-900 outline-none">
+                <option value="">Please select...</option>
+                {{ collection:job_positions }}
+                    <option value="{{ id }}">{{ title }}</option>
+                {{ /collection:job_positions }}
+            </select>
+
+        {{ else }}
+
+            <input type="text" id="{{ handle }}" name="{{ handle }}"
+                class="w-full xl:px-3 px-2 py-2.5 border border-black focus:border-primary-900 outline-none">
+
+        {{ /if }}
+
+        <!-- Error -->
+        <div class="error-message hidden text-red-500 mt-2 transition-all ease-in-out items-center gap-2" data-error-for="{{ handle }}"> <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none"> <path d="M9.35 9.35H7.65V4.25H9.35M9.35 12.75H7.65V11.05H9.35M8.5 0C7.38376 0 6.27846 0.219859 5.24719 0.647024C4.21592 1.07419 3.27889 1.70029 2.48959 2.48959C0.895533 4.08365 0 6.24566 0 8.5C0 10.7543 0.895533 12.9163 2.48959 14.5104C3.27889 15.2997 4.21592 15.9258 5.24719 16.353C6.27846 16.7801 7.38376 17 8.5 17C10.7543 17 12.9163 16.1045 14.5104 14.5104C16.1045 12.9163 17 10.7543 17 8.5C17 7.38376 16.7801 6.27846 16.353 5.24719C15.9258 4.21592 15.2997 3.27889 14.5104 2.48959C13.7211 1.70029 12.7841 1.07419 11.7528 0.647024C10.7215 0.219859 9.61624 0 8.5 0Z" fill="#D21C1C" /> </svg> <span class="field-error error-text p2" data-error-for="{{ handle }}"></span> </div>
+
+    </div>
+    {{ /if }}
+
+    {{ /fields }}
+
+</div>
+
+<!-- Toggle fields -->
+{{ fields }}
+{{ if type == "toggle" }}
+<div class="flex items-start gap-3 mt-4">
+    <input type="checkbox" name="{{ handle }}" id="{{ handle }}"
+        class="w-6 h-6 accent-primary-900">
+    <label for="{{ handle }}" class="p text-black">{{ instructions }}</label>
+</div>
+
+<div class="error-message hidden text-red-500 mt-2 transition-all ease-in-out items-center gap-2" data-error-for="{{ handle }}"> <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none"> <path d="M9.35 9.35H7.65V4.25H9.35M9.35 12.75H7.65V11.05H9.35M8.5 0C7.38376 0 6.27846 0.219859 5.24719 0.647024C4.21592 1.07419 3.27889 1.70029 2.48959 2.48959C0.895533 4.08365 0 6.24566 0 8.5C0 10.7543 0.895533 12.9163 2.48959 14.5104C3.27889 15.2997 4.21592 15.9258 5.24719 16.353C6.27846 16.7801 7.38376 17 8.5 17C10.7543 17 12.9163 16.1045 14.5104 14.5104C16.1045 12.9163 17 10.7543 17 8.5C17 7.38376 16.7801 6.27846 16.353 5.24719C15.9258 4.21592 15.2997 3.27889 14.5104 2.48959C13.7211 1.70029 12.7841 1.07419 11.7528 0.647024C10.7215 0.219859 9.61624 0 8.5 0Z" fill="#D21C1C" /> </svg> <span class="field-error error-text p2" data-error-for="{{ handle }}">This field is required</span> </div>
+{{ /if }}
+{{ /fields }}
+
+<button type="submit" class="btn btn-primary xl:mt-9 sm:mt-7 mt-5.5 aos-init aos-animate">Submit</button>
+
+<p id="successMessage" class="form-message bg-primary-900/12 hidden top-0 right-auto mt-5 w-fit text-primary-900 px-4 py-2 transform translate-x-0 transition-all"> </p>
+
+{{ /form:enquiry }}
+
+    </div>
+</section>

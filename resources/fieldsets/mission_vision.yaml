@@ -1,0 +1,53 @@
+title: 'Mission Vision'
+fields:
+  -
+    handle: section_title
+    field:
+      type: text
+      display: 'Section Title'
+      default: 'Our Mission & Vision'
+      instructions: 'Main heading for this section.'
+  -
+    handle: image
+    field:
+      type: assets
+      display: 'Side Image'
+      instructions: 'Upload the background/side image (e.g. mission-vision.webp).'
+      container: assets
+      max_files: 1
+  -
+    handle: description
+    field:
+      type: textarea
+      display: Description
+      antlers: true
+      instructions: 'Main paragraph describing mission and vision.'
+  -
+    handle: points
+    field:
+      type: replicator
+      display: 'Key Points'
+      instructions: 'List of key mission and vision statements.'
+      sets:
+        item:
+          display: Point
+          fields:
+            -
+              handle: text
+              field:
+                type: text
+                display: Text
+                placeholder: 'e.g. Excellence in every build, from foundation to finish'
+  -
+    handle: button_text
+    field:
+      type: text
+      display: 'Button Label'
+      default: 'Discover More About Our Work'
+  -
+    handle: button_url
+    field:
+      type: text
+      display: 'Button URL'
+      default: /about
+      instructions: 'Enter relative or full URL for the button link.'

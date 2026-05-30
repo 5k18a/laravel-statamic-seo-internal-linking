@@ -1,0 +1,47 @@
+background_image: images/comin-soon-n-banner.webp
+heading: 'We Are Coming Very Soon!'
+description: 'Our brand-new website is under construction to bring you a better way to explore our services, showcase our projects, and connect with Orion Construction.'
+countdown_items:
+  -
+    id: mhk448jq
+    label: Days
+    value: 52
+    type: item
+    enabled: true
+  -
+    id: mhk44dao
+    label: HOURS
+    value: 12
+    type: item
+    enabled: true
+  -
+    id: mhk44jia
+    label: MINUTES
+    value: 43
+    type: item
+    enabled: true
+  -
+    id: mhk44twe
+    label: SECONDS
+    value: 51
+    type: item
+    enabled: true
+subscribe_text: 'SUBSCRIBE TO OUR LIST'
+subscribe_placeholder: 'Your Email address'
+subscribe_button: Submit
+socials:
+  -
+    id: mhk3zuuo
+    title: Facebook
+    platform: facebook-f
+    url: 'https://www.facebook.com/'
+  -
+    id: mhk409xb
+    title: Twitter
+    platform: x-twitter
+    url: 'https://www.twitter.com/'
+  -
+    id: mhk40rvb
+    title: Instagram
+    platform: instagram
+    url: 'https://www.instagram.com/'

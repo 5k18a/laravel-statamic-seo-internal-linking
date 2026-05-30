@@ -1,0 +1,16 @@
+title: 'Category Header Section'
+fields:
+  -
+    handle: section_title
+    field:
+      type: text
+      display: "Section Title"
+      instructions: "Enter the heading for this section."
+      placeholder: "Architecture & Design"
+  -
+    handle: section_description
+    field:
+      type: textarea
+      display: "Section Description"
+      instructions: "Enter the supporting paragraph text."
+      placeholder: "Explore innovative concepts, modern aesthetics, and functional design strategies..."

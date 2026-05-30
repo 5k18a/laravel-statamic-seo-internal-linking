@@ -1,0 +1,29 @@
+<div class="main-wrapper bg-white overflow-hidden">
+    <div class="container">
+        <!-- Main 404 Section -->
+        <div class="lg:min-h-[95vh] min-h-[75vh] flex items-center justify-center">
+            <div class="text-center">
+                {{ error_page }}
+                <!-- 404 Large Text -->
+                <h1 class="2xl:text-[330px] 1xl:text-[310px] xl:text-[285px] lg:text-[240px] md:text-[240px] sm:text-[175px] text-[70px] 2xl:leading-[294px] 1xl:leading-[280px] xl:leading-[260px] lg:leading-[235px] md:leading-[220px] sm:leading-[160px] leading-[84px]">
+                    {{ title }}
+                </h1>
+                <!-- Page Not Found Heading -->
+                <h3 class="font-light 1xl:mb-6 mb-4">{{ sub_title }}</h3>
+
+                <!-- Description Text -->
+                <p class="xl:max-w-[682px] max-w-[580px] w-full mx-auto mb-8">
+                    {{ short_description }}
+                </p>
+
+                <!-- Back to Home Button -->
+                {{ if button_text }}
+                <a href="{{ button_link }}" class="btn btn-primary mx-auto">
+                    {{ button_text }}
+                </a>
+                {{ /if }}
+                {{ /error_page }}
+            </div>
+        </div>
+    </div>
+</div>

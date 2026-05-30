@@ -1,0 +1,69 @@
+title: Package
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              validate:
+                - required
+              display: Title
+          -
+            handle: price
+            field:
+              type: integer
+              display: Price
+          -
+            handle: unit
+            field:
+              default: '/ sq.ft'
+              type: text
+              display: Unit
+          -
+            handle: tag
+            field:
+              type: text
+              display: Tag
+          -
+            handle: description
+            field:
+              type: textarea
+              display: Description
+          -
+            handle: button_text
+            field:
+              default: 'Choose Plan'
+              type: text
+              display: 'Button Text'
+          -
+            handle: button_link
+            field:
+              default: /contact
+              type: text
+              display: 'Button Link'
+          -
+            handle: includes_title
+            field:
+              type: text
+              display: 'Includes Title'
+          -
+            handle: includes_list
+            field:
+              type: list
+              display: 'Includes List'
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'

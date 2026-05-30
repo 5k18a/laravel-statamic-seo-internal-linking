@@ -1,0 +1,48 @@
+title: 'Why Choose Orion Section'
+fields:
+  -
+    handle: section_title
+    field:
+      default: 'Why Choose Orion?'
+      type: text
+      display: 'Section Title'
+  -
+    handle: section_description
+    field:
+      type: textarea
+      display: 'Section Description'
+  -
+    handle: stats
+    field:
+      type: replicator
+      display: Statistics
+      collapse: true
+      sets:
+        new_set_group:
+          display: 'New Set Group'
+          sets:
+            stat_block:
+              display: 'Stat Block'
+              fields:
+                -
+                  handle: number
+                  field:
+                    type: text
+                    display: 'Number / Value'
+                    instructions: 'Example: 99+'
+                    validate:
+                      - required
+                -
+                  handle: title
+                  field:
+                    type: text
+                    display: Title
+                    instructions: 'Example: Completed Projects'
+                    validate:
+                      - required
+                -
+                  handle: description
+                  field:
+                    type: textarea
+                    display: Description
+                    instructions: 'Short text explaining the stat.'

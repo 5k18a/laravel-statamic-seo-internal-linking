@@ -1,0 +1,42 @@
+title: 'Overview Section'
+fields:
+  -
+    handle: section_title
+    field:
+      type: text
+      display: 'Section Title'
+  -
+    handle: description_one
+    field:
+      type: textarea
+      display: 'Description one'
+  -
+    handle: description_two
+    field:
+      type: textarea
+      display: 'Description Two'
+  -
+    handle: features
+    field:
+      type: replicator
+      display: 'Overview Features'
+      instructions: 'Add each feature item shown below the description'
+      sets:
+        main:
+          display: Main
+          sets:
+            feature:
+              display: 'Feature Item'
+              fields:
+                -
+                  handle: title
+                  field:
+                    type: text
+                    display: 'Feature Title'
+                    placeholder: 'Comprehensive Assessment'
+                -
+                  handle: description
+                  field:
+                    type: textarea
+                    display: 'Feature Description'
+                    placeholder: 'We evaluate structural integrity, material compatibility, and client preferences...'

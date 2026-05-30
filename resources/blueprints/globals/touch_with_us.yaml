@@ -1,0 +1,71 @@
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: sub_title
+            field:
+              default: "Let's Connect"
+              type: text
+              display: 'Sub Title'
+          -
+            handle: heading
+            field:
+              type: text
+              display: Heading
+          -
+            handle: subheading
+            field:
+              type: textarea
+              display: Subheading
+          -
+            handle: offices
+            field:
+              type: replicator
+              display: Offices
+              sets:
+                office:
+                  display: Office
+                  fields:
+                    -
+                      handle: country
+                      field:
+                        type: text
+                        display: Country
+                    -
+                      handle: flag
+                      field:
+                        type: assets
+                        container: assets
+                        max_files: 1
+                        display: 'Flag Image'
+                    -
+                      handle: address
+                      field:
+                        type: textarea
+                        display: Address
+                    -
+                      handle: map_link
+                      field:
+                        type: text
+                        display: 'Google Map Link'
+          -
+            handle: content_title
+            field:
+              default: CONTACT
+              type: text
+              display: 'Content Title'
+          -
+            handle: email
+            field:
+              type: text
+              display: 'Email Address'
+          -
+            handle: phone
+            field:
+              type: text
+              display: 'Phone Number'
+          -
+            import: social_section

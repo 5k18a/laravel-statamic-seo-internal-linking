@@ -1,0 +1,60 @@
+title: 'Confidence Section'
+fields:
+  -
+    handle: heading
+    field:
+      type: text
+      display: 'Main Heading'
+      placeholder: 'Build Your Dream Project with Confidence'
+      validate:
+        - required
+  -
+    handle: description
+    field:
+      type: textarea
+      display: Description
+      placeholder: 'Add a short paragraph describing the section'
+  -
+    handle: primary_button
+    field:
+      type: group
+      display: 'Primary Button'
+      fields:
+        -
+          handle: label
+          field:
+            type: text
+            display: 'Button Label'
+            placeholder: 'Request Your Free Quote Today'
+        -
+          handle: url
+          field:
+            type: text
+            display: 'Button URL'
+            placeholder: /about-us
+  -
+    handle: contact_button
+    field:
+      type: group
+      display: 'Contact Button'
+      fields:
+        -
+          handle: phone_label
+          field:
+            type: text
+            display: 'Phone Text'
+            placeholder: '+1 234 5678 999'
+        -
+          handle: phone_number
+          field:
+            type: text
+            display: 'Phone Number (tel link)'
+            placeholder: '+12345678999'
+  -
+    handle: image
+    field:
+      type: assets
+      display: 'Right Image'
+      max_files: 1
+      folder: images
+      instructions: 'Upload the confidence section image'

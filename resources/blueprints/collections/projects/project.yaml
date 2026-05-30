@@ -1,0 +1,230 @@
+title: Project
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              validate:
+                - required
+          -
+            handle: image
+            field:
+              type: assets
+              display: 'Featured Image'
+              max_files: 1
+              container: assets
+              folder: images/projects
+          -
+            handle: details
+            field:
+              type: replicator
+              display: Details
+              listable: true
+              collapse: true
+              sets:
+                main:
+                  display: Main
+                  sets:
+                    info_item:
+                      display: 'Info Item'
+                      fields:
+                        -
+                          handle: label
+                          field:
+                            type: text
+                            display: Label
+                            placeholder: 'e.g. Status, Size, Location'
+                        -
+                          handle: value
+                          field:
+                            type: text
+                            display: Value
+                            placeholder: 'e.g. Dubai, UAE'
+          -
+            handle: overview_section
+            field:
+              type: group
+              display: 'Overview Section'
+              listable: true
+              fields:
+                -
+                  handle: overview_title
+                  field:
+                    default: Overview
+                    type: text
+                    display: 'Overview Title'
+                -
+                  handle: overvie
+                  field:
+                    remove_empty_nodes: false
+                    type: bard
+                    display: Overview
+          -
+            handle: project_highlights
+            field:
+              type: group
+              display: 'Project Highlights'
+              fields:
+                -
+                  handle: project_highlights_title
+                  field:
+                    default: 'Project Highlights :'
+                    type: text
+                    display: 'Project Highlights Title'
+                -
+                  handle: highlights
+                  field:
+                    collapse: true
+                    type: replicator
+                    display: Highlights
+                    sets:
+                      new_set_group:
+                        display: 'New Set Group'
+                        sets:
+                          new_set:
+                            display: 'New Set'
+                            fields:
+                              -
+                                handle: highlight_text
+                                field:
+                                  type: text
+                                  display: 'Highlight Text'
+                                  listable: true
+          -
+            handle: gallery_section
+            field:
+              type: group
+              display: 'Gallery Section'
+              fields:
+                -
+                  handle: gallery_title
+                  field:
+                    default: Gallery
+                    type: text
+                    display: 'Gallery Title'
+                -
+                  handle: images
+                  field:
+                    min_files: 1
+                    container: assets
+                    type: assets
+                    display: Images
+          -
+            handle: project_milestones
+            field:
+              type: group
+              display: 'Project Milestones'
+              sortable: false
+              listable: true
+              fields:
+                -
+                  handle: project_milestones_title
+                  field:
+                    default: 'Project Milestones'
+                    type: text
+                    display: 'Project Milestones Title'
+                -
+                  handle: project_milestones
+                  field:
+                    type: replicator
+                    display: 'Project Milestones'
+                    sets:
+                      new_set_group:
+                        display: 'New Set Group'
+                        sets:
+                          new_set:
+                            display: 'New Set'
+                            fields:
+                              -
+                                handle: year_range
+                                field:
+                                  placeholder: 'e.g. 2021 – 2025'
+                                  type: text
+                                  display: 'Year Range'
+                              -
+                                handle: title
+                                field:
+                                  type: text
+                                  display: Title
+                              -
+                                handle: background_image
+                                field:
+                                  max_files: 1
+                                  container: assets
+                                  type: assets
+                                  display: 'Background Image'
+                              -
+                                handle: description
+                                field:
+                                  type: markdown
+                                  display: Description
+          -
+            handle: team_section
+            field:
+              type: group
+              display: 'Team Section'
+              listable: true
+              fields:
+                -
+                  handle: professional_team_title
+                  field:
+                    default: 'Professional Team'
+                    type: text
+                    display: 'Professional Team Title'
+                -
+                  handle: button_text
+                  field:
+                    default: 'View all Members'
+                    type: text
+                    display: 'Button Text'
+                -
+                  handle: collections
+                  field:
+                    max_items: 1
+                    mode: select
+                    type: collections
+                    display: 'Team Collections'
+          -
+            handle: related_projects
+            field:
+              type: group
+              display: 'Related Projects'
+              listable: true
+              fields:
+                -
+                  handle: related_project_title
+                  field:
+                    default: 'Related Projects'
+                    type: text
+                    display: 'Related Project Title'
+                -
+                  handle: button_text
+                  field:
+                    default: 'View All Projects'
+                    type: text
+                    display: 'Button Text'
+                -
+                  handle: related_project
+                  field:
+                    mode: select
+                    collections:
+                      - projects
+                    type: entries
+                    display: 'Related Project'
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'

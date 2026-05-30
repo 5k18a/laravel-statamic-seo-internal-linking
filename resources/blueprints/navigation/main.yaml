@@ -1,0 +1,83 @@
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: menu_type
+            field:
+              options:
+                -
+                  key: normal
+                  value: 'Normal Menu'
+                -
+                  key: project-list
+                  value: 'Project List'
+                -
+                  key: service-list
+                  value: 'Service List'
+              type: select
+              display: 'Menu Type'
+              default: normal
+          -
+            handle: project_entries
+            field:
+              type: entries
+              display: 'Select Project'
+              mode: select
+              collections:
+                - projects
+              if:
+                menu_type: project-list
+          -
+            handle: service_entries
+            field:
+              type: entries
+              display: 'Select Service'
+              mode: select
+              collections:
+                - services
+              if:
+                menu_type: service-list
+          -
+            handle: blog_entries
+            field:
+              type: entries
+              display: 'Select Blog'
+              mode: select
+              collections:
+                - blogs
+              if:
+                menu_type: blog-list
+          -
+            handle: team_entries
+            field:
+              type: entries
+              display: 'Select Team'
+              mode: select
+              collections:
+                - teams
+              if:
+                menu_type: team-list
+          -
+            handle: button_text
+            field:
+              type: text
+              display: 'Button Text'
+              if:
+                menu_type: 'not normal'
+          -
+            handle: button_link
+            field:
+              type: text
+              display: 'Button Link'
+              if:
+                menu_type: 'not normal'
+          -
+            handle: copyright_text
+            field:
+              type: text
+              display: 'Copyright Text'
+              if:
+                menu_type: 'not normal'

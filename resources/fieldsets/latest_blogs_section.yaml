@@ -1,0 +1,71 @@
+title: 'Latest Blogs Section'
+fields:
+  -
+    handle: show_type
+    field:
+      options:
+        -
+          key: home-page-one
+          value: 'Home One'
+        -
+          key: home-page-two
+          value: 'Home Two'
+        -
+          key: home-page-three
+          value: 'Home Three'
+        -
+          key: home-page-four
+          value: 'Home Four'
+      default: home-page-one
+      type: select
+      display: 'Show Type'
+  -
+    handle: sub_title
+    field:
+      default: 'Latest Updates'
+      type: text
+      display: 'Sub Title'
+  -
+    handle: section_title
+    field:
+      default: 'Our Latest Blogs'
+      type: text
+      display: 'Section Title'
+  -
+    handle: section_description
+    field:
+      type: textarea
+      display: 'Section Description'
+  -
+    handle: button_text
+    field:
+      default: 'Explore all Blogs'
+      type: text
+      display: 'Button Text'
+  -
+    handle: button_link
+    field:
+      default: /blog
+      type: text
+      display: 'Button Link'
+  -
+    handle: blog_items
+    field:
+      mode: select
+      collections:
+        - blogs
+      type: entries
+      display: 'Blog Items'
+  -
+    handle: view_type
+    field:
+      options:
+        -
+          key: slides
+          value: 'Slides View'
+        -
+          key: normal
+          value: 'Normal View'
+      default: normal
+      type: select
+      display: 'Blog View Type'

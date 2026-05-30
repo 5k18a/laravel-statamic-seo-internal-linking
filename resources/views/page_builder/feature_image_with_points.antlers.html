@@ -1,0 +1,47 @@
+<section
+        class="about-image-with-text-section overflow-hidden relative 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] md:mb-[50px] mb-10">
+        <div class="container-2 md:flex items-center 2xl:gap-[90px] xl:gap-[60px] lg:gap-[60px] gap-9">
+          <div class="1xl:w-[61%] xl:w-1/2 md:w-[47%]">
+            <div
+              class="md:p-5 xl:p-[30px] xl:pl-0 md:pl-0 py-4 bg-primary-900 relative before:bg-primary-900 before:w-[500%] before:h-full before:absolute before:left-0 before:top-0 before:-ml-[499%] after:w-[500%] after:h-full after:absolute after:left-0 after:top-0 after:-mr-[499%] after:bg-primary-900 md:after:hidden">
+              <div
+                class="overflow-hidden relative 2xl:before:pt-[86.6%] xl:before:pt-[90%] lg:before:pt-[100%] md:before:pt-[140%] before:pt-[66%] before:block z-1">
+                <img src="{{ section_image }} {{ url }} {{ /section_image }}" alt="img"
+                  class="w-full h-full object-cover absolute top-0 bottom-0 left-0 right-0" />
+              </div>
+            </div>
+          </div>
+          <div class="1xl:w-[44.5%] md:w-[53%] w-full md:pt-0 pt-[30px]">
+            <div class="bg-white">
+              <!-- Heading -->
+              <h2 class="1xl:mb-5 mb-2.5">{{ heading }}</h2>
+              <p class="1xl:mb-8 xl:mb-6 mb-5 text-gray-400">
+               {{ description }}
+              </p>
+              <!-- Awards List -->
+              <ul class="1xl:space-y-[18px] xl:space-y-3.5 space-y-2.5 award-list">
+                {{ items }}
+                <li class="flex items-center sm:gap-4 gap-3">
+                  <span
+                    class="flex items-center justify-center 1xl:w-12 1xl:h-12 xl:w-[46px] xl:h-[46px] sm:w-[43px] sm:h-[43px] w-10 h-10 rounded-full border border-[#00000026] flex-shrink-0">
+                  <img src="{{ icon }} {{ url }} {{ /icon }}" class="xl:w-6 xl:h-6 sm:w-[22px] sm:h-[22px] w-[18px] h-[18px] award-badge-icon" />
+                    
+                  </span>
+                  <p class="font-medium">
+                    {{ title }}
+                  </p>
+                </li>
+                {{ /items }}
+              </ul>
+              <!-- Contact Button -->
+              {{ if button_text }}
+              <div class="xl:mt-10 mt-5">
+                <a href="{{ button_link }}" class="btn btn-primary-reverse">
+                 {{ button_text }}
+                </a>
+              </div>
+              {{ /if }}
+            </div>
+          </div>
+        </div>
+      </section>

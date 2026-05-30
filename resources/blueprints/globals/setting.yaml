@@ -1,0 +1,190 @@
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: show_preloader
+            field:
+              max_files: 1
+              min_files: 1
+              container: assets
+              type: assets
+              display: 'Show Preloader'
+          -
+            handle: favicon
+            field:
+              max_files: 1
+              min_files: 1
+              container: assets
+              type: assets
+              display: Favicon
+          -
+            handle: logo
+            field:
+              max_files: 1
+              min_files: 1
+              container: assets
+              type: assets
+              display: Logo
+          -
+            handle: logo_white
+            field:
+              max_files: 1
+              min_files: 1
+              container: assets
+              type: assets
+              display: 'Logo White'
+          -
+            handle: phone_number
+            field:
+              type: text
+              display: 'Phone Number'
+              validate:
+                - required
+          -
+            handle: email
+            field:
+              type: text
+              display: Email
+              validate:
+                - required
+                - email
+          -
+            import: social_section
+          -
+            handle: header_btn_text
+            field:
+              default: 'Get Estimate'
+              type: text
+              display: 'Header btn text'
+          -
+            handle: header_btn_url
+            field:
+              default: /quotation
+              type: text
+              display: 'Header btn url'
+          -
+            handle: address
+            field:
+              type: textarea
+              display: Address
+          -
+            handle: map_url
+            field:
+              type: text
+              display: 'Map url'
+          -
+            handle: header_select
+            field:
+              options:
+                -
+                  key: header-1
+                  value: 'Header One'
+                -
+                  key: header-2
+                  value: 'Header Two'
+                -
+                  key: header-3
+                  value: 'Header Three'
+                -
+                  key: header-4
+                  value: 'Header Four'
+              default: header-1
+              type: select
+              display: 'Header Select'
+          -
+            handle: footer_select
+            field:
+              options:
+                -
+                  key: footer-1
+                  value: 'Footer One'
+                -
+                  key: footer-2
+                  value: 'Footer Two'
+                -
+                  key: footer-3
+                  value: 'Footer Three'
+                -
+                  key: footer-4
+                  value: 'Footer Four'
+              default: footer-1
+              type: select
+              display: 'Footer Select'
+          -
+            handle: blog_single_page
+            field:
+              options:
+                -
+                  key: blog-detail-one
+                  value: 'Blog Detail One'
+                -
+                  key: blog-detail-two
+                  value: 'Blog Detail Two'
+                -
+                  key: blog-detail-three
+                  value: 'Blog Detail Three'
+                -
+                  key: blog-detail-four
+                  value: 'Blog Detail Four'
+              default: blog-detail-one
+              type: select
+              display: 'Blog Single Page'
+      -
+        display: 'Form setting'
+        fields:
+          -
+            handle: enquiry_form_title
+            field:
+              default: 'Enquiry Form'
+              type: text
+              display: 'Enquiry Form Title'
+      -
+        display: 'Blog Category Setting'
+        fields:
+          -
+            handle: sub_title
+            field:
+              default: 'Architecture & Design'
+              type: text
+              display: 'Sub Title'
+          -
+            handle: section_description
+            field:
+              type: textarea
+              display: 'Section Description'
+          -
+            handle: browse_all_label
+            field:
+              default: 'Browse all Posts'
+              type: text
+              display: 'Browse All Label'
+          -
+            handle: dropdown_label
+            field:
+              default: 'Browse By:'
+              type: text
+              display: 'Dropdown Label'
+      -
+        display: 'Leave a Comment Section'
+        fields:
+          -
+            handle: sub_comment_title
+            field:
+              default: 'Leave a Comment'
+              type: text
+              display: 'Sub Comment Title'
+          -
+            handle: section_comment_description
+            field:
+              default: 'We’d love to hear your thoughts! Share your feedback, ideas, or questions below your comment helps keep the conversation going.'
+              type: textarea
+              display: 'Section Comment Description'
+          -
+            handle: comment_button_text
+            field:
+              default: 'Leave Comment'
+              type: text
+              display: 'Comment Button Text'

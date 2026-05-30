@@ -1,0 +1,89 @@
+title: 'Our Story Section'
+fields:
+  -
+    handle: section_title
+    field:
+      type: text
+      display: 'Section Title'
+      instructions: 'Title of the Our Story section'
+      validate:
+        - required
+  -
+    handle: video
+    field:
+      type: group
+      display: Video
+      fields:
+        -
+          handle: thumbnail
+          field:
+            type: assets
+            display: 'Video Thumbnail'
+            mode: single
+            required: true
+        -
+          handle: video_url
+          field:
+            type: text
+            display: 'Video URL'
+            placeholder: ../images/about-us-video.mp4
+            required: true
+  -
+    handle: description
+    field:
+      type: replicator
+      display: 'Description Paragraphs'
+      instructions: 'Add paragraphs for the story section'
+      sets:
+        paragraph:
+          display: Paragraph
+          fields:
+            -
+              handle: content
+              field:
+                type: textarea
+                display: 'Paragraph Content'
+                required: true
+  -
+    handle: right_side_image
+    field:
+      type: assets
+      display: 'Right Side Banner Image'
+      mode: single
+
+  -
+    handle: primary_button
+    field:
+      type: group
+      display: 'Primary Button'
+      fields:
+        -
+          handle: label
+          field:
+            type: text
+            display: 'Button Label'
+            placeholder: 'Learn More About Us'
+        -
+          handle: link
+          field:
+            type: link
+            display: 'Button Link'
+            placeholder: /about
+  -
+    handle: secondary_button
+    field:
+      type: group
+      display: 'Secondary Button'
+      fields:
+        -
+          handle: phone_number
+          field:
+            type: text
+            display: 'Phone Number'
+            placeholder: '+1 234 5678 999'
+        -
+          handle: link
+          field:
+            type: link
+            display: 'Phone Link'
+            placeholder: 'tel:+12345678999'

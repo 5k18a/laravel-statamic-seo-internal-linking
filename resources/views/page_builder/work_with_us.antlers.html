@@ -1,0 +1,16 @@
+<section class="relative 2xl:mb-[100px] 1xl:mb-20 lg:mb-[60px] md:mb-[50px] mb-8 bg-[#EFEFEF] 2xl:py-20 1xl:py-16 md:py-14 sm:py-11 py-9">
+    <div class="container">
+        <h2 class="1xl:mb-[50px] md:mb-9 sm:mb-7 mb-6">{{ section_title }}</h2>
+        <div class="lg:flex grid sm:grid-cols-2 grid-cols-1 items-start justify-between 2xl:gap-[90px] 1xl:gap-[55px] xl:gap-10 lg:gap-9 md:gap-x-20 md:gap-y-11 gap-x-11 sm:gap-y-9 gap-y-7">
+        {{ work_items }}
+            <div>
+                <div class="1xl:mb-[33px] xl:mb-7 sm:mb-5 mb-4 flex items-start w-fit">
+                    <img src="{{ icon }} {{ url }} {{ /icon }}" alt="img" class="1xl:w-10 1xl:h-10 xl:w-9 xl:h-9 w-8 h-8 flex-shrink-0" />
+                </div>
+                <h5 class="1xl:mb-4 xl:mb-3 mb-2">{{ title }}</h5>
+                <p class="m-0 text-gray-400">{{ description }}</p>
+            </div>
+            {{ /work_items }}
+        </div>
+    </div>
+</section>

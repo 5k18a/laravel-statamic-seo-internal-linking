@@ -1,0 +1,26 @@
+<section class="2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] sm:mb-[50px] mb-10">
+    <div class="container">
+        <div class="flex justify-between md:flex-row flex-col-reverse md:border-b border-[#00000026]">
+            <div class="w-full 2xl:w-[47%] xl:w-[56%] md:w-6/12 md:border-none border-t border-[#00000026]">
+                <div class="xl:pb-[131px] lg:pb-[60px] md:pb-[30px] xl:pt-[60px] md:pt-12 pt-8">
+                    <h2 class="lg:mb-[24px] sm:mb-5 mb-3 2xl:w-[85%] xl:w-[70%]">{{ heading }}</h2>
+                    <p class="text-[#464343]">{{ description }}</p>
+                    <div class="flex items-center flex-wrap xl:gap-[30px] gap-3 xl:mt-10 mt-7">
+                        {{ if primary_button:label }}<a href="{{ primary_button:url }}" class="btn btn-primary">{{ primary_button:label }}</a>{{ /if }}
+                        {{ if contact_button:phone_label }}
+                        <a href="{{ contact_button:phone_number }}" class="btn flex items-center px-0 sm:gap-3 gap-1 p-0 hover:text-primary-900 focus:text-primary-900 active:text-primary-900 transition-all ease-in-out w-auto font-lexend !font-light">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="xl:w-6 xl:h-6 sm:w-[22px] sm:h-[22px] w-[18px] h-[18px] stroke-primary-900">
+                                <path d="M13 2C15.3869 2 17.6761 2.94821 19.364 4.63604C21.0518 6.32387 22 8.61305 22 11M13 6C14.3261 6 15.5979 6.52678 16.5355 7.46447C17.4732 8.40215 18 9.67392 18 11M13.832 16.568C14.0385 16.6628 14.2712 16.6845 14.4917 16.6294C14.7122 16.5744 14.9073 16.4458 15.045 16.265L15.4 15.8C15.5863 15.5516 15.8279 15.35 16.1056 15.2111C16.3833 15.0723 16.6895 15 17 15H20C20.5304 15 21.0391 15.2107 21.4142 15.5858C21.7893 15.9609 22 16.4696 22 17V20C22 20.5304 21.7893 21.0391 21.4142 21.4142C21.0391 21.7893 20.5304 22 20 22C15.2261 22 10.6477 20.1036 7.27208 16.7279C3.89642 13.3523 2 8.7739 2 4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H7C7.53043 2 8.03914 2.21071 8.41421 2.58579C8.78929 2.96086 9 3.46957 9 4V7C9 7.31049 8.92771 7.61672 8.78885 7.89443C8.65 8.17214 8.44839 8.41371 8.2 8.6L7.732 8.951C7.54842 9.09118 7.41902 9.29059 7.36579 9.51535C7.31256 9.74012 7.33878 9.97638 7.44 10.184C8.80668 12.9599 11.0544 15.2048 13.832 16.568Z"stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                            <span>{{ contact_button:phone_label }}</span>
+                            {{ /if }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="w-full 2xl:w-[35%] 1xl:w-[39%] xl:w-[43%] md:w-6/12 sm:w-[65%] relative md:ml-auto md:mr-0 mt-auto mx-auto mb-0 h-full">
+                <img src="{{ image }} {{ url }} {{ /image }}" alt="img" class="h-full w-full" />
+            </div>
+        </div>
+    </div>
+</section>

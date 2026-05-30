@@ -1,0 +1,27 @@
+<section class="relative z-1 mb-10 sm:mb-[50px] lg:mb-[70px] 1xl:mb-20 2xl:mb-[100px]">
+  <div class="container">
+    <!-- Heading -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 2xl:mb-[65px] xl:mb-[50px] lg:mb-11 md:mb-9 mb-[30px]">
+      <div>
+        <h2 class="font-normal">{{ section_title }}</h2>
+        <p class="2xl:leading-[30px] 1xl:mt-4 xl:mt-2.5 mt-2 text-gray-400 font-light 2xl:w-[67%] xl:w-[62%] lg:w-[71%] md:w-[88%] sm:w-[96%] w-full">
+          {{ section_description }}
+        </p>
+      </div>
+      {{ if button_text }}
+      <div class="sm:block hidden">
+        <a href="{{ button_link }}" class="btn btn-primary-reverse">{{ button_text }}</a>
+      </div>
+      {{ /if }}
+    </div>
+
+    <!-- Continuous Logo Slider -->
+    <div class="logo-slider overflow-hidden relative">
+      <div class="slider-track flex items-center 2xl:gap-[150px] lg:gap-[100px] md:gap-[70px] sm:gap-[54px] gap-10">
+        {{ logos }}
+        <img src="{{ logo_image }} {{ url }} {{ /logo_image }}" class="logo 2xl:max-h-[100px] lg:max-h-[75px] md:max-h-[72px] sm:max-h-[55px] max-h-11 object-contain" alt="{{ alt_text }}" />
+        {{ /logos }}
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,46 @@
+title: 'Project History'
+fields: 
+  -
+    handle: section_title
+    field:
+      type: text
+      display: Section Title
+      default: "Our History"
+      instructions: "Main heading for this section."
+  -
+    handle: history_items
+    field:
+      type: replicator
+      display: History Items
+      instructions: "Add one or more history timeline entries."
+      sets:
+        item:
+          display: History Item
+          fields:
+            -
+              handle: image
+              field:
+                type: assets
+                display: Image
+                container: assets
+                max_files: 1
+                mode: list
+                instructions: "Upload an image for this history item."
+            -
+              handle: subheading
+              field:
+                type: text
+                display: Subheading
+                placeholder: "e.g. Where It All Began"
+            -
+              handle: title
+              field:
+                type: text
+                display: Title / Year
+                placeholder: "e.g. 2005 – The Foundation is Laid"
+            -
+              handle: description
+              field:
+                type: textarea
+                display: Description
+                instructions: "Add a detailed description for this period."

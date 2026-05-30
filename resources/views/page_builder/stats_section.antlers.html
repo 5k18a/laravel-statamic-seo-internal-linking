@@ -1,0 +1,12 @@
+<section class="relative 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] md:mb-[50px] mb-8">
+  <div class="container-2">
+    <div class="md:flex items-start justify-between grid sm:grid-cols-2 grid-cols-1 w-full gap-4 2xl:pb-[60px] xl:pb-[50px] lg:pb-10 sm:pb-[30px] sm:border-b border-[#00000026]">
+      {{ statistics_items }}
+      <div class="flex flex-col items-start justify-center xl:gap-[10px] gap-2 sm:border-t-0 border-t border-[#00000026] sm:py-0 py-6 last:pb-0">
+        <h2 class="count-up text-primary-900" data-number="{{ number }}" data-suffix="+">0</h2>
+        <p class="font-normal">{{ label }}</p>
+      </div>
+      {{ /statistics_items }}
+    </div>
+  </div>
+</section>

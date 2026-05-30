@@ -1,0 +1,9 @@
+title: Testimonials
+revisions: false
+date_behavior:
+  past: public
+  future: private
+sites:
+  - en
+  - pl
+propagate: true

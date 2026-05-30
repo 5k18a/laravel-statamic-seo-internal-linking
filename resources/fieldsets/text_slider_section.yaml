@@ -1,0 +1,28 @@
+title: 'Text Slider Section'
+fields:
+  -
+    handle: text_slider
+    field:
+      type: replicator
+      display: 'Text Slider Items'
+      instructions: 'Add text items with logo for the scrolling slider.'
+      sets:
+        slider_item:
+          display: 'Slider Item'
+          fields:
+            -
+              handle: logo
+              field:
+                type: assets
+                display: 'Logo Image'
+                instructions: 'Upload the logo icon (e.g., only-logo.svg)'
+                mode: single
+                max_files: 1
+            -
+              handle: text
+              field:
+                type: text
+                display: Text
+                placeholder: 'Design. Build. Deliver'
+                validate:
+                  - required

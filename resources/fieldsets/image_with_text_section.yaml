@@ -1,0 +1,49 @@
+title: 'Image with Text Section'
+fields:
+  -
+    handle: image
+    field:
+      type: assets
+      display: "Section Image"
+      container: assets
+      folder: images
+      max_files: 1
+      instructions: "Upload or select the image displayed on the left side."
+
+  -
+    handle: heading
+    field:
+      type: text
+      display: "Section Heading"
+      default: "Why Choose Us?"
+
+  -
+    handle: description
+    field:
+      type: textarea
+      display: "Section Description"
+      antlers: true
+      default: "At Orion Construction, we believe architectural design is the foundation of every great project."
+
+  -
+    handle: features
+    field:
+      type: replicator
+      display: "Feature List"
+      instructions: "Add each bullet point for this section."
+      sets:
+        feature_item:
+          display: "Feature Item"
+          fields:
+            -
+              handle: highlight
+              field:
+                type: text
+                display: "Highlighted Text"
+                placeholder: "Creative Excellence"
+            -
+              handle: text
+              field:
+                type: textarea
+                display: "Feature Description"
+                placeholder: "Designs that balance aesthetics, innovation, and usability."

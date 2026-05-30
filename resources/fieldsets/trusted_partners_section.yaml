@@ -1,0 +1,50 @@
+title: 'Trusted Partners Section'
+fields:
+  -
+    handle: section_title
+    field:
+      default: 'Our Trusted Partners'
+      type: text
+      display: 'Section Title'
+  -
+    handle: section_description
+    field:
+      type: textarea
+      display: 'Section Description'
+  -
+    handle: button_text
+    field:
+      default: 'Contact Orion'
+      type: text
+      display: 'Button Text'
+  -
+    handle: button_link
+    field:
+      default: /contact
+      type: text
+      display: 'Button Link'
+  -
+    handle: logos
+    field:
+      collapse: true
+      type: replicator
+      display: 'Partner Logos'
+      sets:
+        new_set_group:
+          display: 'New Set Group'
+          sets:
+            sets:
+              display: sets
+              fields:
+                -
+                  handle: logo_image
+                  field:
+                    max_files: 1
+                    container: assets
+                    type: assets
+                    display: 'Logo Image'
+                -
+                  handle: alt_text
+                  field:
+                    type: text
+                    display: 'Alt Text'

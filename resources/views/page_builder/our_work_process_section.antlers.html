@@ -1,0 +1,106 @@
+ <section
+                class="relative overflow-hidden 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] md:mb-[50px] mb-8 bg-[#EFEFEF] 2xl:py-[90px] 1xl:py-[80px] lg:py-[70px] sm:py-[50px] py-10">
+                <div class="container">
+                    <div
+                        class="flex justify-between lg:flex-row flex-col 2xl:gap-[120px] 1xl:gap-[100px] xl:gap-[80px] sm:gap-[40px] gap-4">
+                        <!-- Left Side Images -->
+                        <!-- <div class="relative flex 2xl:w-[70%] 1xl:w-[75%] w-[87%]"> -->
+                        <div class="relative flex lg:flex-row flex-col lg:w-1/2 w-full">
+                            <!-- Main Image -->
+                            <div
+                                class="2xl:w-[494px] 1xl:w-[430px] xl:w-[385px] lg:w-[335px] sm:w-[53%] sm:h-fit w-full h-full mx-auto sm:border-[7px] border-4 border-white">
+                                <div
+                                    class="relative overflow-hidden before:block before:content-[''] 1xl:before:pt-[109%] sm:before:pt-[115%] before:pt-[93%] h-full w-full">
+                                    <img src="{{ left_images:main_image }} {{ url }} {{ /left_images:main_image }}" alt="Worker"
+                                        class="w-full h-full object-cover absolute top-0 left-0" />
+                                </div>
+                            </div>
+
+                            <!-- Small Image Overlapping -->
+                            <div
+                                class="z-3 2xl:w-[327px] 1xl:w-[300px] xl:w-[260px] sm:w-[230px] w-[80%] sm:h-fit h-full lg:absolute bottom-0 left-0 sm:border-[7px] border-4 border-white -mt-[20%] sm:ml-[50px] sm:-mr-[270px] mx-auto">
+                                <div
+                                    class="relative overflow-hidden before:block before:content-[''] sm:before:pt-[115%] before:pt-[68%] h-full w-full">
+                                    <img src="{{ left_images:small_image }} {{ url }} {{ /left_images:small_image }}" alt="Excavator"
+                                        class="w-full h-full object-cover absolute top-0 left-0" />
+                                </div>
+                            </div>
+
+                            <!-- Circle Badge -->
+                            <div class="relative sm:m-0 -mt-[60px]">
+                                <div
+                                    class="sm:absolute relative bottom-0 2xl:top-[64%] lg:top-[60%] md:-top-[185px] sm:-top-[210px] top-[100%] 2xl:right-[50px] lg:right-[20px] md:right-[125px] sm:right-[90px] left-auto 2xl:w-[200px] 2xl:h-[200px] 1xl:w-[175px] 1xl:h-[175px] xl:w-[145px] xl:h-[145px] sm:w-[125px] sm:h-[125px] w-[100px] h-[100px] rounded-full flex items-center justify-center bg-primary-900 mr-0 ml-auto z-3">
+                                    <!-- Rotating text -->
+                                    <svg viewBox="0 0 200 200" class="absolute w-full h-full animate-spin-slow">
+                                        <defs>
+                                            <path id="circlePath"
+                                                d="M 100,100 m -75,0 a 75,75 0 1,1 150,0 a 75,75 0 1,1 -150,0" />
+                                        </defs>
+                                        <text fill="white" class="font-el-messiri uppercase font-light text-[16.40px]">
+                                            <textpath xlink:href="#circlePath" startOffset="0%" textLength="471.24"
+                                                lengthAdjust="spacing">
+                                                {{ left_images.badge_text }}&nbsp;
+                                            </textpath>
+                                        </text>
+                                    </svg>
+
+                                    <!-- Arrow in Center -->
+                                    <div class="2xl:w-[110px] 2xl:h-[110px] 1xl:w-[100px] 1xl:h-[100px] xl:w-[90px] xl:h-[90px] sm:w-[75px] sm:h-[75px] w-[60px] h-[60px] rounded-full bg-white flex items-center justify-center text-primary-900 border-8 border-white shadow-lg relative z-10">
+                                        <img src="{{ left_images:badge_icon }} {{ url }} {{ /left_images:badge_icon }}" class="work-arrow">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Side Content -->
+                        <div class="relative block lg:w-1/2 w-full">
+                            <!-- Heading -->
+                            <h2 class="1xl:mb-4 mb-2">{{ right_content:section_title }}</h2>
+                            <p class="text-gray-400 1xl:mb-11 xl:mb-9 mb-7">{{ right_content:description }}</p>
+
+                            <!-- Process Steps -->
+                            <div class="relative 1xl:mb-[60px] xl:mb-11 mb-7">
+                                <!-- Vertical Line -->
+                                <!-- <div class="absolute left-6 top-0 bottom-0 border-l-2 border-gray-300"></div> -->
+
+                                <!-- Step 1 -->
+                                {{ right_content.process_steps }}
+                                <div class="flex items-start relative gap-4 work">
+                                    <div class="flex items-center justify-start flex-col self-stretch work-process">
+                                        <div
+                                            class="2xl:w-20 2xl:h-20 xl:w-[70px] xl:h-[70px] lg:w-[60px] lg:h-[60px] md:w-[65px] md:h-[65px] sm:w-[60px] sm:h-[60px] w-[56px] h-[56px] flex items-center justify-center rounded-full border border-primary-900 relative z-10 1xl:p-5 xl:p-[18px] sm:p-3.5 p-[13px]">
+                                            <!-- House Icon -->
+                                            <img src="{{ step_icon }} {{ url }} {{ /step_icon }}" alt="home" class="w-fulll h-full" />
+                                        </div>
+                                        <div class="w-[1px] bg-primary-900 flex-1 md:min-h-16 min-h-12 process-bar"></div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <h4 class="mb-1">{{ step_title }}</h4>
+                                        <p class="text-gray-400">{{ step_description }}</p>
+                                    </div>
+                                </div>
+                                {{ /right_content.process_steps }}
+                            </div>
+
+                            <!-- Button and Contact -->
+                            <div class="flex items-center sm:flex-nowrap flex-wrap sm:gap-4 gap-3">
+                                {{ if buttons:primary_button_text }}<a href="{{ buttons:primary_button_link }}" class="btn btn-primary">{{ buttons:primary_button_text }}</a>{{ /if }}
+
+                                {{ if buttons:secondary_button_text }}
+                                <a href="{{ buttons:secondary_button_link }}"
+                                    class="btn btn-green-bg !bg-transparent sm:gap-3 gap-1.5 max-[425px]:px-0 !font-light">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" class="xl:w-6 xl:h-6 sm:w-[22px] sm:h-[22px] w-[18px] h-[18px] stroke-primary-900">
+                                        <path
+                                            d="M13 2C15.3869 2 17.6761 2.94821 19.364 4.63604C21.0518 6.32387 22 8.61305 22 11M13 6C14.3261 6 15.5979 6.52678 16.5355 7.46447C17.4732 8.40215 18 9.67392 18 11M13.832 16.568C14.0385 16.6628 14.2712 16.6845 14.4917 16.6294C14.7122 16.5744 14.9073 16.4458 15.045 16.265L15.4 15.8C15.5863 15.5516 15.8279 15.35 16.1056 15.2111C16.3833 15.0723 16.6895 15 17 15H20C20.5304 15 21.0391 15.2107 21.4142 15.5858C21.7893 15.9609 22 16.4696 22 17V20C22 20.5304 21.7893 21.0391 21.4142 21.4142C21.0391 21.7893 20.5304 22 20 22C15.2261 22 10.6477 20.1036 7.27208 16.7279C3.89642 13.3523 2 8.7739 2 4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H7C7.53043 2 8.03914 2.21071 8.41421 2.58579C8.78929 2.96086 9 3.46957 9 4V7C9 7.31049 8.92771 7.61672 8.78885 7.89443C8.65 8.17214 8.44839 8.41371 8.2 8.6L7.732 8.951C7.54842 9.09118 7.41902 9.29059 7.36579 9.51535C7.31256 9.74012 7.33878 9.97638 7.44 10.184C8.80668 12.9599 11.0544 15.2048 13.832 16.568Z"
+                                        stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                    <span>{{ buttons:secondary_button_text }}</span>
+                                </a>
+                                {{ /if }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>

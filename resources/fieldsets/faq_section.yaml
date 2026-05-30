@@ -1,0 +1,54 @@
+title: 'FAQ Section'
+fields:
+  -
+    handle: section_title
+    field:
+      label: 'Section Title'
+      type: text
+      default: 'Faq’s Questions'
+      span: full
+      display: 'Section Title'
+  -
+    handle: banner_image
+    field:
+      label: 'Banner Image'
+      type: assets
+      container: assets
+      max_files: 1
+      span: full
+      display: 'Banner Image'
+  -
+    handle: display_type
+    field:
+      label: 'Display Type'
+      type: radio
+      options:
+        -
+          key: list
+          value: List
+        -
+          key: select
+          value: 'Select From FAQ'
+      default: list
+      span: full
+      display: 'Display Type'
+  -
+    handle: faqs
+    field:
+      mode: select
+      collections:
+        - faqs
+      type: entries
+      display: Faqs
+      if:
+        display_type: 'equals select'
+  -
+    handle: collections
+    field:
+      max_items: 1
+      mode: select
+      type: collections
+      display: Collections
+      always_save: false
+      if:
+        display_type: 'equals list'

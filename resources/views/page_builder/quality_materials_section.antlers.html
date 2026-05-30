@@ -1,0 +1,20 @@
+ <section class="relative 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] md:mb-[50px] mb-8">
+  <div class="relative py-10 md:py-16 xl:py-20 1xl:py-24 2xl:py-29 rounded-t-[30px] sm:rounded-t-[60px] md:rounded-t-[70px] lg:rounded-t-[90px] bg-gray-100">
+    <div class="container">
+      <div>
+        <h3 class="text-img">
+          {{ main_content }}
+
+          {{ if type == "inline_image" }}
+          <span  class="{{ image_style }} {{ if image_style == 'images-hover-1' }} sm:w-[126px] w-[63px] h-[33px] sm:h-[40px] lg:h-[55px] xl:h-[69px] inline-flex align-middle rounded-7xl sm:mx-1.5 overflow-hidden transition-all {{ else }} inline-flex align-middle w-[35px] sm:w-[60px] lg:w-[75px] xl:w-[95px] h-[31px] sm:h-[40px] lg:h-[58px] xl:h-[70px] 1xl:h-[75px] 2xl:h-[83px] rounded-7xl sm:mx-1.5 overflow-hidden {{ /if }}"  data-label="{{ image_style }}">
+            <img src="{{ image }}" alt="{{ alt_text }}" class="w-full h-full object-cover" />
+          </span>
+          {{ else }}
+          {{ text | strip_tags }}
+          {{ /if }}
+          {{ /main_content }}
+        </h3>
+      </div>
+    </div>
+  </div>
+</section>

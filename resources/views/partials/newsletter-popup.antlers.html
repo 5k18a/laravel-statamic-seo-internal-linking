@@ -1,0 +1,92 @@
+{{newsletter_cookies }}
+<div id="newsletterOverlay" class="fixed z-60 inset-0 bg-[#000000B2] backdrop-blur-sm flex items-center justify-center pointer-events-none">
+<div class="newsletter pointer-events-auto relative w-full 2xl:max-w-[992px] 1xl:max-w-[920px] xl:max-w-[850px] lg:max-w-[770px] max-w-[735px] sm:overflow-hidden overflow-y-auto max-h-[calc(100vh-60px)] px-4">
+    <!-- Close Button -->
+    <button onclick="closeNewsletter()" class="text-[#FFFFFF99] hover:text-white z-50 w-full">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      class="ml-auto mr-0">
+      <path
+      d="M12 10.943L5.807 4.75L4.75 5.807L10.943 12L4.75 18.193L5.807 19.25L12 13.057L18.193 19.25L19.25 18.193L13.057 12L19.25 5.807L18.193 4.75L12 10.943Z"
+      fill="white" fill-opacity="0.6" />
+  </svg>
+</button>
+
+<div class="relative bg-white mx-auto flex flex-col sm:flex-row sm:items-stretch">
+  <!-- Left: Image -->
+  <div class="sm:w-[47%] w-full sm:h-auto h-[215px] relative">
+    <img src="{{ newsletter_image }} {{ url }} {{ /newsletter_image }}" alt="newsletter"
+    class="sm:absolute inset-0 w-full h-full object-cover" />
+
+    <div class="bg-primary-900/18 text-primary-900 backdrop-blur-xs rounded-full sm:py-[6px] sm:px-[15px] py-[4px] px-3 absolute sm:top-5 sm:left-5 top-3 left-3 z-50 flex items-center justify-center text-center">
+      {{ newsletter_offer_badge }}
+  </div>
+</div>
+
+<!-- Right: Form Content -->
+<div class="w-full sm:w-[53%] 2xl:px-[65px] 2xl:p-11 xl:p-10 sm:p-7 px-4 py-3 2xl:py-[50px] relative bg-white flex-1">
+    <h2 class="sm:mb-[6px] mb-0 font-normal text-center">
+      {{ newsletter_heading }}
+  </h2>
+  <p class="xl:mb-7 md:mb-6 sm:mb-5 mb-4 text-gray-400 text-center">
+      {{ newsletter_description }}
+  </p>
+
+  <h4 class="text-primary-900 text-center 1xl:mb-[14px] sm:mb-[10px] mb-1.5">
+     {{ newsletter_offer_heading }}
+ </h4>
+ <p class="text-center text-black">
+  {{ if newsletter_offer_prefix }}{{ newsletter_offer_prefix }} {{ /if }}
+  <span class="font-medium text-primary-900">{{ if newsletter_offer_date }}{{ newsletter_offer_date }} {{ /if }}</span>
+  {{ if newsletter_offer_suffix }}{{ newsletter_offer_suffix }}{{ /if }}
+</p>
+
+<!-- <form class="1xl:space-y-6 xl:space-y-5 space-y-3 1xl:mt-7 mt-5.5 newsletter-form">
+    <input type="email" placeholder="Your Email address" name="email" id="email" class="w-full border border-black xl:px-4 px-3.5 sm:py-[10px] py-[9px] focus:outline-none p focus:border-teal-600 placeholder:text-[#4E4E4E] text-black" />
+    {{ if newsletter_button_text }}
+    <button type="submit" class="btn btn-primary !w-full">
+        {{ newsletter_button_text }}
+    </button>
+    {{ /if }}
+    <p class="form-message" style="display:none;"></p>
+</form> -->
+{{ form:contact id="contactForm" ajax="true" novalidate class="xl:space-y-5 space-y-3 1xl:mt-7 sm:mt-5.5 mt-4" }}
+
+              {{ csrf }}
+              {{ fields }}
+              {{ unless handle == 'company' or handle == 'choose_plan' or handle == 'budget' or handle == 'file_upload' or handle == 'message' }}
+              <div class="relative col-span-1">
+                {{ if handle == 'name'  }}
+                <input type="text" id="{{ handle }}" name="{{ handle }}" placeholder="Enter Full name" 
+                  class="p w-full xl:px-3 px-2 2xl:py-[10px] py-2 border focus:border-primary-900 outline-none" />
+                  {{ elseif handle == 'phone' }}
+                   <input id="{{ handle }}" name="{{ handle }}" type="tel" placeholder="Enter Phone number"
+                  class="p w-full xl:px-3 px-2 2xl:py-[10px] py-2 border focus:border-primary-900 outline-none"
+                   />
+                  {{ elseif handle == 'email'  }}
+                <input type="text" id="{{ handle }}" name="{{ handle }}" placeholder="Enter your Email" 
+                  class="p w-full xl:px-3 px-2 2xl:py-[10px] py-2 border focus:border-primary-900 outline-none" />
+                  {{ /if }}
+                <!-- Error message with SVG icon -->
+                <div class="text-red-500 mt-2 opacity-0 transition-all ease-in-out error-message hidden items-center gap-2" data-error-for="{{ handle }}">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+                    <path d="M9.35 9.35H7.65V4.25H9.35M9.35 12.75H7.65V11.05H9.35M8.5 0C7.38376 0 6.27846 0.219859 5.24719 0.647024C4.21592 1.07419 3.27889 1.70029 2.48959 2.48959C0.895533 4.08365 0 6.24566 0 8.5C0 10.7543 0.895533 12.9163 2.48959 14.5104C3.27889 15.2997 4.21592 15.9258 5.24719 16.353C6.27846 16.7801 7.38376 17 8.5 17C10.7543 17 12.9163 16.1045 14.5104 14.5104C16.1045 12.9163 17 10.7543 17 8.5C17 7.38376 16.7801 6.27846 16.353 5.24719C15.9258 4.21592 15.2997 3.27889 14.5104 2.48959C13.7211 1.70029 12.7841 1.07419 11.7528 0.647024C10.7215 0.219859 9.61624 0 8.5 0Z"
+                    fill="#D21C1C" />
+                  </svg>
+                  <span class="field-error error-text p2" data-error-for="{{ handle }}"></span>
+                </div>
+              </div>
+              {{ /unless }}
+              {{ /fields }}
+              <!-- <input type="email" placeholder="your.email@example.com" required
+              class="w-full border border-black xl:px-4 px-3.5 sm:py-[10px] py-[9px] focus:outline-none p focus:border-teal-600 placeholder:text-[#4E4E4E] text-black" />-->
+              <button type="submit" class="btn btn-primary !w-full">
+                Submit
+              </button>
+              <p id="successMessage"class="form-message bg-primary-900/12 hidden top-0 right-auto mt-5 w-fit text-primary-900 px-4 py-2 transform translate-x-0 transition-all">
+                    </p>
+            {{ /form:contact }}
+</div>
+</div>
+</div>
+</div>
+{{ /newsletter_cookies}}

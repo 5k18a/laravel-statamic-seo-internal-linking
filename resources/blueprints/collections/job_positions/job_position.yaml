@@ -1,0 +1,60 @@
+title: 'Job Position'
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              validate:
+                - required
+          -
+            handle: details
+            field:
+              type: replicator
+              display: Details
+              instructions: 'Add key-value details like location, experience, and job type.'
+              sets:
+                new_set_group:
+                  display: 'New Set Group'
+                  sets:
+                    detail_item:
+                      display: 'Detail Item'
+                      fields:
+                        -
+                          handle: label
+                          field:
+                            type: text
+                            display: Label
+                        -
+                          handle: value
+                          field:
+                            type: text
+                            display: Value
+          -
+            handle: description
+            field:
+              type: textarea
+              display: Description
+              instructions: 'A short description of the role.'
+          -
+            handle: apply_button_label
+            field:
+              default: 'Apply Now'
+              type: text
+              display: 'Apply Button Label'
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'

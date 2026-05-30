@@ -1,0 +1,198 @@
+{{ if hero_type == 'home-page-one' }}
+<section class="overflow-hidden hero-section lg:h-screen sm:h-[700px] h-[450px] relative card-types z-1 2xl:mb-[100px] 1xl:mb-20 lg:mb-[60px] md:mb-[50px] mb-8">
+        <div class="absolute top-0 left-0 w-full h-full">
+          <div class="swiper types2 h-full">
+            <div class="swiper-wrapper">
+              {{ hero_slides }}
+              <div class="swiper-slide relative">
+                <div class="absolute lg:h-screen sm:h-[700px] h-[450px] w-full">
+                  {{ image }}<img src="{{ url }}" alt="hero img" class="w-full h-full object-cover"
+                    loading="lazy" />{{ /image }}
+                </div>
+                <div class="container">
+                  <div class="relative 2xl:pt-[290px] md:pt-[240px] pt-[150px] lg:h-screen sm:h-[700px] h-[450px]">
+                    <div class="flex flex-col justify-between h-full">
+                      <div
+                        class="bg-light-dark 2xl:max-w-[800px] 1xl:max-w-[630px] xl:max-w-[575px] lg:max-w-[534px] max-w-[465px] w-full h-fit 2xl:px-[50px] 2xl:py-[45px] 1xl:px-[43px] 1xl:py-[40px] px-[35px] py-[32px] flex flex-col 2xl:gap-10 1xl:gap-[35px] xl:gap-7 sm:gap-6 gap-5">
+                        <h6 class="sub-title text-white m-0 sm:text-left text-center font-medium uppercase tracking-[0.3em]">
+                          {{ title }}
+                        </h6>
+                        <h1 class="text-white sm:w-[90%] w-full font-normal sm:text-left text-center leading-tight">
+                          {{ subtitle }}
+                        </h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {{ /hero_slides }}
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+        <div class="container absolute bottom-8 left-1/2 -translate-x-1/2 z-10 md:block hidden">
+          <div thumbsSlider="" class="swiper types lg:px-[10px] px-[6px] w-full">
+            <div class="swiper-wrapper">
+              {{ hero_thumbnails  }}
+              <div class="swiper-slide">
+                <div class="hero-slide relative">
+                  <div class="flex flex-col justify-center py-3">
+                    <h5 class="m-0">{{ sub_title }}</h5>
+                    <span class="p2 m-0">{{ short_description }}</span>
+                  </div>
+                  <div class="1xl:w-[125px] w-[105px]">
+                    {{ image }}<img src="{{ url }}" alt="types" class="w-full h-full object-cover"
+                      loading="lazy" />{{ /image }}
+                  </div>
+                </div>
+              </div>
+              {{ /hero_thumbnails  }}
+            </div>
+          </div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+      </section>
+      {{ elseif  hero_type == 'home-page-two' }}
+
+      <section class="relative 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] md:mb-[50px] mb-8 z-1 card-types">
+        <div class="flex md:flex-col flex-col-reverse">
+          <div class="container-2">
+            <!-- start hero content -->
+            <div class="1xl:pt-24 xl:pt-[4.5rem] md:pt-[3.5rem] pt-7 1xl:pb-16 md:pb-10">
+              <!-- container -->
+              <div class="w-full xl:w-[60%] md:w-[70%]">
+                <h6 class="font-medium sub-title 1xl:mb-8 mb-7">
+                 {{ subtitle }}
+                </h6>
+                <h1 class="mb-0">
+                  {{ main_title }}
+                </h1>
+              </div>
+            </div>
+          </div>
+          <!-- end hero content slider-->
+          <!-- hero banner img -->
+          <div class="relative w-full block 1xl:px-[100px] lg:px-[90px] sm:px-[60px] px-0">
+            <div
+              class="block absolute sm:ight-0 sm:right-0 -right-16 1xl:-top-[6.3rem] md:-top-[5.8rem] md:bottom-auto sm:-bottom-16 -bottom-[3.8rem] z-10 1xl:w-[204px] 1xl:h-[204px] md:w-[185px] md:h-[185px] sm:w-[150px] sm:h-[150px] w-[132px] h-[132px]">
+              <img src="{{ logo_circle:circle_image }} {{ url }} {{ /logo_circle:circle_image }} " alt="icon img"
+                class="transition-all orion-construction-img" />
+              <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+                <img src="{{ logo_circle:center_logo }} {{ url }} {{ /logo_circle:center_logo }}" alt="icon img" class="mg:w-[70px] md:h-[70px] w-[62px] h-[62px]" />
+              </div>
+            </div>
+            <!-- Swiper -->
+            <div class="swiper home-2-hero 2xl:max-h-[756px] 1xl:max-h-[600px] xl:max-h-[560px] max-h-[520px]">
+              <div class="swiper-wrapper">
+                {{ hero_thumbnails }}
+                <div class="swiper-slide h-auto">
+                  <img src="{{ image }} {{ url }} {{ /image }}" alt="hero-{{ index + 1 }}" class="w-full h-full object-cover" />
+                </div>
+                {{ /hero_thumbnails }}
+              </div>
+              <div class="swiper-button-next"></div>
+              <div class="swiper-button-prev"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {{ elseif  hero_type == 'home-page-three' }}
+      <section class="hero-section relative bg-cover bg-no-repeat bg-left-top xl:min-h-screen lg:min-h-[700px] md:min-h-[650px] sm:min-h-[610px] min-h-[515px] h-full flex items-end justify-center 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] md:mb-[50px] mb-8" style="background-image: url('{{ hero_slides limit="1" }}{{ image:url }}{{ /hero_slides }}')">
+        <div class="overlay-background"></div>
+        <div class="relative sm:px-12 px-4 w-full">
+          <!-- Swiper -->
+          <div class="swiper home-3-hero card-types xl:h-screen h-full">
+            <div class="swiper-wrapper">
+              {{ hero_slides }}
+              <div class="swiper-slide">
+                <div class="relative z-1 flex flex-col items-center justify-end h-full">
+                  <!-- start hero content -->
+                  <div class="py-13 sm:py-20 1xl:py-34 lg:pt-40">
+                    <div class="xl:max-w-[70%] md:max-w-[75%] max-w-full mx-auto text-center flex flex-col items-center justify-center">
+                      <h6 class="text-white uppercase font-lexend 1xl:tracking-[2.2px] tracking-[4px] font-medium">
+                        {{ title }}
+                      </h6>
+                      <h1 class="mt-5 mb-6 lg:my-8 text-white">
+                        {{ subtitle }}
+                      </h1>
+                      {{ if button_text }}
+                      <a href="{{ button_link }}" class="2xl:!py-3.5 xl:!py-3 lg:!py-2.5 sm:!py-2 !py-[7px] btn btn-green-bg">{{ button_text }}</a>
+                      {{ /if }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {{ /hero_slides }}
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+      </section>
+
+      {{ elseif hero_type == 'home-page-four' }}
+
+       <section class="relative overflow-hidden 2xl:mb-[100px] 1xl:mb-20 lg:mb-[60px] md:mb-[50px] mb-8">
+                <div class="absolute left-auto right-0 w-[40.5%] h-full top-auto bottom-0 sm:flex hidden items-center justify-center z-1 opacity-100 pointer-events-none">
+                    <img src="{{ theme:asset }}assets/images/home-4-hero-bg.svg" alt="img" class="w-full mt-0 mb-auto" loading="lazy" />
+                </div>
+                <div class="flex justify-between relative lg:flex-row flex-col home-4-hero">
+                    <div class="lg:w-1/2 w-full z-2 lg:h-auto md:h-[450px] sm:h-[400px] h-full">
+                        <div thumbsSlider class="swiper home-4-hero-img h-full">
+                            <div class="swiper-wrapper">
+                              {{ hero_slides }}
+                                <div class="swiper-slide !h-auto !w-full">
+                                    <img src="{{ image }} {{ url }} {{ /image }}" class="w-full h-full object-cover" />
+                                </div>
+                                {{ /hero_slides }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:w-1/2 w-full bg-primary-900 2xl:pt-[210px] 1xl:pt-[150px] xl:pt-[165px] lg:pt-[135px] sm:pt-9 pt-7">
+                        <div class="container 2xl:max-w-[720px] 1xl:max-w-[632px] lg:max-w-[540px] z-2">
+                            <div class="swiper home-4-hero-content mx-auto">
+                                <div class="swiper-wrapper">
+                                  {{ hero_slides }}
+                                    <div class="swiper-slide">
+                                        <p class="uppercase sub-title 2xl:mb-[50px] 1xl:mb-10 xl:mb-7 mb-5 text-white !font-normal">
+                                            {{ title }}
+                                        </p>
+                                        <h1 class="1xl:mb-6 xl:mb-4 mb-3 text-white">
+                                            {{ subtitle }}
+                                        </h1>
+                                        <p class="1xl:mb-12 xl:mb-9 mb-7 text-white">{{ description }}</p>
+                                        {{ if button_text }}
+                                        <a href="{{ button_link }}" class="2xl:!py-3.5 xl:!py-3 lg:!py-2.5 sm:!py-2 !py-[7px] btn btn-green-bg">{{ button_text }}</a>
+                                        {{ /if }}
+                                    </div>
+                                    {{ /hero_slides }}
+                                </div>
+                            </div>
+                            <div class="relative flex justify-between gap-2 project-custom-arrow 1xl:mt-[55px] xl:mt-[50px] md:mt-8 mt-7 z-2">
+                                <div class="swiper-button-prev"></div>
+                                <div class="swiper-button-next"></div>
+                            </div>
+                        </div>
+                        <div class="z-20 whitespace-nowrap w-full 2xl:pl-[100px] xl:pl-[55px] 2xl:pr-10 1xl:pr-8 md:pr-[22px] 2xl:py-[30px] xl:py-[22px] p-4 pb-0 lg:gap-0 gap-3 flex xl:flex-nowrap flex-wrap items-center lg:justify-start justify-center bg-white">
+                            <div class="flex items-center justify-center 1xl:mr-8 xl:mr-5 md:mr-3 sm:w-auto w-full customer-review-image z-2">
+                                {{ clients_section:client_images }}
+                                <div class="customer-2">
+                                    <img src="{{ url }}" alt="customer {{ index + 1 }}"
+                                        class="w-full h-full object-cover" loading="lazy" />
+                                </div>
+                                {{ /clients_section:client_images }}
+                            </div>
+                            <h2 class="sm:mb-0 -mb-[6px] shrink-0 xl:mr-[35px] mr-3 z-2">
+                               {{ clients_section:client_count }}
+                            </h2>
+                            <p class="font-light z-2 text-dark-400">
+                                {{ clients_section.client_text }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+      {{ /if }}

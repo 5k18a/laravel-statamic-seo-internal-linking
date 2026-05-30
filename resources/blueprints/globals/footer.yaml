@@ -1,0 +1,160 @@
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: useful_link_title
+            field:
+              default: 'Useful Links'
+              type: text
+              display: 'Useful Link Title'
+          -
+            handle: our_services_title
+            field:
+              default: 'Our Services'
+              type: text
+              display: 'Our Services Title'
+          -
+            handle: our_branches_title
+            field:
+              default: 'Our Branches'
+              type: text
+              display: 'Our Branches Title'
+          -
+            handle: copyright_text
+            field:
+              default: '© All rights reserved to Orion Constructions'
+              type: text
+              display: 'Copyright Text'
+          -
+            handle: newsletter_button_text
+            field:
+              default: Submit
+              type: text
+              display: 'Newsletter Button Text'
+          -
+            handle: description
+            field:
+              type: textarea
+              display: Description
+              instructions: 'Short company description'
+          -
+            handle: privacy_policy
+            field:
+              default: /privacy-policy
+              type: text
+              display: 'Privacy Policy URL'
+          -
+            handle: privacy_policy_label
+            field:
+              default: 'Privacy policy'
+              type: text
+              display: 'Privacy Policy Label'
+          -
+            handle: terms_conditions_url
+            field:
+              default: /terms-condition
+              type: text
+              display: 'Terms & Conditions URL'
+          -
+            handle: terms_conditions_label
+            field:
+              default: 'Terms & conditions'
+              type: text
+              display: 'Terms & Conditions Label'
+          -
+            handle: footer_image
+            field:
+              max_files: 1
+              min_files: 1
+              container: assets
+              type: assets
+              display: 'Footer Image'
+          -
+            handle: links
+            field:
+              type: replicator
+              display: Links
+              collapse: true
+              sets:
+                new_set_group:
+                  display: 'New Set Group'
+                  sets:
+                    new_set:
+                      display: 'New Set'
+                      fields:
+                        -
+                          handle: title
+                          field:
+                            type: text
+                            display: 'Link Text'
+                        -
+                          handle: url
+                          field:
+                            type: text
+                            display: Url
+          -
+            handle: branches
+            field:
+              type: replicator
+              display: Branches
+              collapse: true
+              sets:
+                new_set_group:
+                  display: 'New Set Group'
+                  sets:
+                    new_set:
+                      display: 'New Set'
+                      fields:
+                        -
+                          handle: country_name
+                          field:
+                            type: text
+                            display: 'Country Name'
+                        -
+                          handle: country_flag
+                          field:
+                            max_files: 1
+                            min_files: 1
+                            container: assets
+                            type: assets
+                            display: 'Country Flag'
+                        -
+                          handle: maps_url
+                          field:
+                            type: text
+                            display: 'Google Maps URL'
+                        -
+                          handle: address
+                          field:
+                            type: textarea
+                            display: Address
+          -
+            handle: follow_text
+            field:
+              default: 'Follow us here :'
+              type: text
+              display: 'Follow Text'
+          -
+            handle: newsletter_title
+            field:
+              default: 'Let’s build something great together.'
+              type: text
+              display: 'Newsletter Title'
+          -
+            handle: newsletter_description
+            field:
+              default: 'Whether you’re planning a new project, looking for expert advice, or want to collaborate, we’re here to help. Reach out today our team is ready to discuss.'
+              type: textarea
+              display: 'Newsletter Description'
+          -
+            handle: service_entries
+            field:
+              mode: select
+              collections:
+                - services
+              type: entries
+              display: 'Select Service'
+              listable: true

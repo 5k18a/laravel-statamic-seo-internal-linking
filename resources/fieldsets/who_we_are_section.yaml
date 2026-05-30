@@ -1,0 +1,83 @@
+title: 'Who We Are Section'
+fields:
+  -
+    handle: buttons
+    field:
+      type: group
+      display: Buttons
+      fields:
+        -
+          handle: primary_button_text
+          field:
+            default: 'Learn More About Us'
+            type: text
+            display: 'Primary Button Text'
+            listable: true
+        -
+          handle: primary_button_url
+          field:
+            default: /about
+            type: text
+            display: 'Primary Button URL'
+        -
+          handle: secondary_button_text
+          field:
+            placeholder: '+1 234 5678 999'
+            default: '+1 234 5678 999'
+            type: text
+            display: 'Secondary Button Text'
+        -
+          handle: secondary_button_link
+          field:
+            placeholder: 'tel:+12345678999'
+            default: 'tel:+12345678999'
+            type: text
+            display: 'Secondary Button Link'
+  -
+    handle: description
+    field:
+      type: textarea
+      display: Description
+  -
+    handle: highlights
+    field:
+      type: replicator
+      display: Highlights
+      sets:
+        new_set_group:
+          display: 'New Set Group'
+          sets:
+            sets:
+              display: 'Highlight Item'
+              fields:
+                -
+                  handle: text_field
+                  field:
+                    type: text
+                    display: Text
+  -
+    handle: video_section
+    field:
+      type: group
+      display: 'Video Section'
+      fields:
+        -
+          handle: video_thumbnail
+          field:
+            max_files: 1
+            container: assets
+            type: assets
+            display: 'Video Thumbnail'
+        -
+          handle: video_file
+          field:
+            max_files: 1
+            container: assets
+            type: assets
+            display: 'Video File'
+        -
+          handle: shot_description
+          field:
+            default: 'Your browser does not support the video tag.'
+            type: text
+            display: 'Shot Description'

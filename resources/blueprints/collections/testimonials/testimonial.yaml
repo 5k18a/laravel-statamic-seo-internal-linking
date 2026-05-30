@@ -1,0 +1,60 @@
+title: Testimonial
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              validate:
+                - required
+              display: Title
+          -
+            handle: image
+            field:
+              max_files: 1
+              container: assets
+              type: assets
+              display: 'Author Image'
+          -
+            handle: company
+            field:
+              type: text
+              display: 'Company / Position'
+          -
+            handle: rating
+            field:
+              type: integer
+              display: 'Star Rating'
+              instructions: 'Enter a number between 1–5'
+          -
+            handle: short_title
+            field:
+              type: text
+              display: 'Highlight / Short Title'
+          -
+            handle: content
+            field:
+              type: textarea
+              display: 'Testimonial Content'
+          -
+            handle: company_logo
+            field:
+              container: assets
+              type: assets
+              display: 'Company Logo'
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'

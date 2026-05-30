@@ -1,0 +1,114 @@
+          <!-- bg-hero  banner -->
+          {{ quotation }}
+          <main class="sm:max-h-[800px] max-h-[300px] h-full absolute bg-cover top-0 bg-center w-full" style="background-image: url('{{ background_image  }} {{ url  }} {{ /background_image }}')">
+              <div class="absolute inset-0 bg-primary-900/90"></div>
+          </main>
+          {{ /quotation }}
+
+          <!-- quotation form -->
+          <div class="sm:bg-[#E7F3F1] bg-white md:pt-[132px] sm:pt-[115px] pt-[50px] 2xl:pb-[100px] 1xl:pb-20 lg:pb-[70px] md:pb-[50px] pb-8">
+            {{ quotation }}
+            <div class="container">
+                <div class="text-center xl:mb-12 mb-10 relative z-10">
+                    <h2 class="text-white mb-5">{{ sub_title }}</h2>
+                    <p class="text-white">{{ section_description }}</p>
+                </div>
+            </div>
+            {{ /quotation }}
+
+            <!-- Form Card -->
+            <div class="sm:container bg-white 1xl:max-w-[1220px] mx-auto xl:px-[60px] xl:py-[50px] lg:px-[50px] lg:py-[40px] sm:p-[35px] p-5 relative z-10">
+
+                {{ form:quotation  id="quotationForm" ajax="true" class="space-y-5"}}
+                {{ csrf }}
+                {{ fields }}
+                {{ if type == "radio" }}
+                <div class="mb-6">
+                    <h5 class="block xl:mb-2 mb-1.5 p text-black">{{ display }} {{ if validate }}
+                        {{ if validate contains="required" }} *{{ /if }}
+                    {{ /if }}</h5>
+                    {{ if handle == 'looking_for' }}
+                    <div class="flex flex-wrap xl:gap-[18px] md:gap-[14px] gap-[12px]"> 
+                     {{ foreach:options as="option|label" }}
+                     <input  id="{{ handle }}_{{ option | slugify }}" type="radio" name="{{ handle }}" value="{{ option }}" {{ if js_driver }}{{ js_attributes }}{{ /if }} {{ if value == option }}checked{{ /if }} class="!hidden tab-radio btn" 
+                     />
+
+                     <label for="{{ handle }}_{{ option | slugify }}" class="btn border border-[#00000026] !font-light cursor-pointer transition-all duration-200">
+                         {{ label ?? option }}
+                     </label>
+                     {{ /foreach:options }}
+
+                 </div>
+                 {{ else }}
+
+                 <div class="1xl:mb-[30px] md:mb-6 mb-4.5">
+                    <div class="1xl:space-y-3 sm:space-y-[10px] space-y-[7px] sm:ml-4 ml-3">
+                        {{ foreach:options as="option|label" }}
+                        <div class="flex items-center md:gap-[14px] gap-[10px]">
+                            <input id="{{ handle }}_{{ option | slugify }}" type="radio" name="{{ handle }}" value="{{ option }}" {{ if js_driver }}{{ js_attributes }}{{ /if }} {{ if value == option }}checked{{ /if }} class="radio-btn 1xl:w-[23px] 1xl:h-[23px] md:w-[21px] md:h-[21px] w-[17px] h-[17px]"/>
+                            <label for="{{ handle }}_{{ option | slugify }}" class="text-[#4E4E4E] p cursor-pointer"> {{ label ?? option }}</label>
+                        </div>
+                        {{ /foreach:options }}
+                    </div>
+                </div>
+
+                {{ /if }}
+
+            </div>
+            {{ elseif type == "select" }}
+            <h5 class="block xl:mb-2 mb-1.5 p text-black">{{ display }} {{ if validate }}{{ if validate contains="required" }} *{{ /if }}
+            {{ /if }}</h5>
+            <div class="select">
+            <select id="{{ id }}" name="{{ handle }}{{ multiple ?= "[]" }}" {{ if js_driver }}{{ js_attributes }}{{ /if }} {{ if multiple }}multiple{{ /if }} {{ if validate|contains:required }}required{{ /if }} {{ if error }} aria-invalid="true" aria-describedby="{{ id }}-error" {{ elseif instructions }} aria-describedby="{{ id }}-instructions" {{ /if }}
+            class="p">
+            {{ unless multiple }}
+            <option value>
+                {{ if placeholder }}
+                {{ placeholder }}
+                {{ else }}
+                {{ trans key="Please select..." }}
+                {{ /if }}
+            </option>
+            {{ /unless }}
+            {{ foreach:options as="option|label" }}
+            <option value="{{ option }}"{{ if multiple }}{{ if value|in_array:option }} selected{{ /if }}{{ else }}{{ if option == value }} selected{{ /if }}{{ /if }}>
+                {{ label !== null ? label : option }}
+            </option>
+            {{ /foreach:options }}
+        </select>
+    </div>
+
+        {{ elseif input_type == "date" }}
+        <input type="date" id="{{ handle }}" name="{{ handle }}" value="{{ old }}" class="w-full xl:px-3 px-2 xl:py-2.5 py-2 p text-[#00000080] focus:outline-none border border-[#00000026] focus:border-primary-900" />
+        
+        {{ elseif handle == 'phone_number' }}
+
+         <input type="tel" id="phone" name="{{ handle }}" placeholder="{{ placeholder }}{{ if validate }}{{ if validate contains='required' }} *{{ /if }}
+        {{ /if }}" value="{{ old }}" class="w-full xl:px-3 px-2 xl:py-2.5 py-2 p font-light placeholder:text-[#00000080] text-[#00000080] border border-[#00000026] focus:border-teal-700 focus:ring-1 focus:ring-primary-900 transition-all" />
+
+        {{ else }}
+        <input type="{{ type }}" id="{{ handle }}" name="{{ handle }}" placeholder="{{ placeholder }}{{ if validate }}{{ if validate contains='required' }} *{{ /if }}
+        {{ /if }}" value="{{ old }}" class="w-full xl:px-3 px-2 xl:py-2.5 py-2 p font-light placeholder:text-[#00000080] text-[#00000080] border border-[#00000026] focus:border-teal-700 focus:ring-1 focus:ring-primary-900 transition-all" />
+
+        {{ /if }}
+
+
+        <div class="error-message hidden  text-red-500 mt-2 transition-all ease-in-out items-center gap-2" data-error-for="{{ handle }}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+                <path d="M9.35 9.35H7.65V4.25H9.35M9.35 12.75H7.65V11.05H9.35M8.5 0C7.38376 0 6.27846 0.219859 5.24719 0.647024C4.21592 1.07419 3.27889 1.70029 2.48959 2.48959C0.895533 4.08365 0 6.24566 0 8.5C0 10.7543 0.895533 12.9163 2.48959 14.5104C3.27889 15.2997 4.21592 15.9258 5.24719 16.353C6.27846 16.7801 7.38376 17 8.5 17C10.7543 17 12.9163 16.1045 14.5104 14.5104C16.1045 12.9163 17 10.7543 17 8.5C17 7.38376 16.7801 6.27846 16.353 5.24719C15.9258 4.21592 15.2997 3.27889 14.5104 2.48959C13.7211 1.70029 12.7841 1.07419 11.7528 0.647024C10.7215 0.219859 9.61624 0 8.5 0Z"
+                fill="#D21C1C" />
+            </svg>
+            <span class="field-error error-text p2" data-error-for="{{ handle }}"></span>
+        </div>
+
+        {{ /fields }}
+
+
+
+        {{ quotation }} {{ if button_text }} <button type="submit" class="btn btn-primary">{{ button_text }}</button> {{/if}}  {{ /quotation }}
+        <p class="form-message text-center mt-4"></p>
+        {{ /form:quotation }}
+
+
+    </div>
+</div>

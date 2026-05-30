@@ -1,0 +1,60 @@
+title: 'Blog Section'
+fields:
+  -
+    handle: show_type
+    field:
+      options:
+        -
+          key: blog-page-one
+          value: 'Blog One'
+        -
+          key: blog-page-two
+          value: 'Blog Two'
+        -
+          key: blog-page-three
+          value: 'Blog Three'
+      default: blog-page-one
+      type: select
+      display: 'Show Type'
+  -
+    handle: section_title
+    field:
+      default: 'Blog & News'
+      type: text
+      display: 'Section Title'
+  -
+    handle: section_description
+    field:
+      type: textarea
+      display: 'Section Description'
+  -
+    handle: browse_all_label
+    field:
+      default: 'Browse all Posts'
+      type: text
+      display: 'Browse All Label'
+  -
+    handle: dropdown_label
+    field:
+      default: 'Browse By:'
+      type: text
+      display: 'Dropdown Label'
+  -
+    handle: collections
+    field:
+      max_items: 1
+      mode: select
+      type: collections
+      display: Collections
+  -
+    handle: pagination
+    field:
+      default: 'false'
+      type: text
+      display: Pagination
+  -
+    handle: limit
+    field:
+      default: '0'
+      type: integer
+      display: Limit

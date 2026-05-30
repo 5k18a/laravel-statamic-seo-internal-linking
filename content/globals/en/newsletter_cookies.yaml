@@ -1,0 +1,46 @@
+newsletter_heading: 'New Project'
+newsletter_description: 'Experience modern living like never before'
+newsletter_image: images/newsletter-banner.webp
+newsletter_offer_badge: '15% Off'
+newsletter_offer_heading: '- Launch Offer -'
+newsletter_offer_prefix: 'Book before'
+newsletter_offer_date: '30th October'
+newsletter_offer_suffix: 'and get exclusive early-bird discounts!'
+newsletter_button_text: Subscribe
+heading: 'We Use Cookies'
+description: 'Our website uses cookies to enhance your browsing experience, analyze site traffic personalize content. By using our site, you consent to our cookie policy.'
+accept_button: 'Accept All'
+settings_button: Settings
+cookie_description: 'At Orion Construction, cookies are our digital building blocks. Some keep the site standing strong, while others help us improve performance and tailor your experience.'
+cookie_header: 'Privacy Preference Center'
+manage_title: 'Manage Consent Preferences:'
+cookie_categories:
+  -
+    id: mhujalk3
+    description: 'Help us lay the foundation for relevant content and  project updates by showing you information tailored to your interests.'
+    enabled_by_default: true
+    type: targeting
+    enabled: true
+    sub_title: 'Targeting Cookies'
+  -
+    id: mhujco5o
+    sub_title: 'Performance Cookies'
+    description: 'Like quality checks on a job site, these cookies let us measure traffic and monitor how our website is performing so we can keep improving. performing so we can keep improving.'
+    enabled_by_default: true
+    type: performance
+    enabled: true
+  -
+    id: mhujdeik
+    sub_title: 'Strictly Necessary Cookies'
+    description: 'The core framework of the website without these, the site can’t function. These cookies keep navigation, security, and basic services running.'
+    enabled: true
+    type: necessary
+  -
+    id: mhuje0bo
+    sub_title: 'Functional Cookies'
+    description: 'These cookies are like the finishing touches remembering your preferences (such as location or settings) to give you a smoother, more customized visit.'
+    enabled_by_default: true
+    type: functional
+    enabled: true
+reject_all_button: 'Reject All'
+confirm_choices_button: 'Confirm My Choices'

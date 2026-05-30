@@ -1,0 +1,145 @@
+{{ footer }}
+<footer class="relative 2xl:pt-[100px] xl:pt-[80px] lg:pt-[70px] md:pt-[60px] overflow-hidden z-0">
+    <!-- container -->
+    <div class="bg-primary-900 px-5 pt-8 xl:p-12 xl:pb-6 pb-5 relative z-1 xl:w-[79%] md:w-[85%] w-full">
+      <div class="mb-6 md:mb-8">
+        <a href="/">
+          {{ setting }}{{ logo_white }}<img src="{{ url }}" alt="img" class="max-w-[150px] xl:max-w-full md:mx-0 mx-auto"
+            loading="lazy" />{{ /logo_white }}{{ /setting }}
+        </a>
+      </div>
+      <div class="2xl:pl-20 xl:pl-16 lg:pl-10 lg:pr-5 xl:pr-0">
+        <div
+          class="flex md:flex-row flex-col sm:items-start items-center sm:justify-between justify-center gap-5 sm:text-left text-center">
+          <!-- Mobile dropdowns for first two columns (≤991px) -->
+          <div class="w-full md:hidden order-1">
+            <details class="group border-b border-white/20 py-2">
+              <summary class="cursor-pointer list-none flex items-center justify-between text-white p font-lexend">
+                Company
+                <span class="transition-transform duration-200 group-open:rotate-180">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 20 12" fill="none">
+                    <path d="M1.75 1.5L10 10.5L18.25 1.5" stroke="white" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </svg>
+                </span>
+              </summary>
+              <ul class="mt-2 space-y-1 text-white">
+                {{ links }}
+                <li><a href="{{ url }}" class="hover:underline underline-offset-4 p font-lexend block w-fit">{{ title }}</a>
+                </li>
+                {{ /links }}
+              </ul>
+            </details>
+            <details class="group border-b border-white/20 py-2">
+              <summary class="cursor-pointer list-none flex items-center justify-between text-white p font-lexend">
+                Services
+                <span class="transition-transform duration-200 group-open:rotate-180">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 20 12" fill="none">
+                    <path d="M1.75 1.5L10 10.5L18.25 1.5" stroke="white" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </svg>
+                </span>
+              </summary>
+              {{ if service_entries }}
+              <ul class="mt-2 space-y-1 text-white">
+                {{ service_entries limit="7" }}
+                <li>
+                  <a href="/service/{{ slug }}" class="hover:underline underline-offset-4 p font-lexend block w-fit">{{ title }}</a>
+                </li>
+                {{ /service_entries }}
+                
+              </ul>
+              {{ /if }}
+            </details>
+          </div>
+
+          <!-- Desktop lists for first two columns (≥992px) -->
+          <div class="sm:mb-5 md:mb-0 md:order-1 order-1 hidden md:block">
+            <ul class="text-white text-md 1xl:text-1xl 2xl:text-2xl xl:space-y-1 space-y-0.5">
+               {{ links }}
+              <li>
+                <a href="{{ url }}" class="hover:underline underline-offset-4 p font-lexend block w-fit">{{ title }}</a>
+              </li>
+               {{ /links }}
+             
+            </ul>
+          </div>
+          {{ if service_entries }}
+
+          <div class="sm:mb-5 md:mb-0 md:order-1 order-1 hidden md:block">
+            <ul class="text-white text-md 1xl:text-1xl 2xl:text-2xl xl:space-y-1 space-y-0.5">
+              {{ service_entries limit="7" }}
+              <li>
+                <a href="/service/{{ slug }}" class="hover:underline underline-offset-4 p font-lexend block w-fit">{{ title }}</a>
+              </li>
+              {{ /service_entries }}
+            </ul>
+          </div>
+          {{ /if }}
+          {{ setting }}
+          <div class="md:order-1 order-1 2xl:w-[23%] lg:w-[28%] md:w-[29%] w-full">
+            <ul class="text-white text-md 1xl:text-1xl 2xl:text-2xl xl:space-y-1 space-y-0.5 sm:text-start text-center">
+              <li>
+                <a href="mailto: {{ email }}"
+                  class="hover:underline underline-offset-4 p font-lexend block md:w-fit">
+                  {{ email }}
+                </a>
+              </li>
+              <li>
+                <a href="tel:{{ phone_number }}" class="hover:underline underline-offset-4 p font-lexend block md:w-fit">
+                 {{ phone_number }}
+                </a>
+              </li>
+
+              <li>
+                <a href="{{ map_url }}"
+                  target="_blank" rel="noopener noreferrer"
+                  class="hover:underline underline-offset-4 p font-lexend block md:w-fit">
+                 {{ address }}
+                </a>
+              </li>
+            </ul>
+          </div>
+          {{ /setting }}
+          <div class="md:order-3 order-2">
+            <!-- Desktop social names (≥992px) -->
+            <ul
+              class="hidden md:block text-white text-md 1xl:text-1xl 2xl:text-2xl xl:space-y-1 space-y-0.5 md:max-w-[200px] mx-auto">
+              {{ setting }}
+              {{ socials }}
+              <li>
+                <a href="{{ url }}" target="_blank"
+                class="hover:underline underline-offset-4 p font-lexend block w-fit">{{ title }}</a>
+              </li>
+              {{ /socials }}
+              {{ /setting }}
+            </ul>
+          </div>
+        </div>
+        <div
+          class="1xl:mt-16 xl:mt-14 lg:mt-11 md:mt-8 mt-5 xl:pt-6 pt-5 text-white text-md border-t border-[#FFFFFF33] md:text-left text-center font-lexend">
+          <div class="flex sm:flex-row flex-col items-center sm:gap-0 gap-[10px]">
+            <p class="mb-0">{{ copyright_text }}</p>
+            {{ if privacy_policy_label }}
+            <span class="mx-2.5 sm:block hidden"> | </span>
+            <div class="flex items-center">
+              <p class="mb-0 hover:underline underline-offset-4">
+                <a href="{{ privacy_policy }}">{{ privacy_policy_label }}</a>
+              </p>
+              {{ /if }}
+              {{ if terms_conditions_label }}
+              <span class="block mx-2.5"> | </span>
+              <p class="mb-0 hover:underline underline-offset-4">
+                <a href="{{ terms_conditions_url }}">{{ terms_conditions_label }}</a>
+              </p>
+              {{ /if }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="absolute top-0 right-0 2xl:w-[50%] 1xl:w-[47%] xl:w-[57%] lg:w-[52%] w-[44%] h-full hidden md:block">
+      {{ footer_image }}<img src="{{ url }}" alt="img" class="w-full h-full object-cover" loading="lazy" />{{ /footer_image }}
+    </div>
+  </footer>
+  {{ /footer }}

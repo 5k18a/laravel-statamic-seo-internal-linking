@@ -1,0 +1,80 @@
+<section class="overflow-hidden relative 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] md:mb-[50px] mb-8">
+    <div class="container">
+        <h2 class="xl:mb-[23px] md:mb-4.5 mb-4">
+            {{ section_title }}
+        </h2>
+        {{ if intro_paragraph_1 }}
+        <p class="text-black xl:mb-[23px] md:mb-4.5 mb-4">
+            {{ intro_paragraph_1 }}
+        </p>
+        {{ /if }}
+        {{ if intro_paragraph_2 }}
+        <p class="text-black">
+            {{ intro_paragraph_2 }}
+        </p>
+        {{ /if }}
+
+        <div class="flex items-normal justify-between lg:flex-row flex-col 2xl:gap-20 1xl:gap-18 xl:gap-16 lg:gap-12 md:gap-10 gap-[30px] 1xl:mt-[50px] lg:mt-11 md:mt-10 mt-7">
+            <div class="2xl:w-[52%] lg:w-1/2 w-full">
+                <div class="relative w-full 2xl:h-[400px] 1xl:h-[378px] sm:h-[364px] h-[300px]">
+                    <!-- Thumbnail -->
+                    <img id="videoThumbnail" src="{{video_thumbnail}}{{ url }} {{ /video_thumbnail }}" alt="Video Thumbnail" class="w-full h-full object-cover" loading="lazy" />
+
+                    <!-- Play Button -->
+                    <button id="playBtn" class="absolute inset-0 flex items-center justify-center">
+                        <div class="bg-[#FFFFFFB2] border border-white backdrop-blur-sm rounded-full xl:w-[80px] xl:h-[80px] sm:w-[70px] sm:h-[70px] w-[60px] h-[60px] flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none" class="ml-1.5 xl:w-10 xl:h-10 sm:w-9 sm:h-9 w-7 h-7 fill-primary-900 stroke-primary-900">
+                            <path d="M13.812 9.07404C13.6298 8.96602 13.4223 8.90815 13.2105 8.9063C12.9987 8.90445 12.7902 8.95869 12.6061 9.06351C12.4221 9.16833 12.269 9.32 12.1626 9.50311C12.0561 9.68621 12 9.89424 12 10.106V37.894C12 38.1058 12.0561 38.3139 12.1626 38.497C12.269 38.6801 12.4221 38.8317 12.6061 38.9366C12.7902 39.0414 12.9987 39.0956 13.2105 39.0938C13.4223 39.0919 13.6298 39.0341 13.812 38.926L37.258 25.032C37.4371 24.9258 37.5854 24.7748 37.6884 24.5938C37.7915 24.4129 37.8456 24.2083 37.8456 24C37.8456 23.7918 37.7915 23.5872 37.6884 23.4062C37.5854 23.2253 37.4371 23.0743 37.258 22.968L13.812 9.07404Z" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    </button>
+
+                    <!-- Video (hidden initially) -->
+                    <video id="videoPlayer" controls class="w-full h-full object-cover hidden">
+                        <source src="{{ video_file }} {{url}} {{/video_file}}" type="video/mp4" />
+                        {{ video_alt_text }}
+                    </video>
+                </div>
+            </div>
+            <div class="2xl:w-[48%] lg:w-1/2 w-full xl:py-[25px] lg:py-4 py-0">
+                {{ if right_content }}<p class="text-black">{{ right_content }}
+                </p>{{ /if }}
+
+                {{ if highlights }}
+                <ul class="custom-list 1xl:space-y-3 md:space-y-2.5 space-y-1.5 xl:mt-6 mt-4.5">
+                {{ highlights }}
+                <li class="p flex items-start 2xl:gap-3 gap-2 text-black font-light">
+                    {{ text }}
+                </li>
+                {{ /highlights }}
+            </ul>
+            {{ /if }}
+        </div>
+    </div>
+</div>
+</section>
+<!-- end Career -->
+
+<!-- start Career -->
+{{ if benefits_columns }}
+<section class="overflow-hidden relative 2xl:mb-[100px] 1xl:mb-20 lg:mb-[60px] md:mb-[50px] mb-8 bg-[#EFEFEF] 2xl:py-20 1xl:py-16 md:py-14 sm:py-11 py-9">
+    <div class="container">
+        <div class="lg:flex grid lg:grid-cols-2 grid-cols-1 items-start justify-between 2xl:gap-20 1xl:gap-16 md:gap-8 gap-5">
+            <div class="2xl:w-[30%] lg:w-[26%] md:col-span-2">
+                <h2 class="2xl:w-[70%] w-full">{{ benefits_section_title }}</h2>
+            </div>
+
+            <div class="2xl:w-[68%] lg:w-[70%] grid sm:grid-cols-2 grid-cols-1 2xl:gap-x-20 1xl:gap-x-17 md:gap-x-12 2xl:gap-y-[60px] 1xl:gap-y-[50px] md:gap-y-10 gap-6">
+                {{ benefits_columns }}
+                <div>
+                    <h4 class="mb-2">{{ title }}</h4>
+                    <p class="text-gray-400">
+                        {{ description }}
+                    </p>
+                </div>
+                {{ /benefits_columns }}
+            </div>
+        </div>
+    </div>
+</section>
+{{ /if }}

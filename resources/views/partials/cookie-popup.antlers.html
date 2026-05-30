@@ -1,0 +1,111 @@
+{{ newsletter_cookies }}
+<div class="z-50 ">
+      <!-- Cookie Overlay -->
+      <div id="cookieOverlay" class="fixed transition-all duration-300 cookieOverlay pointer-events-none">
+        <!-- Initial Cookie Popup -->
+        <div id="initialPopup" class="pointer-events-auto sm:ml-auto 2xl:mr-[50px] 1xl:mr-9 xl:mr-7 md:mr-6 mx-4 mt-auto 2xl:mb-[50px] 1xl:mb-9 xl:mb-7 md:mb-6 mb-4 animate-slide-up">
+          <!-- Close Button -->
+          <button class="text-[#FFFFFF99] ml-auto mr-0 p-0 w-full closeCookie">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="ml-auto mr-0 xl:w-6 xl:h-6 w-[22px] h-[22px]">
+              <path d="M12 10.943L5.807 4.75L4.75 5.807L10.943 12L4.75 18.193L5.807 19.25L12 13.057L18.193 19.25L19.25 18.193L13.057 12L19.25 5.807L18.193 4.75L12 10.943Z" fill="currentColor" />
+            </svg>
+          </button>
+
+          <div id="initialPopupWrapper" class="bg-white xl:max-w-[630px] max-w-[510px] w-full 2xl:p-10 xl:p-8 p-6 relative animate-slide-up">
+            <!-- Cookie Icon -->
+            <div class="2xl:mb-6 xl:mb-5 mb-4 2xl:size-[70px] 1xl:size-[65px] xl:size-[60px] lg:size-[55px] size-[50px]">
+              <img src="{{ theme:asset }}assets/images/cookie-icon.png" alt="cookie" class="w-full h-full" />
+            </div>
+
+            <!-- Heading -->
+            <h4 class="xl:mb-3 mb-2">{{ heading }}</h4>
+            <!-- Description -->
+            <p class="text-gray-400 xl:mb-7 md:mb-5.5 mb-5">{{ description }}</p>
+            <!-- Buttons -->
+            <div class="flex xl:gap-[22px] md:gap-4 gap-[10px] flex-wrap items-center">
+             {{ if accept_button }}
+             <button class="btn btn-primary w-fit acceptCookies">
+              {{ accept_button }}
+            </button>
+            {{ /if }}
+            {{ if settings_button }}
+            <a href="javascript:;" class="btn btn-primary-reverse settings_button w-fit">
+              {{ settings_button }}
+            </a>
+            {{ /if }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Privacy Preference Center -->
+        <div id="settingsPanel" class="hidden settingsPanel pointer-events-auto">
+          <!-- Close Button -->
+          <button class="closeCookie">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="xl:w-6 xl:h-6 w-[22px] h-[22px]">
+              <path d="M12 10.943L5.807 4.75L4.75 5.807L10.943 12L4.75 18.193L5.807 19.25L12 13.057L18.193 19.25L19.25 18.193L13.057 12L19.25 5.807L18.193 4.75L12 10.943Z" fill="white" fill-opacity="0.6" />
+            </svg>
+          </button>
+          <div class="cookie-content-box">
+            <div class="flex-1">
+              <div class="">
+                <!-- Header -->
+                <h4 class="mb-3">{{ cookie_header }}</h4>
+                <p class="mb-5">{{ cookie_description }}</p>
+
+                 {{ if accept_button }}
+                <!-- Accept All Button -->
+                <button class="btn btn-primary 1xl:mb-11 sm:mb-8 mb-5 acceptCookies">
+                   {{ accept_button }}
+                </button>
+                {{ /if }}
+
+                <!-- Manage Consent Preferences -->
+                <h5 class="1xl:mb-5 mb-3">{{ manage_title }}</h5>
+
+                <!-- Cookie Categories -->
+                <div class="">
+                  <!-- Targeting Cookies -->
+                  {{ if cookie_categories }}
+                  {{ cookie_categories }}
+
+                  <div class="accordion-box border {{  if loop.first }} border-black {{ else }} border-gray-300 {{ /if }} xl:py-[13px] py-[10px] 1xl:px-[22px] sm:px-4 px-[13px]">
+                    <button onclick="toggleAccordion('{{ type }}')"
+                      class="w-full flex items-center justify-between text-left">
+                      <p class="text-black font-normal">{{ sub_title }}</p>
+                      <svg id="{{ type }}Icon" class="w-5 h-5 text-gray-600 transform transition-transform  {{ if loop.first }}rotate-180{{ /if }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                    <div id="{{ type }}Content" class="accordion-content mt-2 flex flex-col" style="{{ if loop.first }}max-height: 1000px; overflow: hidden;{{ else }}max-height: 0; overflow: hidden;{{ /if }}">
+                      <p class="p2 text-gray-400 2xl:leading-[26px] 1xl:leading-[24px] leading-[22px]">
+                       {{ description }}
+                      </p>
+                      <label class="relative inline-flex items-center cursor-pointer ml-auto mr-0 mt-2">
+                       <input type="checkbox" class="sr-only peer updateToggle" name="{{ type }}" {{ if enabled }}checked{{ /if }}  />
+                        <div class="w-11 h-6 bg-primary-900/66 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-teal-600"></div>
+                      </label>
+                    </div>
+                  </div>
+                  {{ /cookie_categories }}
+                  {{ /if }}
+                </div>
+              </div>
+            </div>
+            <!-- Action Buttons -->
+            <div class="mt-5 flex xl:gap-[22px] md:gap-4 gap-[10px] flex-wrap w-full">
+              {{ if reject_all_button }}
+              <button class="flex-1 btn btn-primary w-fit rejectAll">
+               {{ reject_all_button }}
+              </button>
+              {{ /if }}
+              {{ if confirm_choices_button }}
+              <button class="flex-1 btn btn-primary-reverse w-fit confirm_choices">
+                {{ confirm_choices_button }}
+              </button>
+              {{ /if }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{ /newsletter_cookies }}

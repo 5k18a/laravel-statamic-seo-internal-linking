@@ -1,0 +1,11 @@
+title: Services
+template: service/show
+revisions: false
+route: '/service/{slug}'
+date_behavior:
+  past: public
+  future: private
+sites:
+  - en
+  - pl
+propagate: true
