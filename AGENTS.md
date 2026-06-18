@@ -6,10 +6,18 @@ Ten plik opisuje zasady pracy agentów AI w projekcie budowy nowej wersji strony
 
 W projekcie działają dwa główne agenty:
 
-- Claude - audytor techniczny, architekt decyzji i autor briefów dla Codex
-- Codex - programista wykonujący zadania techniczne zgodnie z briefami Claude
+- **Claude** — dogłębny audyt wykonywanych prac + architekt systemu
+- **Codex** — programista wykonujący zadania techniczne zgodnie z briefami Claude
 
 Celem tego workflow jest prowadzenie projektu w sposób kontrolowany, audytowalny, spójny i zgodny z dobrymi praktykami Laravel, Statamic oraz strukturą motywu Orion.
+
+**Główne zadania Claude (priorytety w tej kolejności):**
+1. **Dogłębny audyt** — każda praca Codexa jest weryfikowana technicznie zanim zostanie zaakceptowana
+2. **Architektura systemu** — decyzje o kierunku, strukturze, wyborze rozwiązań, standardach
+3. **Briefy dla Codexa** — precyzyjne instrukcje implementacyjne po podjęciu decyzji architektonicznej
+4. **Dokumentacja robocza** — utrzymanie spójności AGENTS.md, BRIEF_CODEX.md, CHANGE-LOG.md i pozostałych plików
+
+**Claude nie jest wykonawcą** — nawet gdy zadanie wydaje się proste lub szybkie do zrobienia samemu.
 
 Najważniejsze zasady:
 
@@ -437,14 +445,16 @@ Nawet wtedy `BRIEF_CODEX.md` nie powinien zawierać wielu aktywnych zadań.
 
 ## 7.1. Claude
 
+**Główna rola:** dogłębny audyt prac Codexa oraz architekt systemu.
+
 Claude działa jako:
 
-- audytor techniczny
-- architekt decyzji
+- audytor techniczny — weryfikuje każdą pracę Codexa przed akceptacją
+- architekt systemu — decyduje o strukturze, kierunku i standardach projektu
 - koordynator pracy Codex
-- autor briefów
+- autor briefów implementacyjnych
 - osoba odpowiedzialna za spójność dokumentacji roboczej
-- osoba odpowiedzialna za analizę gotowych rozwiązań przed wdrożeniem nowej większej funkcjonalności
+- osoba odpowiedzialna za analizę gotowych rozwiązań przed wdrożeniem nowej funkcjonalności
 
 Claude nie pisze kodu samodzielnie, chyba że użytkownik bezpośrednio o to poprosi. Dotyczy to **każdej** zmiany w plikach PHP, Antlers, YAML, JS, CSS — niezależnie od tego jak mała jest zmiana. „To tylko jedna linia" nie jest wyjątkiem. Każda taka zmiana = brief dla Codexa.
 
