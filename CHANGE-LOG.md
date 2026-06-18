@@ -4,6 +4,36 @@ Changelog projektu `skalisty-orion` — prowadzony przez Claude po każdym zako�
 
 ---
 
+## 2026-06-18 (SETUP-git-workflow)
+
+_Wykonane przez Claude._
+
+### Inicjalizacja repozytorium Git i workflow
+
+- Repozytorium Git zainicjowane w `skalisty-orion/` (poprzednio było w workspace root).
+- Remote GitHub dodany: `https://github.com/5k18a/skalisty-laravel.git`
+- Wypchnięto pełny stan projektu na GitHub (branch `main`).
+- `AGENTS.md` zaktualizowany:
+  - Sekcja 5: `skalisty-orion/` jako kanoniczne miejsce plików roboczych agentów.
+  - Sekcja 22: pełny workflow Git (commit po każdym zadaniu, push na koniec sesji, format wiadomości, zasady bezpieczeństwa).
+- `.gitignore` rozszerzony o: `/server_deploy/SERWER_DOSTEP.txt`, `/addons/skalisty/wysiwyg-html-fieldtype/node_modules/`, `/public/vendor/statamic/`.
+
+### Synchronizacja z serwerem dev (2026-06-18)
+
+- Zsynchronizowano z `dev.skalisty.pl` przez rsync:
+  - Nowe wpisy kolekcji projektów
+  - Zaktualizowany blueprint `resources/blueprints/collections/projects/project.yaml`
+  - Nowe assets
+
+### Audyt zadań Codex 2026-06-17
+
+- Sprawdzono i zaakceptowano: `icon_box_with_text_section`, rozszerzenie prefixów Iconify, tłumaczenie MT, deploy.
+- Naprawiono błędy UTF-8 w wpisach CHANGE-LOG.md (polskie znaki).
+- Zaktualizowano `CODEX_SUGGESTIONS.md` — wyczyszczono przestarzałe pozycje, zaakceptowano `DEPLOY-iconify-icon-box-dev`.
+- Zsynchronizowano `PROJECT_STATUS_CODEX.md`, `BRIEF_CODEX.md`, `CLAUDE_MEMORY.md` (state_version: 2026-06-18-1200).
+
+---
+
 ## 2026-06-17 (DEPLOY-iconify-icon-box-dev)
 
 _Wpis sporządzony przez Codex; zaudytowany i zaakceptowany przez Claude 2026-06-18._
