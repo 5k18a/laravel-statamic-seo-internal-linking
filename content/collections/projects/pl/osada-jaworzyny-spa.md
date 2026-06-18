@@ -25,7 +25,7 @@ details:
   -
     id: QBpeGJhYWGqG3DLE0qPaF
     label: 'Data Zakończenia'
-    value: '2019'
+    value: '2020'
     type: info_item
     enabled: true
 overview_section:
@@ -42,7 +42,7 @@ overview_section:
           text: 'Osada Jaworzyny SPA'
         -
           type: text
-          text: ' w Zawadce to realizacja obejmująca kompleksową tematyzację strefy wypoczynkowej zlokalizowanej w budynku wykonanym w formie ziemianki. Projekt zakończono w 2019 roku, a łączna '
+          text: ' w Zawadce to realizacja obejmująca kompleksową tematyzację strefy wypoczynkowej zlokalizowanej w budynku wykonanym w formie ziemianki. Projekt zakończono w 2020 roku, a łączna '
         -
           type: text
           marks:
@@ -139,5 +139,6 @@ show_milestones: false
 show_team_section: false
 show_related_projects: false
 updated_by: 07f72358-0580-4aaf-b00c-6a3760228419
-updated_at: 1781785531
+updated_at: 1781791322
+completion_year: 2020
 ---

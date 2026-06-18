@@ -113,7 +113,7 @@ show_milestones: false
 show_team_section: false
 show_related_projects: false
 updated_by: 07f72358-0580-4aaf-b00c-6a3760228419
-updated_at: 1781732551
+updated_at: 1781791104
 details:
   -
     id: LusCehnr_Pq805Xq_McEi
@@ -139,4 +139,5 @@ details:
     value: '2022'
     type: info_item
     enabled: true
+completion_year: 2022
 ---

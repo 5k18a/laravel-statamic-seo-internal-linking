@@ -95,7 +95,7 @@ show_milestones: false
 show_team_section: false
 show_related_projects: false
 updated_by: 07f72358-0580-4aaf-b00c-6a3760228419
-updated_at: 1780863534
+updated_at: 1781791379
 details:
   -
     id: 2dSQzCpI9RFvmR6nkARv8
@@ -118,7 +118,8 @@ details:
   -
     id: 7KvbyZXsRs_VYHqh7YX2T
     label: 'Data Zakończenia'
-    value: '2019'
+    value: '2018'
     type: info_item
     enabled: true
+completion_year: 2018
 ---

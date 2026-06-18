@@ -121,6 +121,7 @@ show_milestones: false
 show_team_section: false
 show_related_projects: false
 updated_by: 07f72358-0580-4aaf-b00c-6a3760228419
-updated_at: 1780865361
+updated_at: 1781791148
 image: projekty/woliera-dzioborozca-zoo-warszawa-2.webp
+completion_year: 2019
 ---

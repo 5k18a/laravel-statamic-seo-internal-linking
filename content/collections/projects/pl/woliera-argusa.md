@@ -104,8 +104,9 @@ gallery_section:
     - galeria/woliera-argusa/woliera-argusa-2.webp
     - galeria/woliera-argusa/woliera-argusa-1.webp
 updated_by: 07f72358-0580-4aaf-b00c-6a3760228419
-updated_at: 1780784087
+updated_at: 1781791143
 show_milestones: false
 show_team_section: false
 show_related_projects: false
+completion_year: 2018
 ---

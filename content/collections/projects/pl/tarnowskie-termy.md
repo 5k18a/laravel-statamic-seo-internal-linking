@@ -118,6 +118,7 @@ show_milestones: false
 show_team_section: false
 show_related_projects: false
 updated_by: 07f72358-0580-4aaf-b00c-6a3760228419
-updated_at: 1780849275
+updated_at: 1781791139
 image: galeria/termy-tarnowskie/termy-tarnowskie-3.webp
+completion_year: 2015
 ---
