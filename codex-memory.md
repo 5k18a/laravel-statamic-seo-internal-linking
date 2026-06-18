@@ -1,5 +1,54 @@
 # Codex Memory
 
+## Ostatnia sesja — 2026-06-18 — FEATURE-completion-year-sort
+
+- Aktywny brief:
+  - `FEATURE-completion-year-sort`
+- Cel:
+  - sortowanie projektów od najnowszych do najstarszych po roku zakończenia
+  - pole `completion_year` ma być techniczne, niewidoczne na froncie, `localizable: false`
+- Wykonane:
+  - `resources/blueprints/collections/projects/project.yaml`
+    - dodano `completion_year` w sidebarze po `slug`
+  - `content/collections/projects.yaml`
+    - dodano `sort_field: completion_year_sort`
+    - dodano `sort_direction: desc`
+  - `app/Providers/AppServiceProvider.php`
+    - dodano computed field `completion_year_sort = completion_year ?: 0`
+  - `resources/views/page_builder/project_section.antlers.html`
+    - w 3 tagach `collection:projects` dodano `sort="completion_year_sort:desc"`
+  - 10 plików PL projektów dostało `completion_year`:
+    - Afrykarium 2014
+    - Oceanika 2015
+    - Tarnowskie Termy 2024
+    - Woliera Argusa 2018
+    - Baseny Tropikalne 2019
+    - Orientarium - Lwy Azjatyckie 2019
+    - Wybieg Wydry Europejskiej 2019
+    - Woliera Dzioborożca 2019
+    - Ogród w Alpach 2021
+    - Grota z Lourdes 2022
+- Ważna decyzja techniczna:
+  - literalne `completion_year:desc` w Statamic sortuje `NULL` przed wartościami liczbowymi
+  - dlatego Codex użył computed `completion_year_sort`, gdzie brak roku daje `0`
+  - dzięki temu realne projekty są pierwsze, a drafty/demo z brakiem roku są na końcu w query/listingu
+- Niespójności briefu:
+  - brief walidacyjnie zaczyna listę od `Grota z Lourdes (2022)`, ale sam wskazuje `Tarnowskie Termy = 2024`; przy sortowaniu desc pierwsze są `Tarnowskie Termy`
+  - brief wskazuje `/en/project`, ale aktualna strona listingowa EN istnieje jako `/en/projects`; `/en/project` zwraca 404
+  - 17 demo projektów ma `published: false`, więc publiczna `/realizacje` pokazuje tylko 10 realnych projektów
+- Walidacja:
+  - `php artisan statamic:stache:refresh` — OK
+  - `php artisan test` — OK (`2 passed`)
+  - `php -l app/Providers/AppServiceProvider.php` — OK
+  - query PL po `completion_year_sort:desc` potwierdza kolejność 2024 → 2022 → 2021 → 2019 → 2018 → 2015 → 2014 → `NULL/0`
+  - lokalny runtime na `127.0.0.1:8002`:
+    - `/realizacje` — 200
+    - `/en/projects` — 200
+    - `/en/project` — 404
+    - `/cp/login` — 302
+- Git:
+  - zgodnie z aktualnym `AGENTS.md` Codex nie commituje; commit/push ma wykonać Claude po audycie, chyba że użytkownik wyraźnie poleci inaczej
+
 ## Ostatnia sesja — 2026-06-18 — BUGFIX sticky header default
 
 - Aktywny brief:
