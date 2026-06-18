@@ -4,6 +4,18 @@ Changelog projektu `skalisty-orion` — prowadzony przez Claude po każdym zako�
 
 ---
 
+## 2026-06-19 (SYNC-orientarium — synchronizacja nowego projektu z serwera)
+
+_Wykonane przez Claude (pull z dev.skalisty.pl)._
+
+### Zakres
+
+- Nowy projekt `projekt-tematyzacji-orientarium` zsynchronizowany z serwera (PL + 11 locale)
+- Galeria `orientarium-projekt-tematyzacyjny`: 4 webp + metadane
+- Lokalny stache odświeżony
+
+---
+
 ## 2026-06-19 (FEATURE-blueprint-details-defaults — domyślne Info Items w blueprincie projects)
 
 _Wykonane przez Claude bezpośrednio (na polecenie użytkownika)._
