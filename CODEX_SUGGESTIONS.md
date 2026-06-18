@@ -289,6 +289,96 @@ doprecyzowanie workflow — zmiana konstytucyjna w `AGENTS.md`, nie zmienia scop
 
 ## ACTIVE_FOR_CLAUDE_REVIEW
 
+### 2026-06-18 — BUGFIX-sticky-header-default
+
+#### Status
+
+Wykonane zgodnie z briefem.
+
+#### Wykonane zmiany
+
+- Dodano `data-header-type="{{ theme_settings:header_type }}"` do tagu `<body>` w:
+  - `resources/views/layout.antlers.html`
+- Przepisano blok `// Select the header` w:
+  - `public/assets/js/custom.js`
+- Nowa logika:
+  - czyta server-side `header_type` z `document.body.dataset.headerType`
+  - sprawdza, czy przełącznik headera jest widoczny przez obecność `.header-options .headers`
+  - gdy switcher jest ukryty, usuwa stare `localStorage.headerType`
+  - gdy switcher jest widoczny, zachowuje dotychczasowy priorytet `localStorage`
+  - nie zmienia funkcji `updateHeader()`
+  - nie zmienia `window.setHeaderSticky`
+- Nie zmieniano:
+  - `content/globals/pl/theme_settings.yaml`
+  - `resources/blueprints/globals/theme_settings.yaml`
+  - innych globali ani ustawień CP
+
+#### Zmienione pliki
+
+- `resources/views/layout.antlers.html`
+- `public/assets/js/custom.js`
+- `CODEX_SUGGESTIONS.md`
+- `codex-memory.md`
+
+#### Problemy wykryte podczas pracy
+
+- Nie było problemów implementacyjnych.
+- Pierwszy HTTP check w sandboxie zwrócił `NO_HTTP`, ale po ponowieniu poza sandboxem lokalny serwer odpowiedział poprawnie.
+- Nie wykonano pełnego testu przeglądarkowego z DevTools/localStorage, bo projekt nie ma Playwright/Puppeteer, a nie instalowałem nowych zależności tylko do walidacji.
+- W repo były wcześniej cudze/nie moje zmiany:
+  - `content/collections/pages/pl/home.md`
+  - `public/assets/logo-klienci/.meta/logo-lykke-hotel.webp.yaml`
+  - `public/assets/logo-klienci/logo-lykke-hotel.webp`
+  - nie ruszałem ich.
+
+#### Ryzyka
+
+- Pełny runtime browser check nadal wymaga ręcznego testu w przeglądarce albo automatyzacji przeglądarkowej dostępnej poza projektem.
+- Logika zakłada dostępność `localStorage`, tak jak dotychczasowy kod. Nie pogarsza to obecnego zachowania, bo wcześniejszy blok też używał `localStorage` bez guardów.
+
+#### Sugestie dla Claude
+
+- Przy audycie sprawdzić w przeglądarce:
+  - `<body data-header-type="sticky">`
+  - po scrollu header dostaje klasy `fixed top-0 shadow-lg sticky-header`
+  - gdy `show_theme_switcher: false`, `localStorage.headerType` zostaje wyczyszczony
+  - gdy switcher jest włączony, wybór sticky/static nadal działa jak wcześniej
+- Po akceptacji zamknąć brief atomowo w `BRIEF_CODEX.md`, `PROJECT_STATUS_CODEX.md` i `CLAUDE_MEMORY.md`.
+
+#### Gotowe rozwiązania zauważone przez Codex
+
+- Brak. To mały bugfix istniejącego mechanizmu Oriona/Statamic, bez potrzeby nowych zależności.
+
+#### Doc drift
+
+- Nieblokujący:
+  - `BRIEF_CODEX.md` wskazuje aktywny task `BUGFIX-sticky-header-default`
+  - `PROJECT_STATUS_CODEX.md` i `CLAUDE_MEMORY.md` nadal wskazują `FEATURE-logos-slider-with-icons`
+  - `BRIEF_CODEX.md` był jednoznaczny i użytkownik polecił wykonać brief, więc zadanie zostało wykonane zgodnie z AGENTS.md 11.4.
+
+#### Testy i komendy kontrolne
+
+Uruchomiono:
+
+- `php artisan statamic:stache:refresh` — OK
+- `php artisan test` — OK (`2 passed`)
+- `node --check public/assets/js/custom.js` — OK
+- `curl -s -o /tmp/skalisty-local-root.html -w 'root %{http_code} %{size_download}\n' http://127.0.0.1:8001/` poza sandboxem — OK (`root 200 266916`)
+- `curl -s -o /tmp/skalisty-local-custom.js -w 'js %{http_code} %{size_download}\n' http://127.0.0.1:8001/assets/js/custom.js` poza sandboxem — OK (`js 200 164731`)
+- `rg -n 'data-header-type="sticky"|<body' /tmp/skalisty-local-root.html` — OK (`<body data-header-type="sticky">`)
+- `rg -n 'header-options|class="headers|themeSidebar|themeToggleBtn' /tmp/skalisty-local-root.html` — brak wyników, czyli przy `show_theme_switcher: false` switcher nie jest renderowany
+- `rg -n "data-header-type|switcherVisible|serverHeaderType|removeItem\(\"headerType\"\)|Select the header" resources/views/layout.antlers.html public/assets/js/custom.js` — OK
+
+Nie uruchomiono skutecznie:
+
+- automatycznego testu DevTools/localStorage po wykonaniu JS
+
+Powód:
+
+- brak Playwright/Puppeteer w projekcie; nie instalowałem nowych zależności.
+
+---
+
 ### 2026-06-18 — FEATURE-logos-slider-with-icons
 
 #### Status

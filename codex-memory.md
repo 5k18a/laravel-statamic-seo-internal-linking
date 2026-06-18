@@ -1,5 +1,48 @@
 # Codex Memory
 
+## Ostatnia sesja — 2026-06-18 — BUGFIX sticky header default
+
+- Aktywny brief:
+  - `BUGFIX-sticky-header-default`
+- Cel:
+  - header ma być sticky zgodnie z `theme_settings:header_type`, niezależnie od `show_theme_switcher`
+  - przy ukrytym switcherze stare `localStorage.headerType=static` nie może nadpisywać ustawienia z CMS
+- Wykonane:
+  - `resources/views/layout.antlers.html`
+    - dodano:
+      - `data-header-type="{{ theme_settings:header_type }}"`
+      - na tagu `<body>`
+  - `public/assets/js/custom.js`
+    - dodano `switcherVisible`
+    - dodano `serverHeaderType = document.body.dataset.headerType || "sticky"`
+    - gdy switcher jest ukryty, wykonywane jest `localStorage.removeItem("headerType")`
+    - `stickyMode` bierze `localStorage` tylko gdy istnieje, inaczej fallback do server value
+    - przyciski `.headers` są synchronizowane z localStorage tylko gdy switcher jest widoczny
+- Nie ruszano:
+  - `window.setHeaderSticky`
+  - `updateHeader()`
+  - `content/globals/pl/theme_settings.yaml`
+  - `resources/blueprints/globals/theme_settings.yaml`
+  - cudzych zmian w `content/collections/pages/pl/home.md` i `public/assets/logo-klienci/`
+- Walidacja:
+  - `php artisan statamic:stache:refresh` — OK
+  - `php artisan test` — OK (`2 passed`)
+  - `node --check public/assets/js/custom.js` — OK
+  - grep potwierdził `data-header-type`, `switcherVisible`, `serverHeaderType`, `removeItem("headerType")`
+  - poza sandboxem `curl http://127.0.0.1:8001/` — OK (`200`)
+  - poza sandboxem `curl http://127.0.0.1:8001/assets/js/custom.js` — OK (`200`)
+  - render HTML ma `<body data-header-type="sticky">`
+  - HTML nie zawiera `header-options`, `.headers`, `themeSidebar`, `themeToggleBtn`, więc przy `show_theme_switcher: false` switcher faktycznie nie jest renderowany
+- Nie wykonano:
+  - testu w przeglądarce / DevTools
+  - powód: brak Playwright/Puppeteer w projekcie; nie instalowano nowych zależności tylko do walidacji
+- Doc drift:
+  - `BRIEF_CODEX.md` ma `BUGFIX-sticky-header-default`
+  - `PROJECT_STATUS_CODEX.md` i `CLAUDE_MEMORY.md` nadal wskazują `FEATURE-logos-slider-with-icons`
+  - brief był jednoznaczny, więc praca nie była blokowana
+- Git:
+  - zgodnie z aktualnym `AGENTS.md` Codex nie commituje; commit i push ma wykonać Claude po audycie, chyba że użytkownik wyraźnie poleci inaczej
+
 ## Ostatnia sesja — 2026-06-18 — FEATURE Logos Slider with Icons
 
 - Aktywny brief:

@@ -5014,11 +5014,16 @@ $(document).ready(function () {
   // Select the header
   const $header = $(".header");
   const $headerButtons = $(".header-options .headers");
+  const switcherVisible = $headerButtons.length > 0;
+  const serverHeaderType = document.body.dataset.headerType || "sticky";
 
-  // Get saved header type from localStorage or fallback to active button
-  let stickyMode =
-    localStorage.getItem("headerType") === "sticky" ||
-    $(".headers.active").val() === "sticky";
+  // When switcher is hidden, server value is authoritative - clear stale localStorage
+  if (!switcherVisible) {
+    localStorage.removeItem("headerType");
+  }
+
+  const savedType = localStorage.getItem("headerType");
+  let stickyMode = savedType ? savedType === "sticky" : serverHeaderType === "sticky";
 
   function updateHeader() {
     if (stickyMode) {
@@ -5033,25 +5038,18 @@ $(document).ready(function () {
     }
   }
 
-  // Apply saved header type on page load
-  const savedType = localStorage.getItem("headerType");
-  if (savedType) {
+  // Sync active button with saved type (only when switcher visible)
+  if (switcherVisible && savedType) {
     $headerButtons.removeClass("active");
     $headerButtons.filter("[value='" + savedType + "']").addClass("active");
-    stickyMode = savedType === "sticky";
-    updateHeader();
   }
 
   // Button click handler
   $headerButtons.on("click", function () {
     $headerButtons.removeClass("active");
     $(this).addClass("active");
-
     stickyMode = $(this).val() === "sticky";
-
-    // Save selection in localStorage
     localStorage.setItem("headerType", $(this).val());
-
     updateHeader();
   });
 
