@@ -1,14 +1,14 @@
 # PROJECT_STATUS_CODEX.md
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-19-1200
-active_task_id: UPDATE-statamic-6.20.3-deploy
-active_task_name: Deploy aktualizacji Statamic 6.20.3 na dev.skalisty.pl
-active_task_status: active
+state_version: 2026-06-19-1300
+active_task_id: none
+active_task_name: Brak aktywnego zadania
+active_task_status: idle
 active_task_source: BRIEF_CODEX.md
-last_sync: 2026-06-19 12:00 Europe/Warsaw
+last_sync: 2026-06-19 13:00 Europe/Warsaw
 last_synced_by: Claude
-last_closed: SYNC-and-deploy-completion-year
+last_closed: UPDATE-statamic-6.20.3-deploy
 next_after_active: Decyzja użytkownika — retłumaczenie Home EN lub Formularze kontaktowe
 <!-- PROJECT_SYNC_END -->
 

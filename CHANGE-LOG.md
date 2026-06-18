@@ -4,6 +4,19 @@ Changelog projektu `skalisty-orion` — prowadzony przez Claude po każdym zako�
 
 ---
 
+## 2026-06-19 (UPDATE-statamic-6.20.3-deploy — weryfikacja aktualizacji Statamic)
+
+_Wykonane przez Codex + audyt Claude._
+
+### Zakres
+
+- Weryfikacja lokalna i na serwerze: `statamic/cms v6.20.3` potwierdzone w obu środowiskach
+- `CLAUDE_MEMORY.md` zaktualizowany: `Laravel 13.16.1 + Statamic 6.20.3 + PHP 8.4`
+- Rsync pominięty — serwer otrzymał v6.20.3 przy deployu z 2026-06-19 (`SYNC-and-deploy-completion-year`)
+- Patch HOTFIX-18 (`proc_open + open_basedir`) potwierdzony na v6.20.3
+
+---
+
 ## 2026-06-19 (SYNC-and-deploy-completion-year — synchronizacja i deploy sortowania)
 
 _Wykonane przez Claude bezpośrednio (na polecenie użytkownika)._

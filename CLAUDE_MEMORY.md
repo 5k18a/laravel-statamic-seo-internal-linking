@@ -4,14 +4,14 @@
 # Aktualizowany po każdym zakończonym zadaniu
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-19-1200
-active_task_id: UPDATE-statamic-6.20.3-deploy
-active_task_name: Deploy aktualizacji Statamic 6.20.3 na dev.skalisty.pl
-active_task_status: active
+state_version: 2026-06-19-1300
+active_task_id: none
+active_task_name: Brak aktywnego zadania
+active_task_status: idle
 active_task_source: BRIEF_CODEX.md
-last_sync: 2026-06-19 12:00 Europe/Warsaw
+last_sync: 2026-06-19 13:00 Europe/Warsaw
 last_synced_by: Claude
-last_closed: SYNC-and-deploy-completion-year
+last_closed: UPDATE-statamic-6.20.3-deploy
 next_after_active: Decyzja użytkownika — retłumaczenie Home EN lub Formularze kontaktowe
 <!-- PROJECT_SYNC_END -->
 
@@ -25,9 +25,9 @@ Projekt `skalisty-orion` jest aktywną instalacją Laravel 13 + Statamic 6 opart
 - Kod aplikacji: `/home/pestycyd/Dokumenty/Skalisty-New-2/skalisty-orion/`
 - Frontend: `http://127.0.0.1:8001`
 - CP: `http://127.0.0.1:8001/cp`
-- Stack: Laravel 13.12.0 + Statamic 6.20.2 + PHP 8.3
+- Stack: Laravel 13.16.1 + Statamic 6.20.3 + PHP 8.4
 - Motyw: `webbycrown/orion-statamic-theme`
-- Git: lokalny, branch `main`, brak remote (świadoma decyzja)
+- Git: branch `main`, remote `https://github.com/5k18a/skalisty-laravel.git`
 
 ### Wykonane etapy
 
