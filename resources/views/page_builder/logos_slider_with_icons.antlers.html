@@ -3,9 +3,9 @@
     <div class="slider-track flex animate-slides items-center 1xl:gap-7 md:gap-5 gap-4 flex-nowrap shrink-0">
       <!-- original set -->
       {{ logos }}
-      <div class="flex items-center 1xl:gap-7 md:gap-5 gap-4 flex-shrink-0">
+      <div class="flex items-center 1xl:gap-7 md:gap-5 gap-4 flex-shrink-0 text-white">
         {{ if icon }}
-          {{ iconify:icon class="logos" aria-hidden="true" }}
+          {{ iconify:icon class="logos fill-current" aria-hidden="true" }}
         {{ /if }}
         <h5 class="logo-name">{{ name }}</h5>
       </div>
