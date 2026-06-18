@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "48b24a6af8c84217b8455b1168aabd7f",
+    "content-hash": "b6de1ec685a9a012f894415920968303",
     "packages": [
         {
             "name": "ajthinking/archetype",
@@ -989,16 +989,16 @@
         },
         {
             "name": "el-schneider/statamic-magic-translator",
-            "version": "v0.1.2",
+            "version": "v0.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/el-schneider/statamic-magic-translator.git",
-                "reference": "bae49e1917e7e5bd780ee133470de28643dfdf8d"
+                "reference": "ceee4032545433d8f5d709eb52e310907d6e496c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/el-schneider/statamic-magic-translator/zipball/bae49e1917e7e5bd780ee133470de28643dfdf8d",
-                "reference": "bae49e1917e7e5bd780ee133470de28643dfdf8d",
+                "url": "https://api.github.com/repos/el-schneider/statamic-magic-translator/zipball/ceee4032545433d8f5d709eb52e310907d6e496c",
+                "reference": "ceee4032545433d8f5d709eb52e310907d6e496c",
                 "shasum": ""
             },
             "require": {
@@ -1042,7 +1042,7 @@
             "description": "Translate Statamic content",
             "support": {
                 "issues": "https://github.com/el-schneider/statamic-magic-translator/issues",
-                "source": "https://github.com/el-schneider/statamic-magic-translator/tree/v0.1.2"
+                "source": "https://github.com/el-schneider/statamic-magic-translator/tree/v0.1.3"
             },
             "funding": [
                 {
@@ -1050,7 +1050,7 @@
                     "type": "buy_me_a_coffee"
                 }
             ],
-            "time": "2026-05-13T10:04:29+00:00"
+            "time": "2026-06-17T07:12:26+00:00"
         },
         {
             "name": "eminos/statamic-iconify",
@@ -1996,16 +1996,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v13.12.0",
+            "version": "v13.16.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "6ac27a7fcfa728250c9f77921cb8fb955546b591"
+                "reference": "6135650d69bd9442e470bb1b343422081b076f1e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/6ac27a7fcfa728250c9f77921cb8fb955546b591",
-                "reference": "6ac27a7fcfa728250c9f77921cb8fb955546b591",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/6135650d69bd9442e470bb1b343422081b076f1e",
+                "reference": "6135650d69bd9442e470bb1b343422081b076f1e",
                 "shasum": ""
             },
             "require": {
@@ -2216,7 +2216,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2026-05-26T23:39:26+00:00"
+            "time": "2026-06-16T16:07:50+00:00"
         },
         {
             "name": "laravel/prompts",
@@ -5464,11 +5464,11 @@
         },
         {
             "name": "skalisty/wysiwyg-html-fieldtype",
-            "version": "0.1.0",
+            "version": "1.1.0",
             "dist": {
                 "type": "path",
                 "url": "./addons/skalisty/wysiwyg-html-fieldtype",
-                "reference": "2cbb01fa1a693a1714920452599f4ef4cc2d2e99"
+                "reference": "1b0a9d9c7b9fc076997e1b7bc142c22eca8ad8d6"
             },
             "require": {
                 "statamic/cms": "^6.0"
@@ -5479,8 +5479,8 @@
             "type": "library",
             "extra": {
                 "statamic": {
-                    "name": "Wysiwyg Html Fieldtype",
-                    "description": "Wysiwyg Html Fieldtype addon"
+                    "name": "WYSIWYG HTML Fieldtype",
+                    "description": "TipTap 3 WYSIWYG + CodeMirror 5 HTML source editor as a single Statamic 6 fieldtype"
                 },
                 "laravel": {
                     "providers": [
@@ -5498,6 +5498,27 @@
                     "Skalisty\\WysiwygHtmlFieldtype\\Tests\\": "tests"
                 }
             },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marcin Skibicki",
+                    "homepage": "https://skalisty.pl"
+                }
+            ],
+            "description": "Statamic 6 fieldtype with TipTap 3 WYSIWYG editor and CodeMirror 5 HTML source mode — dual-view, single HTML string field",
+            "keywords": [
+                "codemirror",
+                "html",
+                "laravel",
+                "php",
+                "statamic",
+                "statamic-addon",
+                "statamic-fieldtype",
+                "tiptap",
+                "wysiwyg"
+            ],
             "transport-options": {
                 "relative": true
             }
@@ -5944,16 +5965,16 @@
         },
         {
             "name": "statamic/cms",
-            "version": "v6.20.2",
+            "version": "v6.20.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statamic/cms.git",
-                "reference": "83b33ca56e21b73e29de36072ce04e1381eae455"
+                "reference": "57764c7d530f0cadef7cd3683deff3f697900224"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statamic/cms/zipball/83b33ca56e21b73e29de36072ce04e1381eae455",
-                "reference": "83b33ca56e21b73e29de36072ce04e1381eae455",
+                "url": "https://api.github.com/repos/statamic/cms/zipball/57764c7d530f0cadef7cd3683deff3f697900224",
+                "reference": "57764c7d530f0cadef7cd3683deff3f697900224",
                 "shasum": ""
             },
             "require": {
@@ -6065,7 +6086,7 @@
             ],
             "support": {
                 "issues": "https://github.com/statamic/cms/issues",
-                "source": "https://github.com/statamic/cms/tree/v6.20.2"
+                "source": "https://github.com/statamic/cms/tree/v6.20.3"
             },
             "funding": [
                 {
@@ -6073,26 +6094,26 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-06-05T14:37:13+00:00"
+            "time": "2026-06-08T20:54:30+00:00"
         },
         {
             "name": "statamic/seo-pro",
-            "version": "v7.10.1",
+            "version": "v7.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statamic/seo-pro.git",
-                "reference": "6bbcacf0aff14f4f72fe80b14ce7ce401b0a865b"
+                "reference": "58aaddd1e93225488d2bbbdb53b9b8c8ebdc92a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statamic/seo-pro/zipball/6bbcacf0aff14f4f72fe80b14ce7ce401b0a865b",
-                "reference": "6bbcacf0aff14f4f72fe80b14ce7ce401b0a865b",
+                "url": "https://api.github.com/repos/statamic/seo-pro/zipball/58aaddd1e93225488d2bbbdb53b9b8c8ebdc92a2",
+                "reference": "58aaddd1e93225488d2bbbdb53b9b8c8ebdc92a2",
                 "shasum": ""
             },
             "require": {
                 "pixelfear/composer-dist-plugin": "^0.1.6",
                 "spatie/simple-excel": "^3.9",
-                "statamic/cms": "^6.10"
+                "statamic/cms": "^6.19"
             },
             "require-dev": {
                 "laravel/pint": "1.29.1",
@@ -6126,9 +6147,9 @@
             "notification-url": "https://packagist.org/downloads/",
             "support": {
                 "issues": "https://github.com/statamic/seo-pro/issues",
-                "source": "https://github.com/statamic/seo-pro/tree/v7.10.1"
+                "source": "https://github.com/statamic/seo-pro/tree/v7.11.0"
             },
-            "time": "2026-06-04T08:09:59+00:00"
+            "time": "2026-06-12T10:36:40+00:00"
         },
         {
             "name": "statamic/stringy",
@@ -10401,16 +10422,16 @@
         },
         {
             "name": "fruitcake/laravel-debugbar",
-            "version": "v4.2.8",
+            "version": "v4.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fruitcake/laravel-debugbar.git",
-                "reference": "799d70c1101d3f8840dd76ff68ff6a78f9352905"
+                "reference": "3d76ea8d78b82225b92789de65fc630c1cd8e80c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fruitcake/laravel-debugbar/zipball/799d70c1101d3f8840dd76ff68ff6a78f9352905",
-                "reference": "799d70c1101d3f8840dd76ff68ff6a78f9352905",
+                "url": "https://api.github.com/repos/fruitcake/laravel-debugbar/zipball/3d76ea8d78b82225b92789de65fc630c1cd8e80c",
+                "reference": "3d76ea8d78b82225b92789de65fc630c1cd8e80c",
                 "shasum": ""
             },
             "require": {
@@ -10487,7 +10508,7 @@
             ],
             "support": {
                 "issues": "https://github.com/fruitcake/laravel-debugbar/issues",
-                "source": "https://github.com/fruitcake/laravel-debugbar/tree/v4.2.8"
+                "source": "https://github.com/fruitcake/laravel-debugbar/tree/v4.3.0"
             },
             "funding": [
                 {
@@ -10499,7 +10520,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-04-20T13:31:29+00:00"
+            "time": "2026-06-04T07:54:01+00:00"
         },
         {
             "name": "hamcrest/hamcrest-php",
@@ -10634,16 +10655,16 @@
         },
         {
             "name": "laravel/pint",
-            "version": "v1.29.1",
+            "version": "v1.29.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/pint.git",
-                "reference": "0770e9b7fafd50d4586881d456d6eb41c9247a80"
+                "reference": "da1d1111a6aa2e082d2a388b194afe1ba0a05d14"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/pint/zipball/0770e9b7fafd50d4586881d456d6eb41c9247a80",
-                "reference": "0770e9b7fafd50d4586881d456d6eb41c9247a80",
+                "url": "https://api.github.com/repos/laravel/pint/zipball/da1d1111a6aa2e082d2a388b194afe1ba0a05d14",
+                "reference": "da1d1111a6aa2e082d2a388b194afe1ba0a05d14",
                 "shasum": ""
             },
             "require": {
@@ -10654,14 +10675,14 @@
                 "php": "^8.2.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.95.1",
-                "illuminate/view": "^12.56.0",
-                "larastan/larastan": "^3.9.6",
+                "friendsofphp/php-cs-fixer": "^3.95.8",
+                "illuminate/view": "^12.62.0",
+                "larastan/larastan": "^3.10.0",
                 "laravel-zero/framework": "^12.1.0",
+                "laravel/agent-detector": "^2.0.2",
                 "mockery/mockery": "^1.6.12",
                 "nunomaduro/termwind": "^2.4.0",
-                "pestphp/pest": "^3.8.6",
-                "shipfastlabs/agent-detector": "^1.1.3"
+                "pestphp/pest": "^3.8.6"
             },
             "bin": [
                 "builds/pint"
@@ -10698,20 +10719,20 @@
                 "issues": "https://github.com/laravel/pint/issues",
                 "source": "https://github.com/laravel/pint"
             },
-            "time": "2026-04-20T15:26:14+00:00"
+            "time": "2026-06-16T15:34:04+00:00"
         },
         {
             "name": "laravel/sail",
-            "version": "v1.61.0",
+            "version": "v1.62.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/sail.git",
-                "reference": "68ef35015630fe510432e63e11e21749006df688"
+                "reference": "3aaeefc979f8ba6586fbc5b6e0b1b3638058f98e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/sail/zipball/68ef35015630fe510432e63e11e21749006df688",
-                "reference": "68ef35015630fe510432e63e11e21749006df688",
+                "url": "https://api.github.com/repos/laravel/sail/zipball/3aaeefc979f8ba6586fbc5b6e0b1b3638058f98e",
+                "reference": "3aaeefc979f8ba6586fbc5b6e0b1b3638058f98e",
                 "shasum": ""
             },
             "require": {
@@ -10761,7 +10782,7 @@
                 "issues": "https://github.com/laravel/sail/issues",
                 "source": "https://github.com/laravel/sail"
             },
-            "time": "2026-05-23T23:33:57+00:00"
+            "time": "2026-05-27T04:02:01+00:00"
         },
         {
             "name": "mockery/mockery",

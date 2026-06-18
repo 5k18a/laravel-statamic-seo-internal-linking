@@ -22,7 +22,7 @@
         "eminos/statamic-iconify": "^2.1",
         "laravel/framework": "^13.8",
         "laravel/tinker": "^3.0",
-        "skalisty/wysiwyg-html-fieldtype": "^0.1.0",
+        "skalisty/wysiwyg-html-fieldtype": "^1.1.0",
         "statamic/cms": "^6.0",
         "statamic/seo-pro": "^7.10",
         "superinteractive/statamic-super-admin-toolbar": "^2.1"
