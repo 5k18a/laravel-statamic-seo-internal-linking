@@ -1,0 +1,28 @@
+title: 'Logos Slider with Icons'
+fields:
+  -
+    handle: logos
+    field:
+      type: replicator
+      display: 'Logos Slider Items'
+      instructions: 'Add icons and their labels for the slider'
+      sets:
+        main:
+          display: Main
+          sets:
+            logo_item:
+              display: 'Logo Item'
+              fields:
+                -
+                  handle: icon
+                  field:
+                    type: iconify
+                    display: Icon
+                    store_as: svg_data
+                -
+                  handle: name
+                  field:
+                    type: text
+                    display: 'Name / Label'
+                    validate:
+                      - required

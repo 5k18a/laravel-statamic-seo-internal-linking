@@ -1,5 +1,36 @@
 # Codex Memory
 
+## Ostatnia sesja — 2026-06-18 — FEATURE Logos Slider with Icons
+
+- Aktywny brief:
+  - `FEATURE-logos-slider-with-icons`
+- Wykonane:
+  - dodano fieldset:
+    - `resources/fieldsets/logos_slider_with_icons.yaml`
+  - dodano widok:
+    - `resources/views/page_builder/logos_slider_with_icons.antlers.html`
+  - zarejestrowano set po `logos_slider` w:
+    - `resources/fieldsets/all_page_builder.yaml`
+- Założenia techniczne:
+  - oryginalny `logos_slider.yaml` i `logos_slider.antlers.html` pozostają nienaruszone
+  - nowy set używa `iconify` z `store_as: svg_data`
+  - `icon` jest opcjonalne
+  - `name` jest wymagane
+  - klasa `logos` została zachowana na SVG, zgodnie z briefem, żeby przejąć istniejące style slidera
+- Walidacja:
+  - `php artisan statamic:stache:refresh` — OK
+  - `php artisan test` — OK (`2 passed`)
+  - grep potwierdził rejestrację setu, `iconify:icon` i `store_as: svg_data`
+  - diff potwierdził brak modyfikacji oryginalnego `logos_slider`
+- Doc drift:
+  - nieblokujący rozjazd w `PROJECT_SYNC`:
+    - `BRIEF_CODEX.md` ma dłuższe `active_task_name` i `last_sync 18:00`
+    - `PROJECT_STATUS_CODEX.md` oraz `CLAUDE_MEMORY.md` mają krótsze `active_task_name` i `last_sync 12:00`
+  - `active_task_id` jest spójny: `FEATURE-logos-slider-with-icons`
+  - zakres briefu był jednoznaczny, a użytkownik kazał rozpocząć prace
+- Następny krok:
+  - Claude powinien przeprowadzić audyt, ewentualnie sprawdzić ręcznie CP/frontend po dodaniu testowego bloku i zamknąć task atomowo w trzech plikach sync
+
 ## Ostatnia sesja — 2026-06-17 — Deploy Iconify + Icon Box With Text na dev.skalisty.pl
 
 - Kontekst:

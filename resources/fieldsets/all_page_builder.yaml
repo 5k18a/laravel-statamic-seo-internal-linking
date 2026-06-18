@@ -36,6 +36,11 @@ fields:
               fields:
                 -
                   import: logos_slider
+            logos_slider_with_icons:
+              display: 'Logos Slider with Icons'
+              fields:
+                -
+                  import: logos_slider_with_icons
             image_with_text_section:
               display: 'Image with Text Section'
               fields:

@@ -289,7 +289,83 @@ doprecyzowanie workflow — zmiana konstytucyjna w `AGENTS.md`, nie zmienia scop
 
 ## ACTIVE_FOR_CLAUDE_REVIEW
 
-_Brak aktywnych pozycji. Szczegółowe raporty Codex z 2026-06-17 (DEPLOY-iconify-icon-box-dev, FEATURE-iconify-install, REVERT-figma-assets-install, CLEANUP-icons-containers-remove, FEATURE-figma-assets-install) — zarchiwizowane poniżej; decyzje Claude w sekcji RESOLVED_BY_CLAUDE powyżej._
+### 2026-06-18 — FEATURE-logos-slider-with-icons
+
+#### Status
+
+Wykonane zgodnie z briefem.
+
+#### Wykonane zmiany
+
+- Dodano nowy fieldset Page Buildera:
+  - `resources/fieldsets/logos_slider_with_icons.yaml`
+- Dodano nowy widok Antlers:
+  - `resources/views/page_builder/logos_slider_with_icons.antlers.html`
+- Zarejestrowano nowy set bezpośrednio po `logos_slider` w:
+  - `resources/fieldsets/all_page_builder.yaml`
+- Oryginalne pliki `logos_slider.yaml` i `logos_slider.antlers.html` nie zostały zmodyfikowane.
+- Nowy set używa pola:
+  - `icon`
+  - `type: iconify`
+  - `store_as: svg_data`
+- Pole `icon` jest opcjonalne, a pole `name` pozostaje wymagane.
+
+#### Zmienione pliki
+
+- `resources/fieldsets/logos_slider_with_icons.yaml`
+- `resources/views/page_builder/logos_slider_with_icons.antlers.html`
+- `resources/fieldsets/all_page_builder.yaml`
+- `CODEX_SUGGESTIONS.md`
+- `codex-memory.md`
+
+#### Problemy wykryte podczas pracy
+
+- Brak problemów implementacyjnych.
+- Wystąpił nieblokujący doc drift w bloku `PROJECT_SYNC`:
+  - `BRIEF_CODEX.md`:
+    - `active_task_name: Logos Slider with Icons — nowy set Page Buildera`
+    - `last_sync: 2026-06-18 18:00 Europe/Warsaw`
+  - `PROJECT_STATUS_CODEX.md` i `CLAUDE_MEMORY.md`:
+    - `active_task_name: Logos Slider with Icons`
+    - `last_sync: 2026-06-18 12:00 Europe/Warsaw`
+  - wszystkie trzy pliki mają ten sam `active_task_id: FEATURE-logos-slider-with-icons` i `active_task_status: ready`
+  - brief był jednoznaczny, a użytkownik wydał polecenie rozpoczęcia pracy, więc zadanie wykonano.
+
+#### Ryzyka
+
+- Nie wykonano ręcznego testu klikalnego w CP, bo nie było w tej turze potwierdzenia uruchomionego lokalnego serwera ani zalogowanej sesji CP.
+- Klasa `logos` jest współdzielona ze stylem oryginalnego slidera. To było celowe zgodnie z briefem, ale Claude powinien przy audycie ocenić wizualnie SVG w CP/frontend, jeżeli użytkownik doda przykładowy blok.
+
+#### Sugestie dla Claude
+
+- Po akceptacji zadania zamknąć brief atomowo w `BRIEF_CODEX.md`, `PROJECT_STATUS_CODEX.md` i `CLAUDE_MEMORY.md`.
+- Przy zamykaniu zsynchronizować drobny doc drift w `PROJECT_SYNC`.
+- Jeżeli użytkownik chce mieć pełny runtime check, najprostszy kolejny krok to dodać testowy blok w CP i sprawdzić frontend z 2–3 ikonami.
+
+#### Gotowe rozwiązania zauważone przez Codex
+
+- Brak dodatkowych gotowych rozwiązań do rozważenia. Zadanie jest wariantem istniejącego setu i korzysta z już zaakceptowanego addonu `eminos/statamic-iconify`.
+
+#### Doc drift
+
+- Nieblokujący, opisany wyżej. `BRIEF_CODEX.md` pozostał źródłem prawdy dla zakresu zadania.
+
+#### Testy i komendy kontrolne
+
+Uruchomiono:
+
+- `php artisan statamic:stache:refresh` — OK
+- `php artisan test` — OK (`2 passed`)
+- `rg -n "logos_slider_with_icons|iconify:icon|store_as: svg_data" resources/fieldsets resources/views/page_builder` — OK
+- `git diff -- resources/fieldsets/logos_slider.yaml resources/views/page_builder/logos_slider.antlers.html resources/fieldsets/all_page_builder.yaml resources/fieldsets/logos_slider_with_icons.yaml resources/views/page_builder/logos_slider_with_icons.antlers.html` — potwierdzono brak zmian w oryginalnym `logos_slider`
+
+Nie uruchomiono:
+
+- ręcznego testu CP/frontend z dodaniem bloku
+
+Powód:
+
+- brak potwierdzonej sesji CP i brak danych testowego contentu w ramach tego briefu.
 
 ---
 
