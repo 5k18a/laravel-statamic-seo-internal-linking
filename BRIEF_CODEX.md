@@ -1,41 +1,175 @@
 # BRIEF_CODEX.md
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-18-1200
-active_task_id: none
-active_task_name: Brak aktywnego zadania
-active_task_status: none
+state_version: 2026-06-18-1800
+active_task_id: FEATURE-logos-slider-with-icons
+active_task_name: Logos Slider with Icons — nowy set Page Buildera
+active_task_status: ready
 active_task_source: BRIEF_CODEX.md
-last_sync: 2026-06-18 12:00 Europe/Warsaw
+last_sync: 2026-06-18 18:00 Europe/Warsaw
 last_synced_by: Claude
 last_closed: AUDYT-2026-06-17-tasks
 next_after_active: Decyzja użytkownika — retłumaczenie Home EN lub Formularze kontaktowe
 <!-- PROJECT_SYNC_END -->
 
-## Status
+---
 
-**BRAK AKTYWNEGO ZADANIA** — Iconify zainstalowany i działa, pierwsza sekcja Page Buildera oparta o `iconify` została wdrożona. Dokumentacja poniżej została uzupełniona przez Codex w trybie zastępczym za Claude; Claude ma po powrocie przeprowadzić audyt i ewentualnie skorygować statusy zgodnie z `AGENTS.md`.
+# AKTYWNY BRIEF: FEATURE-logos-slider-with-icons
 
-## Ostatnio zamknięte (dzisiaj — duża sesja porządkowa)
+## Cel
 
-- `ICONIFY-prefix-extension` ✅ accepted (2026-06-17) — rozszerzono `config/statamic-iconify.php` o prefixy `map`, `temaki`, `maki`, `game-icons`, `bx`, `bxs`, `bxl`; `mdi` było już obecne; `php artisan optimize:clear` OK; `config("statamic-iconify.allowed_prefixes")` pokazuje pełną listę.
-- `BACKUP-8-after-iconify-docs` ✅ created (2026-06-17 20:33) — `backup-projekt/skalisty-orion-backup-8.tar.gz` (354 MB); zawiera `skalisty-orion/` oraz główne pliki dokumentacji workspace (`AGENTS.md`, `BRIEF_CODEX.md`, `PROJECT_STATUS_CODEX.md`, `CLAUDE_MEMORY.md`, `CODEX_SUGGESTIONS.md`, `CONCLUSIONS_CODEX.md`, `codex-memory.md`, `CHANGE-LOG.md`); wykluczone: `node_modules`, `.git`, cache/sessions/views/logs.
-- `FEATURE-icon-box-with-text` ✅ accepted by user (2026-06-17) — nowy set Page Buildera `Icon Box With Text Section`; fieldset `icon_box_with_text_section.yaml`, widok `page_builder/icon_box_with_text_section.antlers.html`, rejestracja w `all_page_builder.yaml`; layout 3/4 boxy nad itemami; ikony przez `iconify` + `store_as: svg_data`; użytkownik potwierdził, że działa dobrze.
-- `ICONIFY-magic-translator-check` ✅ verified (2026-06-17) — Magic Translator widzi nowy set i wyciąga `section_title`, `items.*.title`, `items.*.description`; celowo pomija `layout` i `icon`; Home PL jest `stale` względem EN i wymaga `--include-stale` albo `--overwrite`, jeżeli ma przepisać nowy blok do EN.
-- `FEATURE-iconify-install` ✅ accepted (2026-06-17) — `eminos/statamic-iconify` v2.1.0 (MIT, natywny ^6.0); 7 setów w `allowed_prefixes` (tabler, heroicons, mdi, ph, fa6-solid, fa6-brands, lucide); `default_store_as: svg_data` (offline render); 2 korekty techniczne Codex (svg→svg_data + poprawna fasada Statamic 6); 0 modyfikacji blueprintów; brief w `briefs/archive/2026-06-17-feature-iconify-install.md`
-- `REVERT-figma-assets-install` ✅ accepted (2026-06-17) — usunięty addon Figma Assets; `FIGMA_TOKEN` zachowany w `.env` na przyszłość; backup-7 (354 MB)
-- `CLEANUP-icons-containers-remove` ✅ accepted (2026-06-17) — kontenery Tabler + Hugeicons usunięte (9590 SVG, ~46 MB redukcji); backup-6
-- `FEATURE-figma-assets-install` ✅ accepted (2026-06-17) — instalacja addonu Figma Assets (wycofany 3h później)
-- `Workflow-CODEX_SUGGESTIONS-extension` ✅ (2026-06-17) — AGENTS.md 11.9 + 11.10 (pełna dwukierunkowa komunikacja); pierwszy praktyczny test cyklu NOTES_FROM_CLAUDE → potwierdzenie Codex zadziałał
+Stworzyć nowy set Page Buildera **Logos Slider with Icons** — wariant istniejącego `logos_slider`, w którym zamiast pola `assets` (obraz) używane jest pole `iconify` z `store_as: svg_data`.
 
-## Następne kroki (decyzja użytkownika)
+Każdy element slidera będzie miał: **ikonę Iconify** + **nazwę/opis** (text). Slider zachowuje identyczną animację CSS co oryginał.
 
-1. **Audyt Claude po powrocie** — sprawdzić zmiany wykonane przez Codex bez bieżącego udziału Claude, w szczególności dokumentację, `Icon Box With Text Section`, Magic Translator i rozszerzenie prefixów Iconify.
-2. **Decyzja użytkownika: tłumaczenie Home PL -> EN** — nowy blok `icon_box_with_text_section` istnieje w PL Home, ale EN Home jeszcze go nie zawiera; dry-run pokazuje `1 will re-translate (stale)`.
-3. **Wdrożenie cleanup icons na serwer** `dev.skalisty.pl` (per sugestia Codex po CLEANUP) — bez tego serwer nadal może mieć kontenery `icons`/`icons2` z 2026-06-01.
-4. **Formularze kontaktowe** — backlog priorytet (Statamic Forms vs addon).
-5. **POC Figma z faktycznym tokenem** — `FIGMA_TOKEN` jest w `.env`; gdyby kiedyś znów pojawiła się potrzeba batch importu z konkretnego pliku Figma, addon `mariohamann/statamic-figma-assets` można reinstalować analogicznie do wzorca w archiwum.
+---
 
-## Uwaga dla kolejnego briefu wdrożenia iconify
+## Pliki do stworzenia
 
-W polach blueprintu używać `store_as: svg_data` (nie `svg`) — addon używa wartości `svg_data`. Brief instalacji miał błąd, Codex skorygował.
+### 1. `resources/fieldsets/logos_slider_with_icons.yaml`
+
+Wzorzec: `resources/fieldsets/logos_slider.yaml` — zmień tylko pole `image` na `icon`:
+
+```yaml
+title: 'Logos Slider with Icons'
+fields:
+  -
+    handle: logos
+    field:
+      type: replicator
+      display: 'Logos Slider Items'
+      instructions: 'Add icons and their labels for the slider'
+      sets:
+        main:
+          display: Main
+          sets:
+            logo_item:
+              display: 'Logo Item'
+              fields:
+                -
+                  handle: icon
+                  field:
+                    type: iconify
+                    display: Icon
+                    store_as: svg_data
+                -
+                  handle: name
+                  field:
+                    type: text
+                    display: 'Name / Label'
+                    validate:
+                      - required
+```
+
+**Kluczowe różnice względem `logos_slider.yaml`:**
+- Pole `image` (type: assets) zastąpione polem `icon` (type: iconify, store_as: svg_data)
+- Pole `image` miało `validate: required` — pole `icon` **bez** required (ikona opcjonalna, żeby nie blokować zapisania)
+- Pole `name` bez zmian
+
+### 2. `resources/views/page_builder/logos_slider_with_icons.antlers.html`
+
+Wzorzec: `resources/views/page_builder/logos_slider.antlers.html` — zmień rendering ikony.
+
+Oryginał renderuje obraz tak:
+```antlers
+{{ image }}<img src="{{ url }}" class="logos" />{{ /image }}
+```
+
+Zamień na rendering ikony Iconify — wzorzec z `icon_box_with_text_section.antlers.html`:
+```antlers
+{{ if icon }}
+  {{ iconify:icon class="logos" aria-hidden="true" }}
+{{ /if }}
+```
+
+Pełny widok:
+
+```antlers
+<section class="2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] md:mb-[50px] mb-8 z-1">
+  <div class="text-slider overflow-hidden">
+    <div class="slider-track flex animate-slides items-center 1xl:gap-7 md:gap-5 gap-4 flex-nowrap shrink-0">
+      <!-- original set -->
+      {{ logos }}
+      <div class="flex items-center 1xl:gap-7 md:gap-5 gap-4 flex-shrink-0">
+        {{ if icon }}
+          {{ iconify:icon class="logos" aria-hidden="true" }}
+        {{ /if }}
+        <h5 class="logo-name">{{ name }}</h5>
+      </div>
+      {{ /logos }}
+    </div>
+  </div>
+</section>
+```
+
+**Uwaga:** klasa `logos` na SVG zachowuje te same style CSS co `<img class="logos" />` w oryginale — nie zmieniać.
+
+### 3. `resources/fieldsets/all_page_builder.yaml`
+
+Dodaj rejestrację nowego setu **bezpośrednio po** bloku `logos_slider`:
+
+```yaml
+            logos_slider_with_icons:
+              display: 'Logos Slider with Icons'
+              fields:
+                -
+                  import: logos_slider_with_icons
+```
+
+Wstaw po linii:
+```yaml
+                  import: logos_slider
+```
+(po całym bloku `logos_slider`, przed `image_with_text_section`)
+
+---
+
+## Czego NIE robić
+
+- Nie modyfikować `logos_slider.yaml` ani `logos_slider.antlers.html` — oryginał pozostaje nienaruszony
+- Nie dodawać `localizable: true` do fieldów — dziedziczone z `page_builder` replicatora w `all_page_builder.yaml`
+- Nie dodawać `duplicate: false` — logos slider nie wymaga ograniczenia duplikatów
+- Nie zmieniać klas CSS animacji slidera (`animate-slides`, `slider-track`, `text-slider`) — są globalne
+- Nie używać `store_as: svg` — wymagane jest `store_as: svg_data` (addon Iconify v2.1.0)
+
+---
+
+## Walidacja po implementacji
+
+```bash
+php artisan statamic:stache:refresh
+php artisan test
+```
+
+Następnie w CP (http://127.0.0.1:8001/cp):
+1. Otwórz dowolną stronę z Page Builderem
+2. Dodaj nowy blok → potwierdź że "Logos Slider with Icons" jest na liście
+3. Dodaj 2–3 itemy z ikonami Iconify i nazwami
+4. Wejdź na frontend — sprawdź że slider animuje się poprawnie i ikony SVG są widoczne
+
+---
+
+## Commit po zakończeniu
+
+```
+feat: Dodaj Logos Slider with Icons do page buildera
+
+- resources/fieldsets/logos_slider_with_icons.yaml
+- resources/views/page_builder/logos_slider_with_icons.antlers.html
+- resources/fieldsets/all_page_builder.yaml (rejestracja setu)
+```
+
+---
+
+## Ostatnio zamknięte
+
+- `ICONIFY-prefix-extension` ✅ accepted (2026-06-17)
+- `FEATURE-icon-box-with-text` ✅ accepted (2026-06-17)
+- `ICONIFY-magic-translator-check` ✅ verified (2026-06-17)
+- `FEATURE-iconify-install` ✅ accepted (2026-06-17)
+- `AUDYT-2026-06-17-tasks` ✅ zamknięty przez Claude (2026-06-18)
+- `SETUP-git-workflow` ✅ zamknięty przez Claude (2026-06-18)
+
+## Następne po aktywnym
+
+- Decyzja użytkownika: retłumaczenie Home EN lub Formularze kontaktowe
