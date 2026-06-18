@@ -30,6 +30,27 @@ tabs:
               listable: true
               collapse: true
               localizable: false
+              default:
+                -
+                  type: info_item
+                  label: Lokalizacja
+                  value: ''
+                  enabled: true
+                -
+                  type: info_item
+                  label: 'Powierzchnia Dekoracji'
+                  value: '0,00 m²'
+                  enabled: true
+                -
+                  type: info_item
+                  label: Inwestor
+                  value: ''
+                  enabled: true
+                -
+                  type: info_item
+                  label: 'Data Zakończenia'
+                  value: ''
+                  enabled: true
               sets:
                 main:
                   display: Main

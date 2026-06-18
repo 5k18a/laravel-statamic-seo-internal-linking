@@ -4,6 +4,18 @@ Changelog projektu `skalisty-orion` — prowadzony przez Claude po każdym zako�
 
 ---
 
+## 2026-06-19 (FEATURE-blueprint-details-defaults — domyślne Info Items w blueprincie projects)
+
+_Wykonane przez Claude bezpośrednio (na polecenie użytkownika)._
+
+### Zakres
+
+- `resources/blueprints/collections/projects/project.yaml` — dodany klucz `default:` do pola `details` (replicator)
+- 4 Info Items pre-wypełnione przy tworzeniu nowego wpisu: **Lokalizacja**, **Powierzchnia Dekoracji** (value: `0,00 m²`), **Inwestor**, **Data Zakończenia**
+- Deploy na `dev.skalisty.pl`: celowany rsync jednego pliku + `statamic:stache:refresh` ✅
+
+---
+
 ## 2026-06-19 (UPDATE-statamic-6.21.0 — aktualizacja i deploy)
 
 _Wykonane przez Claude bezpośrednio (na polecenie użytkownika)._

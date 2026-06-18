@@ -767,14 +767,37 @@ Wynik: OK. `dev.skalisty.pl` HTTP 200 ✅
 
 ---
 
-## Status na dzień 2026-06-18
+## Deploy przyrostowy — 2026-06-19 — blueprint details default Info Items
+
+### Zakres wdrożenia
+
+**FEATURE-blueprint-details-defaults:**
+- `resources/blueprints/collections/projects/project.yaml` — klucz `default:` na polu `details` (replicator) z 4 pre-wypełnionymi Info Items: Lokalizacja, Powierzchnia Dekoracji (`0,00 m²`), Inwestor, Data Zakończenia
+
+### Metoda
+
+Celowany rsync jednego pliku (bez pełnego deployu):
+
+```bash
+sshpass -p '...' rsync -av \
+  -e "ssh -o StrictHostKeyChecking=no" \
+  resources/blueprints/collections/projects/project.yaml \
+  skalisty@skalisty.ssh.dhosting.pl:skalisty_2026/resources/blueprints/collections/projects/project.yaml
+```
+
+Post-deploy: `php84 artisan statamic:stache:refresh` — OK ✅
+
+---
+
+## Status na dzień 2026-06-19
 
 | Element | Status |
 |---------|--------|
 | Serwer | ✅ `dev.skalisty.pl` — HTTP 200 (PL + EN) |
-| Ostatni deploy | ✅ rsync bezpośredni, 2026-06-18 (sticky header + logos slider + pakiety) |
-| Statamic CMS | ✅ v6.20.3 |
+| Ostatni deploy | ✅ rsync celowany, 2026-06-19 (blueprint details defaults) |
+| Statamic CMS | ✅ v6.21.0 |
 | wysiwyg-html-fieldtype | ✅ v1.1.0 |
+| Blueprint projects — details defaults | ✅ 4 Info Items pre-wypełnione (Lokalizacja, Powierzchnia Dekoracji, Inwestor, Data Zakończenia) |
 | Logos Slider with Icons | ✅ nowy set Page Buildera |
 | logo-klienci assets | ✅ nowy kontener z logotypami |
 | Sticky header default | ✅ `data-header-type` na `<body>` + JS switcherVisible |
