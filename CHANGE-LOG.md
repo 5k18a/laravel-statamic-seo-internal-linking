@@ -4,6 +4,32 @@ Changelog projektu `skalisty-orion` — prowadzony przez Claude po każdym zako�
 
 ---
 
+## 2026-06-18 (AUDIT-addon-wysiwyg-github)
+
+_Wykonane przez Claude._
+
+### Audyt i dopracowanie repo addonu wysiwyg-html-fieldtype
+
+Repo: `https://github.com/5k18a/laravel-statamic-addon-wysywig-html-page-editor`
+
+**Naprawione braki:**
+- `composer.json`: wersja `0.1.0` → `1.1.0`, dodano `description`, `authors`, `license: MIT`, `keywords` (Packagist-ready)
+- Dodano `LICENSE` (MIT)
+- `README.md`: zaktualizowano sekcję "Known Follow-Ups" (usunięto już zamknięte punkty)
+- Opis repo na GitHub zmieniony z polskiego nieformalnego na angielski profesjonalny
+- Dodano 8 topics GitHub: statamic, statamic-addon, statamic-fieldtype, laravel, php, wysiwyg, tiptap, codemirror
+
+**Zsynchronizowano lokalny addon z GitHub:**
+- Skopiowano `docs/` (PROJECT_CONTEXT.md, INTEGRATION_EXAMPLES.md, history/v1.0/)
+- Skopiowano `examples/` (fieldsets + widoki Antlers dla integracji)
+- Localny `README.md` zastąpiony pełną wersją (nie boilerplate)
+
+**Znane pozostałe zadania dla Codexa (nie blokujące):**
+- Usunąć `\Log::warning/debug/error` z `WysiwygHtml::preload()` przed publicznym release
+- Dodać realne testy PHP dla augment/process/preProcess
+
+---
+
 ## 2026-06-18 (SETUP-git-workflow)
 
 _Wykonane przez Claude._
