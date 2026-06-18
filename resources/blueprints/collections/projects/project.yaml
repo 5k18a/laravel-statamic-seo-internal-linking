@@ -267,6 +267,15 @@ tabs:
               type: slug
               localizable: true
               validate: 'max:200'
+          -
+            handle: completion_year
+            field:
+              type: integer
+              display: 'Rok zakończenia (sortowanie)'
+              instructions: 'Rok używany wyłącznie do sortowania listy projektów. Nie wyświetla się na stronie. Dla projektów wieloetapowych wpisz rok ostatniego etapu.'
+              localizable: false
+              listable: false
+              validate: 'nullable|integer|min:1990|max:2099'
   'SEO Meta':
     display: 'SEO Meta'
     sections:

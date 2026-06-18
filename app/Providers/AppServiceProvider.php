@@ -8,6 +8,7 @@ use Illuminate\Queue\Events\JobQueued;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Statamic\Facades\Collection as StatamicCollection;
 use Statamic\Facades\CP\Nav;
 use Statamic\Statamic;
 
@@ -33,6 +34,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        StatamicCollection::computed('projects', 'completion_year_sort', function ($entry) {
+            return (int) ($entry->value('completion_year') ?: 0);
+        });
+
         Statamic::pushCpRoutes(function () {
             Route::group([], base_path('routes/cp.php'));
         });

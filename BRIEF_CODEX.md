@@ -1,198 +1,299 @@
 # BRIEF_CODEX.md
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-18-2350
+state_version: 2026-06-19-0130
 active_task_id: none
 active_task_name: Brak aktywnego zadania
 active_task_status: idle
 active_task_source: BRIEF_CODEX.md
-last_sync: 2026-06-18 23:50 Europe/Warsaw
+last_sync: 2026-06-19 01:00 Europe/Warsaw
 last_synced_by: Claude
-last_closed: BUGFIX-slider-seamless-loop
+last_closed: SYNC-and-deploy-completion-year
 next_after_active: Decyzja użytkownika — retłumaczenie Home EN lub Formularze kontaktowe
 <!-- PROJECT_SYNC_END -->
 
 ---
 
-# AKTYWNY BRIEF: BUGFIX-sticky-header-default
+# AKTYWNY BRIEF: SYNC-and-deploy-completion-year
 
 ## Cel
 
-Header ma być **zawsze sticky** (na desktopie i mobile), wynikając z wartości globalnej `header_type` w Statamic — niezależnie od tego czy `show_theme_switcher` jest włączony czy nie. Użytkownik wyłączył przełącznik (`show_theme_switcher: false`) i chce header sticky jako jedyne zachowanie.
+Dwufazowa operacja:
+
+1. **FAZA 1 — Pull (serwer → lokalnie):** ściągnięcie treści i assetów wprowadzonych przez użytkownika w CP online (dev.skalisty.pl) do lokalnego projektu
+2. **FAZA 2 — Push (lokalnie → serwer):** wdrożenie lokalnych zmian kodu z `FEATURE-completion-year-sort` na serwer
+
+Po wykonaniu obu faz użytkownik ręcznie doda wartości `completion_year` do projektów przez CP online.
 
 ---
 
-## Diagnoza (wykonana przez Claude)
+## Dane dostępowe
 
-**Root cause:** `custom.js` (linie 5018–5021) inicjuje `stickyMode` z:
-```javascript
-let stickyMode =
-  localStorage.getItem("headerType") === "sticky" ||
-  $(".headers.active").val() === "sticky";
-```
-
-Gdy `show_theme_switcher = false`:
-- Przyciski `.headers` **nie są renderowane** w DOM
-- `$(".headers.active").val()` zwraca `undefined` → `undefined === "sticky"` = `false`
-- `stickyMode = false` → header statyczny
-
-Wartość globalna `header_type: sticky` z Statamic (`content/globals/pl/theme_settings.yaml`) jest **ignorowana przez JS**. Nie ma żadnego mechanizmu przekazania wartości server-side do JS.
-
-Dodatkowy problem: jeśli użytkownik wcześniej odwiedził stronę gdy switcher był włączony i wybrał "static", `localStorage` zachowuje "static" — nawet gdy admin wyłączy switcher, takim użytkownikom header pozostaje statyczny.
+- SSH user: `skalisty@skalisty.ssh.dhosting.pl`
+- Hasło SSH: z pliku `server_deploy/SERWER_DOSTEP.txt`
+- Katalog na serwerze: `~/skalisty_2026/` (pełna ścieżka: `/home/klient.dhosting.pl/skalisty/skalisty_2026/`)
+- PHP na serwerze (SSH): `php84`
+- Katalog lokalny projektu: `/home/pestycyd/Dokumenty/Skalisty-New-2/skalisty-orion/`
 
 ---
 
-## Zmiany do wykonania
+## FAZA 1 — Pull: serwer → lokalnie
 
-### 1. `resources/views/layout.antlers.html` — linia 5
+### 1.1 Pull content/ (z wyjątkiem projects.yaml)
 
-Dodaj `data-header-type` do tagu `<body>`, żeby wartość z Statamic globals była dostępna dla JS:
+`content/collections/projects.yaml` zawiera lokalnie dodane `sort_field` i `sort_direction` — **nie nadpisywać** tą wersją z serwera.
 
-**Przed:**
-```html
-<body>
+```bash
+sshpass -p 'HASŁO' rsync -av --delete \
+  --exclude='collections/projects.yaml' \
+  -e "ssh -o StrictHostKeyChecking=no" \
+  skalisty@skalisty.ssh.dhosting.pl:skalisty_2026/content/ \
+  /home/pestycyd/Dokumenty/Skalisty-New-2/skalisty-orion/content/
 ```
 
-**Po:**
-```html
-<body data-header-type="{{ theme_settings:header_type }}">
+> Uwaga: `--delete` usuwa lokalnie pliki których nie ma na serwerze. `content/collections/projects.yaml` jest wykluczone — zostaje lokalna wersja z sort_field.
+
+### 1.2 Pull assetów (tylko nowe pliki)
+
+```bash
+sshpass -p 'HASŁO' rsync -av \
+  -e "ssh -o StrictHostKeyChecking=no" \
+  skalisty@skalisty.ssh.dhosting.pl:skalisty_2026/public/assets/images/ \
+  /home/pestycyd/Dokumenty/Skalisty-New-2/skalisty-orion/public/assets/images/
 ```
 
-Antlers `{{ theme_settings:header_type }}` zwróci wartość pola `header_type` z globalu `theme_settings` (aktualnie `sticky`). Atrybut jest dostępny dla JS zawsze, niezależnie od `show_theme_switcher`.
+Bez `--delete` — dociągamy tylko nowe pliki, nie usuwamy lokalnych.
+
+Jeżeli użytkownik wgrywał projekty (grafiki do kolekcji projects) lub inne pliki assets poza `images/` — dociągnąć analogicznie odpowiednie podkatalogi.
+
+### 1.3 Odśwież lokalny stache
+
+```bash
+cd /home/pestycyd/Dokumenty/Skalisty-New-2/skalisty-orion
+php artisan statamic:stache:refresh && php artisan cache:clear
+```
+
+### 1.4 Commit lokalny
+
+```bash
+cd /home/pestycyd/Dokumenty/Skalisty-New-2/skalisty-orion
+git add content/ public/assets/
+git status
+git commit -m "sync: treści i assety z dev.skalisty.pl ($(date +%Y-%m-%d))"
+```
 
 ---
 
-### 2. `public/assets/js/custom.js` — linie 5014–5066
+## FAZA 2 — Push: lokalnie → serwer
 
-Przepisz blok "Select the header" (od `// Select the header` do `// Select the header end`).
+### 2.1 Rsync kodu i konfiguracji na serwer
 
-**Aktualna wersja (do zastąpienia):**
-```javascript
-  // Select the header
-  const $header = $(".header");
-  const $headerButtons = $(".header-options .headers");
-
-  // Get saved header type from localStorage or fallback to active button
-  let stickyMode =
-    localStorage.getItem("headerType") === "sticky" ||
-    $(".headers.active").val() === "sticky";
-
-  function updateHeader() {
-    if (stickyMode) {
-      const scroll = $(window).scrollTop();
-      if (scroll > 0) {
-        $header.addClass("fixed top-0 shadow-lg sticky-header");
-      } else {
-        $header.removeClass("fixed top-0 shadow-lg sticky-header");
-      }
-    } else {
-      $header.removeClass("fixed top-0 shadow-lg sticky-header");
-    }
-  }
-
-  // Apply saved header type on page load
-  const savedType = localStorage.getItem("headerType");
-  if (savedType) {
-    $headerButtons.removeClass("active");
-    $headerButtons.filter("[value='" + savedType + "']").addClass("active");
-    stickyMode = savedType === "sticky";
-    updateHeader();
-  }
-
-  // Button click handler
-  $headerButtons.on("click", function () {
-    $headerButtons.removeClass("active");
-    $(this).addClass("active");
-
-    stickyMode = $(this).val() === "sticky";
-
-    // Save selection in localStorage
-    localStorage.setItem("headerType", $(this).val());
-
-    updateHeader();
-  });
-
-  // Scroll handler
-  $(window).on("scroll", function () {
-    updateHeader();
-  });
-
-  // Initial check
-  updateHeader();
-
-  // Select the header end
+```bash
+sshpass -p 'HASŁO' rsync -av \
+  --exclude='.git' \
+  --exclude='.env' \
+  --exclude='node_modules/' \
+  --exclude='storage/framework/cache/' \
+  --exclude='storage/framework/sessions/' \
+  --exclude='storage/framework/views/' \
+  --exclude='storage/logs/' \
+  --exclude='database/database.sqlite' \
+  --exclude='public/hot' \
+  --exclude='ADMIN_ACCESS.txt' \
+  -e "ssh -o StrictHostKeyChecking=no" \
+  /home/pestycyd/Dokumenty/Skalisty-New-2/skalisty-orion/ \
+  skalisty@skalisty.ssh.dhosting.pl:skalisty_2026/
 ```
 
-**Nowa wersja:**
-```javascript
-  // Select the header
-  const $header = $(".header");
-  const $headerButtons = $(".header-options .headers");
-  const switcherVisible = $headerButtons.length > 0;
-  const serverHeaderType = document.body.dataset.headerType || "sticky";
+To wyśle wszystkie zmienione pliki w tym:
+- `app/Providers/AppServiceProvider.php` (computed field `completion_year_sort`)
+- `resources/blueprints/collections/projects/project.yaml` (pole `completion_year`)
+- `content/collections/projects.yaml` (sort_field + sort_direction)
+- `resources/views/page_builder/project_section.antlers.html` (sort= w 3 tagach)
+- i cały content/ / assets/ już zsynchronizowany w Fazie 1
 
-  // When switcher is hidden, server value is authoritative — clear stale localStorage
-  if (!switcherVisible) {
-    localStorage.removeItem("headerType");
-  }
+### 2.2 Komendy post-deploy na serwerze
 
-  const savedType = localStorage.getItem("headerType");
-  let stickyMode = savedType ? savedType === "sticky" : serverHeaderType === "sticky";
-
-  function updateHeader() {
-    if (stickyMode) {
-      const scroll = $(window).scrollTop();
-      if (scroll > 0) {
-        $header.addClass("fixed top-0 shadow-lg sticky-header");
-      } else {
-        $header.removeClass("fixed top-0 shadow-lg sticky-header");
-      }
-    } else {
-      $header.removeClass("fixed top-0 shadow-lg sticky-header");
-    }
-  }
-
-  // Sync active button with saved type (only when switcher visible)
-  if (switcherVisible && savedType) {
-    $headerButtons.removeClass("active");
-    $headerButtons.filter("[value='" + savedType + "']").addClass("active");
-  }
-
-  // Button click handler
-  $headerButtons.on("click", function () {
-    $headerButtons.removeClass("active");
-    $(this).addClass("active");
-    stickyMode = $(this).val() === "sticky";
-    localStorage.setItem("headerType", $(this).val());
-    updateHeader();
-  });
-
-  // Scroll handler
-  $(window).on("scroll", function () {
-    updateHeader();
-  });
-
-  // Initial check
-  updateHeader();
-
-  // Select the header end
+```bash
+sshpass -p 'HASŁO' ssh -o StrictHostKeyChecking=no \
+  skalisty@skalisty.ssh.dhosting.pl \
+  "cd skalisty_2026 && php84 artisan config:clear && php84 artisan cache:clear && php84 artisan view:clear && php84 artisan statamic:stache:refresh && php84 artisan test"
 ```
 
-**Co się zmieniło:**
-- `serverHeaderType` — czyta `data-header-type` z `<body>` (wartość z Statamic globals)
-- `switcherVisible` — sprawdza czy przyciski są w DOM
-- Gdy switcher ukryty: `localStorage.removeItem("headerType")` czyści stary wybór użytkownika; `stickyMode` bierze wartość z serwera
-- Gdy switcher widoczny: zachowanie identyczne z dotychczasowym (localStorage > fallback do server value)
-- `updateHeader()` na starcie nie jest wywoływany dwukrotnie (usunięto redundantny blok `if (savedType)`)
+Oczekiwany wynik: `2 passed`
+
+### 2.3 Walidacja runtime
+
+Sprawdź w przeglądarce:
+- `https://dev.skalisty.pl/realizacje` — HTTP 200, projekty w kolejności od Tarnowskie Termy (lub jakikolwiek najnowszy) do Afrykarium (2014)
+- `https://dev.skalisty.pl/` — HTTP 200, strona główna działa
+- `https://dev.skalisty.pl/en/` — HTTP 200
 
 ---
 
 ## Czego NIE robić
 
-- Nie zmieniać logiki `updateHeader()` — działa poprawnie
-- Nie modyfikować `window.setHeaderSticky` (linie ~1364–1381) — ta funkcja jest poprawna i niezależna
-- Nie zmieniać `content/globals/pl/theme_settings.yaml` — `header_type: sticky` jest już ustawione prawidłowo
-- Nie zmieniać blueprintu `theme_settings.yaml` — pole `header_type` z domyślną wartością `sticky` pozostaje bez zmian
+- Nie używać `--delete` przy pushu na serwer — mogłoby usunąć pliki serwera (logi, storage sessions)
+- Nie nadpisywać `.env` na serwerze — `rsync --exclude='.env'` tego pilnuje
+- Nie uruchamiać `php84 artisan migrate` — baza MySQL na serwerze jest aktualna
+- Nie dodawać `completion_year` ręcznie do plików MD przed pulliem — serwer i tak je nadpisze; użytkownik doda przez CP po deployu
+
+---
+
+## Commit po zakończeniu
+
+```
+sync: treści online→offline + deploy FEATURE-completion-year-sort na dev.skalisty.pl
+
+Faza 1: content/ i assets z dev.skalisty.pl zsynchronizowane lokalnie
+Faza 2: AppServiceProvider, blueprint, projects.yaml, project_section wdrożone na serwer
+```
+
+---
+
+## Ostatnio zamknięte
+
+- `FEATURE-completion-year-sort` ✅ accepted (2026-06-19)
+- `BUGFIX-sticky-header-default` ✅ accepted (2026-06-18)
+- `BUGFIX-slider-seamless-loop` ✅ accepted (2026-06-18)
+- `FEATURE-logos-slider-with-icons` ✅ accepted (2026-06-18)
+- `SETUP-git-workflow` ✅ zamknięty przez Claude (2026-06-18)
+
+## Następne po aktywnym
+
+- Decyzja użytkownika: retłumaczenie Home EN lub Formularze kontaktowe
+
+## Cel
+
+Projekty na stronie `/realizacje` mają się wyświetlać od najnowszych do najstarszych (malejąco po roku zakończenia). Obecnie kolekcja sortuje alfabetycznie po tytule.
+
+Rozwiązanie: nowe pole `completion_year` (integer) w blueprincie kolekcji `projects` — wyłącznie do celów sortowania, niewidoczne na froncie. Istniejące pole tekstowe `Data Zakończenia` w replicatorze `details` pozostaje bez zmian (służy wyświetlaniu, nie sortowaniu).
+
+---
+
+## Pliki do zmiany
+
+### 1. `resources/blueprints/collections/projects/project.yaml`
+
+Dodaj nowe pole `completion_year` do zakładki `sidebar`, **po polu `slug`** (linia ~269):
+
+```yaml
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'
+          -
+            handle: completion_year
+            field:
+              type: integer
+              display: 'Rok zakończenia (sortowanie)'
+              instructions: 'Rok używany wyłącznie do sortowania listy projektów. Nie wyświetla się na stronie. Dla projektów wieloetapowych wpisz rok ostatniego etapu.'
+              localizable: false
+              listable: false
+              validate: 'nullable|integer|min:1990|max:2099'
+```
+
+---
+
+### 2. `content/collections/projects.yaml`
+
+Dodaj `sort_field` i `sort_direction` po bloku `date_behavior` (linia ~9):
+
+**Przed:**
+```yaml
+date_behavior:
+  past: public
+  future: private
+sites:
+```
+
+**Po:**
+```yaml
+date_behavior:
+  past: public
+  future: private
+sort_field: completion_year
+sort_direction: desc
+sites:
+```
+
+---
+
+### 3. `resources/views/page_builder/project_section.antlers.html`
+
+Trzy tagi `{{ collection:projects }}` wymagają dodania `sort="completion_year:desc"`.
+
+**Linia 192** (show_type = project-page-one, ma filtry wyszukiwania):
+
+Przed:
+```
+{{ collection:projects as="projects" paginate="{pagination}" limit="{limit}" title:contains="{ get:s }" slug:contains="{ get:s }"  }}
+```
+Po:
+```
+{{ collection:projects as="projects" paginate="{pagination}" limit="{limit}" sort="completion_year:desc" title:contains="{ get:s }" slug:contains="{ get:s }"  }}
+```
+
+**Linia 241** (show_type = project-page-two):
+
+Przed:
+```
+{{ collection:projects as="projects" paginate="{pagination}" limit="{limit}" }}
+```
+Po:
+```
+{{ collection:projects as="projects" paginate="{pagination}" limit="{limit}" sort="completion_year:desc" }}
+```
+
+**Linia 305** (show_type = project-page-three):
+
+Przed:
+```
+{{ collection:projects as="projects" paginate="{pagination}" limit="{limit}" }}
+```
+Po:
+```
+{{ collection:projects as="projects" paginate="{pagination}" limit="{limit}" sort="completion_year:desc" }}
+```
+
+---
+
+### 4. Uzupełnienie danych — 10 plików treści PL
+
+Dodaj `completion_year: <rok>` do frontmattera każdego pliku (po kluczu `blueprint: project`, przed `title:`):
+
+| Plik | completion_year |
+|------|----------------|
+| `content/collections/projects/pl/afrykarium.md` | 2014 |
+| `content/collections/projects/pl/oceanika.md` | 2015 |
+| `content/collections/projects/pl/tarnowskie-termy.md` | 2024 |
+| `content/collections/projects/pl/woliera-argusa.md` | 2018 |
+| `content/collections/projects/pl/baseny-tropikalne.md` | 2019 |
+| `content/collections/projects/pl/orientarium-lwy-azjatyckie.md` | 2019 |
+| `content/collections/projects/pl/wybieg-wydry-europejskiej.md` | 2019 |
+| `content/collections/projects/pl/woliera-dzioborozca-zoo-warszawa.md` | 2019 |
+| `content/collections/projects/pl/ogrod-w-alpach.md` | 2021 |
+| `content/collections/projects/pl/grota-z-lourdes.md` | 2022 |
+
+Uwaga: Tarnowskie Termy mają w polu wyświetlanym wartość `'2015 i 2024'` (dwa etapy). Do sortowania użyto roku **2024** (ostatni etap). Jeśli użytkownik woli 2015 — zmiana w CP lub w pliku MD.
+
+17 pozostałych projektów (demo) **nie dostaje** `completion_year` — będą miały wartość `null` i Statamic automatycznie wyrzuci je na koniec listy za realnymi projektami z datą.
+
+---
+
+## Czego NIE robić
+
+- Nie modyfikować pola `details` ani wartości `Data Zakończenia` w żadnym projekcie — to pole służy wyświetlaniu na stronie i pozostaje bez zmian
+- Nie dodawać `completion_year` do plików EN, CS, DE i pozostałych lokalizacji — pole jest `localizable: false`, dziedziczone z PL
+- Nie modyfikować szablonów `project/show.antlers.html`, `project/index.antlers.html` — `completion_year` nie ma się wyświetlać na froncie
+- Nie zmieniać kolejności parametrów w tagach `{{ collection:projects }}` poza dodaniem `sort=`
 
 ---
 
@@ -203,35 +304,38 @@ php artisan statamic:stache:refresh
 ```
 
 Następnie w przeglądarce (lokalnie `http://127.0.0.1:8001`):
-1. Upewnij się że `show_theme_switcher = false` w Globals → Theme Settings
-2. Odwiedź stronę główną — header powinien być sticky (przyklejony po scrollu)
-3. Sprawdź mobile (DevTools responsive mode)
-4. W DevTools → Application → Local Storage → sprawdź czy `headerType` zostało usunięte
-5. Sprawdź w DevTools że `<body data-header-type="sticky">` jest w HTML
-6. Włącz `show_theme_switcher = true`, zrestartuj — switcher powinien działać jak wcześniej (localStorage)
+
+1. Wejdź na `/realizacje` — projekty powinny być posortowane: Grota z Lourdes (2022), Ogród w Alpach (2021), projekty z 2019 (4 sztuki), Woliera Argusa (2018), Oceanika/Termy (2015), Afrykarium (2014), demo projekty na końcu
+2. Sprawdź `/en/project` — ten sam sort (bo `completion_year` jest `localizable: false`)
+3. W CP → Collections → Projects: kolejność wpisów w listingu powinna odpowiadać sortowaniu malejącemu
+4. Sprawdź że CP → edit projektu → zakładka Sidebar zawiera nowe pole `Rok zakończenia (sortowanie)` z wpisaną wartością
+
+```bash
+php artisan test
+```
 
 ---
 
 ## Commit po zakończeniu
 
 ```
-fix: Sticky header domyślnie z Statamic globals — niezależnie od show_theme_switcher
+feat: sortowanie projektów po roku zakończenia (completion_year)
 
-- layout.antlers.html: <body data-header-type="{{ theme_settings:header_type }}">
-- custom.js: stickyMode czyta data-header-type gdy switcher ukryty; czyści stale localStorage
+- blueprint projects/project.yaml: nowe pole completion_year (integer, sidebar)
+- content/collections/projects.yaml: sort_field: completion_year, sort_direction: desc
+- project_section.antlers.html: sort="completion_year:desc" w 3 tagach collection:projects
+- 10 plików treści PL: uzupełniono completion_year (2014–2024)
 ```
 
 ---
 
 ## Ostatnio zamknięte
 
+- `BUGFIX-sticky-header-default` ✅ accepted (2026-06-18)
 - `BUGFIX-slider-seamless-loop` ✅ accepted (2026-06-18)
 - `FEATURE-logos-slider-with-icons` ✅ accepted (2026-06-18)
 - `ICONIFY-prefix-extension` ✅ accepted (2026-06-17)
 - `FEATURE-icon-box-with-text` ✅ accepted (2026-06-17)
-- `ICONIFY-magic-translator-check` ✅ verified (2026-06-17)
-- `FEATURE-iconify-install` ✅ accepted (2026-06-17)
-- `AUDYT-2026-06-17-tasks` ✅ zamknięty przez Claude (2026-06-18)
 - `SETUP-git-workflow` ✅ zamknięty przez Claude (2026-06-18)
 
 ## Następne po aktywnym

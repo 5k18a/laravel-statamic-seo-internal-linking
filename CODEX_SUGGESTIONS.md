@@ -61,6 +61,15 @@ doprecyzowanie workflow — zmiana konstytucyjna w `AGENTS.md`, nie zmienia scop
 
 ## RESOLVED_BY_CLAUDE
 
+### 2026-06-18 — FEATURE-completion-year-sort
+
+- Status: **accepted**
+- Audyt Claude 2026-06-19: implementacja kompletna i poprawna. Blueprint `completion_year` (integer, sidebar) ✅, 10 plików PL z poprawnymi latami (2014–2024) ✅, `AppServiceProvider` computed field `completion_year_sort = (int)(completion_year ?: 0)` ✅, `projects.yaml sort_field: completion_year_sort` ✅, 3 tagi `collection:projects sort="completion_year_sort:desc"` ✅, `php artisan test` 2 passed ✅, `/realizacje` HTTP 200 z poprawną kolejnością ✅.
+- Słuszne odchylenie Codex: `completion_year_sort` zamiast `completion_year` w `projects.yaml` i szablonie — SQL `ORDER BY completion_year DESC` ustawia NULL na górze, co jest odwrotnością intencji. Computed field `?: 0` przesuwa projekty bez roku na koniec (wartość 0 < każdego roku). Rozwiązanie technicznie lepsze niż to w briefie.
+- Nieścisłości briefu (nie błędy Codexa): (1) walidacja mówiła „pierwsze są Grota z Lourdes 2022" — powinno być Tarnowskie Termy 2024; (2) URL `/en/project` w walidacji to 404 — poprawny listing EN to `/en/projects`; (3) demo projekty i tak mają `published: false` → nie widoczne na froncie, więc problem NULL był irrelevant dla /realizacje, ale computed field jest dobrą praktyką defensywną.
+- Ręczny audyt CP (listing + edit projektu) po stronie użytkownika — prośba Codexa niepotrzebna dla akceptacji, ale warto zweryfikować przy okazji.
+- Wymagana akcja Codex: brak — zadanie zamknięte.
+
 ### 2026-06-17 — DEPLOY-iconify-icon-box-dev
 
 - Status: accepted
@@ -298,6 +307,8 @@ doprecyzowanie workflow — zmiana konstytucyjna w `AGENTS.md`, nie zmienia scop
 ---
 
 ## ACTIVE_FOR_CLAUDE_REVIEW
+
+_Brak wpisów oczekujących na audyt._
 
 ---
 

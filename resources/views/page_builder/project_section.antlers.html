@@ -189,7 +189,7 @@
     {{ section_title }}
   </h2>
   {{ if collections == "projects" }}
-  {{ collection:projects as="projects" paginate="{pagination}" limit="{limit}" title:contains="{ get:s }" slug:contains="{ get:s }"  }}
+  {{ collection:projects as="projects" paginate="{pagination}" limit="{limit}" sort="completion_year_sort:desc" title:contains="{ get:s }" slug:contains="{ get:s }"  }}
   {{ /if }}
   <div class="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 1xl:gap-[50px] xl:gap-[40px] gap-8 grid_append">
     <!-- project-1 -->
@@ -238,7 +238,7 @@
       {{ section_title }}
     </h1>
     {{ if collections == "projects" }}
-    {{ collection:projects as="projects" paginate="{pagination}" limit="{limit}" }}
+    {{ collection:projects as="projects" paginate="{pagination}" limit="{limit}" sort="completion_year_sort:desc" }}
     {{ /if }}
     <div class="grid xl:grid-cols-3 sm:grid-cols-2 grid-cols-1 1xl:gap-[50px] xl:gap-[40px] md:gap-8 sm:gap-7 gap-[22px] grid_append">
       <!-- project-1 -->
@@ -302,7 +302,7 @@
     <h1 class="h2 text-center">{{ section_title }}</h1>
   </div>
   {{ if collections == "projects" }}
-  {{ collection:projects as="projects" paginate="{pagination}" limit="{limit}" }}
+  {{ collection:projects as="projects" paginate="{pagination}" limit="{limit}" sort="completion_year_sort:desc" }}
   {{ /if }}
   <section class="relative overflow-visible">
     <div class="max-w-[1253px] mx-auto relative">

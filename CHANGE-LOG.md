@@ -4,6 +4,32 @@ Changelog projektu `skalisty-orion` — prowadzony przez Claude po każdym zako�
 
 ---
 
+## 2026-06-19 (FEATURE-completion-year-sort — sortowanie projektów po roku zakończenia)
+
+_Wykonane przez Codex. Audyt i akceptacja: Claude._
+
+### Cel
+
+Projekty na `/realizacje` wyświetlają się od najnowszych do najstarszych zamiast alfabetycznie.
+
+### Rozwiązanie
+
+Nowe pole `completion_year` (integer) w sidebar blueprinta kolekcji `projects` — wyłącznie do celów sortowania, niewidoczne na froncie. Computed field `completion_year_sort` w `AppServiceProvider` obsługuje wartości NULL (projekty bez roku → 0), co zapobiega SQL-owemu zachowaniu NULL-first przy `ORDER BY DESC`.
+
+### Zmienione pliki
+
+- **`resources/blueprints/collections/projects/project.yaml`** — nowe pole `completion_year` (integer, sidebar, `localizable: false`)
+- **`content/collections/projects.yaml`** — `sort_field: completion_year_sort`, `sort_direction: desc`
+- **`resources/views/page_builder/project_section.antlers.html`** — `sort="completion_year_sort:desc"` w 3 tagach `collection:projects` (linie 192, 241, 305)
+- **`app/Providers/AppServiceProvider.php`** — `StatamicCollection::computed('projects', 'completion_year_sort', fn($e) => (int)($e->value('completion_year') ?: 0))`
+- **10 plików `content/collections/projects/pl/*.md`** — uzupełniono `completion_year` (2014–2024)
+
+### Kolejność na /realizacje
+
+Tarnowskie Termy (2024) → Grota z Lourdes (2022) → Ogród w Alpach (2021) → 4× 2019 → Woliera Argusa (2018) → Oceanika (2015) → Afrykarium (2014)
+
+---
+
 ## 2026-06-18 (BUGFIX-slider-seamless-loop — bezszwowe zapętlenie sliderów logo)
 
 _Wykonane przez Claude (bezpośrednio, bez Codexa — zmiana czysto szablonowa)._
