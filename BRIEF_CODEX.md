@@ -1,136 +1,198 @@
 # BRIEF_CODEX.md
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-18-1800
-active_task_id: FEATURE-logos-slider-with-icons
-active_task_name: Logos Slider with Icons — nowy set Page Buildera
+state_version: 2026-06-18-2100
+active_task_id: BUGFIX-sticky-header-default
+active_task_name: Sticky header — domyślnie sticky niezależnie od show_theme_switcher
 active_task_status: ready
 active_task_source: BRIEF_CODEX.md
-last_sync: 2026-06-18 18:00 Europe/Warsaw
+last_sync: 2026-06-18 21:00 Europe/Warsaw
 last_synced_by: Claude
-last_closed: AUDYT-2026-06-17-tasks
+last_closed: FEATURE-logos-slider-with-icons
 next_after_active: Decyzja użytkownika — retłumaczenie Home EN lub Formularze kontaktowe
 <!-- PROJECT_SYNC_END -->
 
 ---
 
-# AKTYWNY BRIEF: FEATURE-logos-slider-with-icons
+# AKTYWNY BRIEF: BUGFIX-sticky-header-default
 
 ## Cel
 
-Stworzyć nowy set Page Buildera **Logos Slider with Icons** — wariant istniejącego `logos_slider`, w którym zamiast pola `assets` (obraz) używane jest pole `iconify` z `store_as: svg_data`.
-
-Każdy element slidera będzie miał: **ikonę Iconify** + **nazwę/opis** (text). Slider zachowuje identyczną animację CSS co oryginał.
+Header ma być **zawsze sticky** (na desktopie i mobile), wynikając z wartości globalnej `header_type` w Statamic — niezależnie od tego czy `show_theme_switcher` jest włączony czy nie. Użytkownik wyłączył przełącznik (`show_theme_switcher: false`) i chce header sticky jako jedyne zachowanie.
 
 ---
 
-## Pliki do stworzenia
+## Diagnoza (wykonana przez Claude)
 
-### 1. `resources/fieldsets/logos_slider_with_icons.yaml`
-
-Wzorzec: `resources/fieldsets/logos_slider.yaml` — zmień tylko pole `image` na `icon`:
-
-```yaml
-title: 'Logos Slider with Icons'
-fields:
-  -
-    handle: logos
-    field:
-      type: replicator
-      display: 'Logos Slider Items'
-      instructions: 'Add icons and their labels for the slider'
-      sets:
-        main:
-          display: Main
-          sets:
-            logo_item:
-              display: 'Logo Item'
-              fields:
-                -
-                  handle: icon
-                  field:
-                    type: iconify
-                    display: Icon
-                    store_as: svg_data
-                -
-                  handle: name
-                  field:
-                    type: text
-                    display: 'Name / Label'
-                    validate:
-                      - required
+**Root cause:** `custom.js` (linie 5018–5021) inicjuje `stickyMode` z:
+```javascript
+let stickyMode =
+  localStorage.getItem("headerType") === "sticky" ||
+  $(".headers.active").val() === "sticky";
 ```
 
-**Kluczowe różnice względem `logos_slider.yaml`:**
-- Pole `image` (type: assets) zastąpione polem `icon` (type: iconify, store_as: svg_data)
-- Pole `image` miało `validate: required` — pole `icon` **bez** required (ikona opcjonalna, żeby nie blokować zapisania)
-- Pole `name` bez zmian
+Gdy `show_theme_switcher = false`:
+- Przyciski `.headers` **nie są renderowane** w DOM
+- `$(".headers.active").val()` zwraca `undefined` → `undefined === "sticky"` = `false`
+- `stickyMode = false` → header statyczny
 
-### 2. `resources/views/page_builder/logos_slider_with_icons.antlers.html`
+Wartość globalna `header_type: sticky` z Statamic (`content/globals/pl/theme_settings.yaml`) jest **ignorowana przez JS**. Nie ma żadnego mechanizmu przekazania wartości server-side do JS.
 
-Wzorzec: `resources/views/page_builder/logos_slider.antlers.html` — zmień rendering ikony.
+Dodatkowy problem: jeśli użytkownik wcześniej odwiedził stronę gdy switcher był włączony i wybrał "static", `localStorage` zachowuje "static" — nawet gdy admin wyłączy switcher, takim użytkownikom header pozostaje statyczny.
 
-Oryginał renderuje obraz tak:
-```antlers
-{{ image }}<img src="{{ url }}" class="logos" />{{ /image }}
+---
+
+## Zmiany do wykonania
+
+### 1. `resources/views/layout.antlers.html` — linia 5
+
+Dodaj `data-header-type` do tagu `<body>`, żeby wartość z Statamic globals była dostępna dla JS:
+
+**Przed:**
+```html
+<body>
 ```
 
-Zamień na rendering ikony Iconify — wzorzec z `icon_box_with_text_section.antlers.html`:
-```antlers
-{{ if icon }}
-  {{ iconify:icon class="logos" aria-hidden="true" }}
-{{ /if }}
+**Po:**
+```html
+<body data-header-type="{{ theme_settings:header_type }}">
 ```
 
-Pełny widok:
+Antlers `{{ theme_settings:header_type }}` zwróci wartość pola `header_type` z globalu `theme_settings` (aktualnie `sticky`). Atrybut jest dostępny dla JS zawsze, niezależnie od `show_theme_switcher`.
 
-```antlers
-<section class="2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] md:mb-[50px] mb-8 z-1">
-  <div class="text-slider overflow-hidden">
-    <div class="slider-track flex animate-slides items-center 1xl:gap-7 md:gap-5 gap-4 flex-nowrap shrink-0">
-      <!-- original set -->
-      {{ logos }}
-      <div class="flex items-center 1xl:gap-7 md:gap-5 gap-4 flex-shrink-0">
-        {{ if icon }}
-          {{ iconify:icon class="logos" aria-hidden="true" }}
-        {{ /if }}
-        <h5 class="logo-name">{{ name }}</h5>
-      </div>
-      {{ /logos }}
-    </div>
-  </div>
-</section>
+---
+
+### 2. `public/assets/js/custom.js` — linie 5014–5066
+
+Przepisz blok "Select the header" (od `// Select the header` do `// Select the header end`).
+
+**Aktualna wersja (do zastąpienia):**
+```javascript
+  // Select the header
+  const $header = $(".header");
+  const $headerButtons = $(".header-options .headers");
+
+  // Get saved header type from localStorage or fallback to active button
+  let stickyMode =
+    localStorage.getItem("headerType") === "sticky" ||
+    $(".headers.active").val() === "sticky";
+
+  function updateHeader() {
+    if (stickyMode) {
+      const scroll = $(window).scrollTop();
+      if (scroll > 0) {
+        $header.addClass("fixed top-0 shadow-lg sticky-header");
+      } else {
+        $header.removeClass("fixed top-0 shadow-lg sticky-header");
+      }
+    } else {
+      $header.removeClass("fixed top-0 shadow-lg sticky-header");
+    }
+  }
+
+  // Apply saved header type on page load
+  const savedType = localStorage.getItem("headerType");
+  if (savedType) {
+    $headerButtons.removeClass("active");
+    $headerButtons.filter("[value='" + savedType + "']").addClass("active");
+    stickyMode = savedType === "sticky";
+    updateHeader();
+  }
+
+  // Button click handler
+  $headerButtons.on("click", function () {
+    $headerButtons.removeClass("active");
+    $(this).addClass("active");
+
+    stickyMode = $(this).val() === "sticky";
+
+    // Save selection in localStorage
+    localStorage.setItem("headerType", $(this).val());
+
+    updateHeader();
+  });
+
+  // Scroll handler
+  $(window).on("scroll", function () {
+    updateHeader();
+  });
+
+  // Initial check
+  updateHeader();
+
+  // Select the header end
 ```
 
-**Uwaga:** klasa `logos` na SVG zachowuje te same style CSS co `<img class="logos" />` w oryginale — nie zmieniać.
+**Nowa wersja:**
+```javascript
+  // Select the header
+  const $header = $(".header");
+  const $headerButtons = $(".header-options .headers");
+  const switcherVisible = $headerButtons.length > 0;
+  const serverHeaderType = document.body.dataset.headerType || "sticky";
 
-### 3. `resources/fieldsets/all_page_builder.yaml`
+  // When switcher is hidden, server value is authoritative — clear stale localStorage
+  if (!switcherVisible) {
+    localStorage.removeItem("headerType");
+  }
 
-Dodaj rejestrację nowego setu **bezpośrednio po** bloku `logos_slider`:
+  const savedType = localStorage.getItem("headerType");
+  let stickyMode = savedType ? savedType === "sticky" : serverHeaderType === "sticky";
 
-```yaml
-            logos_slider_with_icons:
-              display: 'Logos Slider with Icons'
-              fields:
-                -
-                  import: logos_slider_with_icons
+  function updateHeader() {
+    if (stickyMode) {
+      const scroll = $(window).scrollTop();
+      if (scroll > 0) {
+        $header.addClass("fixed top-0 shadow-lg sticky-header");
+      } else {
+        $header.removeClass("fixed top-0 shadow-lg sticky-header");
+      }
+    } else {
+      $header.removeClass("fixed top-0 shadow-lg sticky-header");
+    }
+  }
+
+  // Sync active button with saved type (only when switcher visible)
+  if (switcherVisible && savedType) {
+    $headerButtons.removeClass("active");
+    $headerButtons.filter("[value='" + savedType + "']").addClass("active");
+  }
+
+  // Button click handler
+  $headerButtons.on("click", function () {
+    $headerButtons.removeClass("active");
+    $(this).addClass("active");
+    stickyMode = $(this).val() === "sticky";
+    localStorage.setItem("headerType", $(this).val());
+    updateHeader();
+  });
+
+  // Scroll handler
+  $(window).on("scroll", function () {
+    updateHeader();
+  });
+
+  // Initial check
+  updateHeader();
+
+  // Select the header end
 ```
 
-Wstaw po linii:
-```yaml
-                  import: logos_slider
-```
-(po całym bloku `logos_slider`, przed `image_with_text_section`)
+**Co się zmieniło:**
+- `serverHeaderType` — czyta `data-header-type` z `<body>` (wartość z Statamic globals)
+- `switcherVisible` — sprawdza czy przyciski są w DOM
+- Gdy switcher ukryty: `localStorage.removeItem("headerType")` czyści stary wybór użytkownika; `stickyMode` bierze wartość z serwera
+- Gdy switcher widoczny: zachowanie identyczne z dotychczasowym (localStorage > fallback do server value)
+- `updateHeader()` na starcie nie jest wywoływany dwukrotnie (usunięto redundantny blok `if (savedType)`)
 
 ---
 
 ## Czego NIE robić
 
-- Nie modyfikować `logos_slider.yaml` ani `logos_slider.antlers.html` — oryginał pozostaje nienaruszony
-- Nie dodawać `localizable: true` do fieldów — dziedziczone z `page_builder` replicatora w `all_page_builder.yaml`
-- Nie dodawać `duplicate: false` — logos slider nie wymaga ograniczenia duplikatów
-- Nie zmieniać klas CSS animacji slidera (`animate-slides`, `slider-track`, `text-slider`) — są globalne
-- Nie używać `store_as: svg` — wymagane jest `store_as: svg_data` (addon Iconify v2.1.0)
+- Nie zmieniać logiki `updateHeader()` — działa poprawnie
+- Nie modyfikować `window.setHeaderSticky` (linie ~1364–1381) — ta funkcja jest poprawna i niezależna
+- Nie zmieniać `content/globals/pl/theme_settings.yaml` — `header_type: sticky` jest już ustawione prawidłowo
+- Nie zmieniać blueprintu `theme_settings.yaml` — pole `header_type` z domyślną wartością `sticky` pozostaje bez zmian
 
 ---
 
@@ -138,31 +200,32 @@ Wstaw po linii:
 
 ```bash
 php artisan statamic:stache:refresh
-php artisan test
 ```
 
-Następnie w CP (http://127.0.0.1:8001/cp):
-1. Otwórz dowolną stronę z Page Builderem
-2. Dodaj nowy blok → potwierdź że "Logos Slider with Icons" jest na liście
-3. Dodaj 2–3 itemy z ikonami Iconify i nazwami
-4. Wejdź na frontend — sprawdź że slider animuje się poprawnie i ikony SVG są widoczne
+Następnie w przeglądarce (lokalnie `http://127.0.0.1:8001`):
+1. Upewnij się że `show_theme_switcher = false` w Globals → Theme Settings
+2. Odwiedź stronę główną — header powinien być sticky (przyklejony po scrollu)
+3. Sprawdź mobile (DevTools responsive mode)
+4. W DevTools → Application → Local Storage → sprawdź czy `headerType` zostało usunięte
+5. Sprawdź w DevTools że `<body data-header-type="sticky">` jest w HTML
+6. Włącz `show_theme_switcher = true`, zrestartuj — switcher powinien działać jak wcześniej (localStorage)
 
 ---
 
 ## Commit po zakończeniu
 
 ```
-feat: Dodaj Logos Slider with Icons do page buildera
+fix: Sticky header domyślnie z Statamic globals — niezależnie od show_theme_switcher
 
-- resources/fieldsets/logos_slider_with_icons.yaml
-- resources/views/page_builder/logos_slider_with_icons.antlers.html
-- resources/fieldsets/all_page_builder.yaml (rejestracja setu)
+- layout.antlers.html: <body data-header-type="{{ theme_settings:header_type }}">
+- custom.js: stickyMode czyta data-header-type gdy switcher ukryty; czyści stale localStorage
 ```
 
 ---
 
 ## Ostatnio zamknięte
 
+- `FEATURE-logos-slider-with-icons` ✅ accepted (2026-06-18)
 - `ICONIFY-prefix-extension` ✅ accepted (2026-06-17)
 - `FEATURE-icon-box-with-text` ✅ accepted (2026-06-17)
 - `ICONIFY-magic-translator-check` ✅ verified (2026-06-17)
