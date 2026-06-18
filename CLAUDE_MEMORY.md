@@ -25,7 +25,7 @@ Projekt `skalisty-orion` jest aktywną instalacją Laravel 13 + Statamic 6 opart
 - Kod aplikacji: `/home/pestycyd/Dokumenty/Skalisty-New-2/skalisty-orion/`
 - Frontend: `http://127.0.0.1:8001`
 - CP: `http://127.0.0.1:8001/cp`
-- Stack: Laravel 13.16.1 + Statamic 6.20.3 + PHP 8.4
+- Stack: Laravel 13.16.1 + Statamic 6.21.0 + PHP 8.4
 - Motyw: `webbycrown/orion-statamic-theme`
 - Git: branch `main`, remote `https://github.com/5k18a/skalisty-laravel.git`
 

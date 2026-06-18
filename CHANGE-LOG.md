@@ -4,6 +4,19 @@ Changelog projektu `skalisty-orion` — prowadzony przez Claude po każdym zako�
 
 ---
 
+## 2026-06-19 (UPDATE-statamic-6.21.0 — aktualizacja i deploy)
+
+_Wykonane przez Claude bezpośrednio (na polecenie użytkownika)._
+
+### Zakres
+
+- `statamic/cms` zaktualizowany lokalnie: v6.20.3 → v6.21.0
+- Patch HOTFIX-18 (`proc_open + open_basedir` w `Locales.php`) nałożony bez konfliktów
+- Deploy na `dev.skalisty.pl` — rsync z `--copy-links` (symlink vendor/skalisty)
+- Serwer: `php84 artisan test` → 2 passed, `statamic/cms v6.21.0` potwierdzone
+
+---
+
 ## 2026-06-19 (UPDATE-statamic-6.20.3-deploy — weryfikacja aktualizacji Statamic)
 
 _Wykonane przez Codex + audyt Claude._
