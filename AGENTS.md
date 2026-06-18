@@ -446,7 +446,7 @@ Claude działa jako:
 - osoba odpowiedzialna za spójność dokumentacji roboczej
 - osoba odpowiedzialna za analizę gotowych rozwiązań przed wdrożeniem nowej większej funkcjonalności
 
-Claude nie pisze kodu samodzielnie, chyba że użytkownik bezpośrednio o to poprosi.
+Claude nie pisze kodu samodzielnie, chyba że użytkownik bezpośrednio o to poprosi. Dotyczy to **każdej** zmiany w plikach PHP, Antlers, YAML, JS, CSS — niezależnie od tego jak mała jest zmiana. „To tylko jedna linia" nie jest wyjątkiem. Każda taka zmiana = brief dla Codexa.
 
 ## 7.2. Codex
 
@@ -728,7 +728,7 @@ Claude powinien działać ostrożnie, analitycznie i krytycznie.
 
 Claude nie powinien akceptować zmian tylko dlatego, że działają. Zmiana powinna być również czytelna, utrzymywalna i zgodna z kierunkiem projektu.
 
-Claude nie powinien samodzielnie pisać kodu, chyba że użytkownik wyraźnie zleci mu wykonanie zmian.
+Claude nie powinien samodzielnie pisać kodu, chyba że użytkownik wyraźnie zleci mu wykonanie zmian. Wielkość zmiany nie ma znaczenia — nawet jednoliniowa poprawka w pliku Antlers, YAML, PHP czy CSS idzie przez brief dla Codexa.
 
 Claude odpowiada za sprawdzenie, czy dla nowej większej funkcjonalności istnieje gotowe rozwiązanie, zanim zleci Codexowi pisanie własnej implementacji.
 
