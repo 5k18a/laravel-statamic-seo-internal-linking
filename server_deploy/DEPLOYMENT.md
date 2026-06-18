@@ -95,6 +95,44 @@ mv www skalisty_2026
 
 ---
 
+## Deploy przyrostowy — 2026-06-19 — completion-year-sort + sync treści
+
+### Zakres wdrożenia
+
+- `FEATURE-completion-year-sort`: pole `completion_year` w blueprincie projects, computed field `completion_year_sort` w AppServiceProvider, `sort_field` w projects.yaml, `sort="completion_year_sort:desc"` w 3 tagach project_section
+- 2 nowe projekty zsynchronizowane z serwera: `djurs-sommerland`, `osada-jaworzyny-spa` (PL + 11 locale)
+- aktualizacja nawigacji PL (mega menu projektów) zsynchronizowana z serwera
+
+### Metoda
+
+Rsync bezpośredni SSH (bez pośredniej paczki tar.gz):
+
+```bash
+sshpass -p '...' rsync -av \
+  --exclude='.git' --exclude='.env' --exclude='node_modules/' \
+  --exclude='storage/framework/cache/' --exclude='storage/framework/sessions/' \
+  --exclude='storage/framework/views/' --exclude='storage/logs/' \
+  --exclude='database/database.sqlite' --exclude='public/hot' --exclude='ADMIN_ACCESS.txt' \
+  -e "ssh -o StrictHostKeyChecking=no" \
+  skalisty-orion/ skalisty@skalisty.ssh.dhosting.pl:skalisty_2026/
+```
+
+### Komendy post-deploy
+
+```bash
+php84 artisan config:clear && php84 artisan cache:clear && php84 artisan view:clear
+php84 artisan statamic:stache:refresh
+php84 artisan test  # → 2 passed
+```
+
+### Walidacja
+
+- `https://dev.skalisty.pl/realizacje` — 200, projekty posortowane malejąco po roku ✅
+- `https://dev.skalisty.pl/` — 200 ✅
+- blueprint field `completion_year` widoczny w CP → projekt → Sidebar ✅
+
+---
+
 ## Deploy przyrostowy — 2026-06-17 — Iconify + Icon Box With Text
 
 ### Zakres wdrożenia

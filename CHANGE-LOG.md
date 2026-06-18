@@ -4,6 +4,38 @@ Changelog projektu `skalisty-orion` — prowadzony przez Claude po każdym zako�
 
 ---
 
+## 2026-06-19 (SYNC-and-deploy-completion-year — synchronizacja i deploy sortowania)
+
+_Wykonane przez Claude bezpośrednio (na polecenie użytkownika)._
+
+### Zakres
+
+- **Pull content → lokalnie:** 2 nowe projekty PL (Djurs Sommerland 2021, Osada Jaworzyny 2020) + aktualizacja nawigacji PL (mega menu z projektami)
+- **Push kodu → serwer:** wdrożono `FEATURE-completion-year-sort` na `dev.skalisty.pl`
+- **Pull completion_year → lokalnie:** zsynchronizowano wartości dat sortowania uzupełnionych przez użytkownika w CP online
+
+### Nowe projekty w kolekcji
+
+- `djurs-sommerland` (PL + 11 locale) — completion_year: 2021
+- `osada-jaworzyny-spa` (PL + 11 locale) — completion_year: 2020
+
+### Deploy na serwer
+
+- rsync bez `--delete`, wykluczenie `.env`/`.git`/`node_modules`
+- post-deploy: `config:clear`, `cache:clear`, `view:clear`, `stache:refresh`
+- `php84 artisan test` → 2 passed ✅
+- `https://dev.skalisty.pl/realizacje` → HTTP 200, projekty posortowane malejąco po roku
+
+### Korekty dat po weryfikacji użytkownika
+
+Tarnowskie Termy: 2024 → **2015** (korekta przez użytkownika w CP)
+
+### Git
+
+- 3 commity: `3705b38`, `2e1beeb`, `0bfa98f`
+
+---
+
 ## 2026-06-19 (FEATURE-completion-year-sort — sortowanie projektów po roku zakończenia)
 
 _Wykonane przez Codex. Audyt i akceptacja: Claude._
