@@ -38,6 +38,23 @@ skopiowanie plików Oriona do projektu). W takim przypadku należy sprawdzić i 
 
 ---
 
+## 2026-06-18 (FEATURE-back-now-i18n — tłumaczenie napisu BACK NOW w lightboxie)
+
+_Wykonane przez Claude bezpośrednio (na polecenie użytkownika)._
+
+### Zakres
+
+- Napis `BACK NOW` w lightboxie zastąpiony `{{ trans key="Back Now" }}` w 4 plikach:
+  - `resources/views/partials/gallery-lightbox.antlers.html`
+  - `resources/views/page_builder/skalisty_gallery_section.antlers.html`
+  - `resources/views/page_builder/gallery_section.antlers.html` (2 wystąpienia)
+- `lang/en.json` — dodany klucz `"Back Now": "Back Now"`
+- `lang/pl.json` — dodany klucz `"Back Now": "Wróć"`
+- 10 pozostałych locales (cs, da, de, es, fr, it, lv, nl, no, sv) — przetłumaczone przez DeepL via `php artisan lang:translate --force`
+- Deploy na `dev.skalisty.pl` ✅
+
+---
+
 ## 2026-06-19 (SYNC-orientarium — synchronizacja nowego projektu z serwera)
 
 _Wykonane przez Claude (pull z dev.skalisty.pl)._

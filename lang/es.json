@@ -1,7 +1,7 @@
 {
     "Submit": "Enviar",
     "Share": "Compartir",
-    "Load More": "Cargar más",
+    "Load More": "Ver más",
     "Reply": "Responder",
     "Comments": "Comentarios",
     "View All": "Ver todo",
@@ -22,16 +22,17 @@
     "Company": "Empresa",
     "Budget": "Presupuesto",
     "Choose Plan": "Elige un plan",
-    "File Upload": "Subir archivo",
+    "File Upload": "Subida de archivos",
     "Upload File": "Subir archivo",
     "Your Comment": "Tu comentario",
-    "Your Website": "Tu sitio web",
+    "Your Website": "Tu página web",
     "Year Of Experience": "Años de experiencia",
-    "Position": "Puesto",
-    "Terms": "Condiciones",
-    "Enter your name": "Escribe tu nombre",
+    "Position": "Cargo",
+    "Terms": "Términos",
+    "Enter your name": "Introduce tu nombre",
     "Enter your phone": "Introduce tu número de teléfono",
     "Enter your email": "Introduce tu correo electrónico",
     "Your email address": "Tu dirección de correo electrónico",
-    "Enter your email adress": "Tu dirección de correo electrónico"
+    "Enter your email adress": "Tu dirección de correo electrónico",
+    "Back Now": "Ya estoy de vuelta"
 }

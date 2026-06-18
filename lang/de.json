@@ -2,7 +2,7 @@
     "Submit": "Absenden",
     "Share": "Teilen",
     "Load More": "Mehr laden",
-    "Reply": "Antworten",
+    "Reply": "Antwort",
     "Comments": "Kommentare",
     "View All": "Alle anzeigen",
     "No Data Found": "Keine Daten gefunden",
@@ -26,12 +26,13 @@
     "Upload File": "Datei hochladen",
     "Your Comment": "Ihr Kommentar",
     "Your Website": "Ihre Website",
-    "Year Of Experience": "Berufserfahrung (in Jahren)",
+    "Year Of Experience": "Berufserfahrung in Jahren",
     "Position": "Position",
     "Terms": "Begriffe",
     "Enter your name": "Geben Sie Ihren Namen ein",
     "Enter your phone": "Gib deine Telefonnummer ein",
-    "Enter your email": "Gib deine E-Mail-Adresse ein",
+    "Enter your email": "Geben Sie Ihre E-Mail-Adresse ein",
     "Your email address": "Ihre E-Mail-Adresse",
-    "Enter your email adress": "Ihre E-Mail-Adresse"
+    "Enter your email adress": "Ihre E-Mail-Adresse",
+    "Back Now": "Wieder da"
 }

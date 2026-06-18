@@ -5,7 +5,7 @@
     "Reply": "Svara",
     "Comments": "Kommentarer",
     "View All": "Visa alla",
-    "No Data Found": "Inga resultat hittades",
+    "No Data Found": "Inga data hittades",
     "Next Post": "Nästa inlägg",
     "Prev Post": "Föregående inlägg",
     "Category": "Kategori",
@@ -33,5 +33,6 @@
     "Enter your phone": "Ange ditt telefonnummer",
     "Enter your email": "Ange din e-postadress",
     "Your email address": "Din e-postadress",
-    "Enter your email adress": "Din e-postadress"
+    "Enter your email adress": "Din e-postadress",
+    "Back Now": "Tillbaka nu"
 }

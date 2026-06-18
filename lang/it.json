@@ -11,7 +11,7 @@
     "Category": "Categoria",
     "Search here...": "Cerca qui...",
     "Please select...": "Seleziona...",
-    "Full Name": "Nome e cognome",
+    "Full Name": "Nome completo",
     "First Name": "Nome",
     "Last Name": "Cognome",
     "Email Address": "Indirizzo e-mail",
@@ -33,5 +33,6 @@
     "Enter your phone": "Inserisci il tuo numero di telefono",
     "Enter your email": "Inserisci il tuo indirizzo e-mail",
     "Your email address": "Il tuo indirizzo e-mail",
-    "Enter your email adress": "Il tuo indirizzo e-mail"
+    "Enter your email adress": "Il tuo indirizzo e-mail",
+    "Back Now": "Di nuovo qui"
 }
