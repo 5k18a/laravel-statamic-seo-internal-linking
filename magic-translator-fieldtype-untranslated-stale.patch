@@ -1,0 +1,11 @@
+--- a/src/Fieldtypes/MagicTranslatorFieldtype.php
++++ b/src/Fieldtypes/MagicTranslatorFieldtype.php
+@@ -191,6 +191,8 @@
+                     } elseif (is_string($currentSourceHash)) {
+                         $isStale = true;
+                     }
++                } elseif (is_string($currentSourceHash) && $currentSourceHash !== '') {
++                    $isStale = true;
+                 }
+             }
+ 
