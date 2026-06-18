@@ -55,6 +55,28 @@ _Wykonane przez Claude bezpośrednio (na polecenie użytkownika)._
 
 ---
 
+## 2026-06-18 (BUGFIX-logo-proportions — proporcje logo w headerze)
+
+_Wykonane przez Claude bezpośrednio (na polecenie użytkownika)._
+
+### Zakres
+
+- **Diagnoza**: `<img>` w `header-1` i `header-4` miał `h-* max-w-full w-auto`. Podczas zwężania okna lub sticky transition `max-w-full` ograniczał szerokość, ale stała wysokość `h-*` nie ustępowała → spłaszczenie.
+- **Fix**: zmiana klas `<img>` w `header-1.antlers.html` i `header-4.antlers.html`:
+  `h-9 xl:h-13 2xl:h-14 max-w-full w-auto` → `max-h-9 xl:max-h-13 2xl:max-h-14 h-auto w-auto max-w-full`
+  Przy obu ograniczeniach jednocześnie (`max-h-*` + `max-w-full`) CSS skaluje oba wymiary proporcjonalnie.
+- **Rebuild CSS** (`npm run build`): klasy `max-h-9/13/14` nie istniały w `output.css` — bez rebuildu fix nie działał.
+- Deploy na `dev.skalisty.pl` ✅
+
+### Uwaga przy aktualizacji motywu Orion
+
+| Plik | Co sprawdzić |
+|------|-------------|
+| `resources/views/partials/header-1.antlers.html` | `<img>` ma `max-h-9 xl:max-h-13 2xl:max-h-14 h-auto w-auto max-w-full` (nie `h-*`) |
+| `resources/views/partials/header-4.antlers.html` | j.w. |
+
+---
+
 ## 2026-06-19 (SYNC-orientarium — synchronizacja nowego projektu z serwera)
 
 _Wykonane przez Claude (pull z dev.skalisty.pl)._

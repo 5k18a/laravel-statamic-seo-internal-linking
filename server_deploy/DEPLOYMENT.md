@@ -806,20 +806,42 @@ Pełny rsync przyrostowy (16 plików, speedup 569×). Post-deploy: `config:clear
 
 ---
 
+## Deploy przyrostowy — 2026-06-18 — BUGFIX-logo-proportions + CSS rebuild
+
+### Zakres wdrożenia
+
+**BUGFIX-logo-proportions:**
+- `resources/views/partials/header-1.antlers.html` — `<img>`: `h-* max-w-full w-auto` → `max-h-* h-auto w-auto max-w-full`
+- `resources/views/partials/header-4.antlers.html` — j.w.
+- `public/assets/css/output.css` — rebuild Tailwind (`npm run build`): dodanie `max-h-9/13/14` do skompilowanego CSS
+
+**Sync assets (serwer → lokalnie):**
+- `public/assets/galeria/djurs-sommerland/` — 4 webp + meta
+- `public/assets/galeria/osada-jaworzyny/` — 4 webp + meta
+- `public/assets/logo-klienci/image(1).webp` + meta
+
+### Metoda
+
+Rsync przyrostowy (2 szablony + CSS), post-deploy: `view:clear` — OK ✅
+
+---
+
 ## Status na dzień 2026-06-18
 
 | Element | Status |
 |---------|--------|
 | Serwer | ✅ `dev.skalisty.pl` — HTTP 200 (PL + EN) |
-| Ostatni deploy | ✅ rsync przyrostowy, 2026-06-18 (BACK NOW i18n) |
+| Ostatni deploy | ✅ rsync przyrostowy, 2026-06-18 (logo-proportions + CSS rebuild) |
 | Statamic CMS | ✅ v6.21.0 |
 | wysiwyg-html-fieldtype | ✅ v1.1.0 |
+| Logo proportions fix | ✅ `max-h-* h-auto w-auto max-w-full` w header-1 i header-4 |
 | BACK NOW i18n (lightbox) | ✅ `{{ trans key="Back Now" }}` — 12 języków |
+| Blog image_section fix | ✅ `{{ images }}` + lightbox + `gallery-lightbox` partial |
 | Blueprint projects — details defaults | ✅ 4 Info Items pre-wypełnione |
 | Logos Slider with Icons | ✅ nowy set Page Buildera |
 | logo-klienci assets | ✅ nowy kontener z logotypami |
 | Sticky header default | ✅ `data-header-type` na `<body>` + JS switcherVisible |
-| CSS | ✅ `output.css` — Tailwind v4 syntax fix |
+| CSS | ✅ `output.css` — Tailwind v4 + max-h-* |
 | Logo | ✅ PNG (`logo-skalisty-2.png`, `logo-skalisty-white-2.png`) |
 | YouTube video | ✅ `<iframe>` + `toEmbedUrl()` w custom.js |
 | Gallery Section | ✅ nowy blok page buildera |

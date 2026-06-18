@@ -4,15 +4,15 @@
 # Aktualizowany po każdym zakończonym zadaniu
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-19-1300
+state_version: 2026-06-18-EOD
 active_task_id: none
 active_task_name: Brak aktywnego zadania
 active_task_status: idle
-active_task_source: BRIEF_CODEX.md
-last_sync: 2026-06-19 13:00 Europe/Warsaw
+active_task_source: —
+last_sync: 2026-06-18 EOD Europe/Warsaw
 last_synced_by: Claude
-last_closed: UPDATE-statamic-6.20.3-deploy
-next_after_active: Decyzja użytkownika — retłumaczenie Home EN lub Formularze kontaktowe
+last_closed: BUGFIX-logo-proportions
+next_after_active: Decyzja użytkownika — formularze kontaktowe lub inne zadanie
 <!-- PROJECT_SYNC_END -->
 
 ---
@@ -100,6 +100,9 @@ Projekt `skalisty-orion` jest aktywną instalacją Laravel 13 + Statamic 6 opart
 | HOTFIX-20 — kolizja paneli nav i lang (guard + reset) | ✅ Gotowe (2026-06-07) — guard `!open\|\|hidden` w `closeLangPanel`; `remove("hidden","open")` w `openLangPanel` |
 | Globals i18n — touch_with_us (10 języków) | ✅ Gotowe (2026-06-06) — DeepL; komenda `globals:translate`; `content/globals/{sv,no,nl,lv,it,fr,es,de,da,cs}/touch_with_us.yaml` |
 | Lang i18n — 35 kluczy, 12 języków | ✅ Gotowe (2026-06-06) — `lang/en.json` 35 kluczy; `lang/pl.json` kompletny; 10 plików `lang/*.json` wypełnione DeepL; komenda `lang:translate` |
+| BUGFIX-blog-image-section | ✅ Gotowe (2026-06-18) — `{{ image }}` → `{{ images }}` w 4 szablonach bloga; lightbox fix (`js-gallery`, `href="javascript:;"`); nowy partial `gallery-lightbox.antlers.html` |
+| FEATURE-back-now-i18n | ✅ Gotowe (2026-06-18) — `BACK NOW` → `{{ trans key="Back Now" }}` w 4 plikach; klucz 36 w `lang/en.json` (PL: "Wróć"); 10 locales przetłumaczone DeepL |
+| BUGFIX-logo-proportions | ✅ Gotowe (2026-06-18) — `header-1/4`: `h-* max-w-full w-auto` → `max-h-* h-auto w-auto max-w-full`; `npm run build` (max-h-* brakowało w output.css) |
 | Form labels {{ trans }} fix — 7 widoków | ✅ Gotowe (2026-06-06) — `{{ display }}` → `{{ trans :key="display" }}` w `let-connect-section`, `career`, `quotation`, `blog-detail-one/two/three/four` |
 | Lightbox-close-fix — X + click-outside | ✅ Gotowe (2026-06-07) — przycisk X obok fullscreen; `$("#galleryLightbox").on("click",...)` w `setupLightbox()`; deploy → dev.skalisty.pl |
 | Project-toggles — widoczność 3 sekcji | ✅ Gotowe (2026-06-07) — `show_milestones`, `show_team_section`, `show_related_projects` w blueprint + `{{ if }}` w widoku; `default: false` |
@@ -147,7 +150,7 @@ Projekt `skalisty-orion` jest aktywną instalacją Laravel 13 + Statamic 6 opart
 3. **Orion jako baza** — motyw Orion nie jest zastępowany, tylko adaptowany. Nie wracamy do ręcznej migracji HTML.
 4. **Origin globals: pl = origin, en = dziedziczy** — po naprawa 8 plików globals pola PL są edytowalne w CP.
 5. **Natywny selector entries w nawigacji** — wystarczyło dodać `collections:` do `content/navigation/main.yaml`. Nie trzeba było modyfikować blueprintu ani renderera.
-6. **Git lokalny, brak remote** — do czasu decyzji użytkownika.
+6. **Git z remote — `origin` → `https://github.com/5k18a/skalisty-laravel.git`; push na koniec sesji** — do czasu decyzji użytkownika.
 7. **`.gitignore` rozszerzony** — `ADMIN_ACCESS.txt` i `/users/*.yaml` są ignorowane przez git.
 8. **APP_URL = `127.0.0.1`, nie `localhost`** — unikanie problemów z sesją i toolbarem.
 9. **Logo PNG zamiast SVG** — SVG renderowało inaczej w Firefox (font Overpass nie ładowany przez stronę); PNG 594×120px 2x generowane Inkscape.
@@ -168,9 +171,9 @@ Projekt `skalisty-orion` jest aktywną instalacją Laravel 13 + Statamic 6 opart
 | PHP | 8.4 (binarka: `/opt/alt/php84/usr/bin/php`) |
 | DB | MySQL — dane w `server_deploy/SERWER_DOSTEP.txt` |
 | APP_ENV | `local` (świadoma decyzja — pomija licencję Statamic Pro) |
-| Statamic na serwerze | v6.20.2 (zaktualizowane 2026-06-06) |
-| Ostatni deploy | 2026-06-17 — rsync przyrostowy (Iconify + Icon Box With Text + cleanup remote icons/icons2) |
-| Ostatni content pull | 2026-06-08 — content-pull-6 (3 nowe projekty × 12 locale, assets, profil admina) |
+| Statamic na serwerze | v6.21.0 (zaktualizowane 2026-06-19) |
+| Ostatni deploy | 2026-06-18 — rsync przyrostowy (logo proportions fix + CSS rebuild) |
+| Ostatni content pull | 2026-06-18 — djurs-sommerland, osada-jaworzyny galerie + logo klienta |
 | Ostatni backup lokalny | 2026-06-17 — `skalisty-orion-backup-8.tar.gz` (354 MB) |
 | Dokumentacja | `server_deploy/DEPLOYMENT.md` |
 
@@ -250,9 +253,13 @@ SEO zadanie #3: audyt wykonany 2026-06-06, dane z skalisty.pl udokumentowane w P
 
 ## Aktywny brief
 
-Brak aktywnego zadania. Content pull i backup ukończone (2026-06-08).
+Brak aktywnego zadania. Sesja 2026-06-18 zamknięta.
 
 ## Ostatnio zamknięte
+
+**BUGFIX-logo-proportions** ✅ 2026-06-18 — header-1 + header-4: `max-h-9 xl:max-h-13 2xl:max-h-14 h-auto w-auto max-w-full` na img; kontener `shrink-0 max-w-[150px] md:max-w-[190px] xl:max-w-[300px] 1xl:max-w-[340px] 2xl:max-w-full`; `npm run build` wymagany (klasy były pominięte przez Tailwind tree-shaking). Ryzyko: Orion działa poza Composerem — aktualizacje Oriona mogą nadpisać header partials.
+
+**FEATURE-back-now-i18n** ✅ 2026-06-18 — `BACK NOW` hardcoded → `{{ trans key="Back Now" }}` w 4 widokach (gallery-lightbox, skalisty_gallery_section, gallery_section ×2); `lang/en.json` + `lang/pl.json` (klucz 36); 10 pozostałych języków przez `php artisan lang:translate --force`.
 
 **Content-pull-6 + Backup-5** ✅ 2026-06-08 — rsync serwer→lokalnie: `content/` (--delete): 3 nowe projekty × 12 locale (baseny-tropikalne, woliera-dzioborozca-zoo-warszawa, wybieg-wydry-europejskiej); `public/assets/` (excl. css/): galeria/baseny-tropikalne (5 webp), images/strony (5 webp), projekty (2 webp); `users/` profil admina; post-pull: stache:refresh OK. Backup `skalisty-orion-backup-5.tar.gz` 344 MB.
 
@@ -381,7 +388,7 @@ php artisan queue:restart
 2. Brief dla Codexa zawsze zapisywany do `BRIEF_CODEX.md` w workspace
 3. Przed każdym briefem Claude czyta `CONCLUSIONS_CODEX.md` i `CODEX_SUGGESTIONS.md`
 4. Po każdym zakończonym zadaniu Claude aktualizuje ten plik i `PROJECT_STATUS_CODEX.md`
-5. Git lokalny — brak remote
+5. Git z remote — `origin` → `https://github.com/5k18a/skalisty-laravel.git`; push na koniec sesji
 
 ---
 
@@ -394,3 +401,17 @@ Pliki wrażliwe — nigdy nie commitować:
 - `.env`
 
 Dodane do `.gitignore`: `ADMIN_ACCESS.txt`, `/users/*.yaml`
+
+---
+
+## Dziennik sesji
+
+### 2026-06-18
+
+**FEATURE-back-now-i18n**: `BACK NOW` hardcoded → `{{ trans key="Back Now" }}` w 4 widokach (gallery-lightbox, skalisty_gallery_section, gallery_section); `lang/en.json` + `lang/pl.json` klucz 36; 10 języków przetłumaczone przez `php artisan lang:translate --force`. Deploy na `dev.skalisty.pl`.
+
+**BUGFIX-logo-proportions**: Logo spłaszczało się przy zwężaniu. Fix: `max-h-9 xl:max-h-13 2xl:max-h-14 h-auto w-auto max-w-full` na img w header-1 + header-4; kontener `shrink-0 max-w-[150px/190px/300px/340px/full]`. Kluczowe: `npm run build` wymagany — klasy nie były w `output.css` przez Tailwind tree-shaking (silent failure). Deploy na `dev.skalisty.pl`.
+
+**Sync offline←online**: Pobrano brakujące assety (galeria djurs-sommerland, osada-jaworzyny, logo-klienci, patch magic-translator-untranslated-stale). Lokalnie teraz w pełni zsynchronizowane z serwerem.
+
+**Git**: Wszystkie zmiany sesji scommitowane + push na `origin/main`.
