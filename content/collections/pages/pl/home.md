@@ -647,45 +647,6 @@ page_builder:
         enabled: true
     type: trusted_partners_section
     enabled: true
-  -
-    id: zk2pAxaHNYZmHqw0G2hfB
-    logos:
-      -
-        id: Ejim9zWV7TB5qRas0ocFM
-        icon:
-          name: 'fa6-solid:horse'
-          attributes:
-            width: 1.13em
-            height: 1em
-            viewBox: '0 0 576 512'
-          viewBox:
-            - 0
-            - 0
-            - 576
-            - 512
-          body: '<path fill="currentColor" d="M448 238.1V160h16l9.8 19.6c12.5 25.1 42.2 36.4 68.3 26c20.5-8.2 33.9-28 33.9-50.1V80c0-19.1-8.4-36.3-21.7-48h5.7c8.8 0 16-7.2 16-16s-7.2-16-16-16H448c-70.7 0-128 57.3-128 128H148.8c-30.7 0-57.6 16.3-72.5 40.8C33.2 174.5 0 211.4 0 256v56c0 13.3 10.7 24 24 24s24-10.7 24-24v-56c0-13.4 6.6-25.2 16.7-32.5c1.6 13 6.3 25.4 13.6 36.4l28.2 42.4c8.3 12.4 6.4 28.7-1.2 41.6c-16.5 28-20.6 62.2-10 93.9l17.5 52.4c4.4 13.1 16.6 21.9 30.4 21.9h33.7c21.8 0 37.3-21.4 30.4-42.1l-20.8-62.5c-2.1-6.4-.5-13.4 4.3-18.2l12.7-12.7c13.2-13.2 20.6-31.1 20.6-49.7q0-3.45-.3-6.9l84 24c4.1 1.2 8.2 2.1 12.3 2.8L320 480c0 17.7 14.3 32 32 32h32c17.7 0 32-14.3 32-32V315.7c19.2-19.2 31.5-45.7 32-75.7zM496 64a16 16 0 1 1 0 32a16 16 0 1 1 0-32"/>'
-        name: test
-        type: logo_item
-        enabled: true
-      -
-        id: fEOjEIEGxwc8zQY2jy9fu
-        icon:
-          name: 'heroicons:home-solid'
-          attributes:
-            width: 1em
-            height: 1em
-            viewBox: '0 0 24 24'
-          viewBox:
-            - 0
-            - 0
-            - 24
-            - 24
-          body: '<g fill="currentColor"><path d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06z"/><path d="m12 5.432l8.159 8.159q.045.044.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198l.091-.086z"/></g>'
-        name: dfhgbdfhfd
-        type: logo_item
-        enabled: true
-    type: logos_slider_with_icons
-    enabled: true
 updated_by: 07f72358-0580-4aaf-b00c-6a3760228419
-updated_at: 1781770609
+updated_at: 1781720962
 ---
