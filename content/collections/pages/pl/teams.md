@@ -1,6 +1,5 @@
 ---
 id: 815f80c4-d748-49cd-ac80-dc7250c15fc9
-origin: 106a4d67-5167-4455-b134-d8bcdd63a9e8
 blueprint: page
 title: Team
 author: 15c0f104-0188-406c-b4ef-af40e61a13db

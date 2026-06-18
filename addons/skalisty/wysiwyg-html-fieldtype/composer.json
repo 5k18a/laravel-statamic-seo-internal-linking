@@ -1,0 +1,38 @@
+{
+    "name": "skalisty/wysiwyg-html-fieldtype",
+    "version": "0.1.0",
+    "autoload": {
+        "psr-4": {
+            "Skalisty\\WysiwygHtmlFieldtype\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Skalisty\\WysiwygHtmlFieldtype\\Tests\\": "tests"
+        }
+    },
+    "require": {
+        "statamic/cms": "^6.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^10.8"
+    },
+    "config": {
+        "allow-plugins": {
+            "pixelfear/composer-dist-plugin": true
+        }
+    },
+    "extra": {
+        "statamic": {
+            "name": "Wysiwyg Html Fieldtype",
+            "description": "Wysiwyg Html Fieldtype addon"
+        },
+        "laravel": {
+            "providers": [
+                "Skalisty\\WysiwygHtmlFieldtype\\ServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

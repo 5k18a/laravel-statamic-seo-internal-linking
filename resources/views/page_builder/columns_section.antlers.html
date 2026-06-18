@@ -1,0 +1,13 @@
+<section class="relative {{ if width != 'full_no_padding' }}2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] md:mb-[50px] mb-8{{ /if }} cms-content"
+    {{ if background_color }}style="background-color: {{ background_color }};"{{ /if }}>
+    <div class="{{ if width == 'full' || width == 'full_no_padding' }}w-full{{ /if }} {{ if width != 'full_no_padding' }}2xl:py-20 1xl:py-16 lg:py-14 sm:py-10 py-6 px-4{{ /if }}"
+        {{ if width != 'full' && width != 'full_no_padding' }}style="max-width: {{ width }}%; margin: 0 auto;"{{ /if }}>
+        <div class="grid gap-6 grid-cols-1 {{ if columns_layout == '2' }}md:grid-cols-2{{ elseif columns_layout == '3' }}md:grid-cols-3{{ else }}md:grid-cols-4{{ /if }}">
+            {{ columns }}
+                <div class="min-w-0">
+                    {{ content }}
+                </div>
+            {{ /columns }}
+        </div>
+    </div>
+</section>

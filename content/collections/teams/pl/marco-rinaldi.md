@@ -1,6 +1,5 @@
 ---
 id: 8a049d3a-0676-40a5-8022-14f180332d0c
-origin: c6cb3599-ee59-4874-855f-53dd2a821c34
 blueprint: team
 title: 'Marco Rinaldi'
 member_info:

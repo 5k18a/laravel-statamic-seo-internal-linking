@@ -1,6 +1,26 @@
 title: 'Newsletter & Cookies'
 sites:
   en:
-    origin: null
+    origin: pl
   pl:
-    origin: en
+    origin: null
+  sv:
+    origin: pl
+  no:
+    origin: pl
+  nl:
+    origin: pl
+  lv:
+    origin: pl
+  it:
+    origin: pl
+  fr:
+    origin: pl
+  es:
+    origin: pl
+  de:
+    origin: pl
+  da:
+    origin: pl
+  cs:
+    origin: pl

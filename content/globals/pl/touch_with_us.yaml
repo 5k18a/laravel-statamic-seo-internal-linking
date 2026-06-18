@@ -1,13 +1,13 @@
-sub_title: "Let's Connect"
-heading: 'Get in touch with us'
-subheading: 'We’re here to answer your questions, discuss your ideas, and bring your project to life.'
+sub_title: 'Nasz Adres'
+heading: 'Skontaktuj się z nami'
+subheading: 'Jesteśmy tu po to, aby odpowiedzieć na Twoje pytania, omówić Twoje pomysły i zrealizować Twój projekt.'
 offices:
   -
     id: mhlk0i72
-    country: INDIA
-    flag: images/india-flag.webp
-    address: 'Plot No. 2, 4th Floor, Skyline Business Park, Noida, Uttar Pradesh 201301, India'
-    map_link: 'https://www.google.com/maps/place/Plot+No.+2,+4th+Floor,+Skyline+Business+Park,+Noida,+Uttar+Pradesh+201301,+India'
+    country: Polska
+    flag: images/strony/flag-of-poland.png
+    address: 'ul. Strachowicka 48a, 54-512 Wrocław, Polska'
+    map_link: 'https://maps.app.goo.gl/vEBRA1jn5Tf7546t6'
     type: office
     enabled: true
   -
@@ -26,14 +26,9 @@ socials:
     id: mhlk4ipw
     title: Facebook
     platform: facebook-f
-    url: 'https://www.facebook.com/'
-  -
-    id: mhlk4kqs
-    title: Twitter
-    platform: x-twitter
-    url: 'https://www.twitter.com/'
+    url: 'https://www.facebook.com/skalistyPL/'
   -
     id: mhlk4mu3
-    title: Instagram
-    platform: instagram
-    url: 'https://www.instagram.com/'
+    title: Linkedin
+    platform: linkedin-in
+    url: 'https://www.linkedin.com/company/skalisty-artificial-artificial-rocks-and-theming/'

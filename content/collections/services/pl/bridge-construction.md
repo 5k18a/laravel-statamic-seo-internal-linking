@@ -1,6 +1,5 @@
 ---
 id: f4bb0aad-5188-4354-baec-5b71fda3c04d
-origin: 6608109f-ac6b-4364-a68e-98522c04c8fe
 blueprint: service
 title: 'Bridge Construction'
 icon: images/faq-7.png

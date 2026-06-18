@@ -3,6 +3,12 @@
     "name": "statamic/statamic",
     "type": "project",
     "description": "Statamic",
+    "repositories": [
+        {
+            "type": "path",
+            "url": "./addons/skalisty/wysiwyg-html-fieldtype"
+        }
+    ],
     "keywords": [
         "statamic",
         "cms",
@@ -11,10 +17,14 @@
     ],
     "require": {
         "php": "^8.3",
+        "cweagans/composer-patches": "^2.0",
         "el-schneider/statamic-magic-translator": "^0.1.2",
+        "eminos/statamic-iconify": "^2.1",
         "laravel/framework": "^13.8",
         "laravel/tinker": "^3.0",
+        "skalisty/wysiwyg-html-fieldtype": "^0.1.0",
         "statamic/cms": "^6.0",
+        "statamic/seo-pro": "^7.10",
         "superinteractive/statamic-super-admin-toolbar": "^2.1"
     },
     "require-dev": {
@@ -80,8 +90,21 @@
         ]
     },
     "extra": {
+        "composer-exit-on-patch-failure": true,
         "laravel": {
             "dont-discover": []
+        },
+        "patches": {
+            "el-schneider/statamic-magic-translator": {
+                "HOTFIX-10+11: fieldset imports and group type - FieldDefinitionBuilder": "patches/magic-translator-field-definition-builder.patch",
+                "HOTFIX-11+16: group type and wysiwyg_html - FieldClassifier": "patches/magic-translator-field-classifier.patch",
+                "HOTFIX-11: group type support - ContentExtractor": "patches/magic-translator-content-extractor.patch",
+                "HOTFIX-17: tag_handling html - DeepLTranslationService": "patches/magic-translator-deepl-service.patch",
+                "HOTFIX: untranslated locale shows as done - MagicTranslatorFieldtype": "patches/magic-translator-fieldtype-untranslated-stale.patch"
+            },
+            "statamic/cms": {
+                "HOTFIX-18: Locales dictionary fallback via scandir when proc_open unavailable": "patches/statamic-cms-locales-proc-open-fallback.patch"
+            }
         }
     },
     "config": {
@@ -89,6 +112,7 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
+            "cweagans/composer-patches": true,
             "pestphp/pest-plugin": true,
             "php-http/discovery": true,
             "pixelfear/composer-dist-plugin": true

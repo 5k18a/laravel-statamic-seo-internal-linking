@@ -16,6 +16,7 @@ fields:
                 type: assets
                 display: 'Logo Image'
                 instructions: 'Upload the logo icon (e.g., only-logo.svg)'
+                container: assets
                 mode: single
                 max_files: 1
             -

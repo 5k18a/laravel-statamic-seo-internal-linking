@@ -13,11 +13,13 @@ tabs:
               validate:
                 - required
               display: Question
+              localizable: true
           -
             handle: answer
             field:
               type: textarea
               display: Answer
+              localizable: true
   sidebar:
     display: Sidebar
     sections:

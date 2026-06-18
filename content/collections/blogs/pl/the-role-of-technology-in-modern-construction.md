@@ -1,6 +1,5 @@
 ---
 id: 4541dc16-7149-499e-bb93-148c04315b7a
-origin: 02d134de-9b4a-482d-a21e-7f136eca731d
 blueprint: blog
 title: 'The Role of Technology in Modern Construction'
 image: images/blog-5.webp

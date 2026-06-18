@@ -1,0 +1,38 @@
+--- a/src/Extraction/ContentExtractor.php
++++ b/src/Extraction/ContentExtractor.php
+@@ -127,6 +127,7 @@
+             'replicator' => $this->extractReplicator($fieldConfig, $value, $path),
+             'grid' => $this->extractGrid($fieldConfig, $value, $path),
+             'table' => $this->extractTable($value, $path),
++            'group' => $this->extractGroup($fieldConfig, $value, $path),
+             default => [],
+         };
+     }
+@@ -197,6 +198,27 @@
+     }
+ 
+     /**
++     * Extract from a group field.
++     *
++     * A group is a single associative array of sub-field values (not a list of rows).
++     * Sub-field definitions live in $fieldConfig['fields'].
++     *
++     * @param  array<string, mixed>  $fieldConfig
++     * @param  array<string, mixed>  $value
++     * @return TranslationUnit[]
++     */
++    private function extractGroup(array $fieldConfig, array $value, string $path): array
++    {
++        $columnFields = $fieldConfig['fields'] ?? [];
++
++        if ($columnFields === []) {
++            return [];
++        }
++
++        return $this->extractWithPrefix($value, $columnFields, $path, insideContainer: true);
++    }
++
++    /**
+      * Extract from a table field.
+      *
+      * Each row has a `cells` key with a list of plain string values.

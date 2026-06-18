@@ -1,6 +1,5 @@
 ---
 id: 342248c6-83f8-4f6f-b0af-c5c82cfe571c
-origin: c68ef918-bc7c-4eaf-9dc6-f0a981894af7
 blueprint: blog
 title: 'Must-Follow Safety Rules Every Jobsite Needs'
 image: images/blog-12.webp

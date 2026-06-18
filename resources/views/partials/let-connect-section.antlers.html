@@ -75,7 +75,7 @@
                             <div class="relative {{ if type == 'textarea' || handle == 'name' }}sm:col-span-2{{ /if }}">
                                 {{ if type == "textarea" ||  type == 'text' || type == 'email' }}
                                 <label for="{{ handle }}" class="block mb-1.5 p text-black">
-                                  {{ display }}  {{ if validate }}
+                                  {{ trans :key="display" }}  {{ if validate }}
                                   {{ if validate contains="required" }}*{{ /if }}
                                   {{ /if }}
                               </label>
@@ -102,7 +102,7 @@
                         {{ /fields }}
 
                     </div>
-                    <button type="submit" class="btn btn-primary xl:mt-[26px] mt-6">Submit</button>
+                    <button type="submit" class="btn btn-primary xl:mt-[26px] mt-6">{{ trans key="Submit" }}</button>
                     <p id="successMessage"class="form-message bg-primary-900/12 hidden top-0 right-auto mt-5 w-fit text-primary-900 px-4 py-2 transform translate-x-0 transition-all">                    </p>
 
                     {{ /form:contact }}

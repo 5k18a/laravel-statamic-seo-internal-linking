@@ -1,6 +1,5 @@
 ---
 id: 783b8122-49c1-489c-ba17-f23ce5513fed
-origin: b72f5ea8-5415-4574-9cb2-9ae9c40008e0
 blueprint: blog
 title: 'Benefits of Modular Building'
 image: images/blog-13.webp

@@ -1,6 +1,5 @@
 ---
 id: 7b93fa79-0637-4834-b58b-b3239907b776
-origin: 0ef7227b-7189-4993-af1b-3770034c8df9
 blueprint: page
 title: 'Privacy Policy'
 author: 15c0f104-0188-406c-b4ef-af40e61a13db

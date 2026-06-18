@@ -1,5 +1,6 @@
 ---
 id: 36f36203-2f1b-4c82-b1a7-a184653e5805
+origin: fe34f50f-95d0-4510-9041-43ef2193ab99
 blueprint: job_position
 title: 'Site Supervisor'
 details:

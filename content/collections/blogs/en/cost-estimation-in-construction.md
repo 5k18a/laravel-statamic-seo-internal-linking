@@ -1,5 +1,6 @@
 ---
 id: f1584b72-a870-4d8c-a0d0-c62fb783e128
+origin: 18d7fe15-5f28-4da4-bc25-22b067fb92d6
 blueprint: blog
 title: 'Cost Estimation in Construction'
 image: images/blog-2.webp

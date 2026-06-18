@@ -85,6 +85,7 @@ fields:
             type: assets
             display: 'Main Image'
             instructions: 'Upload the right-side image (e.g., discover-banner.webp)'
+            container: assets
             mode: single
             max_files: 1
         -
@@ -111,5 +112,6 @@ fields:
                   type: assets
                   display: 'Customer Images'
                   instructions: 'Upload multiple customer review images'
+                  container: assets
                   mode: list
                   max_files: 6

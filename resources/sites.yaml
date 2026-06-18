@@ -6,3 +6,43 @@ en:
   name: English
   url: /en/
   locale: en_US
+sv:
+  name: Svenska
+  url: /sv/
+  locale: sv_SE
+no:
+  name: Norsk
+  url: /no/
+  locale: nb_NO
+nl:
+  name: Nederlands
+  url: /nl/
+  locale: nl_NL
+lv:
+  name: Latviešu
+  url: /lv/
+  locale: lv_LV
+it:
+  name: Italiano
+  url: /it/
+  locale: it_IT
+fr:
+  name: Français
+  url: /fr/
+  locale: fr_FR
+es:
+  name: Español
+  url: /es/
+  locale: es_ES
+de:
+  name: Deutsch
+  url: /de/
+  locale: de_DE
+da:
+  name: Dansk
+  url: /da/
+  locale: da_DK
+cs:
+  name: Čeština
+  url: /cs/
+  locale: cs_CZ

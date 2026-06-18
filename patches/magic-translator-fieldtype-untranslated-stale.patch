@@ -1,0 +1,20 @@
+--- a/src/Fieldtypes/MagicTranslatorFieldtype.php
++++ b/src/Fieldtypes/MagicTranslatorFieldtype.php
+@@ -158,7 +158,7 @@
+ 
+         $sitesData = Site::all()->filter(
+             fn ($site) => in_array($site->handle(), $allowedHandles, true)
+-        )->map(function ($site) use ($entry, $originUpdatedAt, $currentSourceHash) {
++        )->map(function ($site) use ($entry, $originUpdatedAt, $currentSourceHash, $originSite) {
+             $siteHandle = $site->handle();
+             $localization = $entry->in($siteHandle);
+             $exists = $localization !== null;
+@@ -191,6 +191,8 @@
+                     } elseif (is_string($currentSourceHash)) {
+                         $isStale = true;
+                     }
++                } elseif (is_string($currentSourceHash) && $currentSourceHash !== '' && $siteHandle !== $originSite) {
++                    $exists = false;
+                 }
+             }
+ 

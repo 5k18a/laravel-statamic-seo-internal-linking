@@ -1,6 +1,5 @@
 ---
 id: bb164406-1a5b-4522-b08d-ea504245c3dd
-origin: fb9b6993-9304-4ecd-aa30-8402893d0c4f
 blueprint: page
 title: 'Contact Us'
 author: 15c0f104-0188-406c-b4ef-af40e61a13db

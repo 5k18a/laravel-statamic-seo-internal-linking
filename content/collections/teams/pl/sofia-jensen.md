@@ -1,6 +1,5 @@
 ---
 id: 2b4c2738-0b12-4bcc-b03b-aff669833afb
-origin: 53605dc1-1090-4f9e-94d7-d2821a835ad0
 blueprint: team
 title: 'Sofia Jensen'
 member_info:

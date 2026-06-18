@@ -1,0 +1,17 @@
+title: 'Skalisty Gallery Section'
+fields:
+  -
+    handle: section_title
+    field:
+      default: Galeria
+      type: text
+      display: 'Tytuł sekcji'
+  -
+    handle: galleries
+    field:
+      mode: select
+      collections:
+        - galleries
+      type: entries
+      display: Galerie
+      instructions: 'Wybierz galerie do wyświetlenia. Każda galeria może zawierać wiele zdjęć.'

@@ -1,0 +1,33 @@
+--- a/src/Support/FieldDefinitionBuilder.php
++++ b/src/Support/FieldDefinitionBuilder.php
+@@ -5,6 +5,7 @@
+ namespace ElSchneider\MagicTranslator\Support;
+ 
+ use Statamic\Fields\Blueprint;
++use Statamic\Facades\Fieldset;
+ 
+ final class FieldDefinitionBuilder
+ {
+@@ -28,7 +29,7 @@
+ 
+         return match ($type) {
+             'replicator', 'bard' => self::normalizeSetConfig($config),
+-            'grid' => self::normalizeGridConfig($config),
++            'grid', 'group' => self::normalizeGridConfig($config),
+             default => $config,
+         };
+     }
+@@ -119,6 +120,13 @@
+             }
+ 
+             if (isset($item['import'])) {
++                $fieldset = Fieldset::find((string) $item['import']);
++
++                if ($fieldset !== null) {
++                    $resolved = self::normalizeFieldItems($fieldset->contents()['fields'] ?? []);
++                    $result = array_merge($result, $resolved);
++                }
++
+                 continue;
+             }
+ 

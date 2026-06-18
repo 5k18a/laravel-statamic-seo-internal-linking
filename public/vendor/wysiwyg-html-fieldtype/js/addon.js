@@ -1,0 +1,1 @@
+../../../../addons/skalisty/wysiwyg-html-fieldtype/resources/dist/addon.js

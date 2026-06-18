@@ -21,6 +21,7 @@ fields:
             display: 'Video Thumbnail'
             mode: single
             required: true
+            container: assets
         -
           handle: video_url
           field:
@@ -50,6 +51,7 @@ fields:
       type: assets
       display: 'Right Side Banner Image'
       mode: single
+      container: assets
 
   -
     handle: primary_button

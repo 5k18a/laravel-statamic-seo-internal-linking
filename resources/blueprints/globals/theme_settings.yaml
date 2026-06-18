@@ -5,6 +5,20 @@ tabs:
       -
         fields:
           -
+            handle: show_theme_switcher
+            field:
+              type: toggle
+              display: 'Pokaż przełącznik motywu'
+              instructions: 'Włącz aby wyświetlić przycisk zmiany kolorystyki i stylu headera na froncie'
+              default: true
+          -
+            handle: show_search
+            field:
+              type: toggle
+              display: 'Pokaż pole wyszukiwania'
+              instructions: 'Włącz aby wyświetlić przycisk i pole wyszukiwania w headerze'
+              default: true
+          -
             handle: title
             field:
               type: text

@@ -1,6 +1,5 @@
 ---
 id: d054317e-1595-4cdc-a2a8-95f41921332a
-origin: 32297519-f0c1-479f-adaa-9bc6194d2a1c
 blueprint: service
 title: 'Interior Fit-Out & Finishing'
 icon: images/faq-10.png

@@ -1,5 +1,6 @@
 ---
 id: ef318d5b-7cdf-4215-8e6f-3195996cf581
+origin: adc4d838-fe49-4351-910a-2fb7977a2144
 blueprint: project
 title: 'Vertex Industrial Park'
 image: images/project-5.webp

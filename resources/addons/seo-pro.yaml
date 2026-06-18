@@ -1,0 +1,40 @@
+site_defaults_sites:
+  pl: null
+  en: null
+  sv: pl
+  'no': pl
+  nl: pl
+  lv: pl
+  it: pl
+  fr: pl
+  es: pl
+  de: pl
+  da: pl
+  cs: pl
+site_defaults:
+  pl:
+    site_name: Skalisty
+    site_name_position: after
+    site_name_separator: '|'
+    title: '@seo:title'
+    description: 'Skalisty - sztuczne skały, drzewa i tematyczne aranżacje.'
+    canonical_url: '@seo:permalink'
+    json_ld_entity: organization
+    json_ld_organization_name: Skalisty
+    json_ld_breadcrumbs: true
+    og_type: website
+    priority: 0.5
+    change_frequency: monthly
+  en:
+    site_name: Skalisty
+    site_name_position: after
+    site_name_separator: '|'
+    title: '@seo:title'
+    description: 'Skalisty - artificial rocks, trees and themed environments.'
+    canonical_url: '@seo:permalink'
+    json_ld_entity: organization
+    json_ld_organization_name: Skalisty
+    json_ld_breadcrumbs: true
+    og_type: website
+    priority: 0.5
+    change_frequency: monthly

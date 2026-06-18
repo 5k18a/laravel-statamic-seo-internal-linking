@@ -1,5 +1,6 @@
 ---
 id: 751473f4-d4ca-4fae-ac75-1dd243b5ff79
+origin: 88421bbe-d0cd-46c4-8b92-36ab1ab8d4bf
 blueprint: blog
 title: 'Steps Involved in the Construction Process'
 image: images/blog-6.webp

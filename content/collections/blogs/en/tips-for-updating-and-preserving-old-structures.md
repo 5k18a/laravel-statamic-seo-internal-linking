@@ -1,5 +1,6 @@
 ---
 id: b4943a1d-51ce-4a82-ae58-b70d1f0878f9
+origin: 2b9e7b45-16ed-4e96-a803-df8223367f8d
 blueprint: blog
 title: 'Tips for Updating and Preserving Old Structures'
 image: images/blog-14.webp

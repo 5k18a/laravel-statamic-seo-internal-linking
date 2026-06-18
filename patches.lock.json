@@ -1,0 +1,69 @@
+{
+    "_hash": "a6b6d3e9a82df4503405c0a1141ab1d4ff1a9b1fa172a03b5c15ffa2b9c29ab6",
+    "patches": {
+        "el-schneider/statamic-magic-translator": [
+            {
+                "package": "el-schneider/statamic-magic-translator",
+                "description": "HOTFIX-10+11: fieldset imports and group type - FieldDefinitionBuilder",
+                "url": "patches/magic-translator-field-definition-builder.patch",
+                "sha256": "78aeb80995fc3f4bba7b20dc4c358d25ffe3c6949cd1fec6a2c0a5d2523eda7b",
+                "depth": 1,
+                "extra": {
+                    "provenance": "root"
+                }
+            },
+            {
+                "package": "el-schneider/statamic-magic-translator",
+                "description": "HOTFIX-11+16: group type and wysiwyg_html - FieldClassifier",
+                "url": "patches/magic-translator-field-classifier.patch",
+                "sha256": "d29bc325e8cccfcfb7de4d0718a2a35844ff6e883b98650ad9df1e97383355a9",
+                "depth": 1,
+                "extra": {
+                    "provenance": "root"
+                }
+            },
+            {
+                "package": "el-schneider/statamic-magic-translator",
+                "description": "HOTFIX-11: group type support - ContentExtractor",
+                "url": "patches/magic-translator-content-extractor.patch",
+                "sha256": "56a6088ec8c49355296e79bdcf4956b74792f69204238166a3c45219a2e4e8b9",
+                "depth": 1,
+                "extra": {
+                    "provenance": "root"
+                }
+            },
+            {
+                "package": "el-schneider/statamic-magic-translator",
+                "description": "HOTFIX-17: tag_handling html - DeepLTranslationService",
+                "url": "patches/magic-translator-deepl-service.patch",
+                "sha256": "281ac24409bd4ed4d1bb576a60601a1cb86f576d1f82766ec8b3e5ad8107cae5",
+                "depth": 1,
+                "extra": {
+                    "provenance": "root"
+                }
+            },
+            {
+                "package": "el-schneider/statamic-magic-translator",
+                "description": "HOTFIX: untranslated locale shows as done - MagicTranslatorFieldtype",
+                "url": "patches/magic-translator-fieldtype-untranslated-stale.patch",
+                "sha256": "832b43251930d242e6c415ab94d46b6c5bf3fe70be6bd970d8ae462150e4d6f7",
+                "depth": 1,
+                "extra": {
+                    "provenance": "root"
+                }
+            }
+        ],
+        "statamic/cms": [
+            {
+                "package": "statamic/cms",
+                "description": "HOTFIX-18: Locales dictionary fallback via scandir when proc_open unavailable",
+                "url": "patches/statamic-cms-locales-proc-open-fallback.patch",
+                "sha256": "a5b3ce0ae019bb475943ac4e678eaf2373457de4c546e693ae53bb7fd44cafc8",
+                "depth": 1,
+                "extra": {
+                    "provenance": "root"
+                }
+            }
+        ]
+    }
+}

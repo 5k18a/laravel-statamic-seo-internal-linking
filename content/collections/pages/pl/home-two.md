@@ -1,6 +1,5 @@
 ---
 id: b7fcb7f6-4a0d-4d49-9998-1a23df59e4c7
-origin: 506cce6c-761d-4335-b03a-e7d93f46e238
 blueprint: page
 title: 'Home Two'
 author: 15c0f104-0188-406c-b4ef-af40e61a13db

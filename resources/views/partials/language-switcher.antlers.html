@@ -26,7 +26,23 @@
           hreflang="{{ locale:short }}"
           lang="{{ locale:short }}"
           class="flex items-center justify-between rounded-[14px] px-3 py-2 text-left text-[12px] font-medium leading-none transition-all {{ if is_current }}bg-primary-900 text-white{{ else }}text-black hover:bg-primary-900/10 hover:text-primary-900{{ /if }}">
-          <span>{{ locale:name }}</span>
+          <span class="flex items-center gap-3">
+            <span aria-hidden="true" class="inline-flex w-6 shrink-0 justify-center text-base leading-none">
+              {{ if locale:short == "pl" }}🇵🇱{{ /if }}
+              {{ if locale:short == "en" }}🇺🇸{{ /if }}
+              {{ if locale:short == "sv" }}🇸🇪{{ /if }}
+              {{ if locale:short == "nb" }}🇳🇴{{ /if }}
+              {{ if locale:short == "nl" }}🇳🇱{{ /if }}
+              {{ if locale:short == "lv" }}🇱🇻{{ /if }}
+              {{ if locale:short == "it" }}🇮🇹{{ /if }}
+              {{ if locale:short == "fr" }}🇫🇷{{ /if }}
+              {{ if locale:short == "es" }}🇪🇸{{ /if }}
+              {{ if locale:short == "de" }}🇩🇪{{ /if }}
+              {{ if locale:short == "da" }}🇩🇰{{ /if }}
+              {{ if locale:short == "cs" }}🇨🇿{{ /if }}
+            </span>
+            <span>{{ locale:name }}</span>
+          </span>
           <span class="text-[10px] uppercase tracking-[0.18em]">{{ locale:short }}</span>
         </a>
       {{ /locales }}

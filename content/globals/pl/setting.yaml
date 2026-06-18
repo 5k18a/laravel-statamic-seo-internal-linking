@@ -1,9 +1,9 @@
-show_preloader: images/preloader.svg
+show_preloader: images/identyfikacja-strony/logo-white-eng(1000x712px).png
 favicon: images/favicon.png
-logo: images/logo-dark.svg
-logo_white: images/logo-white.svg
-phone_number: '+1 234 5678 999'
-email: info@orionconstruction.com
+logo: images/identyfikacja-strony/logo-skalisty-2.png
+logo_white: images/identyfikacja-strony/logo-skalisty-white-2.png
+phone_number: '+48 504 133 554'
+email: biuro@skalisty.pl
 socials:
   -
     id: mgt154hu

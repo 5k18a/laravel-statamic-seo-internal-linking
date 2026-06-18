@@ -1,6 +1,5 @@
 ---
 id: 58a7c076-bec7-4cce-b9b1-bae517539ecf
-origin: eb172cd5-aabf-4c05-a918-1dfb9feefbdc
 blueprint: job_position
 title: 'General Laborer'
 details:

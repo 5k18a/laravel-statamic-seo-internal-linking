@@ -55,6 +55,7 @@ fields:
     field:
       type: assets
       display: 'Right Image'
+      container: assets
       max_files: 1
       folder: images
       instructions: 'Upload the confidence section image'

@@ -1,6 +1,5 @@
 ---
 id: 77381870-5c32-4a38-a1c2-53e19e3e3df0
-origin: e2af55b6-a15f-4acf-b895-768e66d05baf
 blueprint: testimonial
 title: 'Ava R.'
 image: images/2nd-testimonial-1.webp

@@ -159,13 +159,13 @@
                                     {{ project_entries limit="5"}}
                                     <li class="flex flex-col items-start sm:gap-[17px] gap-[12px] group">
                                        <div class="relative w-full">
-                                          <a href="/project/{{ slug }}"
+                                          <a href="{{ url }}"
                                              class="w-full h-full overflow-hidden relative sm:before:pt-[116%] before:pt-[60%] before:block">
                                              {{ image }}<img src="{{ url }}" alt="project-1"
                                                 class="w-full h-full object-cover absolute top-0 left-0 right-0 bottom-0"
                                                 loading="lazy" decoding="async" />{{ /image }}
                                           </a>
-                                          <a href="/project/{{ slug }}" class="project-arrow group/arrow">
+                                          <a href="{{ url }}" class="project-arrow group/arrow">
                                              <svg xmlns="http://www.w3.org/2000/svg" width="39" height="39"
                                                 viewBox="0 0 39 39"
                                                 class="2xl:w-[39px] 2xl:h-[39px] lg:w-9 lg:h-9 w-[30px] h-[30px] group-hover/arrow:stroke-primary-900 stroke-black"
@@ -177,7 +177,7 @@
                                              </svg>
                                           </a>
                                        </div>
-                                       <a href="/project/{{ slug }}">
+                                       <a href="{{ url }}">
                                           <p
                                              class="text-black group-hover/project:text-primary-900 normal-case m-0 font-lexend font-normal">
                                              {{ title }}
@@ -289,6 +289,8 @@
                   <div class="flex items-center gap-2 relative">
                      {{ partial:language-switcher }}
                   </div>
+                  {{ theme_settings }}
+                  {{ if show_search }}
                   <div id="searchToggleWrapper" class="flex items-center gap-2 relative">
                      <!-- Search Button -->
                      <div id="searchButton"
@@ -325,7 +327,7 @@
                            </svg>
                         </button>
 
-                        <input type="text" id="searchInput" name="q" placeholder="Search here..."
+                        <input type="text" id="searchInput" name="q" placeholder="{{ trans key='Search here...' }}"
                            class="h-full focus:outline-none p font-light text-black w-full pr-3 focus:ring-0" />
                         <!-- Close button INSIDE (only for ≥768px) -->
 
@@ -353,6 +355,8 @@
                         class="hidden max-h-[75vh] overflow-y-auto search-suggestions-panel absolute top-full left-auto lg:right-[60px] 2xl:right-[100px] 1xl:right-[90px] xl:w-[70%] lg:w-[73%] w-full bg-white">
                      </div>
                   </div>
+                  {{ /if }}
+                  {{ /theme_settings }}
                </div>
                <button data-collapse-toggle="navbar-default" type="button"
                   class="mobile-toggle inline-flex items-center p-2 w-10 justify-center text-sm rounded-lg lg:hidden focus:outline-none dark:focus:ring-gray-600 group h-full"

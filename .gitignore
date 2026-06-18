@@ -30,7 +30,14 @@ Thumbs.db
 
 # Credentials
 ADMIN_ACCESS.txt
+/server_deploy/SERWER_DOSTEP.txt
 
 # Statamic users (contain password hashes - do not commit to remote)
 /users/*.yaml
 !/users/.gitkeep
+
+# Addon local node_modules (build: cd addons/skalisty/wysiwyg-html-fieldtype && npm install && npm run build)
+/addons/skalisty/wysiwyg-html-fieldtype/node_modules/
+
+# Published vendor assets - regenerate with: php artisan vendor:publish --all
+/public/vendor/statamic/

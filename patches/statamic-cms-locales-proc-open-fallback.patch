@@ -1,0 +1,48 @@
+--- a/src/Dictionaries/Locales.php	2026-06-05 20:05:00.381770088 +0200
++++ b/src/Dictionaries/Locales.php	2026-06-05 20:05:34.903319382 +0200
+@@ -17,17 +17,35 @@
+ 
+     protected function getItems(): array
+     {
+-        $output = Process::run($this->buildLocalesCommand());
++        if (function_exists('proc_open')) {
++            $output = Process::run($this->buildLocalesCommand());
+ 
+-        return collect(explode(PHP_EOL, $output))
+-            ->filter(fn ($locale) => mb_check_encoding($locale, 'UTF-8'))
+-            ->map(fn ($locale) => Str::before($locale, '.'))
+-            ->reject(fn ($locale) => in_array($locale, ['C', 'POSIX']))
+-            ->filter()
+-            ->sort()
+-            ->values()
+-            ->map(fn ($locale) => ['name' => $locale])
+-            ->all();
++            return collect(explode(PHP_EOL, $output))
++                ->filter(fn ($locale) => mb_check_encoding($locale, 'UTF-8'))
++                ->map(fn ($locale) => Str::before($locale, '.'))
++                ->reject(fn ($locale) => in_array($locale, ['C', 'POSIX']))
++                ->filter()
++                ->sort()
++                ->values()
++                ->map(fn ($locale) => ['name' => $locale])
++                ->all();
++        }
++
++        $localeDir = '/usr/share/locale';
++        if (@is_dir($localeDir)) {
++            return collect(scandir($localeDir))
++                ->filter(fn ($locale) => $locale !== '.' && $locale !== '..' && mb_check_encoding($locale, 'UTF-8'))
++                ->map(fn ($locale) => Str::before($locale, '.'))
++                ->reject(fn ($locale) => in_array($locale, ['C', 'POSIX']))
++                ->filter()
++                ->sort()
++                ->unique()
++                ->values()
++                ->map(fn ($locale) => ['name' => $locale])
++                ->all();
++        }
++
++        return [];
+     }
+ 
+     private function buildLocalesCommand(): array

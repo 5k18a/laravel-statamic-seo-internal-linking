@@ -1,6 +1,5 @@
 ---
 id: 4b10d7ca-1e26-439a-97c0-d164209621c9
-origin: 6efda6f9-0ffe-487f-9a39-5f087d5febfa
 blueprint: team
 title: 'Victor Almeida'
 member_info:

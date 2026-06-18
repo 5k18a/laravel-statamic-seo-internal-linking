@@ -1,6 +1,5 @@
 ---
 id: 432abd4a-e735-4a38-8f0d-bc7f593fb2af
-origin: 8abde58f-705e-4e69-9665-5942bbeeb883
 blueprint: package
 title: 'Industrial Projects'
 price: 150

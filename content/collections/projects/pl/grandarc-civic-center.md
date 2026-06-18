@@ -1,6 +1,6 @@
 ---
 id: 4cba4442-52fc-48c0-aa5d-c6e3580c01ed
-origin: f0cead7e-365f-4ca3-be1a-30058e3ecf77
+published: false
 blueprint: project
 title: 'GrandArc Civic Center'
 image: images/project-18.webp

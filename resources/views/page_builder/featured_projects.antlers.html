@@ -17,11 +17,11 @@
                 <div class="swiper-slide">
                   <div class="group">
                     <div class="overflow-hidden relative 2xl:before:pt-[112%] before:pt-[110%] before:block">
-                      <a href="/project/{{ slug }}" class="absolute top-0 left-0 w-full h-full block">
+                      <a href="{{ url }}" class="absolute top-0 left-0 w-full h-full block">
                         <img src="{{ image }} {{ url }} {{ /image }}" alt="{{ title }}" class="h-full w-full object-cover" loading="lazy"
                           decoding="async" />
                       </a>
-                      <a href="/project/{{ slug }}"
+                      <a href="{{ url }}"
                         class="2xl:w-[85px] 2xl:h-[85px] xl:w-[68px] xl:h-[68px] sm:w-[62px] sm:h-[62px] w-10 h-10 rounded-full bg-white/80 items-center justify-center absolute top-3 lg:top-5 right-3 lg:right-5 hover:bg-white hover:text-primary-900 hidden group-hover:flex">
                         <svg xmlns="http://www.w3.org/2000/svg" width="69" height="69" viewBox="0 0 69 69" fill="none"
                           class="2xl:w-[69px] lg:w-[60px] sm:w-[55px] w-10">
@@ -32,7 +32,7 @@
                     </div>
                     <div class="xl:mt-7 lg:mt-5 mt-4">
                       <h5 class="project-name">
-                        <a href="/project/{{ slug }}" class="group-hover:text-primary-900">{{ title }}</a>
+                        <a href="{{ url }}" class="group-hover:text-primary-900">{{ title }}</a>
                       </h5>
                     </div>
                   </div>

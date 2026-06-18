@@ -1,6 +1,5 @@
 ---
 id: 883d3acf-98db-42b8-8572-503b48f457a4
-origin: 747b426a-0725-4845-9e92-179f9fe50899
 blueprint: team
 title: 'Ethan Morales'
 member_info:

@@ -1,5 +1,6 @@
 ---
 id: 69ae33c5-d430-4216-bf68-efaa8169d6bb
+origin: 44ecb226-620e-4dea-8417-7d73d7cabbbf
 blueprint: team
 title: 'Emilia Novak'
 member_info:

@@ -1,6 +1,5 @@
 ---
 id: 0eea78ea-7264-4504-9547-01058789b5d1
-origin: f7ecde70-9340-4b80-8d2e-9f13fac0c12f
 blueprint: package
 title: 'Civil Works'
 price: 170

@@ -1,5 +1,6 @@
 ---
 id: 58948af5-0a57-46ba-860c-a9b8c76070e7
+origin: ef588471-f1bb-4c6a-beb7-17b603a04707
 blueprint: page
 title: 'Terms and Conditions'
 author: 15c0f104-0188-406c-b4ef-af40e61a13db

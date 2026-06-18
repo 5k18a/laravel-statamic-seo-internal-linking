@@ -1,6 +1,5 @@
 ---
 id: a72046b7-cb86-47a3-9511-166292834a4d
-origin: 035c89fb-c87c-42b4-956e-044cad07c226
 blueprint: package
 title: 'Luxury & Premium Build'
 price: 200

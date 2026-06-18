@@ -1,5 +1,6 @@
 ---
 id: b60a9648-51f2-4e04-94cf-05d86fba4034
+origin: 9ab7a891-de53-49a7-b8ea-7526c4fc050a
 blueprint: job_position
 title: 'Carpenter (Framing & Finish)'
 details:

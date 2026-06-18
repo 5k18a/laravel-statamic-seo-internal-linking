@@ -1,6 +1,5 @@
 ---
 id: 6b2a9964-dfaa-412a-b4e1-ea1b6f612ad7
-origin: ff70aaa3-672e-4a2e-bd58-b78eedb811d2
 blueprint: blog
 title: 'Top Construction Tools'
 image: images/blog-detail-4-banner.webp

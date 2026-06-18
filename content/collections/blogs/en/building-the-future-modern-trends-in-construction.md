@@ -1,5 +1,6 @@
 ---
 id: dd484a6d-0dab-4b21-bcb7-76964ee6aa08
+origin: e7ce2681-0123-426b-876c-92c2dcb24103
 blueprint: blog
 title: 'Building the Future: Modern Trends in Construction'
 image: images/blog-9.webp

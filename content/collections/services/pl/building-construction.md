@@ -1,6 +1,5 @@
 ---
 id: b0c8aad1-760e-4570-ada1-1d8c95f6cdb8
-origin: d43bcc27-9312-4895-a882-1e33476bc0a1
 blueprint: service
 title: 'Building Construction'
 icon: images/faq-1.png

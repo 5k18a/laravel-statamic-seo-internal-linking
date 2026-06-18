@@ -1,0 +1,39 @@
+sub_title: Sazināsimies
+heading: 'Sazinieties ar mums'
+subheading: 'Mēs esam šeit, lai atbildētu uz jūsu jautājumiem, apspriestu jūsu idejas un īstenotu jūsu projektu.'
+offices:
+  -
+    id: mhlk0i72
+    country: INDIJA
+    flag: images/india-flag.webp
+    address: 'Plot Nr. 2, 4. stāvs, Skyline Business Park, Noida, Utarpradeša 201301, Indija'
+    map_link: 'https://www.google.com/maps/place/Plot+No.+2,+4th+Floor,+Skyline+Business+Park,+Noida,+Uttar+Pradesh+201301,+India'
+    type: office
+    enabled: true
+  -
+    id: mhlk1x39
+    country: VĀCIJA
+    flag: images/germany-flag.webp
+    address: 'Schillerplatz 9, 3. stāvs, Business Tower City Center, 173, Vācija'
+    map_link: 'https://www.google.com/maps/place/Schillerplatz+9,+3rd+Floor,+Business+Tower+City+Center,+173,+Germany'
+    type: office
+    enabled: true
+content_title: KONTAKTI
+email: info@orionconstruction.com
+phone: '+123456789099'
+socials:
+  -
+    id: mhlk4ipw
+    title: Facebook
+    platform: facebook-f
+    url: 'https://www.facebook.com/'
+  -
+    id: mhlk4kqs
+    title: Twitter
+    platform: x-twitter
+    url: 'https://www.twitter.com/'
+  -
+    id: mhlk4mu3
+    title: Instagram
+    platform: instagram
+    url: 'https://www.instagram.com/'

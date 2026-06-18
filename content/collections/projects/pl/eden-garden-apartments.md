@@ -1,6 +1,6 @@
 ---
 id: 6b75617b-5fa9-4c64-8ce8-a4e2b0cd9790
-origin: d7807c38-e351-4b78-b67d-e3138f717163
+published: false
 blueprint: project
 title: 'Eden Garden Apartments'
 image: images/project-16.webp

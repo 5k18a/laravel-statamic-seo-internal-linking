@@ -1,6 +1,5 @@
 ---
 id: 7ce0fdc2-053d-48fa-8875-809b03bc6b30
-origin: 5c2bfc28-ce0c-426b-98e2-8abbb24195ed
 blueprint: team
 title: 'Thomas Bauer'
 member_info:

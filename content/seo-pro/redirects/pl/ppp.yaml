@@ -1,0 +1,4 @@
+source: /ppp
+destination: 'entry::bb164406-1a5b-4522-b08d-ea504245c3dd'
+response_code: 301
+enabled: true

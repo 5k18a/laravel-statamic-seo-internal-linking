@@ -1,6 +1,5 @@
 ---
 id: 4d15eb66-05fd-4104-8d58-c73a0ba0a74e
-origin: 2b8c1d68-7a18-4d38-a520-7993c74e8021
 blueprint: team
 title: 'Natalia Rivera'
 member_info:

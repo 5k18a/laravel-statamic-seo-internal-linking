@@ -7,9 +7,9 @@
    <!-- navbar start -->
    <nav>
       <div class="flex items-stretch justify-between mx-auto">
-         <div class="shrink-0 max-w-[140px] md:max-w-[180px] xl:max-w-[200px] 1xl:max-w-[250px] 2xl:max-w-full">
+         <div class="shrink-0 max-w-[150px] md:max-w-[190px] xl:max-w-[300px] 1xl:max-w-[340px] 2xl:max-w-full">
             <a href="{{ site:url }}" class="flex items-center py-2 sm:py-4 2xl:py-7 px-5 1xl:px-10 bg-white transition-all logo-box">
-               {{ setting }}{{ logo }}<img src="{{ url }}" class="2xl:h-14 xl:h-13 h-9" alt="Logo" loading="lazy" />{{
+               {{ setting }}{{ logo }}<img src="{{ url }}" class="2xl:h-14 xl:h-13 h-9 max-w-full w-auto" alt="Logo" loading="lazy" />{{
                /logo }} {{ /setting }}
             </a>
          </div>
@@ -145,11 +145,11 @@
                                  {{ project_entries limit="5"}}
                                  <li class="flex flex-col items-start sm:gap-[17px] gap-[12px] group/project h-auto">
                                     <div class="relative w-full h-full">
-                                       <a href="/project/{{ slug }}" class="w-full h-full">
+                                       <a href="{{ url }}" class="w-full h-full">
                                           {{ image }}<img src="{{ url }}" alt="project-1"
                                              class="w-full h-full object-cover" loading="lazy" />{{ /image }}
                                        </a>
-                                       <a href="/project/{{ slug }}" class="project-arrow group/arrow">
+                                       <a href="{{ url }}" class="project-arrow group/arrow">
                                           <svg xmlns="http://www.w3.org/2000/svg" width="39" height="39"
                                              viewBox="0 0 39 39"
                                              class="2xl:w-[39px] 2xl:h-[39px] lg:w-9 lg:h-9 w-[30px] h-[30px] group-hover/arrow:stroke-primary-900 stroke-black"
@@ -160,7 +160,7 @@
                                           </svg>
                                        </a>
                                     </div>
-                                    <a href="/project/{{ slug }}">
+                                    <a href="{{ url }}">
                                        <p
                                           class="text-black group-hover/project:text-primary-900 normal-case m-0 font-lexend uppercase">
                                           {{ title }}
@@ -258,12 +258,42 @@
 
                </ul>
             </div>
+            <div id="lang-mobile-panel" class="hidden lg:hidden mobile-nav">
+               <div class="bg-white h-full overflow-y-auto overscroll-contain">
+                  {{ locales all="true" current_first="true" }}
+                  <a href="{{ if permalink }}{{ permalink }}{{ else }}{{ locale:url }}{{ /if }}"
+                     hreflang="{{ locale:short }}" lang="{{ locale:short }}"
+                     class="flex items-center justify-between px-5 py-4 text-sm font-medium border-b border-gray-100 {{ if is_current }}text-primary-900 font-semibold{{ else }}text-black{{ /if }}">
+                     <span class="flex items-center gap-3">
+                        <span aria-hidden="true" class="inline-flex w-6 shrink-0 justify-center text-base leading-none">
+                           {{ if locale:short == "pl" }}🇵🇱{{ /if }}
+                           {{ if locale:short == "en" }}🇺🇸{{ /if }}
+                           {{ if locale:short == "sv" }}🇸🇪{{ /if }}
+                           {{ if locale:short == "nb" }}🇳🇴{{ /if }}
+                           {{ if locale:short == "nl" }}🇳🇱{{ /if }}
+                           {{ if locale:short == "lv" }}🇱🇻{{ /if }}
+                           {{ if locale:short == "it" }}🇮🇹{{ /if }}
+                           {{ if locale:short == "fr" }}🇫🇷{{ /if }}
+                           {{ if locale:short == "es" }}🇪🇸{{ /if }}
+                           {{ if locale:short == "de" }}🇩🇪{{ /if }}
+                           {{ if locale:short == "da" }}🇩🇰{{ /if }}
+                           {{ if locale:short == "cs" }}🇨🇿{{ /if }}
+                        </span>
+                        <span>{{ locale:name }}</span>
+                     </span>
+                     <span class="text-[10px] uppercase tracking-[0.18em] text-gray-400">{{ locale:short }}</span>
+                  </a>
+                  {{ /locales }}
+               </div>
+            </div>
             <div class="h-auto flex items-center gap-[5px]">
                <div class="w-full">
 
                   <div class="flex items-center gap-2 relative">
                      {{ partial:language-switcher }}
                   </div>
+                  {{ theme_settings }}
+                  {{ if show_search }}
                   <div id="searchToggleWrapper" class="flex items-center gap-2 relative">
 
                      <div id="searchButton"
@@ -300,7 +330,7 @@
                            </svg>
                         </button>
 
-                        <input type="text" id="searchInput" name="q" placeholder="Search here..."
+                        <input type="text" id="searchInput" name="q" placeholder="{{ trans key='Search here...' }}"
                            class="h-full focus:outline-none p font-light text-black w-full pr-3 focus:ring-0" />
 
                         <div id="search-loader" class="hidden">
@@ -323,11 +353,15 @@
                         </button>
                      </div>
                   </div>
+                  {{ /if }}
                </div>
             </div>
+            {{ if show_search }}
             <div id="searchSuggestions"
                class="hidden max-h-[75vh] overflow-y-auto search-suggestions-panel absolute top-full left-auto lg:right-[60px] 2xl:right-[100px] 1xl:right-[90px] xl:w-[72%] lg:w-[73%] w-full bg-white">
             </div>
+            {{ /if }}
+            {{ /theme_settings }}
 
             <button data-collapse-toggle="navbar-default" type="button"
                class="mobile-toggle inline-flex items-center w-fit justify-center lg:hidden focus:outline-none dark:focus:ring-gray-600 group h-full"

@@ -1,6 +1,6 @@
 ---
 id: 015862bd-bad4-4a10-8e79-7d651b6a56af
-origin: 930b2660-8020-4da4-a48c-5a89242ac209
+published: false
 blueprint: project
 title: 'Central Steel Yard'
 image: images/project-11.webp

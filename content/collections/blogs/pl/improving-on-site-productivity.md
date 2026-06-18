@@ -1,6 +1,5 @@
 ---
 id: 0902fb86-a98e-464d-82da-e34a7b0205dd
-origin: 518ae189-4c09-4405-b12b-777e8495303a
 blueprint: blog
 title: 'Improving On-Site Productivity'
 image: images/about-us-banner.webp

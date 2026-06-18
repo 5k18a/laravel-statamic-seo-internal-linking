@@ -1,6 +1,5 @@
 ---
 id: e76b5f82-cf78-47b3-a19c-cca145dbc854
-origin: 39651f52-6cc3-4eb3-a19b-18bcaf264233
 blueprint: team
 title: 'Ava Schneider'
 member_info:

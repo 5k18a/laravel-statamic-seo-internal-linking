@@ -1,6 +1,5 @@
 ---
 id: eb2d8d9e-923f-4427-bd2b-a02ea7235403
-origin: 1edc52be-7c23-42f6-a79b-79a5d73429c4
 blueprint: page
 title: Package
 author: 15c0f104-0188-406c-b4ef-af40e61a13db

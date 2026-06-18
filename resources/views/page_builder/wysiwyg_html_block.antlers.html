@@ -1,0 +1,7 @@
+<section class="relative 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] md:mb-[50px] mb-8 cms-content"
+    {{ if background_color }}style="background-color: {{ background_color }};"{{ /if }}>
+    <div class="2xl:py-20 1xl:py-16 lg:py-14 sm:py-10 py-6 px-4 {{ if width == 'full' }}w-full{{ /if }}"
+        {{ if width != 'full' }}style="max-width: {{ width }}%; margin: 0 auto;"{{ /if }}>
+        {{ content }}
+    </div>
+</section>

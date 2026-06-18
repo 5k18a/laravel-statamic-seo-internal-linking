@@ -1,5 +1,6 @@
 ---
 id: 5e085cca-101b-4c16-b71b-e26e5321e946
+origin: d23a91c6-cdd0-46b4-bd98-a9a43c035a28
 blueprint: project
 title: 'Hill View Office Interiors'
 image: images/project-12.webp

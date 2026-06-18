@@ -1,6 +1,6 @@
 ---
 id: e59e55ea-d9e2-418d-a89e-34798b346adc
-origin: b2bf20da-2be9-4519-82f0-5face096c497
+published: false
 blueprint: project
 title: 'Sunrise International School'
 image: images/project-2.webp

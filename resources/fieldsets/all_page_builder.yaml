@@ -91,6 +91,11 @@ fields:
               fields:
                 -
                   import: what_we_do_section
+            icon_box_with_text_section:
+              display: 'Icon Box With Text Section'
+              fields:
+                -
+                  import: icon_box_with_text_section
             about_vision_section:
               display: 'About Vision Section'
               fields:
@@ -146,6 +151,11 @@ fields:
               fields:
                 -
                   import: gallery_section
+            skalisty_gallery_section:
+              display: 'Skalisty Gallery Section'
+              fields:
+                -
+                  import: skalisty_gallery_section
             feature_image_with_points:
               display: 'Feature Image with Points'
               fields:
@@ -231,3 +241,18 @@ fields:
               fields:
                 -
                   import: package_section
+            free_text_section:
+              display: 'Free Text Section'
+              fields:
+                -
+                  import: free_text_section
+            wysiwyg_html_block:
+              display: 'HTML Editor Block'
+              fields:
+                -
+                  import: wysiwyg_html_block
+            columns_section:
+              display: 'Columns Section'
+              fields:
+                -
+                  import: columns_section

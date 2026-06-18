@@ -5,19 +5,17 @@ tree:
     url: /about-us
   -
     id: a7feb3d5-91e3-41ff-94ae-f969e2edb62a
-    title: Projects
-    url: /projects
+    title: Realizacje
+    url: /realizacje
     data:
       menu_type: project-list
       project_entries:
-        - 0960496c-40bd-4061-9e79-f74e3bf2dcaa
-        - 930b2660-8020-4da4-a48c-5a89242ac209
-        - f881146c-f217-4370-a4f5-79d69e2c5e51
-        - 3a9e9898-fec3-4f0f-adf0-5b13a60b6a63
-        - 339182d4-7ccd-483f-9d0e-5d24bb1ba1fe
-      button_text: 'View Projects'
-      button_link: /projects
-      copyright_text: '© All rights reserved to Orion Constructions'
+        - 2faf2240-5b5a-4561-b19b-60864e00b00a
+        - 67a33d60-dfab-48c9-a4ec-87039f93cccd
+        - 68f2f470-b879-45f4-8b18-15a517fb45c0
+      button_text: 'Przeglądaj Realizacje'
+      button_link: /realizacje
+      copyright_text: '© Wszelkie prawa zastrzeżone przez Skalisty Group sp. z o.o.'
   -
     id: 0f64feda-3c94-4b43-98f5-0e39fadceca2
     title: Services
@@ -214,3 +212,6 @@ tree:
     id: 75759c6e-2b06-4e1a-9436-1b2a05045d79
     title: 'Contact Us'
     url: /contact-us
+  -
+    id: 5de2d0a0-afa3-42a2-af2f-74cd0563ced0
+    entry: 42846cb9-4db6-46ba-857d-af41b2c36fdc

@@ -1,5 +1,6 @@
 ---
 id: 84dfdaf9-b483-47c1-85de-5145217ce1ee
+origin: 830ad5fe-c82a-4fea-82cc-f43f1985f918
 blueprint: blog
 title: '5 Key Safety Practices to Follow on a Construction Site'
 image: images/blog-detail-2.webp

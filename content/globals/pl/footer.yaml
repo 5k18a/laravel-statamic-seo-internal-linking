@@ -1,14 +1,14 @@
-useful_link_title: 'Useful Links'
-our_services_title: 'Our Services'
+useful_link_title: 'Przydatne Linki'
+our_services_title: 'Nasze Usługi'
 our_branches_title: 'Our Branches'
-copyright_text: '© All rights reserved to Orion Constructions'
-newsletter_button_text: Submit
-description: 'Orion Construction is a leading construction company delivering high-quality infrastructure, commercial, and residential projects.'
+copyright_text: '© Wszelkie prawa zastrzeżone przez Skalisty Group sp. z o.o.'
+newsletter_button_text: Wyślij
+description: 'Jesteśmy specjalistami w zakresie budowy sztucznych skał, sztucznych drzew, wodospadów, grot skalnych i dekoracji tematycznych z betonu. Projektujemy i wykonujemy biotopy dla ogrodów zoologicznych, dekoracje dla oceanariów i akwariów wielkolitrażowych oraz tematyzacje dla parków wodnych, parków rozrywki, hoteli i obiektów rekreacyjnych. Od ponad 15 lat realizujemy wielkoformatowe projekty tematyzacyjne w Polsce i Europie.'
 privacy_policy: /privacy-policy
 privacy_policy_label: 'Privacy policy'
 terms_conditions_url: /terms-and-conditions
 terms_conditions_label: 'Terms & conditions'
-footer_image: images/footer-bg.webp
+footer_image: images/strony/amonit-sztuczna-skala.webp
 links:
   -
     id: mgt4dkau

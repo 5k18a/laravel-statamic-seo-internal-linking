@@ -6,6 +6,7 @@ fields:
       type: markdown
       display: Content
       localizable: true
+      listable: false
   -
     handle: author
     field:

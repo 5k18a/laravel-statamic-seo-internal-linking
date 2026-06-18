@@ -1,6 +1,5 @@
 ---
 id: f4d565ff-b2e5-4061-a32e-a7e2b0c2b260
-origin: 5f023b7c-053b-4380-a118-b6f252fee7a2
 blueprint: service
 title: 'Project Management'
 icon: images/faq-6.png

@@ -1,5 +1,6 @@
 ---
 id: 905416c6-c9ca-4b2e-b430-e50f57e5d790
+origin: ae9876b5-aa43-41d2-98ca-629cb0070949
 blueprint: blog
 title: 'Sustainable Construction Practices You Need to Know'
 image: images/blog-8.webp

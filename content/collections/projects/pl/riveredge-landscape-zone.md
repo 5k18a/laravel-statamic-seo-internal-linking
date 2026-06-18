@@ -1,6 +1,6 @@
 ---
 id: 2b35f84f-def5-4bba-a62e-3fed21d41c0b
-origin: 07a22b07-7dc0-44ec-899a-aa1e4e2a759f
+published: false
 blueprint: project
 title: 'RiverEdge Landscape Zone'
 image: images/project-7.webp

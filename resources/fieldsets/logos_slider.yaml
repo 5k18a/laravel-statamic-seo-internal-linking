@@ -21,6 +21,7 @@ fields:
                     mode: single
                     validate:
                       - required
+                    container: assets
                 -
                   handle: name
                   field:

@@ -1,1 +1,25 @@
 title: Main
+sites:
+  - pl
+  - en
+  - sv
+  - no
+  - nl
+  - lv
+  - it
+  - fr
+  - es
+  - de
+  - da
+  - cs
+collections:
+  - pages
+  - projects
+  - services
+  - blogs
+  - teams
+  - faqs
+  - galleries
+  - packages
+  - testimonials
+  - job_positions

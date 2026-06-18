@@ -1,6 +1,5 @@
 ---
 id: 20bf7e04-70be-4d66-9bf7-75e1bf98ce35
-origin: 4125a100-010e-4468-a253-48c28d471e2e
 blueprint: package
 title: 'Green & Sustainable'
 price: 190

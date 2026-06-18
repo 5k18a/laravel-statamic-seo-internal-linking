@@ -1,5 +1,6 @@
 ---
 id: 61627292-ff14-4378-82ae-8ad9a26bdc31
+origin: 54a5fc13-8b00-4a4a-868a-8290aa2587e2
 blueprint: page
 title: 'Blog Two'
 author: 15c0f104-0188-406c-b4ef-af40e61a13db

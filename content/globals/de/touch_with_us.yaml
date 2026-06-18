@@ -1,0 +1,39 @@
+sub_title: 'Lasst uns in Kontakt treten'
+heading: 'Nehmen Sie Kontakt mit uns auf'
+subheading: 'Wir sind hier, um Ihre Fragen zu beantworten, Ihre Ideen zu besprechen und Ihr Projekt zum Leben zu erwecken.'
+offices:
+  -
+    id: mhlk0i72
+    country: INDIEN
+    flag: images/india-flag.webp
+    address: 'Plot Nr. 2, 4. Stock, Skyline Business Park, Noida, Uttar Pradesh 201301, Indien'
+    map_link: 'https://www.google.com/maps/place/Plot+No.+2,+4th+Floor,+Skyline+Business+Park,+Noida,+Uttar+Pradesh+201301,+India'
+    type: office
+    enabled: true
+  -
+    id: mhlk1x39
+    country: DEUTSCHLAND
+    flag: images/germany-flag.webp
+    address: 'Schillerplatz 9, 3. Etage, Business Tower City Center, 173, Deutschland'
+    map_link: 'https://www.google.com/maps/place/Schillerplatz+9,+3rd+Floor,+Business+Tower+City+Center,+173,+Germany'
+    type: office
+    enabled: true
+content_title: KONTAKT
+email: info@orionconstruction.com
+phone: '+123456789099'
+socials:
+  -
+    id: mhlk4ipw
+    title: Facebook
+    platform: facebook-f
+    url: 'https://www.facebook.com/'
+  -
+    id: mhlk4kqs
+    title: Twitter
+    platform: x-twitter
+    url: 'https://www.twitter.com/'
+  -
+    id: mhlk4mu3
+    title: Instagram
+    platform: instagram
+    url: 'https://www.instagram.com/'

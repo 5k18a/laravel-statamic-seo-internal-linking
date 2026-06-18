@@ -33,10 +33,10 @@
           <div class="swiper-slide !h-auto project">
             <div class="project-box group">
               <div class="project-img-before">
-                <a href="/project/{{ slug }}" class="absolute top-0 left-0 w-full h-full block">
+                <a href="{{ url }}" class="absolute top-0 left-0 w-full h-full block">
                   <img src="{{ image }} {{ url }} {{ /image }}" alt="{{ title }}" class="h-full w-full object-cover transition-all ease-in-out" />
                 </a>
-                <a href="/project/{{ slug }}" class="project-arrow hidden group-hover:flex">
+                <a href="{{ url }}" class="project-arrow hidden group-hover:flex">
                   <svg xmlns="http://www.w3.org/2000/svg" width="69" height="69" viewBox="0 0 69 69" fill="none" class="2xl:w-[69px] xl:w-[63px] sm:w-[55px] w-10">
                     <path d="M24.8251 24.825H44.5722M44.5722 24.825V44.572M44.5722 24.825L24.8251 44.572" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
                   </svg>
@@ -51,7 +51,7 @@
                 {{ /if }}
                 {{ /details }}
                 <h4 class="mb-3">
-                  <a href="/project/{{ slug }}" class="group-hover:text-primary-900">
+                  <a href="{{ url }}" class="group-hover:text-primary-900">
                     {{ title }}
                   </a>
                 </h4>
@@ -92,7 +92,7 @@
           </div>
 
           <!-- Overlay (clickable) -->
-          <a href="/project/{{ slug }}" class="absolute top-0 left-0 w-full h-full p-4 sm:p-5 md:p-8 lg:p-10 z-50 flex flex-col justify-between group">
+          <a href="{{ url }}" class="absolute top-0 left-0 w-full h-full p-4 sm:p-5 md:p-8 lg:p-10 z-50 flex flex-col justify-between group">
             <!-- Gradient Layer -->
             <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-20 h-[80%] bottom-0 top-auto">
             </div>
@@ -156,7 +156,7 @@
           <div class="swiper-slide">
             <div class="group">
               <div class="overflow-hidden relative before:pt-[85%] before:block">
-                <a href="/project/{{ slug }}" class="absolute top-0 left-0 w-full h-full block">
+                <a href="{{ url }}" class="absolute top-0 left-0 w-full h-full block">
                   <img src="{{ image }} {{ url }} {{ /image }}" alt="img" class="h-full w-full object-cover" loading="lazy" />
 
                   <!-- Overlay inside same link -->
@@ -196,10 +196,10 @@
     {{ projects }}
     <div class="group grid-item-append">
       <div class="overflow-hidden relative sm:before:pt-[115%] before:pt-[104%] before:block">
-        <a href="/project/{{ slug }}" class="absolute top-0 left-0 w-full h-full block">
+        <a href="{{ url }}" class="absolute top-0 left-0 w-full h-full block">
           <img src="{{ image }} {{ url }} {{ /image }}" alt="project-1" class="h-full w-full object-cover" loading="lazy" />
         </a>
-        <a href="/project/{{ slug }}" class="2xl:w-[85px] 2xl:h-[85px] lg:w-[70px] lg:h-[70px] sm:w-[65px] sm:h-[65px] w-[55px] h-[55px] rounded-full bg-white/80 items-center justify-center absolute top-3 lg:top-5 right-3 lg:right-5 hover:bg-white hover:text-primary-900 hidden group-hover:flex">
+        <a href="{{ url }}" class="2xl:w-[85px] 2xl:h-[85px] lg:w-[70px] lg:h-[70px] sm:w-[65px] sm:h-[65px] w-[55px] h-[55px] rounded-full bg-white/80 items-center justify-center absolute top-3 lg:top-5 right-3 lg:right-5 hover:bg-white hover:text-primary-900 hidden group-hover:flex">
           <svg xmlns="http://www.w3.org/2000/svg" width="69" height="69" viewBox="0 0 69 69" fill="none" class="2xl:w-[69px] lg:w-[63px] sm:w-[55px] w-10">
             <path d="M24.8251 24.825H44.5722M44.5722 24.825V44.572M44.5722 24.825L24.8251 44.572" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
@@ -207,7 +207,7 @@
       </div>
       <div class="xl:mt-7 mt-4">
         <h5 class="project-name">
-          <a href="/project/{{ slug }}" class="group-hover:text-primary-900">{{ title }}</a>
+          <a href="{{ url }}" class="group-hover:text-primary-900">{{ title }}</a>
         </h5>
       </div>
     </div>
@@ -219,7 +219,7 @@
   {{ if next_page }} 
   <div class="load-more-wrap 2xl:mt-20 1xl:mt-17 lg:mt-15 md:mt-12 mt-9 flex justify-center">
     <div class="load-btn" style="text-align: center;">
-      <a href="{{ next_page }}" class="btn ajax-load-more-grid">Load More <img src="{{theme:asset}}assets/images/loading-spinner.svg" alt="loader" class="loading-spin object-cover animate-spin hidden"></a>
+      <a href="{{ next_page }}" class="btn ajax-load-more-grid">{{ trans key="Load More" }} <img src="{{theme:asset}}assets/images/loading-spinner.svg" alt="loader" class="loading-spin object-cover animate-spin hidden"></a>
     </div>
   </div>
   {{ /if }}
@@ -246,10 +246,10 @@
       <div class="group/project h-auto relative project grid-item-append">
         <div class="project-box">
           <div class="relative overflow-hidden 2xl:before:pt-[63%] xl:before:pt-[60%] lg:before:pt-[56.5%] before:pt-[61%] before:block">
-            <a href="/project/{{ slug }}" class="absolute top-0 left-0 w-full h-full block">
+            <a href="{{ url }}" class="absolute top-0 left-0 w-full h-full block">
               <img src="{{ image }} {{ url }} {{ /image }}" alt="img" class="h-full w-full object-cover transition-all ease-in-out" />
             </a>
-            <a href="/project/{{ slug }}" class="project-arrow hidden group-hover/project:flex transition-all ease-in-out">
+            <a href="{{ url }}" class="project-arrow hidden group-hover/project:flex transition-all ease-in-out">
               <svg xmlns="http://www.w3.org/2000/svg" width="69" height="69" viewBox="0 0 69 69" fill="none" class="2xl:w-[69px] xl:w-[63px] sm:w-[55px] w-12 h-auto">
                 <path d="M24.8251 24.825H44.5722M44.5722 24.825V44.572M44.5722 24.825L24.8251 44.572" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
@@ -262,7 +262,7 @@
             {{ /if }}
             {{ /details }}
             <h4 class="1xl:mb-4 md:mb-3 mb-2">
-              <a href="/project/{{ slug }}" class="group-hover/project:text-primary-900">
+              <a href="{{ url }}" class="group-hover/project:text-primary-900">
                 {{ title }}
               </a>
             </h4>
@@ -281,7 +281,7 @@
     {{ if next_page }} 
     <div class="load-more-wrap 2xl:mt-20 1xl:mt-17 lg:mt-15 md:mt-12 mt-9 flex justify-center">
       <div class="load-btn" style="text-align: center;">
-        <a href="{{ next_page }}" class="btn ajax-load-more-grid">Load More <img src="{{theme:asset}}assets/images/loading-spinner.svg" alt="loader" class="loading-spin object-cover animate-spin hidden"></a>
+        <a href="{{ next_page }}" class="btn ajax-load-more-grid">{{ trans key="Load More" }} <img src="{{theme:asset}}assets/images/loading-spinner.svg" alt="loader" class="loading-spin object-cover animate-spin hidden"></a>
       </div>
     </div>
     {{ /if }}
@@ -316,7 +316,7 @@
           </div>
 
           <!-- Overlay (clickable) -->
-          <a href="/project/{{ slug }}" class="absolute top-0 left-0 w-full h-full p-4 sm:p-5 md:p-8 lg:p-10 2xl:p-[50px] z-50 flex flex-col justify-between group">
+          <a href="{{ url }}" class="absolute top-0 left-0 w-full h-full p-4 sm:p-5 md:p-8 lg:p-10 2xl:p-[50px] z-50 flex flex-col justify-between group">
             <!-- Gradient Layer -->
             <div
             class="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-20 h-[80%] bottom-0 top-auto">
@@ -358,7 +358,7 @@
 {{ if next_page }} 
 <div class="load-more-wrap 2xl:pt-20 1xl:pt-17 lg:pt-15 md:pt-12 pt-9 flex justify-center">
   <div class="load-btn text-center">
-    <a href="{{ next_page }}" class="btn ajax-load-more-grid">Load More 
+    <a href="{{ next_page }}" class="btn ajax-load-more-grid">{{ trans key="Load More" }} 
       <img src="{{theme:asset}}assets/images/loading-spinner.svg" alt="loader" class="object-cover animate-spin hidden"></a>
     </div>
   </div>

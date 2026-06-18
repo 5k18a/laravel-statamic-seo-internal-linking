@@ -1,5 +1,6 @@
 ---
 id: b0819b8b-d69d-4223-bb66-d8afb1ab91b3
+origin: 97622cf5-8fa0-46ca-86b7-df27f22fb383
 blueprint: blog
 title: 'How to Plan and Budget for Your Construction Project'
 image: images/blog-detail-1.webp

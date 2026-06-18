@@ -12,6 +12,7 @@ tabs:
               required: true
               validate:
                 - required
+              localizable: false
           -
             handle: image
             field:
@@ -20,6 +21,7 @@ tabs:
               max_files: 1
               container: assets
               folder: images/projects
+              localizable: false
           -
             handle: details
             field:
@@ -27,6 +29,7 @@ tabs:
               display: Details
               listable: true
               collapse: true
+              localizable: false
               sets:
                 main:
                   display: Main
@@ -52,37 +55,43 @@ tabs:
               type: group
               display: 'Overview Section'
               listable: true
+              localizable: false
               fields:
                 -
                   handle: overview_title
                   field:
-                    default: Overview
+                    default: 'Opis Projektu'
                     type: text
                     display: 'Overview Title'
+                    localizable: false
                 -
                   handle: overvie
                   field:
                     remove_empty_nodes: false
                     type: bard
                     display: Overview
+                    localizable: false
           -
             handle: project_highlights
             field:
               type: group
               display: 'Project Highlights'
+              localizable: false
               fields:
                 -
                   handle: project_highlights_title
                   field:
-                    default: 'Project Highlights :'
+                    default: 'Zakres Prac:'
                     type: text
                     display: 'Project Highlights Title'
+                    localizable: false
                 -
                   handle: highlights
                   field:
                     collapse: true
                     type: replicator
                     display: Highlights
+                    localizable: false
                     sets:
                       new_set_group:
                         display: 'New Set Group'
@@ -101,13 +110,15 @@ tabs:
             field:
               type: group
               display: 'Gallery Section'
+              localizable: false
               fields:
                 -
                   handle: gallery_title
                   field:
-                    default: Gallery
+                    default: Galeria
                     type: text
                     display: 'Gallery Title'
+                    localizable: false
                 -
                   handle: images
                   field:
@@ -115,6 +126,13 @@ tabs:
                     container: assets
                     type: assets
                     display: Images
+                    localizable: false
+          -
+            handle: show_milestones
+            field:
+              type: toggle
+              display: 'Show Project Milestones'
+              localizable: false
           -
             handle: project_milestones
             field:
@@ -122,6 +140,9 @@ tabs:
               display: 'Project Milestones'
               sortable: false
               listable: true
+              if:
+                show_milestones: true
+              localizable: false
               fields:
                 -
                   handle: project_milestones_title
@@ -165,11 +186,20 @@ tabs:
                                   type: markdown
                                   display: Description
           -
+            handle: show_team_section
+            field:
+              type: toggle
+              display: 'Show Team Section'
+              localizable: false
+          -
             handle: team_section
             field:
               type: group
               display: 'Team Section'
               listable: true
+              if:
+                show_team_section: true
+              localizable: false
               fields:
                 -
                   handle: professional_team_title
@@ -191,11 +221,20 @@ tabs:
                     type: collections
                     display: 'Team Collections'
           -
+            handle: show_related_projects
+            field:
+              type: toggle
+              display: 'Show Related Projects'
+              localizable: false
+          -
             handle: related_projects
             field:
               type: group
               display: 'Related Projects'
               listable: true
+              if:
+                show_related_projects: true
+              localizable: false
               fields:
                 -
                   handle: related_project_title
@@ -228,3 +267,30 @@ tabs:
               type: slug
               localizable: true
               validate: 'max:200'
+  'SEO Meta':
+    display: 'SEO Meta'
+    sections:
+      -
+        fields:
+          -
+            handle: seo
+            field:
+              type: seo_pro
+              listable: false
+              display: SEO
+              localizable: false
+  'SEO Previews':
+    display: 'SEO Previews'
+    sections:
+      -
+        fields:
+          -
+            handle: seo_previews
+            field:
+              type: seo_pro_previews
+              listable: false
+              display: 'SEO Previews'
+              localizable: false
+              hide_display: true
+              unless:
+                seo.enabled: 'equals false'

@@ -1,0 +1,22 @@
+--- a/src/Services/DeepLTranslationService.php
++++ b/src/Services/DeepLTranslationService.php
+@@ -29,8 +29,8 @@
+     /**
+      * Translate an array of TranslationUnits using the DeepL API.
+      *
+-     * Units are concatenated into a single XML string using `<ct-unit id="N">` tags,
+-     * sent to DeepL with `tag_handling: xml`, then split back apart by id.
++     * Units are concatenated into a single tagged string using `<ct-unit id="N">` tags,
++     * sent to DeepL with `tag_handling: html`, then split back apart by id.
+      *
+      * @param  TranslationUnit[]  $units
+      * @return TranslationUnit[]
+@@ -88,7 +88,7 @@
+         ];
+ 
+         $options = [
+-            TranslateTextOptions::TAG_HANDLING => 'xml',
++            TranslateTextOptions::TAG_HANDLING => 'html',
+             TranslateTextOptions::FORMALITY => $this->resolveFormality($targetLocale),
+         ];
+ 

@@ -1,6 +1,5 @@
 ---
 id: 5fa21d06-d54c-4b06-836d-c1d1c9236087
-origin: 2d72c823-d983-46af-b843-9765344a85ae
 blueprint: job_position
 title: Electrician
 details:

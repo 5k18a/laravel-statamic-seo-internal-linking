@@ -151,13 +151,13 @@
                                     {{ project_entries limit="5"}}
                                     <li class="flex flex-col items-start sm:gap-[17px] gap-[12px] group">
                                        <div class="relative w-full">
-                                          <a href="/project/{{ slug }}"
+                                          <a href="{{ url }}"
                                              class="w-full h-full overflow-hidden relative sm:before:pt-[116%] before:pt-[60%] before:block">
                                              {{ image }}<img src="{{ url }}" alt="project-1"
                                                 class="w-full h-full object-cover absolute top-0 left-0 right-0 bottom-0"
                                                 loading="lazy" />{{ /image }}
                                           </a>
-                                          <a href="/project/{{ slug }}" class="project-arrow group/arrow">
+                                          <a href="{{ url }}" class="project-arrow group/arrow">
                                              <svg xmlns="http://www.w3.org/2000/svg" width="39" height="39"
                                                 viewBox="0 0 39 39"
                                                 class="2xl:w-[39px] 2xl:h-[39px] lg:w-9 lg:h-9 w-[30px] h-[30px] group-hover/arrow:stroke-primary-900 stroke-black"
@@ -169,7 +169,7 @@
                                              </svg>
                                           </a>
                                        </div>
-                                       <a href="/project/{{ slug }}">
+                                       <a href="{{ url }}">
                                           <p
                                              class="text-black group-hover:text-primary-900 normal-case m-0 font-lexend font-normal">
                                              {{ title }}
@@ -282,6 +282,8 @@
                   </div>
                   <div class="w-full">
                      <!-- OUTSIDE toggle buttons -->
+                     {{ theme_settings }}
+                     {{ if show_search }}
                      <div id="searchToggleWrapper"
                         class="flex items-center gap-2 xl:p-3 lg:p-2.5 p-2 rounded-full cursor-pointer transition-all ease-in-out search-buttonDark group/search">
                         <!-- Search Button -->
@@ -319,7 +321,7 @@
                               </svg>
                            </button>
 
-                           <input type="text" id="searchInput" name="q" placeholder="Search here..."
+                           <input type="text" id="searchInput" name="q" placeholder="{{ trans key='Search here...' }}"
                               class="h-full focus:outline-none p font-light text-black w-full pr-3 focus:ring-0" />
                            <!-- Close button INSIDE (only for ≥768px) -->
                            <div id="search-loader" class="hidden">
@@ -347,6 +349,8 @@
 
                         </div>
                      </div>
+                     {{ /if }}
+                     {{ /theme_settings }}
                   </div>
 
                   <button data-collapse-toggle="navbar-default" type="button"

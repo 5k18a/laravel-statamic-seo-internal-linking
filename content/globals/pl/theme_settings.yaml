@@ -1,3 +1,5 @@
+show_theme_switcher: false
+show_search: false
 title: 'Theme Settings'
 color_option_title: 'color option'
 header_type_title: 'Header Type'

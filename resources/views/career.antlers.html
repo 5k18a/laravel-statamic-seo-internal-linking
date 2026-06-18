@@ -16,7 +16,7 @@
     <div class="{{ if type == 'textarea' }}xl:col-span-3 sm:col-span-2{{ /if }}">
         
         <label for="{{ handle }}" class="block xl:mb-3 mb-1.5 p text-black">
-            {{ display }} {{ if validate }}
+            {{ trans :key="display" }} {{ if validate }}
             {{ if validate contains="required" }}*{{ /if }}
             {{ /if }}
         </label>
@@ -96,7 +96,7 @@
 {{ /if }}
 {{ /fields }}
 
-<button type="submit" class="btn btn-primary xl:mt-9 sm:mt-7 mt-5.5 aos-init aos-animate">Submit</button>
+<button type="submit" class="btn btn-primary xl:mt-9 sm:mt-7 mt-5.5 aos-init aos-animate">{{ trans key="Submit" }}</button>
 
 <p id="successMessage" class="form-message bg-primary-900/12 hidden top-0 right-auto mt-5 w-fit text-primary-900 px-4 py-2 transform translate-x-0 transition-all"> </p>
 

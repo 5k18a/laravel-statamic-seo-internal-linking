@@ -1,0 +1,45 @@
+--- a/src/Extraction/FieldClassifier.php
++++ b/src/Extraction/FieldClassifier.php
+@@ -15,7 +15,7 @@
+  *
+  * Tiers:
+  *   Tier 1 — flat text  : text, textarea, markdown, link
+- *   Tier 2 — structural : replicator, grid, table
++ *   Tier 2 — structural : replicator, grid, table, group
+  *   Tier 3 — bard       : bard
+  *   Skip   — everything else (assets, toggle, integer, float, date, color,
+  *             code, select, radio, checkboxes, entries, terms, users, video,
+@@ -43,10 +43,10 @@
+ 
+         return match ($fieldConfig['type'] ?? '') {
+             // ── Tier 1: flat text ──────────────────────────────────────────
+-            'text', 'textarea', 'markdown', 'link' => FieldTier::Tier1,
++            'text', 'textarea', 'markdown', 'link', 'wysiwyg_html' => FieldTier::Tier1,
+ 
+             // ── Tier 2: structural containers ─────────────────────────────
+-            'replicator', 'grid', 'table' => FieldTier::Tier2,
++            'replicator', 'grid', 'table', 'group' => FieldTier::Tier2,
+ 
+             // ── Tier 3: bard (ProseMirror) ────────────────────────────────
+             'bard' => FieldTier::Tier3,
+@@ -81,10 +81,10 @@
+ 
+         return match ($fieldConfig['type'] ?? '') {
+             // ── Tier 1: flat text ──────────────────────────────────────────
+-            'text', 'textarea', 'markdown', 'link' => FieldTier::Tier1,
++            'text', 'textarea', 'markdown', 'link', 'wysiwyg_html' => FieldTier::Tier1,
+ 
+             // ── Tier 2: structural containers ─────────────────────────────
+-            'replicator', 'grid', 'table' => FieldTier::Tier2,
++            'replicator', 'grid', 'table', 'group' => FieldTier::Tier2,
+ 
+             // ── Tier 3: bard (ProseMirror) ────────────────────────────────
+             'bard' => FieldTier::Tier3,
+@@ -102,6 +102,7 @@
+     {
+         return match ($type) {
+             'markdown' => TranslationFormat::Markdown,
++            'wysiwyg_html' => TranslationFormat::Html,
+             default => TranslationFormat::Plain,
+         };
+     }

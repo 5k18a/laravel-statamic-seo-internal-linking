@@ -1,6 +1,5 @@
 ---
 id: 3d33b619-82ec-4c13-802f-ecda1a5dfa71
-origin: f612aac2-29c1-44a6-b543-ff8f7ca5dd32
 blueprint: faq
 title: 'How do I start a project with Orion Construction?'
 answer: 'Starting your project with us is simple and straightforward. You can reach out through our website, phone, or by visiting our office to share your requirements. Our team will arrange an initial consultation to understand your vision, budget, and goals. We then conduct a site inspection, feasibility analysis, and prepare a tailored proposal that outlines the estimated cost, timeline, and construction strategy. This ensures that before we begin, you have full clarity and confidence about every stage of the project.'

@@ -15,7 +15,7 @@
             </ul>
             {{ if services | count > 5 }}
             <div class="search_view_btn sm:mt-5 mt-4"><a href="/services?s=" class="toggle-view-btn btn btn-primary "
-                  data-type="services" data-query="{{ query }}">View All</a></div>
+                  data-type="services" data-query="{{ query }}">{{ trans key="View All" }}</a></div>
             {{ /if }}
          </div>
       </div>
@@ -38,7 +38,7 @@
          </div>
          {{ if blog | count > 5 }}
          <div class="search_view_btn sm:mt-5 mt-4"><a href="/blogs?s=" class="toggle-view-btn btn btn-primary" data-type="blogs"
-               data-query="{{ query }}">View All</a></div>
+               data-query="{{ query }}">{{ trans key="View All" }}</a></div>
          {{ /if }}
       </div>
       {{ /if }}
@@ -50,7 +50,7 @@
          <p class="text-dark-400 1xl:mb-5 mb-3 sm:text-sm text-xs font-medium uppercase">Recent Search Projects:</p>
          <div class="grid xl:grid-cols-3 sm:grid-cols-2 grid-cols-1 2xl:gap-x-[65px] lg:gap-6 gap-4">
             {{ projects limit="5" }}
-            <a href="/project/{{ slug }}" class="flex items-center 2xl:gap-5 gap-3.5">
+            <a href="{{ url }}" class="flex items-center 2xl:gap-5 gap-3.5">
                <div class="2xl:w-[100px] 2xl:h-[80px] xl:w-[95px] xl:h-[75px] w-[85px] h-[70px] flex-shrink-0">
                   <img src="{{ image }} {{ url }} {{ /image }}" alt="blog-1" class="w-full h-full object-cover" />
                </div>
@@ -60,11 +60,11 @@
          </div>
          {{ if projects | count > 5 }}
          <div class="search_view_btn sm:mt-5 mt-4"><a href="/projects?s=" class="toggle-view-btn btn btn-primary"
-               data-type="projects" data-query="{{ query }}">View All</a></div>
+               data-type="projects" data-query="{{ query }}">{{ trans key="View All" }}</a></div>
          {{ /if }}
       </div>
       {{ /if }}
    </div>
    {{ else }}
-   <p class="text-black/50 uppercase text-center font-lexend mb-5">No Data Found.</p>
+   <p class="text-black/50 uppercase text-center font-lexend mb-5">{{ trans key="No Data Found" }}.</p>
    {{ /if }}

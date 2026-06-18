@@ -1,6 +1,5 @@
 ---
 id: 54f5f382-9a07-498c-8a4f-4f138649cce0
-origin: acc2cca7-3359-453a-96ca-2336e66be759
 blueprint: team
 title: 'Olivia Carter'
 member_info:

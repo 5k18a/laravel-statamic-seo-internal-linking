@@ -1,6 +1,5 @@
 ---
 id: ddea87cd-dae8-4f68-be0b-522b0c21f362
-origin: 6ab76416-207a-463c-8eda-578649e4dc56
 blueprint: blog
 title: 'Managing Construction Site Risks'
 image: images/blog-15.webp

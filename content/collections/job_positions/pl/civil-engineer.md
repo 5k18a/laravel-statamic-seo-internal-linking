@@ -1,6 +1,5 @@
 ---
 id: 07e01bc2-08d3-48bb-85ce-d180e13fe50f
-origin: b5ff8694-4f21-4800-8f91-fc308970bb88
 blueprint: job_position
 title: 'Civil Engineer'
 details:

@@ -1,0 +1,36 @@
+title: 'HTML Editor Block'
+fields:
+  -
+    handle: width
+    field:
+      options:
+        -
+          key: full
+          value: 'Pełna szerokość'
+        -
+          key: '90'
+          value: '90% szerokości'
+        -
+          key: '75'
+          value: '75% szerokości'
+        -
+          key: '66'
+          value: '66% szerokości (2/3)'
+        -
+          key: '50'
+          value: '50% szerokości'
+      default: full
+      type: select
+      display: 'Szerokość bloku'
+  -
+    handle: background_color
+    field:
+      type: color
+      display: 'Kolor tła'
+      instructions: 'Pozostaw puste dla przezroczystego tła'
+  -
+    handle: content
+    field:
+      type: wysiwyg_html
+      display: 'Treść HTML'
+      container: assets

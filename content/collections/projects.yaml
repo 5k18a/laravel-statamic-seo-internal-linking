@@ -1,11 +1,33 @@
 title: Projects
 template: project/show
 revisions: false
-route: '/project/{slug}'
+route:
+  pl: '/realizacje/{slug}'
+  en: '/project/{slug}'
+  sv: '/project/{slug}'
+  'no': '/project/{slug}'
+  nl: '/project/{slug}'
+  lv: '/project/{slug}'
+  it: '/project/{slug}'
+  fr: '/project/{slug}'
+  es: '/project/{slug}'
+  de: '/project/{slug}'
+  da: '/project/{slug}'
+  cs: '/project/{slug}'
 date_behavior:
   past: public
   future: private
 sites:
   - en
   - pl
+  - sv
+  - 'no'
+  - nl
+  - lv
+  - it
+  - fr
+  - es
+  - de
+  - da
+  - cs
 propagate: true

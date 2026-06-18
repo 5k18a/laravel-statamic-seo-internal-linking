@@ -15,7 +15,6 @@ tabs:
           -
             handle: image
             field:
-              max_files: 1
               min_files: 1
               container: assets
               type: assets

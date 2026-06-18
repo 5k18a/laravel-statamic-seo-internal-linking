@@ -1,6 +1,5 @@
 ---
 id: 6a167686-715f-4861-b969-ea9af64cf444
-origin: 263c4b4e-254a-4302-8cf9-c86297a8c821
 blueprint: testimonial
 title: 'Leo M.'
 image: images/2nd-testimonial-6.webp

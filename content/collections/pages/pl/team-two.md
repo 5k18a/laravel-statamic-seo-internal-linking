@@ -1,6 +1,5 @@
 ---
 id: 52390d63-6653-4899-9384-c6905b86cd7a
-origin: 333c9dd2-47a0-4994-9ad2-051f44f6a5d4
 blueprint: page
 title: 'Team Two'
 author: 15c0f104-0188-406c-b4ef-af40e61a13db

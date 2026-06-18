@@ -1,6 +1,5 @@
 ---
 id: 0356f87c-86b2-4496-929e-def5f3ae7895
-origin: 51297aee-5cc5-468c-b966-afe9d983a98e
 blueprint: service
 title: 'Flooring & Roofing Solutions'
 icon: images/faq-9.png

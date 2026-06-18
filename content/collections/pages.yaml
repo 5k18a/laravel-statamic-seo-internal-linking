@@ -6,4 +6,14 @@ structure:
 sites:
   - en
   - pl
+  - sv
+  - no
+  - nl
+  - lv
+  - it
+  - fr
+  - es
+  - de
+  - da
+  - cs
 propagate: true

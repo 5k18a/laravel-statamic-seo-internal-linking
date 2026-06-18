@@ -1,6 +1,5 @@
 ---
 id: c17181eb-b81d-4321-8f30-57c00ff23162
-origin: cf7f6782-ba10-476a-9ee0-83878500a520
 blueprint: service
 title: 'Architectural Design'
 icon: images/faq-2.png

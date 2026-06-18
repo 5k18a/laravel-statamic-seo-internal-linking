@@ -303,6 +303,36 @@ Effect:
 - localized page builder content became editable
 - hero asset field behavior in CP became usable
 
+### F2. Globals origin metadata was corrected for the Polish primary site
+
+The user later found that multiple globals were editable in English but read-only in Polish.
+
+Root cause:
+
+- several globals metadata files had an inverted origin model
+- `en` was set as the origin and `pl` inherited from it
+- this was incorrect because `pl` is the primary site mounted at `/`
+
+What was changed:
+
+- 8 globals metadata files under `content/globals/*.yaml` were updated from:
+  - `en -> null`
+  - `pl -> en`
+- to:
+  - `en -> pl`
+  - `pl -> null`
+
+`theme_settings.yaml` was intentionally not changed because it already had the correct origin model.
+
+After the change:
+
+- `php artisan statamic:stache:refresh` was run
+- tests still passed
+
+Expected effect:
+
+- globals fields for the Polish site should no longer be read-only in CP
+
 ### G. Magic Translator was installed and configured for DeepL
 
 The user wanted an admin-side translation workflow using DeepL API.
@@ -367,7 +397,7 @@ Final effect:
 - Magic Translator is now working
 - the user confirmed translation is functioning
 
-### I. Super Admin Toolbar was installed but not fully confirmed visually
+### I. Super Admin Toolbar was installed and confirmed
 
 The user wanted a WordPress-like frontend admin bar.
 
@@ -396,9 +426,7 @@ Status:
 
 - technically installed
 - loader renders on frontend
-- not yet conclusively confirmed by the user as visible in-browser
-
-This remains an open follow-up item.
+- visually confirmed by the user as working on the frontend
 
 ## Current Multilingual Model
 
@@ -501,15 +529,11 @@ Frontend/control-panel routes previously verified with `200` responses include:
 
 ## Open Items
 
-### 1. Super Admin Toolbar visual confirmation
-
-Installed and partially verified technically, but still needs final browser confirmation from a logged-in CP session on `127.0.0.1:8001`.
-
-### 2. Frontend string translation
+### 1. Frontend string translation
 
 Still pending. This is the next clear multilingual improvement beyond content translation.
 
-### 3. Additional multilingual scaling
+### 2. Additional multilingual scaling
 
 The language switcher has already been converted to a dropdown-style approach because the user expects more languages later.
 
@@ -536,5 +560,5 @@ If Claude needs the shortest possible current understanding:
 5. Magic Translator + DeepL is installed and now works for content translation.
 6. Yellow branding has been applied as the current default visual direction.
 7. Page-builder localizability/hero editability issues were fixed.
-8. Super Admin Toolbar is installed but still needs final visual confirmation.
+8. Super Admin Toolbar is installed and confirmed working.
 9. Frontend UI string translation is planned but not yet implemented.

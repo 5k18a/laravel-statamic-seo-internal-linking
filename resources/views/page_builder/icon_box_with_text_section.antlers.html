@@ -1,0 +1,27 @@
+<section class="relative 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] md:mb-[50px] mb-8">
+  <div class="container">
+    {{ if section_title }}
+      <h2 class="1xl:mb-[50px] sm:mb-9 mb-6">{{ section_title }}</h2>
+    {{ /if }}
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 {{ if layout == 'three_columns' }}lg:grid-cols-3{{ else }}lg:grid-cols-4{{ /if }} 2xl:gap-[90px] 1xl:gap-[80px] xl:gap-[50px] lg:gap-9 md:gap-x-20 md:gap-y-11 gap-x-11 gap-y-9">
+      {{ items }}
+        <div>
+          {{ if icon }}
+            <div class="1xl:mb-[33px] xl:mb-7 sm:mb-5 mb-4 h-[38px] w-[38px] flex items-start text-primary-900 [&>svg]:w-full [&>svg]:h-full">
+              {{ iconify:icon class="w-full h-full" aria-hidden="true" }}
+            </div>
+          {{ /if }}
+
+          {{ if title }}
+            <h5 class="mb-2 xl:mb-4">{{ title }}</h5>
+          {{ /if }}
+
+          {{ if description }}
+            <p class="m-0 text-dark-400">{{ description }}</p>
+          {{ /if }}
+        </div>
+      {{ /items }}
+    </div>
+  </div>
+</section>

@@ -1,6 +1,5 @@
 ---
 id: 39be38a3-ec07-4288-82f1-2cbcb41695f2
-origin: 55891370-e74f-4e0f-91b4-7375a32a6084
 blueprint: blog
 title: "The Dos and Don'ts of Renovating a Historic Building"
 image: images/blog-7.webp

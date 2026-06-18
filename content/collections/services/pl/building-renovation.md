@@ -1,6 +1,5 @@
 ---
 id: 3f3b332b-f5c9-4a60-9d1d-4a04cf3f8dc4
-origin: 15bbfcdc-fa8a-4421-aaa4-d71b30db6753
 blueprint: service
 title: 'Building Renovation'
 icon: images/faq-4.png

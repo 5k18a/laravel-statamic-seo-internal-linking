@@ -1,6 +1,5 @@
 ---
 id: d24cfc72-dc1c-405c-833d-76b085ee248f
-origin: 73ca84c8-dcbe-40b7-be15-c574912ea1b0
 blueprint: blog
 title: 'Smart Planning Tips for a Successful Building Project'
 image: images/blog-10.webp

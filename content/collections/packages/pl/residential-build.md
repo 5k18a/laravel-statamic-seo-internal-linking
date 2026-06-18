@@ -1,6 +1,5 @@
 ---
 id: 0dae31e6-d987-470a-87c5-36ac23290adf
-origin: bf1694c0-4fc2-493f-af39-a127f7bc640e
 blueprint: package
 title: 'Residential Build'
 price: 90

@@ -42,6 +42,7 @@ fields:
                   handle: flag
                   field:
                     type: assets
+                    container: assets
                     display: 'Flag Image'
                     max_files: 1
                     folder: assets/images

@@ -1,0 +1,48 @@
+title: 'Icon Box With Text Section'
+fields:
+  -
+    handle: section_title
+    field:
+      type: text
+      display: 'Section Title'
+      default: 'Icon Box With Text'
+  -
+    handle: layout
+    field:
+      type: select
+      display: Layout
+      default: four_columns
+      options:
+        three_columns: '3 boxes per row'
+        four_columns: '4 boxes per row'
+      instructions: 'Choose how many icon boxes should be displayed per row on desktop.'
+  -
+    handle: items
+    field:
+      type: replicator
+      display: Items
+      duplicate: false
+      sets:
+        new_set_group:
+          display: 'New Set Group'
+          sets:
+            icon_box:
+              display: 'Icon Box'
+              fields:
+                -
+                  handle: icon
+                  field:
+                    type: iconify
+                    display: Icon
+                    store_as: svg_data
+                -
+                  handle: title
+                  field:
+                    type: text
+                    display: Title
+                -
+                  handle: description
+                  field:
+                    type: textarea
+                    display: Description
+                    instructions: 'Add a short description for this icon box'
