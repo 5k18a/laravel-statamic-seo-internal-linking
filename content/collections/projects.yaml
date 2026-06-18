@@ -17,6 +17,8 @@ route:
 date_behavior:
   past: public
   future: private
+sort_field: completion_year_sort
+sort_direction: desc
 sites:
   - en
   - pl
