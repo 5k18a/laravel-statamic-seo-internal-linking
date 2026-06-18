@@ -1823,14 +1823,18 @@ Katalog workspace `/home/pestycyd/Dokumenty/Skalisty-New-2/` **nie jest już roo
 
 **Zasada nadrzędna:** Git jest prowadzony zawsze — każda zamknięta zmiana ląduje w historii.
 
+**Kto commituje — zasada bezwzględna:**
+- **Commity tworzy wyłącznie Claude** — po audycie i akceptacji pracy Codexa.
+- **Codex NIE commituje** ani NIE pushuje — jego zadaniem jest dostarczenie kodu, nie zarządzanie historią Git.
+- Wyjątek: użytkownik może wyraźnie polecić Codexowi wykonanie commita (np. "zacommituj to"). Tylko wtedy Codex może to zrobić.
+
 **Kiedy commitować:**
-- Po każdym zamkniętym zadaniu (Codex task, audyt Claude, zmiana konfiguracji, sync z serwera)
-- Claude commituje zmiany dokumentacji i plików roboczych
-- Codex commituje kod, szablony, fieldsets, blueprints, config — wszystko co zmienił
-- Nie czekać na koniec sesji z commitami — commit bezpośrednio po zakończeniu pracy
+- Claude commituje po każdym zakończonym i zaaudytowanym zadaniu Codexa
+- Claude commituje własne zmiany dokumentacji i plików roboczych na bieżąco
+- Nie czekać na koniec sesji z commitami — commit bezpośrednio po akceptacji
 
 **Kiedy pushować:**
-- Na koniec każdej sesji roboczej (Claude lub Codex)
+- Na koniec każdej sesji roboczej Claude
 - Przed długą przerwą w pracy
 - Po każdym istotnym milestone'ie
 
