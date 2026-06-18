@@ -789,15 +789,33 @@ Post-deploy: `php84 artisan statamic:stache:refresh` — OK ✅
 
 ---
 
-## Status na dzień 2026-06-19
+## Deploy przyrostowy — 2026-06-18 — BACK NOW i18n (lightbox)
+
+### Zakres wdrożenia
+
+**FEATURE-back-now-i18n:**
+- `lang/en.json`, `lang/pl.json` — nowy klucz `"Back Now"`
+- `lang/{cs,da,de,es,fr,it,lv,nl,no,sv}.json` — przetłumaczone przez DeepL (`lang:translate --force`)
+- `resources/views/partials/gallery-lightbox.antlers.html` — `BACK NOW` → `{{ trans key="Back Now" }}`
+- `resources/views/page_builder/gallery_section.antlers.html` — j.w. (2 wystąpienia)
+- `resources/views/page_builder/skalisty_gallery_section.antlers.html` — j.w.
+
+### Metoda
+
+Pełny rsync przyrostowy (16 plików, speedup 569×). Post-deploy: `config:clear`, `cache:clear`, `view:clear` — OK ✅
+
+---
+
+## Status na dzień 2026-06-18
 
 | Element | Status |
 |---------|--------|
 | Serwer | ✅ `dev.skalisty.pl` — HTTP 200 (PL + EN) |
-| Ostatni deploy | ✅ rsync celowany, 2026-06-19 (blueprint details defaults) |
+| Ostatni deploy | ✅ rsync przyrostowy, 2026-06-18 (BACK NOW i18n) |
 | Statamic CMS | ✅ v6.21.0 |
 | wysiwyg-html-fieldtype | ✅ v1.1.0 |
-| Blueprint projects — details defaults | ✅ 4 Info Items pre-wypełnione (Lokalizacja, Powierzchnia Dekoracji, Inwestor, Data Zakończenia) |
+| BACK NOW i18n (lightbox) | ✅ `{{ trans key="Back Now" }}` — 12 języków |
+| Blueprint projects — details defaults | ✅ 4 Info Items pre-wypełnione |
 | Logos Slider with Icons | ✅ nowy set Page Buildera |
 | logo-klienci assets | ✅ nowy kontener z logotypami |
 | Sticky header default | ✅ `data-header-type` na `<body>` + JS switcherVisible |
