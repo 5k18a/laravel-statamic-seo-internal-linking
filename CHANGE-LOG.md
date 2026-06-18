@@ -4,6 +4,40 @@ Changelog projektu `skalisty-orion` — prowadzony przez Claude po każdym zako�
 
 ---
 
+## 2026-06-18 (BUGFIX-blog-image-section — image_section w Bard bloga)
+
+_Wykonane przez Claude bezpośrednio (na polecenie użytkownika)._
+
+### Zakres
+
+- **Fix `{{ image }}` → `{{ images }}`** w bloku `image_section` w 4 szablonach Orion:
+  `blog-detail-one/two/three/four.antlers.html`
+  Przyczyna: Antlers kaskadował do zewnętrznego scope i pobierał `image` (featured image wpisu)
+  zamiast `images` (tablica z Barda) — efekt: CP pokazywał 2 zdjęcia, frontend 1 inne.
+- **Fix lightboxa image_section**: klik na obrazek otwierał `/blog/{slug}` (przeładowanie) zamiast lightboxa.
+  Zmiana: `href="/blog/{{ slug }}"` → `href="javascript:;"` + klasa `js-gallery` na gridzie.
+- **Nowy partial** `resources/views/partials/gallery-lightbox.antlers.html` — HTML lightboxa
+  wyciągnięty do wielokrotnego użytku; dołączony do 4 szablonów bloga przez `{{ partial:gallery-lightbox }}`.
+- Deploy na `dev.skalisty.pl` ✅
+
+### Uwaga przy aktualizacji motywu Orion
+
+Motyw Orion **nie jest paczką Composer** — pliki zostały ręcznie skopiowane do projektu
+przy instalacji. `composer update` NIE nadpisuje tych plików.
+
+Ryzyko utraty fixów istnieje wyłącznie przy **ręcznej aktualizacji motywu** (ponowne
+skopiowanie plików Oriona do projektu). W takim przypadku należy sprawdzić i odtworzyć:
+
+| Plik | Co sprawdzić |
+|------|-------------|
+| `resources/views/blog-detail-one.antlers.html` | `{{ images }}` / `{{ /images }}` (nie `image`), klasa `js-gallery` na gridzie, `href="javascript:;"` na linkach, `{{ partial:gallery-lightbox }}` na końcu pliku |
+| `resources/views/blog-detail-two.antlers.html` | j.w. |
+| `resources/views/blog-detail-three.antlers.html` | j.w. |
+| `resources/views/blog-detail-four.antlers.html` | j.w. |
+| `resources/views/partials/gallery-lightbox.antlers.html` | nowy plik — nie istnieje w Orionie, nie zostanie nadpisany |
+
+---
+
 ## 2026-06-19 (SYNC-orientarium — synchronizacja nowego projektu z serwera)
 
 _Wykonane przez Claude (pull z dev.skalisty.pl)._
