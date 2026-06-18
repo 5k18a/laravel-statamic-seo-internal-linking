@@ -1,0 +1,64 @@
+title: 'Columns Section'
+fields:
+  -
+    handle: width
+    field:
+      type: select
+      display: 'Szerokość sekcji'
+      options:
+        -
+          key: full
+          value: 'Pełna szerokość'
+        -
+          key: full_no_padding
+          value: 'Pełna szerokość bez ramki'
+        -
+          key: '90'
+          value: '90% szerokości'
+        -
+          key: '75'
+          value: '75% szerokości'
+        -
+          key: '66'
+          value: '66% szerokości (2/3)'
+        -
+          key: '50'
+          value: '50% szerokości'
+      default: '90'
+  -
+    handle: background_color
+    field:
+      type: color
+      display: 'Kolor tła'
+  -
+    handle: columns_layout
+    field:
+      type: select
+      display: 'Liczba kolumn'
+      options:
+        -
+          key: '2'
+          value: '2 kolumny'
+        -
+          key: '3'
+          value: '3 kolumny'
+        -
+          key: '4'
+          value: '4 kolumny'
+      default: '2'
+  -
+    handle: columns
+    field:
+      type: replicator
+      display: 'Kolumny'
+      collapse: false
+      sets:
+        column:
+          display: 'Kolumna'
+          fields:
+            -
+              handle: content
+              field:
+                type: wysiwyg_html
+                display: 'Treść'
+                container: assets
