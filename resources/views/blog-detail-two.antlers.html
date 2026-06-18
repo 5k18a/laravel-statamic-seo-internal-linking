@@ -96,13 +96,13 @@
                 {{ elseif type == "image_section" }}
 
                 <div class="grid sm:grid-cols-2 grid-cols-1 w-full xl:gap-10 lg:gap-9 sm:gap-6 gap-5 2xl:mt-[40px] xl:mt-[30px] sm:mt-6 mt-4 lg:mb-4 mb-2">
-                    {{ image }}
+                    {{ images }}
                     <div class="overflow-hidden relative 1xl:before:pt-[69%] before:pt-[65%] before:block">
                         <a href="/blog/{{ slug }}" class="absolute top-0 left-0 w-full h-full block">
                             <img src="{{ url }}" alt="img" class="h-full w-full object-cover" loading="lazy" />
                         </a>
                     </div>
-                    {{ /image }}
+                    {{ /images }}
                 </div>
 
                 {{ else }}
