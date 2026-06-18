@@ -1,6 +1,6 @@
 # DEPLOYMENT.md
 # Dokumentacja wdrożenia — dev.skalisty.pl (dhosting)
-# Ostatnia aktualizacja: 2026-06-17
+# Ostatnia aktualizacja: 2026-06-18
 
 ---
 
@@ -646,17 +646,79 @@ Post-deploy: `config:clear`, `cache:clear`, `view:clear`, `stache:refresh` — O
 
 ---
 
-## Status na dzień 2026-06-07
+## Deploy przyrostowy — 2026-06-18 — Sticky header + Logos Slider with Icons + aktualizacja pakietów
+
+### Zakres wdrożenia
+
+Wdrożono na `dev.skalisty.pl` wyniki prac z sesji 2026-06-18:
+
+**BUGFIX-sticky-header-default:**
+- `resources/views/layout.antlers.html` — `<body data-header-type="{{ theme_settings:header_type }}">` — wartość z Statamic globals dostępna dla JS niezależnie od `show_theme_switcher`
+- `public/assets/js/custom.js` — przepisany blok "Select the header": `switcherVisible`, `serverHeaderType`, `localStorage.removeItem("headerType")` gdy switcher ukryty, `stickyMode` czyta z serwera gdy brak localStorage
+
+**FEATURE-logos-slider-with-icons:**
+- `resources/fieldsets/logos_slider_with_icons.yaml` — nowy fieldset Page Buildera (slider logotypów z ikonami Iconify)
+- `resources/views/page_builder/logos_slider_with_icons.antlers.html` — widok sekcji slidera
+- `resources/fieldsets/all_page_builder.yaml` — rejestracja nowego setu
+
+**Assets — logo-klienci:**
+- `public/assets/logo-klienci/` — nowy kontener z logotypami klientów (9 webp + 1 svg + pliki .meta/)
+
+**Aktualizacja pakietów:**
+- `vendor/statamic/cms/` — v6.20.2 → v6.20.3
+- `addons/skalisty/wysiwyg-html-fieldtype/` — v0.1.0 → v1.1.0
+- `vendor/composer/` — installed.json + autoload maps (zsynchronizowane osobno po aktualizacji vendorów)
+- `composer.json`, `composer.lock` — zaktualizowane locki
+
+**Pozostałe pliki kodu:**
+- `app/Providers/AppServiceProvider.php`
+- `bootstrap/app.php`
+- `content/` — pełna synchronizacja treści (blogs, globals, pages)
+
+### Synchronizacja
+
+Deployment wykonano przez serię rsync (przyrostowy, bez `--delete`). Rsync główny + osobne rsynce dla `vendor/statamic/cms/`, `addons/skalisty/wysiwyg-html-fieldtype/`, `vendor/composer/`.
+
+Uwaga: przy rsync `addons/skalisty/wysiwyg-html-fieldtype/` przypadkowo wgrano `node_modules/` z dev-zależnościami (ok. 100 KB). Nie jest to błąd krytyczny — pliki są funkcjonalnie martwe na serwerze. Przyszłe deploye: dodać `--exclude='node_modules/'` dla katalogu addonu.
+
+### Komendy po deployu
+
+Na serwerze:
+
+```bash
+cd ~/skalisty_2026
+php84 artisan package:discover --ansi
+php84 artisan config:clear && php84 artisan cache:clear && php84 artisan view:clear
+php84 artisan statamic:stache:refresh
+```
+
+### Walidacja po deployu
+
+- `vendor/statamic/cms`: v6.20.3 ✅ (potwierdzone przez installed.json)
+- `addons/skalisty/wysiwyg-html-fieldtype`: v1.1.0 ✅
+- `public/assets/logo-klienci/`: istnieje ✅
+- `resources/views/layout.antlers.html`: zawiera `data-header-type` ✅
+- `custom.js`: zawiera `switcherVisible`, `serverHeaderType` ✅
+- `dev.skalisty.pl`: HTTP 200 ✅
+
+---
+
+## Status na dzień 2026-06-18
 
 | Element | Status |
 |---------|--------|
 | Serwer | ✅ `dev.skalisty.pl` — HTTP 200 (PL + EN) |
-| Ostatni deploy | ✅ rsync bezpośredni, 2026-06-17 (Iconify + Icon Box With Text + cleanup remote icons/icons2) |
-| Statamic CMS | ✅ v6.20.2 |
+| Ostatni deploy | ✅ rsync bezpośredni, 2026-06-18 (sticky header + logos slider + pakiety) |
+| Statamic CMS | ✅ v6.20.3 |
+| wysiwyg-html-fieldtype | ✅ v1.1.0 |
+| Logos Slider with Icons | ✅ nowy set Page Buildera |
+| logo-klienci assets | ✅ nowy kontener z logotypami |
+| Sticky header default | ✅ `data-header-type` na `<body>` + JS switcherVisible |
 | CSS | ✅ `output.css` — Tailwind v4 syntax fix |
 | Logo | ✅ PNG (`logo-skalisty-2.png`, `logo-skalisty-white-2.png`) |
 | YouTube video | ✅ `<iframe>` + `toEmbedUrl()` w custom.js |
 | Gallery Section | ✅ nowy blok page buildera |
+| Icon Box With Text | ✅ nowy blok page buildera (2026-06-17) |
 | HOTFIX-18 | ✅ `vendor/Locales.php` patch (`proc_open` + `open_basedir`) |
 | Migracje MySQL | ✅ aktualne |
 | `storage/framework/*` | ✅ katalogi z uprawnieniami 775 |
