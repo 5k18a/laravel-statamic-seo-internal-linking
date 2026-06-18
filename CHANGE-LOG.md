@@ -4,6 +4,30 @@ Changelog projektu `skalisty-orion` — prowadzony przez Claude po każdym zako�
 
 ---
 
+## 2026-06-18 (BUGFIX-slider-seamless-loop — bezszwowe zapętlenie sliderów logo)
+
+_Wykonane przez Claude (bezpośrednio, bez Codexa — zmiana czysto szablonowa)._
+
+### Problem
+
+Animacja CSS `slides` (`translateX(0 → -50%)`) wymaga dwóch identycznych zestawów elementów w `slider-track`. Przy jednym zestawie po dotarciu do końca animacja skacze widocznie z powrotem na początek. Dotyczyło trzech sliderów.
+
+### Rozwiązanie
+
+Podwójny render pętli `{{ logos }}` / `{{ text_slider }}` w jednym `slider-track`. Drugi zestaw dostaje `aria-hidden="true"` — niewidoczny dla czytników ekranu.
+
+- **`resources/views/page_builder/trusted_partners_section.antlers.html`** — duplikacja `{{ logos }}`
+- **`resources/views/page_builder/logos_slider_with_icons.antlers.html`** — duplikacja `{{ logos }}`
+- **`resources/views/page_builder/text_slider_section.antlers.html`** — duplikacja `{{ text_slider }}`
+
+### Deploy
+
+- 3 widoki + `content/collections/pages/pl/home.md` + `public/assets/logo-klienci/` (2 brakujące pliki: logo-tallinn-zoo, logo-zoo-chorzow)
+- `view:clear`, `cache:clear`, `stache:refresh` — OK
+- `dev.skalisty.pl` — HTTP 200 ✅
+
+---
+
 ## 2026-06-18 (DEPLOY-sesja-2 — pełna synchronizacja local → dev.skalisty.pl)
 
 _Wykonane przez Claude._

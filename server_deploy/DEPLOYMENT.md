@@ -703,6 +703,32 @@ php84 artisan statamic:stache:refresh
 
 ---
 
+## Deploy przyrostowy — 2026-06-18 (sesja 3) — Seamless slider loop + home PL + logo-klienci
+
+### Zakres wdrożenia
+
+**BUGFIX-slider-seamless-loop:**
+- `resources/views/page_builder/trusted_partners_section.antlers.html` — duplikacja `{{ logos }}` w slider-track (fix skoku animacji)
+- `resources/views/page_builder/logos_slider_with_icons.antlers.html` — j.w.
+- `resources/views/page_builder/text_slider_section.antlers.html` — j.w.
+
+**Content:**
+- `content/collections/pages/pl/home.md` — edycje treści użytkownika
+
+**Assets (uzupełnienie):**
+- `public/assets/logo-klienci/logo-tallinn-zoo.webp` + `.meta/` — brakowało na serwerze
+- `public/assets/logo-klienci/logo-zoo-chorzow.webp` + `.meta/` — brakowało na serwerze
+
+### Komendy po deployu
+
+```bash
+php84 artisan view:clear && php84 artisan cache:clear && php84 artisan statamic:stache:refresh
+```
+
+Wynik: OK. `dev.skalisty.pl` HTTP 200 ✅
+
+---
+
 ## Status na dzień 2026-06-18
 
 | Element | Status |

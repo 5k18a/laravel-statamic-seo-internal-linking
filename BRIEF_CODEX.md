@@ -1,14 +1,14 @@
 # BRIEF_CODEX.md
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-18-2230
+state_version: 2026-06-18-2350
 active_task_id: none
 active_task_name: Brak aktywnego zadania
 active_task_status: idle
 active_task_source: BRIEF_CODEX.md
-last_sync: 2026-06-18 22:30 Europe/Warsaw
+last_sync: 2026-06-18 23:50 Europe/Warsaw
 last_synced_by: Claude
-last_closed: BUGFIX-sticky-header-default
+last_closed: BUGFIX-slider-seamless-loop
 next_after_active: Decyzja użytkownika — retłumaczenie Home EN lub Formularze kontaktowe
 <!-- PROJECT_SYNC_END -->
 
@@ -225,6 +225,7 @@ fix: Sticky header domyślnie z Statamic globals — niezależnie od show_theme_
 
 ## Ostatnio zamknięte
 
+- `BUGFIX-slider-seamless-loop` ✅ accepted (2026-06-18)
 - `FEATURE-logos-slider-with-icons` ✅ accepted (2026-06-18)
 - `ICONIFY-prefix-extension` ✅ accepted (2026-06-17)
 - `FEATURE-icon-box-with-text` ✅ accepted (2026-06-17)
