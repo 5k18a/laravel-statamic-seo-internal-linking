@@ -136,11 +136,13 @@ W przypadku decyzji dotyczących addonów, pluginów, paczek Composer, paczek np
 
 # 5. Pliki robocze agentów
 
-Wszystkie główne pliki robocze agentów powinny znajdować się w katalogu workspace:
+Od 2026-06-18 projekt jest prowadzony w Git. Kanoniczne miejsce wszystkich plików roboczych to **korzeń repozytorium Git**:
 
-- `/home/pestycyd/Dokumenty/Skalisty-New-2`
+- `/home/pestycyd/Dokumenty/Skalisty-New-2/skalisty-orion/`
 
-Obowiązkowe pliki robocze:
+Pliki w `/home/pestycyd/Dokumenty/Skalisty-New-2/` (workspace root poza repo) są **nieaktualne** — nie aktualizować ich, nie czytać jako źródła prawdy.
+
+Obowiązkowe pliki robocze (wszystkie w root repozytorium):
 
 - `AGENTS.md` - instrukcje pracy agentów
 - `BRIEF_CODEX.md` - aktualny brief dla Codex przygotowany przez Claude
@@ -1804,22 +1806,75 @@ Nie należy mieszać `localhost` i `127.0.0.1`, ponieważ może to powodować pr
 
 # 22. Git i repozytorium
 
-Repozytorium Git jest utrzymywane lokalnie na poziomie workspace:
+## 22.1 Lokalizacja repozytorium
 
-- `/home/pestycyd/Dokumenty/Skalisty-New-2/.git`
+Od 2026-06-18 repozytorium Git jest prowadzone **wewnątrz katalogu aplikacji**:
 
-W katalogu aplikacji `skalisty-orion/.git` może znajdować się plik tekstowy wskazujący na gitdir nadrzędny.
+- Lokalnie: `/home/pestycyd/Dokumenty/Skalisty-New-2/skalisty-orion/`
+- Remote (GitHub): `https://github.com/5k18a/skalisty-laravel.git`
+- Branch główny: `main`
 
-Codex nie powinien:
+Katalog workspace `/home/pestycyd/Dokumenty/Skalisty-New-2/` **nie jest już root git repo** — pliki tam poza `skalisty-orion/` są nieaktualne.
 
-- zmieniać konfiguracji Git bez polecenia
-- dodawać remote bez polecenia
-- zmieniać brancha bez polecenia
-- usuwać historii Git
-- wykonywać destrukcyjnych operacji Git bez wyraźnej zgody
-- commitować sekretów lub danych dostępowych
+## 22.2 Workflow commitów i pushów
 
-Brak remote jest świadomą decyzją projektową, dopóki użytkownik nie zdecyduje inaczej.
+**Zasada nadrzędna:** Git jest prowadzony zawsze — każda zamknięta zmiana ląduje w historii.
+
+**Kiedy commitować:**
+- Po każdym zamkniętym zadaniu (Codex task, audyt Claude, zmiana konfiguracji, sync z serwera)
+- Claude commituje zmiany dokumentacji i plików roboczych
+- Codex commituje kod, szablony, fieldsets, blueprints, config — wszystko co zmienił
+- Nie czekać na koniec sesji z commitami — commit bezpośrednio po zakończeniu pracy
+
+**Kiedy pushować:**
+- Na koniec każdej sesji roboczej (Claude lub Codex)
+- Przed długą przerwą w pracy
+- Po każdym istotnym milestone'ie
+
+**Format wiadomości commita:**
+```
+TYP: Krótki opis (maks. 72 znaki)
+
+[Opcjonalny dłuższy opis po pustej linii]
+```
+Typy: `feat` (nowa funkcja), `fix` (poprawka), `docs` (dokumentacja), `config` (konfiguracja), `content` (treści CMS), `sync` (synchronizacja z serwerem), `chore` (prace porządkowe)
+
+Przykłady:
+```
+feat: Dodaj sekcję icon_box_with_text do page buildera
+docs: Aktualizuj AGENTS.md — workflow Git i canonical docs
+sync: Importuj nowe projekty i blueprint z dev.skalisty.pl
+config: Dodaj prefixes iconify (tabler, heroicons, mdi...)
+```
+
+## 22.3 Co trafia do Git
+
+W repozytorium trzymamy **wszystko poza wyjątkami** zdefiniowanymi w `.gitignore`:
+
+- Kod aplikacji (PHP, Antlers, Blade, JS, CSS)
+- Pliki konfiguracyjne (YAML blueprints, fieldsets, collections)
+- Treści CMS (`content/`)
+- Assets (`public/assets/`, `public/vendor/` małe pliki)
+- Dokumentacja robocza agentów (`AGENTS.md`, `BRIEF_CODEX.md`, `CHANGE-LOG.md` itp.)
+- `composer.json`, `composer.lock`, `package.json`, `package-lock.json`
+
+**Nigdy nie commitować (chronione przez `.gitignore`):**
+- `.env` — klucze aplikacji, kredencjały bazy danych
+- `ADMIN_ACCESS.txt` — hasło administratora CMS
+- `server_deploy/SERWER_DOSTEP.txt` — dane dostępu do serwera
+- `/users/*.yaml` — dane użytkowników Statamic (hashe haseł)
+- `/vendor/`, `/node_modules/` — zależności (regenerowalne)
+- `/storage/*.key` — klucze szyfrowania
+
+## 22.4 Zasady bezpieczeństwa Git dla agentów
+
+Codex i Claude nie mogą:
+
+- zmieniać konfiguracji Git bez wyraźnego polecenia
+- zmieniać brancha bez wyraźnego polecenia (pracujemy na `main`)
+- usuwać historii Git (`reset --hard`, `force push` do main — wymaga zgody użytkownika)
+- commitować jakichkolwiek sekretów, haseł, kluczy API
+- pushować bez wiedzy użytkownika (push wymaga potwierdzenia lub jest zaplanowany na koniec sesji)
 
 ---
 
