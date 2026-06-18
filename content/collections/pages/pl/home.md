@@ -409,6 +409,96 @@ page_builder:
     enabled: true
     show_type: home-page-one
   -
+    id: r9SSFUFfJWexOcsXGyJdK
+    logos:
+      -
+        id: HJ7U8AKUFdvg6fYu47Kh-
+        icon:
+          name: 'temaki:boulder2'
+          attributes:
+            width: 1em
+            height: 1em
+            viewBox: '0 0 15 15'
+          viewBox:
+            - 0
+            - 0
+            - 15
+            - 15
+          body: '<path fill="currentColor" d="M6 14c-.67 0-5-.22-5-2c0-2.64 1.96-4.46 2.5-5c1.04-1.04.93-2.37 1.5-3.5C5.77 1.96 7.79 1 8.5 1c.57 0 2.25 1.3 3.5 3c.56.75 2 4.37 2 5.5c0 3.58-1.66 4.5-3 4.5z"/>'
+        name: 'Sztuczne Skały z Betonu'
+        type: logo_item
+        enabled: true
+      -
+        id: DEJOhVmph0c1XgDpwiD7N
+        icon:
+          name: 'game-icons:check-mark'
+          attributes:
+            width: 1em
+            height: 1em
+            viewBox: '0 0 512 512'
+          viewBox:
+            - 0
+            - 0
+            - 512
+            - 512
+          body: '<path fill="currentColor" d="M17.47 250.9C88.82 328.1 158 397.6 224.5 485.5c72.3-143.8 146.3-288.1 268.4-444.37L460 26.06C356.9 135.4 276.8 238.9 207.2 361.9c-48.4-43.6-126.62-105.3-174.38-137z"/>'
+        name: 'Jakość Której Ufasz'
+        type: logo_item
+        enabled: true
+      -
+        id: LER-NL2Jsfmq4Md6TNsh7
+        icon:
+          name: 'fa6-solid:hammer'
+          attributes:
+            width: 1.13em
+            height: 1em
+            viewBox: '0 0 576 512'
+          viewBox:
+            - 0
+            - 0
+            - 576
+            - 512
+          body: '<path fill="currentColor" d="M413.5 237.5c-28.2 4.8-58.2-3.6-80-25.4L295.4 174c-15-15-23.4-35.2-23.4-56.4v-12.1L192.3 62c-5.3-2.9-8.6-8.6-8.3-14.7s3.9-11.5 9.5-14l47.2-21C259.1 4.2 279 0 299.2 0h18.1c36.7 0 72 14 98.7 39.1l44.6 42c24.2 22.8 33.2 55.7 26.6 86L503 183l8-8c9.4-9.4 24.6-9.4 33.9 0l24 24c9.4 9.4 9.4 24.6 0 33.9l-88 88c-9.4 9.4-24.6 9.4-33.9 0l-24-24c-9.4-9.4-9.4-24.6 0-33.9l8-8zM27.4 377.1l233.5-194.5c3.5 4.9 7.5 9.6 11.8 14l38.1 38.1c6 6 12.4 11.2 19.2 15.7L134.9 484.6C120.4 502 98.9 512 76.3 512C34.1 512 0 477.8 0 435.7c0-22.6 10.1-44.1 27.4-58.6"/>'
+        name: 'Wytrzymałość. Bezpieczeństwo. Długowieczność.'
+        type: logo_item
+        enabled: true
+      -
+        id: 5SoL9TQ6wLjFDnh4ikZxy
+        icon:
+          name: 'mdi:landscape'
+          attributes:
+            width: 1em
+            height: 1em
+            viewBox: '0 0 24 24'
+          viewBox:
+            - 0
+            - 0
+            - 24
+            - 24
+          body: '<path fill="currentColor" d="m14 6l-3.75 5l2.85 3.8l-1.6 1.2C9.81 13.75 7 10 7 10l-6 8h22z"/>'
+        name: 'Kreujemy Przestrzeń'
+        type: logo_item
+        enabled: true
+      -
+        id: IxE9a5JsqNzNyDKaHWtNY
+        icon:
+          name: 'mdi:worker'
+          attributes:
+            width: 1em
+            height: 1em
+            viewBox: '0 0 24 24'
+          viewBox:
+            - 0
+            - 0
+            - 24
+            - 24
+          body: '<path fill="currentColor" d="M12 15c-4.42 0-8 1.79-8 4v2h16v-2c0-2.21-3.58-4-8-4M8 9a4 4 0 0 0 4 4a4 4 0 0 0 4-4m-4.5-7c-.3 0-.5.21-.5.5v3h-1V3s-2.25.86-2.25 3.75c0 0-.75.14-.75 1.25h10c-.05-1.11-.75-1.25-.75-1.25C16.25 3.86 14 3 14 3v2.5h-1v-3c0-.29-.19-.5-.5-.5z"/>'
+        name: 'Budujemy. Projektujemy. Dostarczamy.'
+        type: logo_item
+        enabled: true
+    type: logos_slider_with_icons
+    enabled: true
+  -
     id: mgw2va4f
     logos:
       -
@@ -447,7 +537,7 @@ page_builder:
         type: logo_item
         enabled: true
     type: logos_slider
-    enabled: true
+    enabled: false
   -
     id: mhagl2r3
     section_title: 'Najciekawsze Projekty'
@@ -611,42 +701,70 @@ page_builder:
     logos:
       -
         id: mhaih2gz
-        logo_image: images/stone-grid.svg
-        alt_text: stone-grid.svg
+        logo_image: logo-klienci/logo-aquaserwis.webp
+        alt_text: Aquaserwis
         type: sets
         enabled: true
       -
         id: mhaihke2
-        logo_image: images/urbancore.svg
-        alt_text: urbancore.svg
+        logo_image: logo-klienci/logo-baseny-tropikalne.webp
+        alt_text: 'Baseny Tropikalne'
         type: sets
         enabled: true
       -
         id: mhaihyay
-        logo_image: images/primeedge.svg
-        alt_text: primeedge.svg
+        logo_image: logo-klienci/logo-lykke-hotel.webp
+        alt_text: 'Lykke Hotel Chamonix'
         type: sets
         enabled: true
       -
         id: mhaii55m
-        logo_image: images/bricklayer.svg
-        alt_text: bricklayer.svg
+        logo_image: logo-klienci/logo-mosty-lodz.webp
+        alt_text: 'Mosty Łódź'
         type: sets
         enabled: true
       -
         id: mhaiicya
-        logo_image: images/bricklayer-2.svg
-        alt_text: bricklayer-2.svg
+        logo_image: logo-klienci/logo-varco.webp
+        alt_text: Varco
         type: sets
         enabled: true
       -
         id: mhaiikoj
-        logo_image: images/blue-heaven.svg
-        alt_text: blue-heaven.svg
+        logo_image: logo-klienci/logo-zoo-warszawa.webp
+        alt_text: 'ZOO Warszawa'
+        type: sets
+        enabled: true
+      -
+        id: a-9rLnXYAnN6pat2bCydT
+        logo_image: logo-klienci/ogo-zoo-wroclaw.webp
+        alt_text: 'ZOO Wrocław'
+        type: sets
+        enabled: true
+      -
+        id: eYf5oODj7ycU4LY-PhGWE
+        logo_image: logo-klienci/logo-hodonin-zoo.webp
+        type: sets
+        enabled: true
+      -
+        id: qek5JkUgts8RB78wtsoWN
+        logo_image: logo-klienci/logo_akvaria-ras.svg
+        type: sets
+        enabled: true
+      -
+        id: XS9NA7Tg8e4xCW8L5y5i0
+        logo_image: logo-klienci/logo-tallinn-zoo.webp
+        alt_text: 'Tallinn ZOO'
+        type: sets
+        enabled: true
+      -
+        id: Xe7Mp917gb9FWGZ7x-c7g
+        logo_image: logo-klienci/logo-zoo-chorzow.webp
+        alt_text: 'Śląski Ogród Zoologiczny'
         type: sets
         enabled: true
     type: trusted_partners_section
     enabled: true
 updated_by: 07f72358-0580-4aaf-b00c-6a3760228419
-updated_at: 1781720962
+updated_at: 1781782994
 ---

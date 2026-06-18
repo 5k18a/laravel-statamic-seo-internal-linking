@@ -8,6 +8,13 @@
         <h5 class="logo-name">{{ text }}</h5>
       </div>
       {{ /text_slider }}
+      <!-- duplicate set for seamless loop (animation translateX 0 → -50%) -->
+      {{ text_slider }}
+      <div class="flex items-center 1xl:gap-7 md:gap-5 gap-4 flex-shrink-0" aria-hidden="true">
+        <img src="{{ logo }} {{ url }} {{ /logo }}" class="logos" aria-hidden="true" />
+        <h5 class="logo-name">{{ text }}</h5>
+      </div>
+      {{ /text_slider }}
     </div>
   </div>
 </section>

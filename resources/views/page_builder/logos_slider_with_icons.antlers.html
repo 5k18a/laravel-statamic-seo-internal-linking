@@ -10,6 +10,15 @@
         <h5 class="logo-name">{{ name }}</h5>
       </div>
       {{ /logos }}
+      <!-- duplicate set for seamless loop (animation translateX 0 → -50%) -->
+      {{ logos }}
+      <div class="flex items-center 1xl:gap-7 md:gap-5 gap-4 flex-shrink-0 text-white" aria-hidden="true">
+        {{ if icon }}
+          {{ iconify:icon class="logos fill-current" aria-hidden="true" }}
+        {{ /if }}
+        <h5 class="logo-name">{{ name }}</h5>
+      </div>
+      {{ /logos }}
     </div>
   </div>
 </section>

@@ -17,9 +17,13 @@
 
     <!-- Continuous Logo Slider -->
     <div class="logo-slider overflow-hidden relative">
-      <div class="slider-track flex items-center 2xl:gap-[150px] lg:gap-[100px] md:gap-[70px] sm:gap-[54px] gap-10">
+      <div class="slider-track flex items-center 2xl:gap-[150px] lg:gap-[100px] md:gap-[70px] sm:gap-[54px] gap-10" aria-hidden="false">
         {{ logos }}
         <img src="{{ logo_image }} {{ url }} {{ /logo_image }}" class="logo 2xl:max-h-[100px] lg:max-h-[75px] md:max-h-[72px] sm:max-h-[55px] max-h-11 object-contain" alt="{{ alt_text }}" />
+        {{ /logos }}
+        <!-- duplicate set for seamless loop (animation translateX 0 → -50%) -->
+        {{ logos }}
+        <img src="{{ logo_image }} {{ url }} {{ /logo_image }}" class="logo 2xl:max-h-[100px] lg:max-h-[75px] md:max-h-[72px] sm:max-h-[55px] max-h-11 object-contain" alt="" aria-hidden="true" />
         {{ /logos }}
       </div>
     </div>
