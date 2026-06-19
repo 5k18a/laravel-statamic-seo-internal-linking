@@ -12,6 +12,11 @@
     </div>
 </section>
 <!-- end about-mission -->
+{{ if content_title }}
+<div class="container 2xl:mt-[50px] 1xl:mt-10 lg:mt-9 sm:mt-7 mt-5">
+    <h2 class="1xl:mb-[50px] sm:mb-9 mb-6">{{ content_title }}</h2>
+</div>
+{{ /if }}
 {{ if content }}
 {{ content }}
 {{ if type == "quote_section" }}

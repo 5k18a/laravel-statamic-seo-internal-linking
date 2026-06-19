@@ -47,6 +47,13 @@ tabs:
               type: text
               display: 'Button Label'
           -
+            handle: content_title
+            field:
+              type: text
+              display: 'Content Title'
+              instructions: 'Tytuł wyświetlany nad zawartością Bard. Pozostaw puste, aby ukryć.'
+              localizable: true
+          -
             handle: content
             field:
               remove_empty_nodes: false

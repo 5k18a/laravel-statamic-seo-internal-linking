@@ -4,6 +4,15 @@ Changelog projektu `skalisty-orion` — prowadzony przez Claude po każdym zako�
 
 ---
 
+## 2026-06-19 (sesja lokalna — content_title dla services + CSS fix + sync)
+
+### Dodano
+
+- **`resources/blueprints/collections/services/service.yaml`** — pole `content_title` (type: text, localizable: true) nad polem `content` (Bard). Instrukcja: pozostaw puste, aby ukryć.
+- **`resources/views/service/show.antlers.html`** — blok `{{ if content_title }}<h2>{{ content_title }}</h2>{{ /if }}` przed pętlą Bard. Styl zgodny z `section_title` z page buildera (`1xl:mb-[50px] sm:mb-9 mb-6`). Brak tytułu = brak elementu HTML w ogóle.
+
+---
+
 ## 2026-06-19 (sesja lokalna — CSS fix Bard paragraphs + blueprint + sync)
 
 ### Zmieniono
