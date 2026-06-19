@@ -15,7 +15,7 @@
 {{ if content }}
 {{ content }}
 {{ if type == "quote_section" }}
-<div class="container 2xl:py-[70px] 1xl:py-16 lg:py-14 sm:py-10 py-8">
+<div class="container 2xl:py-[18px] 1xl:py-4 lg:py-3.5 sm:py-2.5 py-2">
   <blockquote class="border-l-5 border-primary-900 1xl:px-10 md:py-7 sm:py-6 xl:px-10 sm:px-8 p-4 bg-primary-900/12 1xl:mt-[30px] sm:mt-6 mt-4 lg:mb-4 mb-2">
     <p class="h6 text-black 2xl:!leading-[35px] xl:!leading-[34px] lg:!leading-[30px] !leading-[24px] font-medium">
       "{{ quote_text }}"
@@ -33,7 +33,7 @@
 </div>
 
 {{ elseif type == "list_section" }}
-<div class="container 2xl:py-[70px] 1xl:py-16 lg:py-14 sm:py-10 py-8">
+<div class="container 2xl:py-[18px] 1xl:py-4 lg:py-3.5 sm:py-2.5 py-2">
   <ul class="custom-list">
     {{ list_section }}
     <li>
@@ -45,7 +45,7 @@
 </div>
 
 {{ elseif type == "image_section" }}
-<div class="container 2xl:py-[70px] 1xl:py-16 lg:py-14 sm:py-10 py-8">
+<div class="container 2xl:py-[18px] 1xl:py-4 lg:py-3.5 sm:py-2.5 py-2">
   <div class="grid sm:grid-cols-2 grid-cols-1 w-full xl:gap-10 lg:gap-9 sm:gap-6 gap-5 js-gallery">
     {{ images }}
     <div class="overflow-hidden relative 1xl:before:pt-[69%] before:pt-[65%] before:block">
@@ -58,7 +58,7 @@
 </div>
 
 {{ elseif type == "dynamic_table" }}
-<div class="container 2xl:py-[70px] 1xl:py-16 lg:py-14 sm:py-10 py-8">
+<div class="container 2xl:py-[18px] 1xl:py-4 lg:py-3.5 sm:py-2.5 py-2">
   <div class="overflow-x-auto">
     <table class="w-full border-collapse">
       <thead>
@@ -82,7 +82,7 @@
 </div>
 
 {{ elseif type == "gallery_section" }}
-<div class="container 2xl:py-[70px] 1xl:py-16 lg:py-14 sm:py-10 py-8">
+<div class="container 2xl:py-[18px] 1xl:py-4 lg:py-3.5 sm:py-2.5 py-2">
   <div class="grid sm:grid-cols-2 grid-cols-1 w-full xl:gap-10 lg:gap-9 sm:gap-6 gap-5 js-gallery">
     {{ gallery_row_1:galleries }}
     <div class="overflow-hidden relative 1xl:before:pt-[69%] before:pt-[65%] before:block">
@@ -102,7 +102,7 @@
 </div>
 
 {{ elseif type == "skalisty_gallery_section" }}
-<div class="container 2xl:py-[70px] 1xl:py-16 lg:py-14 sm:py-10 py-8">
+<div class="container 2xl:py-[18px] 1xl:py-4 lg:py-3.5 sm:py-2.5 py-2">
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 2xl:gap-9 xl:gap-7 md:gap-6 gap-5 js-gallery">
     {{ galleries }}
     {{ image }}
@@ -120,7 +120,7 @@
 </div>
 
 {{ elseif type == "instagram_gallery_section" }}
-<div class="container 2xl:py-[70px] 1xl:py-16 lg:py-14 sm:py-10 py-8">
+<div class="container 2xl:py-[18px] 1xl:py-4 lg:py-3.5 sm:py-2.5 py-2">
   <div class="grid lg:grid-cols-6 grid-cols-3">
     {{ gallery_section }}
     <div class="group/instagram relative">
@@ -138,46 +138,54 @@
 </div>
 
 {{ elseif type == "faq_section" }}
-<div class="container 2xl:py-[70px] 1xl:py-16 lg:py-14 sm:py-10 py-8">
+<div class="container 2xl:py-[18px] 1xl:py-4 lg:py-3.5 sm:py-2.5 py-2">
+  {{ if display_type == 'select' }}
+  {{ faqs }}
   <div class="border-t border-[#00000026] w-full" x-data="{selected: 1}">
-    {{ if display_type == 'select' }}
-    {{ faqs }}
+    {{ faq_items }}
     <div class="group faqs-list border-b border-[#00000026] 2xl:py-7 xl:py-[22px] sm:py-[18px] py-[15px]" :class="selected == {{ index + 1 }} ? 'active' : ''">
       <div class="flex items-center justify-between">
         <div class="faqs-title cursor-pointer flex items-center md:pr-16 sm:pr-7 pr-4 gap-3 md:gap-5 xl:gap-[30px]" @click="selected !== {{ index + 1 }} ? selected = {{ index + 1 }} : selected = null" :class="selected == {{ index + 1 }} ? 'active' : ''">
-          <h5 class="mb-0 font-medium group-hover:text-primary-900">{{ title }}</h5>
+          <h5 class="mb-0 font-medium group-hover:text-primary-900">{{ question }}</h5>
         </div>
         <div class="bg-primary-900 rounded-full border border-white sm:p-2 p-[3px] 1xl:w-[42px] 1xl:h-[42px] lg:w-[38px] lg:h-[38px] sm:w-[35px] sm:h-[35px] w-[26px] h-[26px] flex items-center justify-center cursor-pointer" @click="selected !== {{ index + 1 }} ? selected = {{ index + 1 }} : selected = null">
           <svg class="w-[42px] stroke-white transition-all duration-300 ease-in-out" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12" /><line x1="12" y1="5" x2="12" y2="19" class="origin-center transition-all duration-300" :class="selected == {{ index + 1 }} ? 'scale-y-0 opacity-0' : 'scale-y-100 opacity-100'" /></svg>
         </div>
       </div>
-      <div class="faqs-content overflow-hidden transition-all duration-700 2xl:pr-[30px] sm:pr-10 pr-0" x-ref="container1" x-bind:style="selected == {{ index + 1 }} ? 'height:' + $refs.container1.scrollHeight + 'px' : 'height:0px'">
+      <div class="faqs-content overflow-hidden transition-all duration-700 2xl:pr-[30px] sm:pr-10 pr-0" x-ref="container{{ index }}" x-bind:style="selected == {{ index + 1 }} ? 'height:' + $refs['container{{ index }}'].scrollHeight + 'px' : 'height:0px'">
         <p class="1xl:mt-[14px] mt-2 font-light">{{ answer }}</p>
       </div>
     </div>
-    {{ /faqs }}
-    {{ else }}
-    {{ if collections == "faqs" }}{{ collection:faqs }}
-    <div class="group faqs-list border-b border-[#00000026] 2xl:py-7 xl:py-[22px] sm:py-[18px] py-[15px]" :class="selected == {{ index + 1 }} ? 'active' : ''">
-      <div class="flex items-center justify-between">
-        <div class="faqs-title cursor-pointer flex items-center md:pr-16 sm:pr-7 pr-4 gap-3 md:gap-5 xl:gap-[30px]" @click="selected !== {{ index + 1 }} ? selected = {{ index + 1 }} : selected = null" :class="selected == {{ index + 1 }} ? 'active' : ''">
-          <h5 class="mb-0 font-medium group-hover:text-primary-900">{{ title }}</h5>
-        </div>
-        <div class="bg-primary-900 rounded-full border border-white sm:p-2 p-[3px] 1xl:w-[42px] 1xl:h-[42px] lg:w-[38px] lg:h-[38px] sm:w-[35px] sm:h-[35px] w-[26px] h-[26px] flex items-center justify-center cursor-pointer" @click="selected !== {{ index + 1 }} ? selected = {{ index + 1 }} : selected = null">
-          <svg class="w-[42px] stroke-white transition-all duration-300 ease-in-out" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12" /><line x1="12" y1="5" x2="12" y2="19" class="origin-center transition-all duration-300" :class="selected == {{ index + 1 }} ? 'scale-y-0 opacity-0' : 'scale-y-100 opacity-100'" /></svg>
-        </div>
-      </div>
-      <div class="faqs-content overflow-hidden transition-all duration-700 2xl:pr-[30px] sm:pr-10 pr-0" x-ref="container1" x-bind:style="selected == {{ index + 1 }} ? 'height:' + $refs.container1.scrollHeight + 'px' : 'height:0px'">
-        <p class="1xl:mt-[14px] mt-2 font-light">{{ answer }}</p>
-      </div>
-    </div>
-    {{ /collection:faqs }}{{ /if }}
-    {{ /if }}
+    {{ /faq_items }}
   </div>
+  {{ /faqs }}
+  {{ else }}
+  {{ if collections == "faqs" }}
+  {{ collection:faqs }}
+  <div class="border-t border-[#00000026] w-full" x-data="{selected: 1}">
+    {{ faq_items }}
+    <div class="group faqs-list border-b border-[#00000026] 2xl:py-7 xl:py-[22px] sm:py-[18px] py-[15px]" :class="selected == {{ index + 1 }} ? 'active' : ''">
+      <div class="flex items-center justify-between">
+        <div class="faqs-title cursor-pointer flex items-center md:pr-16 sm:pr-7 pr-4 gap-3 md:gap-5 xl:gap-[30px]" @click="selected !== {{ index + 1 }} ? selected = {{ index + 1 }} : selected = null" :class="selected == {{ index + 1 }} ? 'active' : ''">
+          <h5 class="mb-0 font-medium group-hover:text-primary-900">{{ question }}</h5>
+        </div>
+        <div class="bg-primary-900 rounded-full border border-white sm:p-2 p-[3px] 1xl:w-[42px] 1xl:h-[42px] lg:w-[38px] lg:h-[38px] sm:w-[35px] sm:h-[35px] w-[26px] h-[26px] flex items-center justify-center cursor-pointer" @click="selected !== {{ index + 1 }} ? selected = {{ index + 1 }} : selected = null">
+          <svg class="w-[42px] stroke-white transition-all duration-300 ease-in-out" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12" /><line x1="12" y1="5" x2="12" y2="19" class="origin-center transition-all duration-300" :class="selected == {{ index + 1 }} ? 'scale-y-0 opacity-0' : 'scale-y-100 opacity-100'" /></svg>
+        </div>
+      </div>
+      <div class="faqs-content overflow-hidden transition-all duration-700 2xl:pr-[30px] sm:pr-10 pr-0" x-ref="container{{ index }}" x-bind:style="selected == {{ index + 1 }} ? 'height:' + $refs['container{{ index }}'].scrollHeight + 'px' : 'height:0px'">
+        <p class="1xl:mt-[14px] mt-2 font-light">{{ answer }}</p>
+      </div>
+    </div>
+    {{ /faq_items }}
+  </div>
+  {{ /collection:faqs }}
+  {{ /if }}
+  {{ /if }}
 </div>
 
 {{ else }}
-<div class="container 2xl:py-[70px] 1xl:py-16 lg:py-14 sm:py-10 py-8">
+<div class="container 2xl:py-[18px] 1xl:py-4 lg:py-3.5 sm:py-2.5 py-2">
   {{ text }}
 </div>
 {{ /if }}

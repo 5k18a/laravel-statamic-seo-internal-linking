@@ -12,14 +12,39 @@ tabs:
               required: true
               validate:
                 - required
-              display: Question
+              display: 'Nazwa grupy FAQ'
+              instructions: 'Np. "FAQ — Cennik", "FAQ — Montaż". To pole służy do identyfikacji paczki w CP, nie jest wyświetlane jako pytanie.'
               localizable: true
           -
-            handle: answer
+            handle: faq_items
             field:
-              type: textarea
-              display: Answer
+              type: replicator
+              display: 'Pytania i odpowiedzi'
+              instructions: 'Dodaj kolejne pary pytanie–odpowiedź w tej paczce.'
+              collapse: true
               localizable: true
+              sets:
+                group:
+                  sets:
+                    item:
+                      display: 'Pytanie i odpowiedź'
+                      fields:
+                        -
+                          handle: question
+                          field:
+                            type: text
+                            display: Pytanie
+                            required: true
+                            validate:
+                              - required
+                        -
+                          handle: answer
+                          field:
+                            type: textarea
+                            display: Odpowiedź
+                            required: true
+                            validate:
+                              - required
   sidebar:
     display: Sidebar
     sections:

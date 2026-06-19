@@ -9,9 +9,9 @@
             class="bg-primary-900 z-1 lg:w-[57%] md:w-[80%] w-full relative 2xl:py-[72px] 2xl:px-[90px] xl:py-[50px] xl:px-[70px] lg:py-[42px] py-[36px] lg:px-[60px] md:px-[40px] ml-auto mr-0 2xl:my-[62px] xl:my-[52px] md:my-[48px]">
             <div class="container md:max-w-[852px] w-full relative z-1 md:ml-0 md:!p-0">
               <h2 class="text-white mb-0">{{ section_title }}</h2>
+              {{ faqs }}
               <div class="sm:border-0 border-t border-white sm:mt-0 mt-5" x-data="{selected: 1}">
-                <!-- FAQ 1 (default open) -->
-                {{ faqs }}
+                {{ faq_items }}
                 <div class="faqs-list border-b border-white 2xl:py-7 xl:py-[22px] sm:py-[18px] py-[15px]"
                   :class="selected == {{ index + 1 }} ? 'active' : ''">
                   <div class="flex items-center justify-between">
@@ -20,7 +20,7 @@
                       class="faqs-title cursor-pointer flex items-center md:pr-16 sm:pr-7 pr-4 gap-3 md:gap-5 xl:gap-[30px]"
                       @click="selected !== {{ index + 1 }} ? selected = {{ index + 1 }} : selected = null" :class="selected == {{ index + 1 }} ? 'active' : ''">
                       <h5 class="!text-white mb-0 font-normal">
-                        {{ title }}
+                        {{ question }}
                       </h5>
                     </div>
 
@@ -42,15 +42,16 @@
                   <!-- Content -->
                   <div
                     class="faqs-content overflow-hidden transition-all max-h-0 duration-700 lg:pr-[30px] sm:pr-4 pr-0"
-                    x-ref="container1"
-                    x-bind:style="selected == {{ index + 1 }} ? 'max-height: ' + $refs.container1.scrollHeight + 'px' : ''">
+                    x-ref="container{{ index }}"
+                    x-bind:style="selected == {{ index + 1 }} ? 'max-height: ' + $refs['container{{ index }}'].scrollHeight + 'px' : ''">
                     <p class="1xl:mt-[14px] mt-2 font-light text-white">
                      {{ answer }}
                     </p>
                   </div>
                 </div>
-                {{ /faqs }}
+                {{ /faq_items }}
               </div>
+              {{ /faqs }}
             </div>
           </div>
         </div>
@@ -64,18 +65,17 @@
                 <h2 class="2xl:mb-[60px] 1xl:mb-12 lg:mb-10 md:mb-8 sm:mb-6 mb-5 sm:text-start text-center">
                     {{ section_title }}
                 </h2>
+                {{ if collections == "faqs" }}
+                {{ collection:faqs }}
                 <div class="border-t border-[#00000026] sm:mt-0 mt-5 w-full" x-data="{selected: 1}">
-                    <!-- FAQ 1 (default open) -->
-                    {{ if collections == "faqs" }}
-                    {{ collection:faqs }}
-
+                    {{ faq_items }}
                     <div class="group faqs-list border-b border-[#00000026] 2xl:py-7 xl:py-[22px] sm:py-[18px] py-[15px]"
                         :class="selected == {{ index + 1 }} ? 'active' : ''">
                         <div class="flex items-center justify-between">
                             <div class="faqs-title cursor-pointer flex items-center md:pr-16 sm:pr-7 pr-4 gap-3 md:gap-5 xl:gap-[30px]"
                                 @click="selected !== {{ index + 1 }} ? selected = {{ index + 1 }} : selected = null"
                                 :class="selected == {{ index + 1 }} ? 'active' : ''">
-                                <h5 class="mb-0 font-medium group-hover:text-primary-900">{{ title }}</h5>
+                                <h5 class="mb-0 font-medium group-hover:text-primary-900">{{ question }}</h5>
                             </div>
 
                             <div class="bg-primary-900 rounded-full border border-white sm:p-2 p-[3px] 1xl:w-[42px] 1xl:h-[42px] lg:w-[38px] lg:h-[38px] sm:w-[35px] sm:h-[35px] w-[26px] h-[26px] flex items-center justify-center cursor-pointer"
@@ -92,22 +92,22 @@
 
                         <!-- Content -->
                         <div class="faqs-content overflow-hidden transition-all duration-700 2xl:pr-[30px] sm:pr-10 pr-0"
-                            x-ref="container1" x-init="$nextTick(() => {
+                            x-ref="container{{ index }}" x-init="$nextTick(() => {
                           setTimeout(() => {
                             if (selected == {{ index + 1 }}) {
-                              $el.style.height = $refs.container1.scrollHeight + 'px';
+                              $el.style.height = $refs['container{{ index }}'].scrollHeight + 'px';
                             }
                           }, 50);
                         })" x-bind:style="selected == {{ index + 1 }}
-                          ? 'height:' + $refs.container1.scrollHeight + 'px' 
+                          ? 'height:' + $refs['container{{ index }}'].scrollHeight + 'px' 
                           : 'height:0px'">
                             <p class="1xl:mt-[14px] mt-2 font-light">{{ answer }}</p>
                         </div>
                     </div>
-                    {{ /collection:faqs }}
-                    {{ /if }}
-
+                    {{ /faq_items }}
                   </div>
+                  {{ /collection:faqs }}
+                  {{ /if }}
             </div>
         </div>
 

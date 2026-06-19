@@ -644,10 +644,7 @@ page_builder:
     section_title: 'Jak Pracujemy Q&A'
     banner_image: images/strony/budowa-sztucznych-skal-pingwiny-zoo-warszawa.webp
     faqs:
-      - 1f8d8193-1a90-4f96-a449-0eaaf96d7981
-      - 19e0cfc1-4c34-4b55-bbc8-91a9521a4a6f
-      - 1ceafe6a-a190-4c22-829e-38ebd2efac9d
-      - fffea9ac-ff78-4748-9be4-7b095f1a3b54
+      - 545dc903-c79e-44ec-8a9d-62f9df11509d
     type: faq_section
     enabled: true
     display_type: select
@@ -688,10 +685,7 @@ page_builder:
     section_title: 'Wiedza i Technologia'
     display_type: select
     faqs:
-      - f9bbb209-c255-4a34-bfcf-8f2a2cdc57dc
-      - bcf636ba-e5e5-4574-ad41-3c89c117f9dd
       - 4573320c-06b6-4d2d-853c-c8c889605d55
-      - 5eee1ad9-4d23-4387-a894-7ed69f94d3c2
     type: faq_section
     enabled: true
     banner_image: images/strony/jaszczurka-faq.webp
@@ -769,5 +763,5 @@ page_builder:
     type: trusted_partners_section
     enabled: true
 updated_by: 07f72358-0580-4aaf-b00c-6a3760228419
-updated_at: 1781857072
+updated_at: 1781884198
 ---
