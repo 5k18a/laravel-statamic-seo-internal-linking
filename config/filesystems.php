@@ -70,6 +70,24 @@ return [
             'report' => false,
         ],
 
+        'icons' => [
+            'driver' => 'local',
+            'root' => public_path('assets/icons'),
+            'url' => '/assets/icons',
+            'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
+        ],
+
+        'icons2' => [
+            'driver' => 'local',
+            'root' => public_path('assets/icons2'),
+            'url' => '/assets/icons2',
+            'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
+        ],
+
     ],
 
     /*
