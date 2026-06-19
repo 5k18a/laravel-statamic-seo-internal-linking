@@ -14,7 +14,7 @@
       <div class="border-t border-black" x-data="{selected:1}">
 
         {{ if collections == "services" }}
-        {{ collection:services as="services" paginate="true" limit="{limit}" }}
+        {{ collection:services as="services" paginate="true" limit="{limit}" sort="order:asc" }}
 
         {{ /if }}
         {{ services }}
@@ -81,7 +81,7 @@
     <div class="services-list">
       <!-- Service Item -->
       {{ if collections == "services" }}
-      {{ collection:services as="services" paginate="true" limit="{limit}" }}
+      {{ collection:services as="services" paginate="true" limit="{limit}" sort="order:asc" }}
 
       {{ /if }}
       {{ services }}
@@ -144,7 +144,7 @@
             <div class="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 1xl:gap-9 xl:gap-7.5 sm:gap-6.5 gap-5 lg:mt-[42px] sm:mt-8 mt-5">
               <!-- Card 1 -->
               {{ if collections == "services" }}
-              {{ collection:services as="services" paginate="true" limit="{limit}" }}
+              {{ collection:services as="services" paginate="true" limit="{limit}" sort="order:asc" }}
 
               {{ /if }}
               {{ services }}
@@ -186,7 +186,7 @@
     <div class="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 1xl:gap-9 xl:gap-6.5 sm:gap-6.5 gap-5">
       <!-- Card 1 -->
       {{ if collections == "services" }}
-      {{ collection:services as="services" paginate="true" limit="{limit}" }}
+      {{ collection:services as="services" paginate="true" limit="{limit}" sort="order:asc" }}
 
       {{ /if }}
       {{ services }}
@@ -284,7 +284,7 @@
     {{ sub_title }}
   </h2>
   {{ if collections == "services" }}
-  {{ collection:services as="services" paginate="true" limit="{limit}" }}
+  {{ collection:services as="services" paginate="true" limit="{limit}" sort="order:asc" }}
   {{ /if }}
   <!-- start FAQ's section -->
   <div class="services-list grid_append">
@@ -344,7 +344,7 @@
   </h2>
 
   {{ if collections == "services" }}
-  {{ collection:services as="services" paginate="true" limit="{limit}" }}
+  {{ collection:services as="services" paginate="true" limit="{limit}" sort="order:asc" }}
   {{ /if }}
   <!-- start FAQ's section -->
   <div class="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 1xl:gap-9 xl:gap-7.5 sm:gap-6 gap-5 grid_append">
