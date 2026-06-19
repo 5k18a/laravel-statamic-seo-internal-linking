@@ -16,7 +16,7 @@ tree:
         - 3a9e9898-fec3-4f0f-adf0-5b13a60b6a63
         - 339182d4-7ccd-483f-9d0e-5d24bb1ba1fe
       button_text: 'View Projects'
-      button_link: /en/projects
+      button_page: 4fbd395d-12b2-4384-8433-056daccc8bde
       copyright_text: '© All rights reserved to Orion Constructions'
   -
     id: 0f64feda-3c94-4b43-98f5-0e39fadceca2
@@ -33,7 +33,7 @@ tree:
         - 9fcd3c44-26b5-4ca9-8263-86273e6b71ee
         - c7285522-8701-40c5-989c-454fd29bc371
       button_text: 'View Services'
-      button_link: /en/services
+      button_page: 068133ec-7b84-40f4-9122-53373a1c74b5
       copyright_text: '© All rights reserved to Orion Constructions'
   -
     id: 5e6e966f-4559-408b-85f3-b4ddfbaad27c

@@ -68,10 +68,14 @@ tabs:
               if:
                 menu_type: 'not normal'
           -
-            handle: button_link
+            handle: button_page
             field:
-              type: text
-              display: 'Button Link'
+              type: entries
+              display: 'Button Page'
+              max_items: 1
+              mode: select
+              collections:
+                - pages
               if:
                 menu_type: 'not normal'
           -
