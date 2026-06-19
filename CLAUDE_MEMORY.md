@@ -4,15 +4,15 @@
 # Aktualizowany po każdym zakończonym zadaniu
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-18-EOD
-active_task_id: none
-active_task_name: Brak aktywnego zadania
-active_task_status: idle
-active_task_source: —
-last_sync: 2026-06-18 EOD Europe/Warsaw
+state_version: 2026-06-19-1930
+active_task_id: BUGFIX-icon-box-center-icon
+active_task_name: Wyśrodkowanie ikony w Icon Box With Text Section
+active_task_status: active
+active_task_source: BRIEF_CODEX.md
+last_sync: 2026-06-19 19:30 Europe/Warsaw
 last_synced_by: Claude
-last_closed: BUGFIX-logo-proportions
-next_after_active: Decyzja użytkownika — formularze kontaktowe lub inne zadanie
+last_closed: SYNC-orientarium
+next_after_active: Decyzja użytkownika — retłumaczenie Home EN lub Formularze kontaktowe
 <!-- PROJECT_SYNC_END -->
 
 ---
