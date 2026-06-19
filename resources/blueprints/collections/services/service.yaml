@@ -13,6 +13,14 @@ tabs:
               validate:
                 - required
           -
+            handle: order
+            field:
+              type: integer
+              display: 'Kolejność'
+              instructions: 'Numer porządkowy na listingu (1 = pierwsza pozycja). Im niższy numer, tym wyżej na liście.'
+              validate:
+                - integer
+          -
             handle: icon
             field:
               max_files: 1

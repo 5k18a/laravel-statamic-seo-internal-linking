@@ -12,6 +12,15 @@ Changelog projektu `skalisty-orion` — prowadzony przez Claude po każdym zako�
 
 ---
 
+## 2026-06-20 (feat — sortowanie services po polu order)
+
+### Dodano
+
+- **`resources/blueprints/collections/services/service.yaml`** — pole `order` (type: integer) nad polem `icon`. Instrukcja: numer porządkowy 1–N, im niższy tym wyżej na liście.
+- **`content/collections/services.yaml`** — `sort_field: order`, `sort_direction: asc`. Sortowanie rosnące po polu integer — analogicznie do projektów, ale bez computed field (sortowanie rosnące nie wymaga przekształcenia).
+
+---
+
 ## 2026-06-19 (feat — Confidence Section: Button URL → entries picker)
 
 ### Zmieniono

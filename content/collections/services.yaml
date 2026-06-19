@@ -17,6 +17,8 @@ route:
 date_behavior:
   past: public
   future: private
+sort_field: order
+sort_direction: asc
 sites:
   - en
   - pl
