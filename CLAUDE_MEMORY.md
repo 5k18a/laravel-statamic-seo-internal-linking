@@ -149,6 +149,8 @@ Projekt `skalisty-orion` jest aktywną instalacją Laravel 13 + Statamic 6 opart
 | BUGFIX-icon-box-center-icon | ✅ Gotowe (2026-06-19) — `mx-auto` na kontenerze ikony w `icon_box_with_text_section.antlers.html`; deploy na serwer; 2 passed |
 | FEATURE-services-icon-iconify | ✅ Gotowe (2026-06-19, Codex) — pole `icon` w `service.yaml` przywrócono do `assets`; nowe pole `icon_svg` (type: iconify, store_as: svg_data); 5 podmian ikon w `service_section.antlers.html` na `{{ iconify:icon_svg }}` z fallbackiem `{{ icon }}<img...>{{ /icon }}`; 2 passed; deploy na serwer |
 | FEATURE-service-bard-sets-render | ✅ Gotowe (2026-06-19/20, Codex) — `service/show.antlers.html`: `{{ content }}` prosty tag → pętla `{{ content }}...{{ /content }}` z 8 gałęziami `if/elseif` (quote_section, list_section, image_section, dynamic_table, gallery_section, skalisty_gallery_section, instagram_gallery_section, faq_section) + `{{ else }}{{ text }}`; `npm run build` (potrzebny dla `even:bg-gray-50`); 2 passed |
+| Refactor-bard-sections-no-title | ✅ Gotowe (2026-06-20) — usunięto `section_title` z 3 setów Bard (gallery_section, skalisty_gallery_section, faq_section); zastąpiono partial page_buildera inline HTML z jednolitym wrapper `container 2xl:py-[70px]...`; dodano `{{ partial:gallery-lightbox }}`; npm run build |
+| Deploy-2026-06-20 | ✅ Wdrożono (2026-06-20) — `dev.skalisty.pl`: service.yaml + service_section.antlers.html + service/show.antlers.html + output.css + architectural-design.md; view:clear, cache:clear, stache:refresh; php83 artisan test → 2 passed |
 
 ---
 

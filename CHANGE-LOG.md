@@ -4,6 +4,22 @@ Changelog projektu `skalisty-orion` — prowadzony przez Claude po każdym zako�
 
 ---
 
+## 2026-06-20 (Deploy — services Iconify + Bard content)
+
+_Deploy wykonany przez Claude._
+
+### Zakres
+
+- Wdrożono na `dev.skalisty.pl` zmiany z zadań `FEATURE-services-icon-iconify`, `FEATURE-service-bard-sets-render` oraz `refactor: uproszczenie sekcji Bard`:
+  - `resources/blueprints/collections/services/service.yaml`
+  - `resources/views/page_builder/service_section.antlers.html`
+  - `resources/views/service/show.antlers.html`
+  - `public/assets/css/output.css`
+  - `content/collections/services/pl/architectural-design.md`
+- Post-deploy: `view:clear`, `cache:clear`, `statamic:stache:refresh`, `php83 artisan test` → 2 passed ✅
+
+---
+
 ## 2026-06-19/20 (FEATURE-service-bard-sets-render — renderowanie setów Bard w szablonie serwisu)
 
 _Wykonane przez Codex (brief BRIEF_CODEX.md), zaakceptowane przez Claude._
