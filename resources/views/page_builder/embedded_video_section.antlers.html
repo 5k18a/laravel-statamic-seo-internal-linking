@@ -1,6 +1,6 @@
 <section class="embedded-video-section 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] md:mb-[50px] mb-8">
     <div class="container">
-        <div class="mx-auto w-[55%] max-sm:w-[95%]"
+        <div class="mx-auto w-[70%] max-sm:w-[95%]"
              x-data="embeddedVideo('{{ video_service }}', '{{ video_url | replace("'", "\\'") }}')"
              x-init="init()">
 
@@ -22,9 +22,9 @@
                     <!-- Przycisk play -->
                     <div class="absolute inset-0 flex items-center justify-center">
                         <div class="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center text-white group-hover:text-primary-900 transition-colors duration-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="currentColor" class="w-full h-full drop-shadow-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" class="w-full h-full drop-shadow-lg">
                                 <circle cx="40" cy="40" r="40" fill="currentColor" fill-opacity="0.85"/>
-                                <polygon points="32,24 60,40 32,56" fill="white"/>
+                                <polygon points="32,24 60,40 32,56" class="fill-red-600 group-hover:fill-white transition-colors duration-300"/>
                             </svg>
                         </div>
                     </div>
