@@ -192,12 +192,6 @@ tabs:
                             type: select
                             display: 'Show Type'
                         -
-                          handle: section_title
-                          field:
-                            default: 'Our Gallery'
-                            type: text
-                            display: 'Section Title'
-                        -
                           handle: button_text
                           field:
                             default: 'View Gallery'
@@ -272,12 +266,6 @@ tabs:
                       display: 'Skalisty Gallery Section'
                       fields:
                         -
-                          handle: section_title
-                          field:
-                            default: Galeria
-                            type: text
-                            display: 'Tytuł sekcji'
-                        -
                           handle: galleries
                           field:
                             mode: select
@@ -322,12 +310,6 @@ tabs:
                     faq_section:
                       display: 'FAQ Section'
                       fields:
-                        -
-                          handle: section_title
-                          field:
-                            type: text
-                            default: "Faq's Questions"
-                            display: 'Section Title'
                         -
                           handle: banner_image
                           field:

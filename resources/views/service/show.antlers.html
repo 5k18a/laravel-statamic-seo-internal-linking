@@ -82,16 +82,99 @@
 </div>
 
 {{ elseif type == "gallery_section" }}
-{{ partial src="page_builder/gallery_section" }}
+<div class="container 2xl:py-[70px] 1xl:py-16 lg:py-14 sm:py-10 py-8">
+  <div class="grid sm:grid-cols-2 grid-cols-1 w-full xl:gap-10 lg:gap-9 sm:gap-6 gap-5 js-gallery">
+    {{ gallery_row_1:galleries }}
+    <div class="overflow-hidden relative 1xl:before:pt-[69%] before:pt-[65%] before:block">
+      <a href="javascript:;" class="absolute top-0 left-0 w-full h-full block">
+        {{ image }}<img src="{{ url }}" alt="{{ title }}" class="h-full w-full object-cover" loading="lazy" />{{ /image }}
+      </a>
+    </div>
+    {{ /gallery_row_1:galleries }}
+    {{ gallery_row_2:galleries }}
+    <div class="overflow-hidden relative 1xl:before:pt-[69%] before:pt-[65%] before:block">
+      <a href="javascript:;" class="absolute top-0 left-0 w-full h-full block">
+        {{ image }}<img src="{{ url }}" alt="{{ title }}" class="h-full w-full object-cover" loading="lazy" />{{ /image }}
+      </a>
+    </div>
+    {{ /gallery_row_2:galleries }}
+  </div>
+</div>
 
 {{ elseif type == "skalisty_gallery_section" }}
-{{ partial src="page_builder/skalisty_gallery_section" }}
+<div class="container 2xl:py-[70px] 1xl:py-16 lg:py-14 sm:py-10 py-8">
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 2xl:gap-9 xl:gap-7 md:gap-6 gap-5 js-gallery">
+    {{ galleries }}
+    {{ image }}
+    <a href="javascript:;" class="relative group block gallery-item">
+      <img src="{{ url }}" alt="{{ title }}" class="w-full object-cover gallery-slide-img" />
+      <div class="pointer-events-none 2xl:w-20 2xl:h-20 xl:w-[65px] xl:h-[65px] sm:w-[55px] sm:h-[55px] w-8 h-8 rounded-full bg-white/80 items-center justify-center absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden group-hover:flex">
+        <svg xmlns="http://www.w3.org/2000/svg" width="69" height="69" viewBox="0 0 69 69" fill="none" class="2xl:w-[69px] xl:w-[63px] sm:w-[55px] w-10">
+          <path d="M24.8251 24.825H44.5722M44.5722 24.825V44.572M44.5722 24.825L24.8251 44.572" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+    </a>
+    {{ /image }}
+    {{ /galleries }}
+  </div>
+</div>
 
 {{ elseif type == "instagram_gallery_section" }}
-{{ partial src="page_builder/instagram_gallery_section" }}
+<div class="container 2xl:py-[70px] 1xl:py-16 lg:py-14 sm:py-10 py-8">
+  <div class="grid lg:grid-cols-6 grid-cols-3">
+    {{ gallery_section }}
+    <div class="group/instagram relative">
+      <a href="https://www.instagram.com/" class="block relative overflow-hidden before:block before:pt-[100%]">
+        <img src="{{ image }} {{ url }} {{ /image }}" alt="{{ alt_text }}" class="absolute top-0 left-0 w-full h-full object-cover" />
+        <div class="absolute top-0 left-0 group-hover/instagram:flex items-center justify-center w-full h-full bg-[#00000080] hidden transition-all ease-in-out">
+          <a href="{{ link }}" target="_blank" class="w-9 h-9 sm:w-[41px] sm:h-[41px] xl:w-[46px] xl:h-[46px] 2xl:w-[50px] 2xl:h-[50px] transition-all rounded-full bg-gray-200 flex items-center justify-center text-primary-900 hover:bg-primary-900 hover:text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 23 22" fill="none" class="xl:w-[22px] xl:h-[22px] sm:w-[19px] sm:h-[19px] w-[18px] h-[18px]"><g clip-path="url(#clip0_100_209)"><path d="M11.8889 0C8.90379 0 8.52842 0.01375 7.35554 0.066C6.18267 0.121 5.38379 0.30525 4.68392 0.5775C3.9498 0.853626 3.28484 1.28676 2.73554 1.84663C2.17602 2.39621 1.74294 3.06108 1.46642 3.795C1.19417 4.4935 1.00854 5.29375 0.954916 6.4625C0.902666 7.63812 0.888916 8.01213 0.888916 11.0014C0.888916 13.9879 0.902666 14.3619 0.954916 15.5347C1.00992 16.7063 1.19417 17.5051 1.46642 18.205C1.74829 18.9282 2.12367 19.5415 2.73554 20.1534C3.34604 20.7652 3.95929 21.142 4.68254 21.4225C5.38379 21.6947 6.18129 21.8804 7.35279 21.934C8.52704 21.9862 8.90104 22 11.8889 22C14.8768 22 15.2494 21.9862 16.4237 21.934C17.5938 21.879 18.3954 21.6947 19.0953 21.4225C19.8289 21.1462 20.4934 20.7131 21.0423 20.1534C21.6542 19.5415 22.0295 18.9282 22.3114 18.205C22.5823 17.5051 22.7679 16.7063 22.8229 15.5347C22.8752 14.3619 22.8889 13.9879 22.8889 11C22.8889 8.01213 22.8752 7.63813 22.8229 6.46388C22.7679 5.29375 22.5823 4.4935 22.3114 3.795C22.0349 3.06106 21.6018 2.39618 21.0423 1.84663C20.4932 1.28655 19.8282 0.853387 19.0939 0.5775C18.3927 0.30525 17.5924 0.119625 16.4223 0.066C15.248 0.01375 14.8754 0 11.8862 0H11.8903H11.8889ZM10.903 1.98275H11.8903C14.8273 1.98275 15.1752 1.99238 16.3343 2.046C17.4068 2.09413 17.9898 2.27425 18.3775 2.42412C18.8904 2.6235 19.2575 2.86275 19.6425 3.24775C20.0275 3.63275 20.2654 3.9985 20.4648 4.51275C20.616 4.89913 20.7948 5.48213 20.8429 6.55463C20.8965 7.71375 20.9075 8.06163 20.9075 10.9973C20.9075 13.9329 20.8965 14.2821 20.8429 15.4412C20.7948 16.5138 20.6147 17.0954 20.4648 17.4831C20.2884 17.9607 20.007 18.3926 19.6412 18.7467C19.2562 19.1318 18.8904 19.3696 18.3762 19.569C17.9912 19.7203 17.4082 19.899 16.3343 19.9485C15.1752 20.0007 14.8273 20.0131 11.8903 20.0131C8.95329 20.0131 8.60404 20.0007 7.44492 19.9485C6.37242 19.899 5.79079 19.7203 5.40304 19.569C4.92523 19.3929 4.49296 19.1119 4.13804 18.7467C3.77195 18.392 3.49004 17.9598 3.31304 17.4818C3.16317 17.0954 2.98304 16.5124 2.93492 15.4399C2.88267 14.2808 2.87167 13.9329 2.87167 10.9945C2.87167 8.0575 2.88267 7.711 2.93492 6.55187C2.98442 5.47937 3.16317 4.89638 3.31442 4.50863C3.51379 3.99575 3.75304 3.62862 4.13804 3.24362C4.52304 2.85862 4.88879 2.62075 5.40304 2.42138C5.79079 2.27013 6.37242 2.09138 7.44492 2.04188C8.45967 1.99513 8.85292 1.98138 10.903 1.98V1.98275ZM17.7615 3.80875C17.5882 3.80875 17.4165 3.84289 17.2564 3.90923C17.0962 3.97557 16.9507 4.0728 16.8282 4.19537C16.7056 4.31794 16.6084 4.46346 16.542 4.62361C16.4757 4.78376 16.4415 4.95541 16.4415 5.12875C16.4415 5.30209 16.4757 5.47374 16.542 5.63389C16.6084 5.79404 16.7056 5.93956 16.8282 6.06213C16.9507 6.1847 17.0962 6.28193 17.2564 6.34827C17.4165 6.41461 17.5882 6.44875 17.7615 6.44875C18.1116 6.44875 18.4474 6.30968 18.6949 6.06213C18.9425 5.81458 19.0815 5.47884 19.0815 5.12875C19.0815 4.77866 18.9425 4.44292 18.6949 4.19537C18.4474 3.94782 18.1116 3.80875 17.7615 3.80875ZM11.8903 5.3515C11.141 5.33981 10.3969 5.47729 9.70126 5.75594C9.00563 6.0346 8.37237 6.44885 7.83837 6.97458C7.30437 7.50032 6.88029 8.12703 6.59082 8.81823C6.30135 9.50944 6.15228 10.2513 6.15228 11.0007C6.15228 11.7501 6.30135 12.4919 6.59082 13.1831C6.88029 13.8743 7.30437 14.5011 7.83837 15.0268C8.37237 15.5525 9.00563 15.9668 9.70126 16.2454C10.3969 16.5241 11.141 16.6616 11.8903 16.6499C13.3733 16.6267 14.7877 16.0214 15.8283 14.9645C16.8688 13.9076 17.452 12.4839 17.452 11.0007C17.452 9.51751 16.8688 8.09382 15.8283 7.03691C14.7877 5.97999 13.3733 5.37464 11.8903 5.3515ZM11.8903 7.33288C12.8629 7.33288 13.7956 7.71923 14.4833 8.40695C15.1711 9.09467 15.5574 10.0274 15.5574 11C15.5574 11.9726 15.1711 12.9053 14.4833 13.593C13.7956 14.2808 12.8629 14.6671 11.8903 14.6671C10.9177 14.6671 9.98496 14.2808 9.29724 13.593C8.60952 12.9053 8.22317 11.9726 8.22317 11C8.22317 10.0274 8.60952 9.09467 9.29724 8.40695C9.98496 7.71923 10.9177 7.33288 11.8903 7.33288Z" fill="currentColor"></path></g></svg>
+          </a>
+        </div>
+      </a>
+    </div>
+    {{ /gallery_section }}
+  </div>
+</div>
 
 {{ elseif type == "faq_section" }}
-{{ partial src="page_builder/faq_section" }}
+<div class="container 2xl:py-[70px] 1xl:py-16 lg:py-14 sm:py-10 py-8">
+  <div class="border-t border-[#00000026] w-full" x-data="{selected: 1}">
+    {{ if display_type == 'select' }}
+    {{ faqs }}
+    <div class="group faqs-list border-b border-[#00000026] 2xl:py-7 xl:py-[22px] sm:py-[18px] py-[15px]" :class="selected == {{ index + 1 }} ? 'active' : ''">
+      <div class="flex items-center justify-between">
+        <div class="faqs-title cursor-pointer flex items-center md:pr-16 sm:pr-7 pr-4 gap-3 md:gap-5 xl:gap-[30px]" @click="selected !== {{ index + 1 }} ? selected = {{ index + 1 }} : selected = null" :class="selected == {{ index + 1 }} ? 'active' : ''">
+          <h5 class="mb-0 font-medium group-hover:text-primary-900">{{ title }}</h5>
+        </div>
+        <div class="bg-primary-900 rounded-full border border-white sm:p-2 p-[3px] 1xl:w-[42px] 1xl:h-[42px] lg:w-[38px] lg:h-[38px] sm:w-[35px] sm:h-[35px] w-[26px] h-[26px] flex items-center justify-center cursor-pointer" @click="selected !== {{ index + 1 }} ? selected = {{ index + 1 }} : selected = null">
+          <svg class="w-[42px] stroke-white transition-all duration-300 ease-in-out" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12" /><line x1="12" y1="5" x2="12" y2="19" class="origin-center transition-all duration-300" :class="selected == {{ index + 1 }} ? 'scale-y-0 opacity-0' : 'scale-y-100 opacity-100'" /></svg>
+        </div>
+      </div>
+      <div class="faqs-content overflow-hidden transition-all duration-700 2xl:pr-[30px] sm:pr-10 pr-0" x-ref="container1" x-bind:style="selected == {{ index + 1 }} ? 'height:' + $refs.container1.scrollHeight + 'px' : 'height:0px'">
+        <p class="1xl:mt-[14px] mt-2 font-light">{{ answer }}</p>
+      </div>
+    </div>
+    {{ /faqs }}
+    {{ else }}
+    {{ if collections == "faqs" }}{{ collection:faqs }}
+    <div class="group faqs-list border-b border-[#00000026] 2xl:py-7 xl:py-[22px] sm:py-[18px] py-[15px]" :class="selected == {{ index + 1 }} ? 'active' : ''">
+      <div class="flex items-center justify-between">
+        <div class="faqs-title cursor-pointer flex items-center md:pr-16 sm:pr-7 pr-4 gap-3 md:gap-5 xl:gap-[30px]" @click="selected !== {{ index + 1 }} ? selected = {{ index + 1 }} : selected = null" :class="selected == {{ index + 1 }} ? 'active' : ''">
+          <h5 class="mb-0 font-medium group-hover:text-primary-900">{{ title }}</h5>
+        </div>
+        <div class="bg-primary-900 rounded-full border border-white sm:p-2 p-[3px] 1xl:w-[42px] 1xl:h-[42px] lg:w-[38px] lg:h-[38px] sm:w-[35px] sm:h-[35px] w-[26px] h-[26px] flex items-center justify-center cursor-pointer" @click="selected !== {{ index + 1 }} ? selected = {{ index + 1 }} : selected = null">
+          <svg class="w-[42px] stroke-white transition-all duration-300 ease-in-out" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12" /><line x1="12" y1="5" x2="12" y2="19" class="origin-center transition-all duration-300" :class="selected == {{ index + 1 }} ? 'scale-y-0 opacity-0' : 'scale-y-100 opacity-100'" /></svg>
+        </div>
+      </div>
+      <div class="faqs-content overflow-hidden transition-all duration-700 2xl:pr-[30px] sm:pr-10 pr-0" x-ref="container1" x-bind:style="selected == {{ index + 1 }} ? 'height:' + $refs.container1.scrollHeight + 'px' : 'height:0px'">
+        <p class="1xl:mt-[14px] mt-2 font-light">{{ answer }}</p>
+      </div>
+    </div>
+    {{ /collection:faqs }}{{ /if }}
+    {{ /if }}
+  </div>
+</div>
 
 {{ else }}
 <div class="container 2xl:py-[70px] 1xl:py-16 lg:py-14 sm:py-10 py-8">
@@ -100,6 +183,7 @@
 {{ /if }}
 {{ /content }}
 {{ /if }}
+{{ partial:gallery-lightbox }}
 {{ page_builder scope="block" }}
 {{ partial src="page_builder/{type}" }}
 {{ /page_builder }}
