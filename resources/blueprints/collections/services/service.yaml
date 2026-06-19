@@ -19,7 +19,13 @@ tabs:
               min_files: 1
               container: assets
               type: assets
-              display: icon
+              display: Icon
+          -
+            handle: icon_svg
+            field:
+              type: iconify
+              store_as: svg_data
+              display: 'Icon SVG'
           -
             handle: image
             field:
@@ -40,6 +46,328 @@ tabs:
               default: 'Read More'
               type: text
               display: 'Button Label'
+          -
+            handle: content
+            field:
+              remove_empty_nodes: false
+              type: bard
+              display: Content
+              listable: true
+              buttons:
+                - h2
+                - h3
+                - bold
+                - italic
+                - unorderedlist
+                - orderedlist
+                - removeformat
+                - quote
+                - anchor
+                - image
+                - table
+                - h1
+                - h4
+                - h5
+                - h6
+                - small
+                - alignleft
+                - aligncenter
+                - alignright
+                - alignjustify
+              sets:
+                content_sections:
+                  display: 'Content Sections'
+                  sets:
+                    quote_section:
+                      display: 'Quote Section'
+                      fields:
+                        -
+                          handle: quote_text
+                          field:
+                            type: textarea
+                            display: 'Quote Text'
+                        -
+                          handle: client_name
+                          field:
+                            type: text
+                            display: 'Client Name'
+                        -
+                          handle: client_role
+                          field:
+                            type: text
+                            display: 'Client Role / Company'
+                    list_section:
+                      display: 'List Section'
+                      fields:
+                        -
+                          handle: list_section
+                          field:
+                            type: replicator
+                            display: 'List Section'
+                            collapse: true
+                            sets:
+                              new_set_group:
+                                display: 'New Set Group'
+                                sets:
+                                  new_set:
+                                    display: 'New Set'
+                                    fields:
+                                      -
+                                        handle: title
+                                        field:
+                                          type: text
+                                          display: Title
+                                      -
+                                        handle: description
+                                        field:
+                                          type: textarea
+                                          display: Description
+                    image_section:
+                      display: 'Image Section'
+                      fields:
+                        -
+                          handle: images
+                          field:
+                            container: assets
+                            type: assets
+                            display: Images
+                    dynamic_table:
+                      display: 'Dynamic Table'
+                      instructions: 'Create any table dynamically'
+                      fields:
+                        -
+                          handle: table_head
+                          field:
+                            type: grid
+                            display: 'Table Header'
+                            fields:
+                              -
+                                handle: col_name
+                                field:
+                                  type: text
+                                  display: 'Column Name'
+                        -
+                          handle: table_body
+                          field:
+                            type: grid
+                            display: 'Table Rows'
+                            fields:
+                              -
+                                handle: cell_1
+                                field:
+                                  type: text
+                                  display: 'Column 1'
+                              -
+                                handle: cell_2
+                                field:
+                                  type: text
+                                  display: 'Column 2'
+                              -
+                                handle: cell_3
+                                field:
+                                  type: text
+                                  display: 'Column 3'
+                    gallery_section:
+                      display: 'Gallery Section'
+                      fields:
+                        -
+                          handle: show_type
+                          field:
+                            options:
+                              -
+                                key: home-page-one
+                                value: 'Home One'
+                              -
+                                key: home-page-two
+                                value: 'Home Two'
+                              -
+                                key: home-page-three
+                                value: 'Home Three'
+                              -
+                                key: home-page-four
+                                value: 'Home Four'
+                              -
+                                key: gallery-page
+                                value: 'Gallery Page'
+                            type: select
+                            display: 'Show Type'
+                        -
+                          handle: section_title
+                          field:
+                            default: 'Our Gallery'
+                            type: text
+                            display: 'Section Title'
+                        -
+                          handle: button_text
+                          field:
+                            default: 'View Gallery'
+                            type: text
+                            display: 'Button Text'
+                        -
+                          handle: button_link
+                          field:
+                            default: /gallery
+                            type: text
+                            display: 'Button Link'
+                            if:
+                              show_type: 'not gallery-page'
+                        -
+                          handle: gallery_row_1
+                          field:
+                            type: group
+                            display: 'Gallery Row 1'
+                            if:
+                              show_type: 'not gallery-page'
+                            fields:
+                              -
+                                handle: galleries
+                                field:
+                                  mode: select
+                                  collections:
+                                    - galleries
+                                  type: entries
+                                  display: Galleries
+                        -
+                          handle: gallery_row_2
+                          field:
+                            type: group
+                            display: 'Gallery Row 2'
+                            if:
+                              show_type: 'not gallery-page'
+                            fields:
+                              -
+                                handle: galleries
+                                field:
+                                  mode: select
+                                  collections:
+                                    - galleries
+                                  type: entries
+                                  display: Galleries
+                        -
+                          handle: collections
+                          field:
+                            max_items: 1
+                            mode: select
+                            type: collections
+                            display: Collections
+                            if:
+                              show_type: 'equals gallery-page'
+                        -
+                          handle: pagination
+                          field:
+                            default: 'false'
+                            type: text
+                            display: Pagination
+                            if:
+                              show_type: 'equals gallery-page'
+                        -
+                          handle: limit
+                          field:
+                            default: '0'
+                            type: integer
+                            display: Limit
+                            if:
+                              show_type: 'equals gallery-page'
+                    skalisty_gallery_section:
+                      display: 'Skalisty Gallery Section'
+                      fields:
+                        -
+                          handle: section_title
+                          field:
+                            default: Galeria
+                            type: text
+                            display: 'Tytuł sekcji'
+                        -
+                          handle: galleries
+                          field:
+                            mode: select
+                            collections:
+                              - galleries
+                            type: entries
+                            display: Galerie
+                            instructions: 'Wybierz galerie do wyświetlenia. Każda galeria może zawierać wiele zdjęć.'
+                    instagram_gallery_section:
+                      display: 'Instagram Gallery Section'
+                      fields:
+                        -
+                          handle: gallery_section
+                          field:
+                            type: replicator
+                            display: 'Gallery Section'
+                            sets:
+                              new_set_group:
+                                display: 'New Set Group'
+                                sets:
+                                  images:
+                                    display: Images
+                                    fields:
+                                      -
+                                        handle: image
+                                        field:
+                                          max_files: 1
+                                          container: assets
+                                          type: assets
+                                          display: Image
+                                      -
+                                        handle: link
+                                        field:
+                                          type: text
+                                          display: 'Instagram Link'
+                                          default: 'https://www.instagram.com/'
+                                      -
+                                        handle: alt_text
+                                        field:
+                                          type: text
+                                          display: 'Alt Text'
+                    faq_section:
+                      display: 'FAQ Section'
+                      fields:
+                        -
+                          handle: section_title
+                          field:
+                            type: text
+                            default: "Faq's Questions"
+                            display: 'Section Title'
+                        -
+                          handle: banner_image
+                          field:
+                            type: assets
+                            container: assets
+                            max_files: 1
+                            display: 'Banner Image'
+                        -
+                          handle: display_type
+                          field:
+                            type: radio
+                            options:
+                              -
+                                key: list
+                                value: List
+                              -
+                                key: select
+                                value: 'Select From FAQ'
+                            default: list
+                            display: 'Display Type'
+                        -
+                          handle: faqs
+                          field:
+                            mode: select
+                            collections:
+                              - faqs
+                            type: entries
+                            display: Faqs
+                            if:
+                              display_type: 'equals select'
+                        -
+                          handle: collections
+                          field:
+                            max_items: 1
+                            mode: select
+                            type: collections
+                            display: Collections
+                            always_save: false
+                            if:
+                              display_type: 'equals list'
           -
             import: all_page_builder
   sidebar:

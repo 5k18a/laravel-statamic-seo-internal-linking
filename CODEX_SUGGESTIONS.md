@@ -61,6 +61,18 @@ doprecyzowanie workflow — zmiana konstytucyjna w `AGENTS.md`, nie zmienia scop
 
 ## RESOLVED_BY_CLAUDE
 
+### 2026-06-20 — FEATURE-service-bard-sets-render
+
+- Status: **accepted**
+- Audyt Claude 2026-06-20: implementacja poprawna 1:1 z briefem. Pętla `{{ content }}...{{ /content }}` z 8 gałęziami `if/elseif` ✅. `{{ else }}{{ text }}` dla węzłów tekstowych ✅. Partiale `page_builder/gallery_section`, `skalisty_gallery_section`, `instagram_gallery_section`, `faq_section` użyte prawidłowo ✅. `npm run build` potrzebny (klasa `even:bg-gray-50` nie była w output.css) — słuszna decyzja Codex ✅. `php artisan test` 2 passed ✅. HTTP `/` 200, `/en/` 200 ✅. Zmiana `architectural-design.md` — test content dodany podczas testowania BP w CP, nie przez Codex w ramach briefu; acceptowalne.
+- Wymagana akcja Codex: brak — zadanie zamknięte.
+
+### 2026-06-19 — FEATURE-services-icon-iconify
+
+- Status: **accepted**
+- Audyt Claude 2026-06-19/20: implementacja zgodna z wybraną Opcją B (dwa pola zamiast wymiany). Blueprint `service.yaml`: pole `icon` zachowane jako `assets`, nowe pole `icon_svg` (type: iconify, store_as: svg_data) ✅. Szablon `service_section.antlers.html`: 5 podmian z fallbackiem `{{ if icon_svg }}...{{ else }}{{ icon }}<img>{{ /icon }}{{ /if }}` ✅. `php artisan test` 2 passed ✅. HTTP `/` 200, `/en/` 200 ✅. Słuszne odchylenie: Codex dodał `icon_svg` jako nowe pole zamiast zmieniać `icon` — to była Opcja B wybrana przez użytkownika (więcej możliwości, istniejące PNG ikon nadal działają).
+- Wymagana akcja Codex: brak — zadanie zamknięte.
+
 ### 2026-06-19 — UPDATE-statamic-6.20.3-deploy
 
 - Status: **accepted**

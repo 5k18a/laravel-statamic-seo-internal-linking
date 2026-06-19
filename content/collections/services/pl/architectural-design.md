@@ -6,8 +6,8 @@ icon: images/faq-2.png
 image: images/services-2.webp
 description: "Our architects create innovative, functional, and sustainable designs tailored to each project's purpose and environment. We combine creative vision with technical accuracy to produce blueprints that align with your goals, budget, and local regulations bringing your concepts to life."
 button_label: 'Read More'
-updated_by: 15c0f104-0188-406c-b4ef-af40e61a13db
-updated_at: 1766638416
+updated_by: 07f72358-0580-4aaf-b00c-6a3760228419
+updated_at: 1781880229
 page_builder:
   -
     id: mgtcp0fs
@@ -126,4 +126,97 @@ page_builder:
     image: images/confidence-partners.webp
     type: confidence_section
     enabled: true
+icon_svg:
+  name: 'tabler:test-pipe'
+  attributes:
+    width: 1em
+    height: 1em
+    viewBox: '0 0 24 24'
+  viewBox:
+    - 0
+    - 0
+    - 24
+    - 24
+  body: '<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 8.04L7.878 20.164a2.857 2.857 0 1 1-4.041-4.04L15.959 4M7 13h8m4 2l1.5 1.6a2 2 0 1 1-3 0zM15 3l6 6"/>'
+content:
+  -
+    type: paragraph
+    attrs:
+      textAlign: null
+    content:
+      -
+        type: text
+        text: fghfghgf
+  -
+    type: paragraph
+    attrs:
+      textAlign: null
+    content:
+      -
+        type: text
+        text: hgf
+  -
+    type: paragraph
+    attrs:
+      textAlign: null
+    content:
+      -
+        type: text
+        text: fgh
+  -
+    type: paragraph
+    attrs:
+      textAlign: null
+  -
+    type: set
+    attrs:
+      id: T6_Gc819jQe62c6vMTHWx
+      values:
+        type: skalisty_gallery_section
+        galleries:
+          - 30ac5342-a13f-4520-abd4-0f3bccb2a3a8
+        section_title: dfgdfgfd
+  -
+    type: paragraph
+    attrs:
+      textAlign: null
+    content:
+      -
+        type: text
+        text: fgnfgnfdgn
+  -
+    type: paragraph
+    attrs:
+      textAlign: null
+    content:
+      -
+        type: text
+        text: dfg
+  -
+    type: paragraph
+    attrs:
+      textAlign: null
+    content:
+      -
+        type: text
+        text: gfd
+  -
+    type: set
+    attrs:
+      id: ZUpGjr07SZnX2o6AwPr3A
+      values:
+        type: faq_section
+        section_title: "Faq's Questions"
+        display_type: select
+        faqs:
+          - f9bbb209-c255-4a34-bfcf-8f2a2cdc57dc
+          - 19e0cfc1-4c34-4b55-bbc8-91a9521a4a6f
+  -
+    type: paragraph
+    attrs:
+      textAlign: null
+  -
+    type: paragraph
+    attrs:
+      textAlign: null
 ---

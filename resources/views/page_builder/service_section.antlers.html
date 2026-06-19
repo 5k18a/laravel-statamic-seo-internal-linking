@@ -21,7 +21,7 @@
         <div class="faqs-list border-b border-black 2xl:py-[35px] xl:py-5 sm:py-[18px] py-[14px] group/service" :class="{ 'active': selected === {{ index + 1 }} }" data-img="{{ image }} {{ url }} {{ /image }}">
           <div class="flex items-center justify-between">
             <div class="faqs-title cursor-pointer m-0 flex items-center relative pl-0 sm:pr-10 pr-4 md:pr-16 gap-3 md:gap-5 xl:gap-[30px] text-black text-1xl leading-normal xl:text-[24px] 2xl:text-3xl font-medium w-full" @click="selected !== {{ index + 1 }} ? selected = {{ index + 1 }} : selected = null">
-              {{ icon }}<img src="{{ url }}" alt="faq-1" class="2xl:w-[60px] 2xl:h-[60px] xl:w-[50px] xl:h-[50px] sm:w-10 sm:h-10 w-[30px] h-[30px] flex-shrink-0" loading="lazy" /> {{ /icon }}
+              <span class="2xl:w-[60px] 2xl:h-[60px] xl:w-[50px] xl:h-[50px] sm:w-10 sm:h-10 w-[30px] h-[30px] flex-shrink-0 block [&>svg]:w-full [&>svg]:h-full text-primary-900">{{ if icon_svg }}{{ iconify:icon_svg class="w-full h-full" aria-hidden="true" }}{{ else }}{{ icon }}<img src="{{ url }}" alt="{{ title }}" class="w-full h-full object-contain" loading="lazy" />{{ /icon }}{{ /if }}</span>
               <h4 class="m-0 group-hover/service:text-primary-900" :class="selected === {{ index + 1 }} ? 'text-primary-900' : 'text-black'">
                 {{ title }}
               </h4>
@@ -149,8 +149,7 @@
               {{ /if }}
               {{ services }}
               <div class="bg-white 2xl:p-10 1xl:p-8 sm:p-6 p-5 shadow-[0px_4px_9px_0px_#0000001F]" data-aos="fade-up">
-                <img src="{{ icon }} {{ url }} {{ /icon }}" alt="Building"
-                  class="2xl:mb-9 xl:mb-7 md:mb-5 mb-4 1xl:w-21 1xl:h-21 xl:w-19 xl:h-19 md:w-15 md:h-15 sm:w-[64px] sm:h-[64px] w-[60px] h-[60px]" />
+                <span class="2xl:mb-9 xl:mb-7 md:mb-5 mb-4 1xl:w-21 1xl:h-21 xl:w-19 xl:h-19 md:w-15 md:h-15 sm:w-[64px] sm:h-[64px] w-[60px] h-[60px] block [&>svg]:w-full [&>svg]:h-full text-primary-900">{{ if icon_svg }}{{ iconify:icon_svg class="w-full h-full" aria-hidden="true" }}{{ else }}{{ icon }}<img src="{{ url }}" alt="{{ title }}" class="w-full h-full object-contain" loading="lazy" />{{ /icon }}{{ /if }}</span>
                 <a href="/service/{{ slug }}">
                   <h4 class="md:mb-3 mb-2">{{ title }}</h4>
                 </a>
@@ -192,8 +191,7 @@
       {{ /if }}
       {{ services }}
       <div class="bg-white 2xl:p-10 1xl:p-8 md:p-6 p-5 border border-[#00000026]">
-        <img src="{{ icon }} {{ url }} {{ /icon }}" alt="Building"
-        class="2xl:mb-9 xl:mb-7 md:mb-5 mb-4 2xl:w-21 2xl:h-21 xl:w-18 xl:h-18 md:w-17 md:h-17 sm:w-[64px] sm:h-[64px] w-[60px] h-[60px]" />
+        <span class="2xl:mb-9 xl:mb-7 md:mb-5 mb-4 2xl:w-21 2xl:h-21 xl:w-18 xl:h-18 md:w-17 md:h-17 sm:w-[64px] sm:h-[64px] w-[60px] h-[60px] block [&>svg]:w-full [&>svg]:h-full text-primary-900">{{ if icon_svg }}{{ iconify:icon_svg class="w-full h-full" aria-hidden="true" }}{{ else }}{{ icon }}<img src="{{ url }}" alt="{{ title }}" class="w-full h-full object-contain" loading="lazy" />{{ /icon }}{{ /if }}</span>
         <h4 class="md:mb-3 sm:mb-2.5 mb-2">{{ title }}</h4>
         <p class="1xl:mb-5 sm:mb-4 mb-3 text-gray-400">{{ description }}</p>
         {{ if button_label }}
@@ -229,7 +227,7 @@
       <div class="grid-item-append faqs-list border-b border-black 2xl:py-[35px] xl:py-5 sm:py-[18px] py-[14px] group/service" :class="{ 'active': selected === {{ index + 1 }} }"   data-img="{{ image }} {{ url }} {{ /image }}">
         <div class="flex items-center justify-between">
           <div class="faqs-title cursor-pointer m-0 flex items-center relative pl-0 sm:pr-10 pr-4 md:pr-16 gap-3 md:gap-5 xl:gap-[30px] text-black text-1xl leading-normal xl:text-[24px] 2xl:text-3xl font-medium w-full" @click="selected !== {{ index + 1 }} ? selected = {{ index + 1 }} : selected = null">
-            <img src="{{ icon }} {{ url }} {{ /icon }}" alt="{{ title }}" class="2xl:w-[60px] 2xl:h-[60px] xl:w-[50px] xl:h-[50px] sm:w-10 sm:h-10 w-[30px] h-[30px] flex-shrink-0" loading="lazy" />
+            <span class="2xl:w-[60px] 2xl:h-[60px] xl:w-[50px] xl:h-[50px] sm:w-10 sm:h-10 w-[30px] h-[30px] flex-shrink-0 block [&>svg]:w-full [&>svg]:h-full text-primary-900">{{ if icon_svg }}{{ iconify:icon_svg class="w-full h-full" aria-hidden="true" }}{{ else }}{{ icon }}<img src="{{ url }}" alt="{{ title }}" class="w-full h-full object-contain" loading="lazy" />{{ /icon }}{{ /if }}</span>
             <h4 class="m-0 group-hover/service:text-primary-900" :class="selected === {{ index + 1 }} ? 'text-primary-900' : 'text-black'">
               {{ title }}
             </h4>
@@ -353,8 +351,7 @@
     <!-- Card 1 -->
     {{ services }}
     <div class="bg-white 2xl:p-10 1xl:p-8 sm:p-6 p-5 border border-[#00000026] grid-item-append">
-      <img src="{{ icon }} {{ url }} {{/icon }}" alt="Building"
-      class="2xl:mb-9 xl:mb-7 md:mb-5 mb-4 1xl:w-21 1xl:h-21 xl:w-19 xl:h-19 md:w-17 md:h-17 w-[60px] h-[60px]" />
+      <span class="2xl:mb-9 xl:mb-7 md:mb-5 mb-4 1xl:w-21 1xl:h-21 xl:w-19 xl:h-19 md:w-17 md:h-17 w-[60px] h-[60px] block [&>svg]:w-full [&>svg]:h-full text-primary-900">{{ if icon_svg }}{{ iconify:icon_svg class="w-full h-full" aria-hidden="true" }}{{ else }}{{ icon }}<img src="{{ url }}" alt="{{ title }}" class="w-full h-full object-contain" loading="lazy" />{{ /icon }}{{ /if }}</span>
       <a href="/service/{{ slug }}">
         <h4 class="md:mb-3 mb-2 hover:text-primary-900">
           {{ title }}

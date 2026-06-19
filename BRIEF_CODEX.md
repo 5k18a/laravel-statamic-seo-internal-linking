@@ -1,14 +1,14 @@
 # BRIEF_CODEX.md
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-19-2100
-active_task_id: FEATURE-services-icon-iconify
-active_task_name: Zmiana pola icon w kolekcji services — assets → Iconify
-active_task_status: active
+state_version: 2026-06-20-0100
+active_task_id: none
+active_task_name: Brak aktywnego zadania
+active_task_status: closed
 active_task_source: BRIEF_CODEX.md
-last_sync: 2026-06-19 21:00 Europe/Warsaw
+last_sync: 2026-06-20 01:00 Europe/Warsaw
 last_synced_by: Claude
-last_closed: BUGFIX-icon-box-center-icon
+last_closed: FEATURE-service-bard-sets-render
 next_after_active: Decyzja użytkownika
 <!-- PROJECT_SYNC_END -->
 
@@ -16,203 +16,201 @@ next_after_active: Decyzja użytkownika
 
 ## Status
 
-AKTYWNE
+ZAMKNIĘTE — `FEATURE-service-bard-sets-render` ✅ (2026-06-19/20, Codex + Claude audit)
 
 ## Cel zadania
 
-Zmienić pole `icon` w blueprincie kolekcji `services` z `type: assets` na `type: iconify` (`store_as: svg_data`), a następnie zaktualizować wszystkie miejsca renderowania tej ikony w `service_section.antlers.html`, żeby używały tagu `{{ iconify:icon }}` zamiast pętli `{{ icon }}{{ url }}{{ /icon }}` na `<img>`.
+Zaktualizować szablon `resources/views/service/show.antlers.html` tak, żeby pole Bard `content` renderowało wszystkie 8 typów setów:
+
+- `quote_section` — cytat z autorem
+- `list_section` — lista z replicatora
+- `image_section` — siatka zdjęć
+- `dynamic_table` — dynamiczna tabela
+- `gallery_section` — galeria (reuse partial page_builder)
+- `skalisty_gallery_section` — galeria Skalisty (reuse partial page_builder)
+- `instagram_gallery_section` — galeria Instagram (reuse partial page_builder)
+- `faq_section` — sekcja FAQ (reuse partial page_builder)
 
 ## Kontekst
 
-Plugin Iconify (`eminos/statamic-iconify` v2.1.0) jest już zainstalowany i skonfigurowany w projekcie. Fieldtype `iconify` z `store_as: svg_data` przechowuje surowy SVG w YAML contentowym, bez potrzeby zewnętrznych wywołań API. Jest już używany w `icon_box_with_text_section` — tamten szablon to wzorzec do naśladowania.
+Pole `content` (type: bard) zostało dodane do blueprintu `resources/blueprints/collections/services/service.yaml` z 8 setami w grupie `content_sections`. Szablon `service/show.antlers.html` ma już `{{ if content }}{{ content }}{{ /if }}` — ale `{{ content }}` jako prosty tag renderuje tylko bogaty tekst, a sety są pomijane. Trzeba zmienić go na pętlę `{{ content }}...{{ /content }}` z blokami `{{ if type == "..." }}`.
 
-Pole `icon` w blueprincie `service.yaml` aktualnie używa `type: assets` (selektor pliku PNG/SVG z managera assetów). Chcemy zastąpić to polem `type: iconify`, żeby redaktorzy mogli wybierać ikony z bibliotek ikonowych (tabler, heroicons, mdi, ph itd.) bezpośrednio w CP.
+Wzorzec pochodzi z `resources/views/blog-detail-one.antlers.html` (quote, list, image). Sety gallery/instagram/faq/skalisty reuse'ują istniejące page_builder partiale które już działają.
 
-**Ważne:** Istniejące wartości pola `icon` w wpisach serwisów (np. `icon: images/faq-1.png`) stają się niekompatybilne po zmianie fieldtype — to oczekiwane zachowanie, zaakceptowane przez użytkownika. Redaktorzy wybiorą nowe ikony w CP po wdrożeniu.
+## Plik do zmiany
 
-## Pliki do zmiany
+Jedyny plik: `resources/views/service/show.antlers.html`
 
-1. `resources/blueprints/collections/services/service.yaml`
-2. `resources/views/page_builder/service_section.antlers.html`
+## Aktualna zawartość pliku
 
-**Nie zmieniać niczego innego.** Inne szablony z `{{ icon }}` (`what_we_do_section`, `why_choose_us_section`, `work_with_us`, `feature_image_with_points`) mają własne pola `icon` w swoich fieldsetach — nie są powiązane z kolekcją services.
-
-## Wymagania techniczne
-
-### 1. Blueprint `service.yaml`
-
-Plik: `resources/blueprints/collections/services/service.yaml`
-
-Zmienić pole `icon` (aktualny stan):
-
-```yaml
-          -
-            handle: icon
-            field:
-              max_files: 1
-              min_files: 1
-              container: assets
-              type: assets
-              display: icon
-```
-
-Na:
-
-```yaml
-          -
-            handle: icon
-            field:
-              type: iconify
-              store_as: svg_data
-              display: Icon
-```
-
-### 2. Template `service_section.antlers.html`
-
-Plik: `resources/views/page_builder/service_section.antlers.html`
-
-Są **5 miejsc** gdzie ikona serwisu jest renderowana. Każde wymaga zamiany wzorca `<img>` (lub `{{ icon }}..{{ /icon }}`) na wrapper `<span>` z tagiem `{{ iconify:icon }}`.
-
-**Wzorzec zamiany:**
-- Rozmiar przenosi się z klas na `<img>` na klasy wrappera `<span>`
-- Marginesy `mb-*` (jeśli były na `<img>`) przenoszą się na `<span>`
-- Do wrappera dodajemy `block [&>svg]:w-full [&>svg]:h-full text-primary-900`
-- Wewnątrz: `{{ iconify:icon class="w-full h-full" aria-hidden="true" }}`
-
-**Precedens w projekcie:** `icon_box_with_text_section.antlers.html` linia 11–13:
 ```html
-<div class="... h-[38px] w-[38px] mx-auto flex items-start text-primary-900 [&>svg]:w-full [&>svg]:h-full">
-  {{ iconify:icon class="w-full h-full" aria-hidden="true" }}
+<section class="relative overflow-hidden 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] sm:mb-[50px] mb-10">
+    <div class="about-mission relative overflow-hidden">
+        <div class="container md:px-4 p-0">
+            <div class="w-full relative top-0 right-0 1xl:h-[calc(100vh-12vh)] xl:h-[670px] lg:h-[600px] md:h-[500px] sm:h-[450px] h-full order-1 lg:order-2">
+                <img src="{{ image }} {{ url }} {{ /image }}" alt="img" class="h-full w-full object-cover" />
+                <!-- customer's review -->
+                <div class="sm:w-fit w-[90%] absolute 2xl:px-16 1xl:px-8 lg:px-7.5 md:px-7 2xl:py-[50px] md:py-7 sm:p-6 p-3 flex sm:flex-nowrap flex-wrap items-center sm:justify-start justify-center -bottom-[1px] sm:left-auto sm:right-0 left-1/2 -translate-x-1/2 sm:translate-x-0 z-0 bg-white text-center">
+                    <h1 class="mb-0">{{ title }}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end about-mission -->
+{{ if content }}
+<div class="container 2xl:py-[70px] 1xl:py-16 lg:py-14 sm:py-10 py-8">
+  {{ content }}
 </div>
+{{ /if }}
+{{ page_builder scope="block" }}
+{{ partial src="page_builder/{type}" }}
+{{ /page_builder }}
+
+{{ partial:let-connect-section }}
 ```
 
----
+## Wymagana zmiana
 
-#### Zmiana 1 — linia 24 (show_type == 'home-page-one', accordion)
+Zastąp blok `{{ if content }}...{{ /if }}` (linie z `{{ if content }}` do `{{ /if }}` włącznie) następującym kodem:
 
-**Stary kod:**
 ```html
-              {{ icon }}<img src="{{ url }}" alt="faq-1" class="2xl:w-[60px] 2xl:h-[60px] xl:w-[50px] xl:h-[50px] sm:w-10 sm:h-10 w-[30px] h-[30px] flex-shrink-0" loading="lazy" /> {{ /icon }}
+{{ if content }}
+{{ content }}
+{{ if type == "quote_section" }}
+<div class="container 2xl:py-[70px] 1xl:py-16 lg:py-14 sm:py-10 py-8">
+  <blockquote class="border-l-5 border-primary-900 1xl:px-10 md:py-7 sm:py-6 xl:px-10 sm:px-8 p-4 bg-primary-900/12 1xl:mt-[30px] sm:mt-6 mt-4 lg:mb-4 mb-2">
+    <p class="h6 text-black 2xl:!leading-[35px] xl:!leading-[34px] lg:!leading-[30px] !leading-[24px] font-medium">
+      "{{ quote_text }}"
+    </p>
+    <div class="flex items-center justify-between sm:mt-8 mt-5">
+      <div class="client-info">
+        <h6 class="h5 font-medium mb-0 text-[#3E2924]">{{ client_name }}</h6>
+        <p class="!p-0 font-light mb-0 text-[#464343]">- {{ client_role }}</p>
+      </div>
+      <svg width="70" height="48" viewBox="0 0 70 48" fill="none" class="xl:w-[70px] xl:h-[48px] lg:w-[54px] lg:h-[54px] md:w-[50px] md:h-[50px] sm:w-[43px] sm:h-[30px] w-[40px] h-[40px] flex-shrink-0 fill-primary-900" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10.0286 44.6089L18.9879 29.1274C18.4631 29.4197 17.8504 29.6232 17.1496 29.7378C16.4489 29.8523 15.7497 29.9111 15.052 29.9141C10.8052 29.9141 7.23479 28.4476 4.34087 25.5147C1.44696 22.5787 0 19.0595 0 14.957C0 10.737 1.44696 7.18915 4.34087 4.31349C7.23479 1.43783 10.8052 0 15.052 0C19.1805 0 22.7206 1.43783 25.6721 4.31349C28.6237 7.18915 30.0995 10.737 30.0995 14.957C30.0995 16.4009 29.9205 17.7558 29.5625 19.0219C29.2046 20.2879 28.695 21.483 28.0337 22.6074L13.9372 46.8696C13.734 47.2012 13.4655 47.4725 13.1318 47.6835C12.7981 47.8945 12.419 48 11.9943 48C11.1267 48 10.4745 47.6232 10.0377 46.8696C9.60088 46.1161 9.59785 45.3625 10.0286 44.6089ZM49.9291 44.6089L58.8885 29.1319C58.3637 29.4213 57.7509 29.6232 57.0502 29.7378C56.3495 29.8523 55.6502 29.9111 54.9525 29.9141C50.7057 29.9141 47.1353 28.4476 44.2414 25.5147C41.3475 22.5818 39.9005 19.0625 39.9005 14.957C39.9005 10.6767 41.3475 7.1153 44.2414 4.2728C47.1353 1.43029 50.7057 0.00602864 54.9525 0C59.0811 0 62.6211 1.43783 65.5727 4.31349C68.5242 7.18915 70 10.737 70 14.957C70 16.4009 69.821 17.7558 69.4631 19.0219C69.1051 20.2879 68.597 21.483 67.9388 22.6074L53.8378 46.8696C53.6345 47.2012 53.3661 47.4725 53.0324 47.6835C52.6987 47.8945 52.3195 48 51.8948 48C51.0273 48 50.3751 47.6232 49.9383 46.8696C49.5014 46.1161 49.4984 45.3625 49.9291 44.6089Z" fill-opacity="0.2" />
+      </svg>
+    </div>
+  </blockquote>
+</div>
+
+{{ elseif type == "list_section" }}
+<div class="container 2xl:py-[70px] 1xl:py-16 lg:py-14 sm:py-10 py-8">
+  <ul class="custom-list">
+    {{ list_section }}
+    <li>
+      {{ if title }}<strong>{{ title }}</strong>{{ /if }}
+      {{ description }}
+    </li>
+    {{ /list_section }}
+  </ul>
+</div>
+
+{{ elseif type == "image_section" }}
+<div class="container 2xl:py-[70px] 1xl:py-16 lg:py-14 sm:py-10 py-8">
+  <div class="grid sm:grid-cols-2 grid-cols-1 w-full xl:gap-10 lg:gap-9 sm:gap-6 gap-5 js-gallery">
+    {{ images }}
+    <div class="overflow-hidden relative 1xl:before:pt-[69%] before:pt-[65%] before:block">
+      <a href="javascript:;" class="absolute top-0 left-0 w-full h-full block">
+        <img src="{{ url }}" alt="img" class="h-full w-full object-cover" loading="lazy" />
+      </a>
+    </div>
+    {{ /images }}
+  </div>
+</div>
+
+{{ elseif type == "dynamic_table" }}
+<div class="container 2xl:py-[70px] 1xl:py-16 lg:py-14 sm:py-10 py-8">
+  <div class="overflow-x-auto">
+    <table class="w-full border-collapse">
+      <thead>
+        <tr>
+          {{ table_head }}
+          <th class="border border-gray-300 px-4 py-3 text-left bg-primary-900 text-white font-medium">{{ col_name }}</th>
+          {{ /table_head }}
+        </tr>
+      </thead>
+      <tbody>
+        {{ table_body }}
+        <tr class="even:bg-gray-50">
+          {{ if cell_1 }}<td class="border border-gray-300 px-4 py-3">{{ cell_1 }}</td>{{ /if }}
+          {{ if cell_2 }}<td class="border border-gray-300 px-4 py-3">{{ cell_2 }}</td>{{ /if }}
+          {{ if cell_3 }}<td class="border border-gray-300 px-4 py-3">{{ cell_3 }}</td>{{ /if }}
+        </tr>
+        {{ /table_body }}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{{ elseif type == "gallery_section" }}
+{{ partial src="page_builder/gallery_section" }}
+
+{{ elseif type == "skalisty_gallery_section" }}
+{{ partial src="page_builder/skalisty_gallery_section" }}
+
+{{ elseif type == "instagram_gallery_section" }}
+{{ partial src="page_builder/instagram_gallery_section" }}
+
+{{ elseif type == "faq_section" }}
+{{ partial src="page_builder/faq_section" }}
+
+{{ else }}
+<div class="container 2xl:py-[70px] 1xl:py-16 lg:py-14 sm:py-10 py-8">
+  {{ text }}
+</div>
+{{ /if }}
+{{ /content }}
+{{ /if }}
 ```
 
-**Nowy kod:**
-```html
-              <span class="2xl:w-[60px] 2xl:h-[60px] xl:w-[50px] xl:h-[50px] sm:w-10 sm:h-10 w-[30px] h-[30px] flex-shrink-0 block [&>svg]:w-full [&>svg]:h-full text-primary-900">{{ iconify:icon class="w-full h-full" aria-hidden="true" }}</span>
-```
+## Ważne uwagi
 
----
-
-#### Zmiana 2 — linia 152–153 (show_type == 'home-page-three', karty)
-
-**Stary kod:**
-```html
-                <img src="{{ icon }} {{ url }} {{ /icon }}" alt="Building"
-                  class="2xl:mb-9 xl:mb-7 md:mb-5 mb-4 1xl:w-21 1xl:h-21 xl:w-19 xl:h-19 md:w-15 md:h-15 sm:w-[64px] sm:h-[64px] w-[60px] h-[60px]" />
-```
-
-**Nowy kod:**
-```html
-                <span class="2xl:mb-9 xl:mb-7 md:mb-5 mb-4 1xl:w-21 1xl:h-21 xl:w-19 xl:h-19 md:w-15 md:h-15 sm:w-[64px] sm:h-[64px] w-[60px] h-[60px] block [&>svg]:w-full [&>svg]:h-full text-primary-900">{{ iconify:icon class="w-full h-full" aria-hidden="true" }}</span>
-```
-
----
-
-#### Zmiana 3 — linia 195–196 (show_type == 'home-page-four', karty)
-
-**Stary kod:**
-```html
-        <img src="{{ icon }} {{ url }} {{ /icon }}" alt="Building"
-        class="2xl:mb-9 xl:mb-7 md:mb-5 mb-4 2xl:w-21 2xl:h-21 xl:w-18 xl:h-18 md:w-17 md:h-17 sm:w-[64px] sm:h-[64px] w-[60px] h-[60px]" />
-```
-
-**Nowy kod:**
-```html
-        <span class="2xl:mb-9 xl:mb-7 md:mb-5 mb-4 2xl:w-21 2xl:h-21 xl:w-18 xl:h-18 md:w-17 md:h-17 sm:w-[64px] sm:h-[64px] w-[60px] h-[60px] block [&>svg]:w-full [&>svg]:h-full text-primary-900">{{ iconify:icon class="w-full h-full" aria-hidden="true" }}</span>
-```
-
----
-
-#### Zmiana 4 — linia 232 (show_type == 'service-page-one', accordion)
-
-**Stary kod:**
-```html
-            <img src="{{ icon }} {{ url }} {{ /icon }}" alt="{{ title }}" class="2xl:w-[60px] 2xl:h-[60px] xl:w-[50px] xl:h-[50px] sm:w-10 sm:h-10 w-[30px] h-[30px] flex-shrink-0" loading="lazy" />
-```
-
-**Nowy kod:**
-```html
-            <span class="2xl:w-[60px] 2xl:h-[60px] xl:w-[50px] xl:h-[50px] sm:w-10 sm:h-10 w-[30px] h-[30px] flex-shrink-0 block [&>svg]:w-full [&>svg]:h-full text-primary-900">{{ iconify:icon class="w-full h-full" aria-hidden="true" }}</span>
-```
-
----
-
-#### Zmiana 5 — linia 356–357 (show_type == 'service-page-three', karty)
-
-**Stary kod:**
-```html
-      <img src="{{ icon }} {{ url }} {{/icon }}" alt="Building"
-      class="2xl:mb-9 xl:mb-7 md:mb-5 mb-4 1xl:w-21 1xl:h-21 xl:w-19 xl:h-19 md:w-17 md:h-17 w-[60px] h-[60px]" />
-```
-
-**Nowy kod:**
-```html
-      <span class="2xl:mb-9 xl:mb-7 md:mb-5 mb-4 1xl:w-21 1xl:h-21 xl:w-19 xl:h-19 md:w-17 md:h-17 w-[60px] h-[60px] block [&>svg]:w-full [&>svg]:h-full text-primary-900">{{ iconify:icon class="w-full h-full" aria-hidden="true" }}</span>
-```
-
----
-
-## Ograniczenia
-
-- NIE zmieniać blueprintów ani szablonów innych sekcji.
-- NIE zmieniać pola `image` w `service.yaml` — zostaje `type: assets`.
-- NIE deployować na serwer — deploy osobno po akceptacji przez Claude.
+- Sekcja `<section>...</section>` (hero image) i wszystko po `{{ /if }}` (page_builder + let-connect-section) **pozostają bez zmian**.
+- Sety `gallery_section`, `skalisty_gallery_section`, `instagram_gallery_section`, `faq_section` używają `{{ partial src="page_builder/..." }}` — te pliki już istnieją i są przetestowane. Nie modyfikuj ich.
+- Set `{{ else }}` obsługuje zwykłe węzły tekstowe Barda (akapity, nagłówki, listy itp.) — `{{ text }}` outputuje gotowy HTML.
 - NIE commitować (AGENTS.md 22.2).
-- NIE modyfikować istniejących wpisów w `content/collections/services/` — stare wartości pola `icon` będą stale, ale to oczekiwane.
+- NIE deployować — deploy wykona Claude po audycie.
 
 ## Kolejność działań
 
-1. Edytuj `service.yaml` — podmień pole `icon`
-2. Edytuj `service_section.antlers.html` — 5 podmian (każda z osobna, żeby uniknąć błędów)
-3. `php artisan view:clear`
-4. `npm run build` — wymagany, nowe klasy Tailwind na wrapperzach `<span>` mogą nie być w `output.css`
-5. `php artisan statamic:stache:refresh`
-6. `php artisan test` (oczekiwane: 2 passed)
-7. Smoke test HTTP: `GET /` → 200, `GET /en/` → 200
+1. Edytuj `resources/views/service/show.antlers.html` — podmień blok `{{ if content }}...{{ /if }}`
+2. `php artisan view:clear`
+3. `php artisan test` (oczekiwane: 2 passed)
+4. Smoke test: `GET /` → 200, `GET /en/` → 200
+
+## `npm run build`
+
+Sprawdź czy klasy użyte w `dynamic_table` (`border-collapse`, `even:bg-gray-50`, `overflow-x-auto`) są w `public/assets/css/output.css`. Jeśli nie — uruchom `npm run build`. Jeśli są — pomiń.
 
 ## Kryteria akceptacji
 
-- [ ] `service.yaml`: pole `icon` ma `type: iconify` i `store_as: svg_data`; pole `image` niezmienione
-- [ ] `service_section.antlers.html`: 5 podmian wykonanych — brak `{{ icon }}{{ url }}{{ /icon }}` i brak `<img src="{{ icon }}...{{ /icon }}">`
+- [ ] `service/show.antlers.html`: blok `{{ if content }}` używa pętli `{{ content }}...{{ /content }}` z 8 gałęziami `if/elseif`
+- [ ] `{{ else }}` obsługuje węzły tekstowe przez `{{ text }}`
+- [ ] Sety gallery/instagram/faq/skalisty używają `{{ partial src="page_builder/..." }}`
 - [ ] `php artisan test` → 2 passed
 - [ ] `GET /` → 200, `GET /en/` → 200
-- [ ] `npm run build` zakończony bez błędów
-- [ ] Żadna inna sekcja strony nie naruszona (brak zmian w innych plikach)
+- [ ] Żaden inny plik nie zmieniony
 
 ## Testowanie (po stronie Codexa)
 
 ```bash
-# Weryfikacja blueprintu
-grep -A5 "handle: icon" resources/blueprints/collections/services/service.yaml
+# Weryfikacja struktury pętli
+grep -c "type ==" resources/views/service/show.antlers.html
+# → 8
 
-# Weryfikacja braku starego wzorca w szablonie
-grep "icon }}{{ url }}\|icon }} {{ url }}" resources/views/page_builder/service_section.antlers.html
-# → brak wyników = OK
-
-# Weryfikacja nowego wzorca (5 wystąpień)
-grep -c "iconify:icon" resources/views/page_builder/service_section.antlers.html
-# → 5
+grep "{{ /content }}" resources/views/service/show.antlers.html
+# → musi być
 
 # Build i testy
 php artisan view:clear
-npm run build
-php artisan statamic:stache:refresh
 php artisan test
 ```
 
 ## Synchronizacja dokumentacji
 
 Po zakończeniu zapisz w `CODEX_SUGGESTIONS.md` sekcja `ACTIVE_FOR_CLAUDE_REVIEW`:
-- lista zmienionych plików
 - czy `npm run build` był potrzebny (tak/nie)
 - wynik `php artisan test`
 - ewentualne odchylenia od briefu
@@ -223,14 +221,11 @@ Po zakończeniu zapisz w `CODEX_SUGGESTIONS.md` sekcja `ACTIVE_FOR_CLAUDE_REVIEW
 
 ## Ostatnio zamknięte
 
+- `FEATURE-service-bard-sets-render` ✅ zamknięty przez Claude (2026-06-20)
+- `FEATURE-services-icon-iconify` ✅ zamknięty przez Claude (2026-06-19)
 - `BUGFIX-icon-box-center-icon` ✅ zamknięty przez Claude (2026-06-19)
 - `SYNC-orientarium` ✅ zamknięty przez Claude (2026-06-19)
 - `FEATURE-blueprint-details-defaults` ✅ zamknięty przez Claude (2026-06-19)
-- `UPDATE-statamic-6.21.0` ✅ zamknięty przez Claude (2026-06-19)
-- `FEATURE-completion-year-sort` ✅ accepted (2026-06-19)
-- `BUGFIX-sticky-header-default` ✅ accepted (2026-06-18)
-- `BUGFIX-slider-seamless-loop` ✅ accepted (2026-06-18)
-- `FEATURE-logos-slider-with-icons` ✅ accepted (2026-06-18)
 
 ## Następne po aktywnym
 

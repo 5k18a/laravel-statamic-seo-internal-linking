@@ -4,14 +4,14 @@
 # Aktualizowany po każdym zakończonym zadaniu
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-19-2100
-active_task_id: FEATURE-services-icon-iconify
-active_task_name: Zmiana pola icon w kolekcji services — assets → Iconify
-active_task_status: active
+state_version: 2026-06-20-0100
+active_task_id: none
+active_task_name: Brak aktywnego zadania
+active_task_status: closed
 active_task_source: BRIEF_CODEX.md
-last_sync: 2026-06-19 21:00 Europe/Warsaw
+last_sync: 2026-06-20 01:00 Europe/Warsaw
 last_synced_by: Claude
-last_closed: BUGFIX-icon-box-center-icon
+last_closed: FEATURE-service-bard-sets-render
 next_after_active: Decyzja użytkownika
 <!-- PROJECT_SYNC_END -->
 
@@ -147,6 +147,8 @@ Projekt `skalisty-orion` jest aktywną instalacją Laravel 13 + Statamic 6 opart
 | FEATURE-blueprint-details-defaults | ✅ Gotowe (2026-06-19) — 4 pre-wypełnione Info Items w replicatorze `details` blueprinta `projects`; deploy celowany |
 | SYNC-orientarium | ✅ Gotowe (2026-06-19) — nowy projekt `orientarium` zsynchronizowany z serwera (PL + 11 locale + galeria) |
 | BUGFIX-icon-box-center-icon | ✅ Gotowe (2026-06-19) — `mx-auto` na kontenerze ikony w `icon_box_with_text_section.antlers.html`; deploy na serwer; 2 passed |
+| FEATURE-services-icon-iconify | ✅ Gotowe (2026-06-19, Codex) — pole `icon` w `service.yaml` przywrócono do `assets`; nowe pole `icon_svg` (type: iconify, store_as: svg_data); 5 podmian ikon w `service_section.antlers.html` na `{{ iconify:icon_svg }}` z fallbackiem `{{ icon }}<img...>{{ /icon }}`; 2 passed; deploy na serwer |
+| FEATURE-service-bard-sets-render | ✅ Gotowe (2026-06-19/20, Codex) — `service/show.antlers.html`: `{{ content }}` prosty tag → pętla `{{ content }}...{{ /content }}` z 8 gałęziami `if/elseif` (quote_section, list_section, image_section, dynamic_table, gallery_section, skalisty_gallery_section, instagram_gallery_section, faq_section) + `{{ else }}{{ text }}`; `npm run build` (potrzebny dla `even:bg-gray-50`); 2 passed |
 
 ---
 
