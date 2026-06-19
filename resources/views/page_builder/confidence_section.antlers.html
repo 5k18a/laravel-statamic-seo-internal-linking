@@ -6,7 +6,7 @@
                     <h2 class="lg:mb-[24px] sm:mb-5 mb-3 2xl:w-[85%] xl:w-[70%]">{{ heading }}</h2>
                     <p class="text-[#464343]">{{ description }}</p>
                     <div class="flex items-center flex-wrap xl:gap-[30px] gap-3 xl:mt-10 mt-7">
-                        {{ if primary_button:label }}<a href="{{ primary_button:url }}" class="btn btn-primary">{{ primary_button:label }}</a>{{ /if }}
+                        {{ if primary_button:label }}<a href="{{ primary_button:page }}{{ url }}{{ /primary_button:page }}" class="btn btn-primary">{{ primary_button:label }}</a>{{ /if }}
                         {{ if contact_button:phone_label }}
                         <a href="{{ contact_button:phone_number }}" class="btn flex items-center px-0 sm:gap-3 gap-1 p-0 hover:text-primary-900 focus:text-primary-900 active:text-primary-900 transition-all ease-in-out w-auto font-lexend !font-light">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="xl:w-6 xl:h-6 sm:w-[22px] sm:h-[22px] w-[18px] h-[18px] stroke-primary-900">

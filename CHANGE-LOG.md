@@ -12,6 +12,19 @@ Changelog projektu `skalisty-orion` — prowadzony przez Claude po każdym zako�
 
 ---
 
+## 2026-06-19 (feat — Confidence Section: Button URL → entries picker)
+
+### Zmieniono
+
+- **`resources/fieldsets/confidence_section.yaml`** — pole `primary_button.url` (type: text) zastąpione polem `primary_button.page` (type: entries, max_items: 1). Picker stron — URL generowany automatycznie dla aktualnego locale.
+- **`resources/views/page_builder/confidence_section.antlers.html`** — `href="{{ primary_button:url }}"` → `href="{{ primary_button:page }}{{ url }}{{ /primary_button:page }}"`.
+
+### Decyzje techniczne
+
+- `type: entries` przechowuje ID wpisu; Statamic augmentuje `{{ url }}` do locale aktualnie renderowanej strony — automatyczny fallback do PL jeśli brak lokalizacji docelowej strony.
+
+---
+
 ## 2026-06-19 (sesja lokalna — content_title dla services + CSS fix + sync)
 
 ### Dodano

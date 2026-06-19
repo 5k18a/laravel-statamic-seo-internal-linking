@@ -27,11 +27,13 @@ fields:
             display: 'Button Label'
             placeholder: 'Request Your Free Quote Today'
         -
-          handle: url
+          handle: page
           field:
-            type: text
-            display: 'Button URL'
-            placeholder: /about-us
+            type: entries
+            display: 'Button Page'
+            instructions: 'Wybierz stronę docelową — URL dopasuje się automatycznie do języka.'
+            max_items: 1
+            mode: select
   -
     handle: contact_button
     field:
