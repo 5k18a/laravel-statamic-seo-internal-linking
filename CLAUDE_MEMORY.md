@@ -4,16 +4,18 @@
 # Aktualizowany po każdym zakończonym zadaniu
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-20-0100
+state_version: 2026-06-20-0800
 active_task_id: none
 active_task_name: Brak aktywnego zadania
 active_task_status: closed
 active_task_source: BRIEF_CODEX.md
-last_sync: 2026-06-20 01:00 Europe/Warsaw
+last_sync: 2026-06-20 07:30 Europe/Warsaw
 last_synced_by: Claude
-last_closed: FEATURE-service-bard-sets-render
+last_closed: STYLE-bard-nested-sections-padding-half-v2
 next_after_active: Decyzja użytkownika
 <!-- PROJECT_SYNC_END -->
+
+> **Stała lokalnego dev (2026-06-20)**: frontend działa na `http://127.0.0.1:8001/` (nie `8000`). Komenda PHP lokalnie: `php artisan` (na serwerze: `php84`). Te stałe stosować w briefach walidacyjnych.
 
 ---
 
@@ -425,6 +427,29 @@ Dodane do `.gitignore`: `ADMIN_ACCESS.txt`, `/users/*.yaml`
 ---
 
 ## Dziennik sesji
+
+### 2026-06-20
+
+**BUGFIX-service-icon-color**: 5 spanów ikon Iconify w `service_section.antlers.html` (linie 24, 152, 194, 230, 354) — klasa `text-primary-900` → `text-black`. Mechanizm: SVG dziedziczy `currentColor` przez `<span>`. `<h4>` z Alpine `:class` toggling nienaruszone. Zaakceptowane.
+
+**FEATURE-faqs-grouped-replicator**: kolekcja `faqs` przebudowana z 1-entry=1-pytanie na **paczki tematyczne**. Blueprint: pole `title` → „Nazwa grupy FAQ", usunięto pole `answer`, dodano replicator `faq_items` z setem `item` (`question` + `answer`, oba required). Szablony (`page_builder/faq_section.antlers.html` + `service/show.antlers.html` linie 140-185): `x-data="{selected:1}"` przeniesione wewnątrz pętli paczek, `{{ title }}` → `{{ question }}`, dynamiczny `x-ref="container{{ index }}"` (bugfix pre-existing hardcoded). Magic Translator kompatybilny dzięki patch HOTFIX-10+11 (set groups → flat, `classifyNested` Tier 1). User ręcznie założył nowe paczki w CP po deployu.
+
+**STYLE-bard-nested-sections-padding-half (v1)**: 9 wystąpień wrappera Bard w `service/show.antlers.html` zmienione z `2xl:py-[70px] 1xl:py-16 lg:py-14 sm:py-10 py-8` na `2xl:py-[35px] 1xl:py-8 lg:py-7 sm:py-5 py-4` (dokładnie połowa). `npm run build` wymagany (Tailwind 4 generuje on-demand z `@source`). Iteracja zaakceptowana ale natychmiast zastąpiona v2.
+
+**STYLE-bard-nested-sections-padding-half-v2**: kolejne -50%: `2xl:py-[18px] 1xl:py-4 lg:py-3.5 sm:py-2.5 py-2` (35→18, 32→16, 28→14, 20→10, 16→8 px). Zaakceptowane + zdeployowane.
+
+**Deploy 1 (FAQ + service icon + home + faqs/)**: rsync per plik + cała kolekcja `content/collections/faqs/` (bez `--delete`). Backup serwera `~/skalisty_2026_backups/before-faq-replicator-2026-06-20/` (836 KB). HTTP 200 PL+EN, 13 pozycji `faqs-list` na home PL.
+
+**Deploy 2 (padding v2 + output.css)**: rsync 2 plików. Backup `~/skalisty_2026_backups/before-bard-padding-v2-2026-06-20/` (300 KB). HTTP 200 + klasa `py-[18px]` wykryta na produkcji.
+
+**Doc drift sprzątnięty (po dwóch interwencjach Codexa)**: (1) wpis DOC-SYNC dla STYLE-bard-padding-half-v2 — frontmatter `PROJECT_SYNC` w 3 plikach nie był synchronizowany po zamykaniu zadań; (2) wpis DOC-SYNC dla sekcji `## W trakcie` w `PROJECT_STATUS_CODEX.md` — tekstowa sekcja niezgodna z frontmatterem. Oba rozwiązane atomowo. **Lesson learned (do odnotowania): po każdym deployu/akceptacji synchronizować nie tylko frontmatter, ale również sekcję tekstową `## W trakcie` / `## Ostatnio zamknięte` w `PROJECT_STATUS_CODEX.md`.**
+
+**Stałe lokalnego dev (odnotowane przez Codexa)**:
+- Frontend: `http://127.0.0.1:8001/` (nie `8000`)
+- PHP lokalnie: `php artisan` (serwer dhosting: `php84`)
+- W przyszłych briefach walidacyjnych stosować te wartości.
+
+**Zamknięcie sesji**: CHANGE-LOG (6 wpisów: 4 zadania + 2 deploye), DEPLOYMENT (2 wpisy), CLAUDE_MEMORY (ten wpis), PROJECT_STATUS_CODEX zaktualizowane. Commit + push na `origin/main`.
 
 ### 2026-06-19
 

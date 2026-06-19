@@ -1,14 +1,14 @@
 # PROJECT_STATUS_CODEX.md
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-20-0100
+state_version: 2026-06-20-0800
 active_task_id: none
 active_task_name: Brak aktywnego zadania
 active_task_status: closed
 active_task_source: BRIEF_CODEX.md
-last_sync: 2026-06-20 01:00 Europe/Warsaw
+last_sync: 2026-06-20 07:30 Europe/Warsaw
 last_synced_by: Claude
-last_closed: FEATURE-service-bard-sets-render
+last_closed: STYLE-bard-nested-sections-padding-half-v2
 next_after_active: Decyzja użytkownika
 <!-- PROJECT_SYNC_END -->
 
@@ -145,6 +145,15 @@ next_after_active: Decyzja użytkownika
 - Backup-8 ✅ (2026-06-17 20:33) — `backup-projekt/skalisty-orion-backup-8.tar.gz` (354 MB); backup przed kolejnym krokiem po dokumentacji Iconify; zawiera `skalisty-orion/` oraz główne pliki dokumentacji workspace; wykluczone: `node_modules`, `.git`, `storage/framework/{cache,sessions,views}`, `storage/logs`; kontrola `tar -tzf` potwierdziła obecność dokumentów.
 - Deploy-2026-06-17 ✅ — wdrożono na `dev.skalisty.pl` Iconify + `Icon Box With Text Section` + cleanup zdalnych kontenerów `icons/icons2`; przed cleanupem wykonano zdalny backup `~/skalisty_2026-icons-containers-before-delete-2026-06-17.tar.gz`; rsync bez `--delete`, 24.8 MB różnic, 0 plików usuniętych przez rsync; post-deploy: `package:discover`, `optimize:clear`, `config:clear`, `cache:clear`, `view:clear`, `statamic:stache:refresh`, `php84 artisan test` (2 passed); HTTP `/` 200, `/en/` 301→200, `/cp/login` 302; Iconify config na serwerze `svg_data`, prefixy `map` i `mdi` aktywne. Wpis sporządzony przez Codex — Claude audit required.
 
+### Sesja 2026-06-20
+
+- BUGFIX-service-icon-color ✅ — `service_section.antlers.html`: 5 `<span>` ikon Iconify zmienione z `text-primary-900` na `text-black` (linie 24/152/194/230/354 — home-page-one akordeon, home-page-three/four karty, service-page-one akordeon, service-page-three karty); `<h4>` z Alpine `:class` toggling nienaruszone (tytuł nadal zmienia kolor przy rozwinięciu); SVG Iconify dziedziczy `currentColor` przez `<span>`; bez `npm run build` (obie klasy już w output.css).
+- FEATURE-faqs-grouped-replicator ✅ — kolekcja `faqs` przebudowana na **paczki tematyczne**; blueprint `faqs/faq.yaml`: `title` (display „Nazwa grupy FAQ", `localizable: true`), usunięto pole `answer`, dodano `faq_items` Replicator z setem `item` (`question`+`answer`, oba required); szablony `page_builder/faq_section.antlers.html` + `service/show.antlers.html` (linie 140-185): `x-data="{selected:1}"` wewnątrz pętli paczek (każda paczka = osobny akordeon), `{{ title }}` → `{{ question }}`, dynamiczny `x-ref="container{{ index }}"` (bugfix pre-existing hardcoded `container1`); Magic Translator kompatybilny dzięki HOTFIX-10+11 (set groups → flat); migracja content ręcznie przez użytkownika (CP); HTTP 200 PL+EN, 13 pozycji `faqs-list` na home PL.
+- STYLE-bard-nested-sections-padding-half ✅ (v1) — `service/show.antlers.html`: 9 wystąpień wrappera Bard zmienione z `2xl:py-[70px] 1xl:py-16 lg:py-14 sm:py-10 py-8` na `2xl:py-[35px] 1xl:py-8 lg:py-7 sm:py-5 py-4` (dokładnie połowa); `npm run build` wymagany (Tailwind 4 generuje on-demand z `@source`); iteracja zaakceptowana ale klient ocenił nadal za duże odstępy.
+- STYLE-bard-nested-sections-padding-half-v2 ✅ — kolejne -50%: `2xl:py-[18px] 1xl:py-4 lg:py-3.5 sm:py-2.5 py-2` (35→18, 32→16, 28→14, 20→10, 16→8 px); 35/2=17.5 zaokrąglone w górę do `[18px]`; pozostałe to dokładne połówki Tailwind; `php artisan test` 2 passed.
+- Deploy-2026-06-20a ✅ — FAQ replicator + service icon color + content sync; rsync per plik (4 szablony + blueprint + home.md) + cała kolekcja `content/collections/faqs/`; backup serwera `~/skalisty_2026_backups/before-faq-replicator-2026-06-20/` (836 KB); post-deploy: `view:clear`, `cache:clear`, `statamic:stache:refresh`, `test` 2 passed; HTTP 200 PL+EN.
+- Deploy-2026-06-20b ✅ — `service/show.antlers.html` (padding v2) + `output.css` (rebuild Tailwind 4); backup serwera `~/skalisty_2026_backups/before-bard-padding-v2-2026-06-20/` (300 KB); HTTP 200 + klasa `py-[18px]` wykryta na live output.css.
+
 ### Wdrożenie serwera
 
 - dev.skalisty.pl na dhosting — PHP 8.4, MySQL, HTTPS, DEEPL_API_KEY skonfigurowany
@@ -157,6 +166,17 @@ next_after_active: Decyzja użytkownika
 Brak aktywnych zadań.
 
 ---
+
+### ✅ Ostatnio zamknięte: STYLE-bard-nested-sections-padding-half-v2 (2026-06-20)
+
+Sesja 2026-06-20 (Claude + Codex) — pięć zadań zamkniętych w jednej sesji:
+- `BUGFIX-service-icon-color` — ikony Iconify w sekcjach usług w kolorze czarnym (5 spanów w `service_section.antlers.html`).
+- `FEATURE-faqs-grouped-replicator` — kolekcja `faqs` przebudowana z 1-entry=1-pytanie na paczki tematyczne (Replicator `faq_items` z setem `item` `question`+`answer`). Magic Translator kompatybilny dzięki HOTFIX-10+11.
+- `STYLE-bard-nested-sections-padding-half` — padding-y wrapperów zagnieżdżonych sekcji Bard w `service/show.antlers.html` zmniejszony o połowę (9 wystąpień: `2xl:py-[35px] 1xl:py-8 lg:py-7 sm:py-5 py-4`).
+- `STYLE-bard-nested-sections-padding-half-v2` — kolejne -50% (9 wystąpień: `2xl:py-[18px] 1xl:py-4 lg:py-3.5 sm:py-2.5 py-2`).
+- Deploy na `dev.skalisty.pl` (4 etapy): szablony + blueprint FAQ, content `home.md` PL + cała kolekcja `faqs/` (12 języków), iteracja v1 padding (CSS build), iteracja v2 padding (szablon + output.css).
+
+Stała lokalnego dev (2026-06-20): frontend działa na `http://127.0.0.1:8001/`. Komenda PHP lokalnie: `php artisan` (na serwerze dhosting: `php84`).
 
 ### ✅ Ostatnio zamknięte: BUGFIX-cp-collection-listing-stub-filter (2026-06-08)
 

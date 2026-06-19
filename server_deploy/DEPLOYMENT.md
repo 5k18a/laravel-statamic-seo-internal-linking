@@ -852,3 +852,82 @@ Rsync przyrostowy (2 szablony + CSS), post-deploy: `view:clear` — OK ✅
 | Statamic Pro (multisite) | ✅ `STATAMIC_PRO_ENABLED=true` |
 | Force HTTPS (.htaccess) | ✅ 301 HTTP → HTTPS |
 | Blokada indeksacji | ✅ `robots.txt` + `X-Robots-Tag noindex` |
+
+---
+
+## Deploy przyrostowy — 2026-06-20 — FAQ replicator + service icon color + content sync
+
+### Zakres wdrożenia
+
+**FEATURE-faqs-grouped-replicator + BUGFIX-service-icon-color (wspólny deploy):**
+- `resources/blueprints/collections/faqs/faq.yaml` (1.7 KB) — Replicator `faq_items` zamiast pola `answer`
+- `resources/views/page_builder/faq_section.antlers.html` (7.0 KB) — pętla `faq_items`, dynamiczny `x-ref`
+- `resources/views/page_builder/service_section.antlers.html` (21 KB) — `text-black` na 5 spanach ikon
+- `resources/views/service/show.antlers.html` (16 KB) — `faq_items` w Bard set + padding wrapper v1 (`2xl:py-[35px]...`)
+- `content/collections/pages/pl/home.md` (38 KB) — nowe id paczek FAQ w sekcjach
+- `content/collections/faqs/` (cała kolekcja, 12 nowych `jak-pracujemy-qa.md` + zaktualizowany `biotopy-...md` w 12 językach)
+
+### Backup serwera
+
+`~/skalisty_2026_backups/before-faq-replicator-2026-06-20/` (836 KB) — content/collections/faqs, home.md, blueprint faq.yaml, 3 szablony.
+
+### Metoda
+
+Rsync per plik + osobny rsync całej kolekcji `content/collections/faqs/` (bez `--delete`):
+
+```bash
+sshpass -p '...' rsync -avz -e "ssh -o StrictHostKeyChecking=no" \
+  resources/blueprints/collections/faqs/faq.yaml \
+  skalisty@skalisty.ssh.dhosting.pl:skalisty_2026/resources/blueprints/collections/faqs/faq.yaml
+# (analogicznie dla 4 pozostałych plików + content/collections/faqs/ jako katalog)
+```
+
+### Pominięto celowo
+
+- `content/collections/services/pl/architectural-design.md` — test content z poprzedniej sesji Codexa.
+
+### Komendy po deployu
+
+```bash
+php84 artisan view:clear && php84 artisan cache:clear && php84 artisan statamic:stache:refresh && php84 artisan test
+```
+
+Wynik: OK, 2 passed. `dev.skalisty.pl` HTTP 200 PL+EN, 13 pozycji `faqs-list` na home PL, pierwsze pytanie z paczki widoczne ✅
+
+---
+
+## Deploy przyrostowy — 2026-06-20 — STYLE-bard-nested-sections-padding-half-v2 + CSS rebuild
+
+### Zakres wdrożenia
+
+**STYLE-bard-nested-sections-padding-half-v2 (finalna wersja po dwóch iteracjach -50%):**
+- `resources/views/service/show.antlers.html` (16 KB) — 9 wystąpień wrappera Bard z klasą `container 2xl:py-[18px] 1xl:py-4 lg:py-3.5 sm:py-2.5 py-2`
+- `public/assets/css/output.css` (286 KB) — rebuild Tailwind 4 (`npm run build`) z nowymi klasami `py-[18px]`, `py-4`, `py-3.5`, `py-2.5`, `py-2`
+
+### Backup serwera
+
+`~/skalisty_2026_backups/before-bard-padding-v2-2026-06-20/` (300 KB) — show.antlers.html + output.css.
+
+### Metoda
+
+Rsync per plik (2 pliki):
+
+```bash
+sshpass -p '...' rsync -avz -e "ssh -o StrictHostKeyChecking=no" \
+  resources/views/service/show.antlers.html \
+  skalisty@skalisty.ssh.dhosting.pl:skalisty_2026/resources/views/service/show.antlers.html
+# + analogicznie dla output.css
+```
+
+### Komendy po deployu
+
+```bash
+php84 artisan view:clear && php84 artisan cache:clear && php84 artisan test
+```
+
+Wynik: OK, 2 passed. `dev.skalisty.pl` HTTP 200 PL+EN. Klasa `py-[18px]` wykryta w live `output.css` ✅
+
+### Uwagi operacyjne
+
+- **Port lokalnego dev**: `127.0.0.1:8001` (nie `8000`) — odnotowane jako stała w `CLAUDE_MEMORY.md`.
+- **Komenda PHP lokalnie**: `php artisan` (na serwerze dhosting: `php84`).

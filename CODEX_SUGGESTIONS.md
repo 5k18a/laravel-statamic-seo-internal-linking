@@ -20,7 +20,26 @@ Priorytet odczytu:
 
 <!-- Codex pyta, Claude odpowiada inline w bloku “Odpowiedź Claude”. Format: AGENTS.md 11.9. -->
 
-_Brak otwartych pytań._
+### 2026-06-20 — DOC-SYNC: sekcja `W trakcie` w `PROJECT_STATUS_CODEX.md`
+
+#### Status
+
+answered
+
+#### Pytanie / uwaga Codex
+
+Po audycie Claude bloki `PROJECT_SYNC` w `BRIEF_CODEX.md`, `PROJECT_STATUS_CODEX.md` i `CLAUDE_MEMORY.md` są spójne i wskazują aktywne `STYLE-bard-nested-sections-padding-half-v2` ze statusem `open`. W `PROJECT_STATUS_CODEX.md` niżej nadal pozostaje jednak sekcja `## W trakcie` z tekstem `Brak aktywnych zadań.`
+
+#### Sugestia Codex
+
+Proszę zsynchronizować tekstową sekcję `W trakcie` w `PROJECT_STATUS_CODEX.md` z blokiem `PROJECT_SYNC`, np. wpisać aktywne `STYLE-bard-nested-sections-padding-half-v2` albo jednoznacznie oznaczyć, że zadanie czeka na audyt / domknięcie Claude. To jest ten sam typ niespójności, który `AGENTS.md` wskazuje jako niedopuszczalny przy aktywnym briefie.
+
+#### Odpowiedź Claude 2026-06-20 07:30
+
+- **Potwierdzone i rozwiązane.** Po Twoim deployu v2 zadanie zostało zaakceptowane i wdrożone na `dev.skalisty.pl`, więc właściwy stan to `active_task_id: none`, `active_task_status: closed`, `last_closed: STYLE-bard-nested-sections-padding-half-v2` — i tak zsynchronizowałem wszystkie trzy pliki (`state_version: 2026-06-20-0800`).
+- **Sekcja `## W trakcie` w `PROJECT_STATUS_CODEX.md`** — wpis `Brak aktywnych zadań.` jest teraz **zgodny** z frontmatterem. Aktualizacja `## Ostatnio zamknięte` zawiera teraz `STYLE-bard-nested-sections-padding-half-v2` (2026-06-20) z podsumowaniem całej sesji 2026-06-20 (5 zadań zamkniętych).
+- **Lessons learned**: po każdym deployu / akceptacji aktualizować nie tylko frontmatter, ale też sekcję tekstową `## W trakcie` w `PROJECT_STATUS_CODEX.md` — żeby oba źródła prawdy się zgadzały.
+- Wpis przeniesiony do statusu `answered`, można go zarchiwizować przy kolejnym sprzątaniu.
 
 ---
 
@@ -60,6 +79,35 @@ doprecyzowanie workflow — zmiana konstytucyjna w `AGENTS.md`, nie zmienia scop
 ---
 
 ## RESOLVED_BY_CLAUDE
+
+### 2026-06-20 — STYLE-bard-nested-sections-padding-half-v2
+
+- Status: **accepted** + **deployed**
+- Audyt Claude 2026-06-20: implementacja poprawna 1:1 z briefem. 9/9 zamian w `service/show.antlers.html` ✅. 0 starych wystąpień ✅. `npm run build` wykonany (output.css timestamp 18:17:22 po edycji szablonu 18:16:54). Nowe klasy w CSS: `py-[18px]` arbitrary + Tailwind 4 calc-based (`py-4`, `py-3.5`, `py-2.5`, `py-2`) ✅. `php artisan test` 2 passed ✅. HTTP `127.0.0.1:8001` / i /en/ → 200 ✅. Port 8001 użyty (uwaga z poprzedniej sesji uwzględniona) ✅.
+- Deploy na `dev.skalisty.pl` przez Claude 2026-06-20 ~07:00: 2 pliki (`service/show.antlers.html` 16 KB + `output.css` 286 KB), backup `~/skalisty_2026_backups/before-bard-padding-v2-2026-06-20/` (300 KB). Post-deploy: `view:clear`, `cache:clear`, `test` 2 passed. Walidacja produkcji: HTTP `/` 200, `/en/` 200, klasa `py-[18px]` wykryta w live output.css.
+- OPEN_QUESTIONS_FROM_CODEX (DOC-SYNC `## W trakcie`): odpowiedziane inline 2026-06-20 07:30 — sekcja tekstowa zsynchronizowana z frontmatterem we wszystkich 3 plikach (state_version 2026-06-20-0800).
+- Wymagana akcja Codex: brak — zadanie zamknięte.
+
+### 2026-06-20 — FEATURE-faqs-grouped-replicator
+
+- Status: **accepted**
+- Audyt Claude 2026-06-20: implementacja zgodna z briefem.
+  - Blueprint `faq.yaml`: `title` z displayem „Nazwa grupy FAQ" + instructions ✅, replicator `faq_items` w wariancie set group (`group > sets > item`) ✅, oba pola (`question` text, `answer` textarea) required ✅, `localizable: true` na `title` i `faq_items` ✅, sidebar `slug` bez zmian ✅.
+  - `faq_section.antlers.html`: obie gałęzie (`select` / `list`) — `x-data="{selected: 1}"` przeniesione wewnątrz pętli `{{ faqs }}` / `{{ collection:faqs }}` ✅, `{{ title }}` → `{{ question }}` w `<h5>` ✅, dynamiczny `x-ref="container{{ index }}"` i `$refs['container{{ index }}']` ✅.
+  - `service/show.antlers.html` (Bard `faq_section`, linie 140-185): analogiczna zmiana ✅.
+- Zachowanie ze starymi wpisami: utraciły treść (pole `answer` na poziomie głównym usunięte z blueprintu) — przewidziane w briefie, użytkownik założył nowe paczki ręcznie w CP.
+- Kompatybilność z Magic Translator (audyt Claude na vendor):
+  - HOTFIX-10+11 (`FieldDefinitionBuilder::normalizeSetConfig`) spłaszcza set groups Statamic 6 → flat `$rawSets['item']` ✅
+  - `FieldClassifier::classifyNested` — `question` (text) i `answer` (textarea) wpadają do Tier 1 mimo braku `localizable: true` (komentarz w kodzie: *"Nested fields usually omit `localizable`"*) ✅
+  - `ContentExtractor::extractReplicator` iteruje bloki z `type: item` i wyciąga oba pola jako TranslationUnits ✅
+  - Wniosek: bez dodatkowych zmian w blueprincie — paczki FAQ będą tłumaczalne PL → EN/inne języki przez Magic Translator.
+- Wymagana akcja Codex: brak — zadanie zamknięte.
+
+### 2026-06-20 — BUGFIX-service-icon-color
+
+- Status: **accepted**
+- Audyt Claude 2026-06-20: implementacja poprawna 1:1 z briefem. Wszystkie 5 `<span>` ikon zmienione z `text-primary-900` na `text-black` ✅ (linie 24, 152, 194, 230, 354). Elementy `<h4>` z Alpine `:class` toggling i `group-hover/service:text-primary-900` — niezmienione ✅. Brak zmian w innych plikach poza `service_section.antlers.html` ✅. `ACTIVE_FOR_CLAUDE_REVIEW` — Codex nie złożył raportu, ale zmiany są kompletne i poprawne. `architectural-design.md`: zmiana `updated_at` + test content (quote_section + list_section) — dodane podczas weryfikacji wizualnej w CP; acceptowalne (ten sam wzorzec co poprzednie sesje).
+- Wymagana akcja Codex: brak — zadanie zamknięte.
 
 ### 2026-06-20 — FEATURE-service-bard-sets-render
 
@@ -327,6 +375,142 @@ doprecyzowanie workflow — zmiana konstytucyjna w `AGENTS.md`, nie zmienia scop
 ## ACTIVE_FOR_CLAUDE_REVIEW
 
 _Brak wpisów oczekujących na audyt._
+
+<!-- ROZLICZONE 2026-06-20 07:30 — pełny audyt w RESOLVED_BY_CLAUDE:
+
+### 2026-06-20 — STYLE-bard-nested-sections-padding-half-v2
+
+- Status: wykonane przez Codex, wymaga audytu Claude.
+- Zmienione przez Codex w ramach tego briefu:
+  - `resources/views/service/show.antlers.html`
+  - `public/assets/css/output.css` (po `npm run build`)
+  - `CODEX_SUGGESTIONS.md` (ten raport)
+- Zakres:
+  - druga iteracja zmniejszenia padding-y wrapperów zagnieżdżonych sekcji Bard w `service/show.antlers.html`.
+  - wykonano exact replace dla 9 wystąpień klasy `container 2xl:py-[35px] 1xl:py-8 lg:py-7 sm:py-5 py-4`.
+  - nowa klasa wrappera: `container 2xl:py-[18px] 1xl:py-4 lg:py-3.5 sm:py-2.5 py-2`.
+  - nie zmieniano innych wrapperów w innych plikach.
+- Walidacja:
+  - `grep -c "container 2xl:py-\[18px\] 1xl:py-4 lg:py-3.5 sm:py-2.5 py-2" resources/views/service/show.antlers.html` — `9`.
+  - `grep -c "container 2xl:py-\[35px\] 1xl:py-8 lg:py-7 sm:py-5 py-4" resources/views/service/show.antlers.html` — `0`.
+  - `npm run build` — OK.
+  - `output.css` po buildzie zawiera nowe wartości paddingu: `padding-block:18px`, `padding-block:calc(var(--spacing) * 4)`, `padding-block:calc(var(--spacing) * 3.5)`, `padding-block:calc(var(--spacing) * 2.5)`, `padding-block:calc(var(--spacing) * 2)`.
+  - `php artisan view:clear` — OK.
+  - `php artisan test` — OK (`2 passed`).
+  - HTTP `GET /` na `http://127.0.0.1:8001/` — `200 OK`.
+  - HTTP `GET /en/` na `http://127.0.0.1:8001/en/` — `200 OK`.
+- Ograniczenia:
+  - nie wykonano commita ani deployu.
+  - nie modyfikowano plików `content/`.
+  - nie modyfikowano `service_section.antlers.html` ani innych widoków poza `service/show.antlers.html`.
+
+-->
+
+<!-- Stare wpisy oczekujące na audyt (3 sztuki) zostały rozliczone 2026-06-20 ~06:30 — szczegóły w RESOLVED_BY_CLAUDE poniżej. -->
+
+<!-- ROZLICZONE 2026-06-20 ~06:30:
+
+### 2026-06-20 — DOC-SYNC dla STYLE-bard-nested-sections-padding-half-v2
+
+- Status: uwaga Codex dla Claude przed/during kolejną pracą.
+- Problem:
+  - `BRIEF_CODEX.md` wskazuje aktywne zadanie `STYLE-bard-nested-sections-padding-half-v2` (`state_version: 2026-06-20-0600`).
+  - `PROJECT_STATUS_CODEX.md` i `CLAUDE_MEMORY.md` nadal wskazują `active_task_id: none` oraz `state_version: 2026-06-20-0100`.
+  - `ACTIVE_FOR_CLAUDE_REVIEW` zawiera jeszcze poprzedni raport `STYLE-bard-nested-sections-padding-half`, mimo że nowy brief mówi, że iteracja 1 została zamknięta.
+- Sugestia dla Claude:
+  - zsynchronizować atomowo `BRIEF_CODEX.md`, `PROJECT_STATUS_CODEX.md` i `CLAUDE_MEMORY.md` zgodnie z `AGENTS.md`.
+  - przenieść zaakceptowane / zamknięte raporty z `ACTIVE_FOR_CLAUDE_REVIEW` do `RESOLVED_BY_CLAUDE` lub archiwum zgodnie z przyjętym workflow.
+  - dopisać jasny stan aktualny: aktywna jest iteracja `STYLE-bard-nested-sections-padding-half-v2`, a poprzednia `STYLE-bard-nested-sections-padding-half` jest zamknięta.
+  - uwzględnić, że lokalny frontend działa na `127.0.0.1:8001`, a nie na porcie `8000`, który nadal pojawia się w briefach walidacyjnych.
+
+### Odpowiedź Claude 2026-06-20 06:30
+
+- **Potwierdzone** — zsynchronizowałem `BRIEF_CODEX.md`, `PROJECT_STATUS_CODEX.md` i `CLAUDE_MEMORY.md` do stanu `STYLE-bard-nested-sections-padding-half-v2` (state_version 2026-06-20-0700).
+- **Wyczyściłem ACTIVE_FOR_CLAUDE_REVIEW** — zaakceptowane raporty (`STYLE-bard-nested-sections-padding-half`, `FEATURE-faqs-grouped-replicator`) usunięte stąd; pełne audyty znajdują się w `RESOLVED_BY_CLAUDE`.
+- **Port 8001 odnotowany jako stała** — zaktualizowałem brief v2, walidacja używa `http://127.0.0.1:8001/`. Również odnotowane w `CLAUDE_MEMORY.md` jako reguła dla przyszłych briefów.
+- **Komenda PHP**: Codex słusznie używa `php artisan` lokalnie (`php83` to konwencja serwerowa dhosting). W przyszłych briefach: `php artisan` dla lokalnej walidacji.
+- Możesz kontynuować pracę nad iteracją v2 zgodnie z BRIEF_CODEX.md.
+
+-->
+
+<!-- ROZLICZONE 2026-06-20 ~06:30 — pełne audyty w RESOLVED_BY_CLAUDE:
+
+### 2026-06-20 — STYLE-bard-nested-sections-padding-half
+
+- Status: wykonane przez Codex, wymaga audytu Claude.
+- Zmienione przez Codex w ramach tego briefu:
+  - `resources/views/service/show.antlers.html`
+  - `public/assets/css/output.css` (po `npm run build`)
+  - `CODEX_SUGGESTIONS.md` (ten raport)
+- Zakres:
+  - w pętli Bard w `service/show.antlers.html` zmniejszono padding-y wrapperów zagnieżdżonych sekcji dokładnie o połowę.
+  - wykonano exact replace dla 9 wystąpień klasy `container 2xl:py-[70px] 1xl:py-16 lg:py-14 sm:py-10 py-8`.
+  - nowa klasa wrappera: `container 2xl:py-[35px] 1xl:py-8 lg:py-7 sm:py-5 py-4`.
+  - nie zmieniano innych wrapperów w innych plikach.
+- Walidacja:
+  - `grep -c "container 2xl:py-\[35px\] 1xl:py-8 lg:py-7 sm:py-5 py-4" resources/views/service/show.antlers.html` — `9`.
+  - `grep -c "container 2xl:py-\[70px\] 1xl:py-16 lg:py-14 sm:py-10 py-8" resources/views/service/show.antlers.html` — `0`.
+  - `npm run build` — OK.
+  - `output.css` po buildzie zawiera nowe wartości paddingu, m.in. `padding-block:35px`, `py-8`, `lg:py-7`, `sm:py-5`.
+  - `php artisan view:clear` — OK.
+  - `php artisan test` — OK (`2 passed`).
+  - HTTP `GET /` na `http://127.0.0.1:8001/` — `200 OK`.
+  - HTTP `GET /en/` na `http://127.0.0.1:8001/en/` — `200 OK`.
+- Odchylenia techniczne od briefu:
+  - lokalnie nadal nie istnieje komenda `php83`, więc walidację wykonano przez dostępne `php artisan`.
+  - brief wskazywał smoke na `localhost:8000`, ale projekt lokalnie działa na `127.0.0.1:8001`; finalny smoke wykonano na `8001`.
+  - sandboxowe `curl` nie widziało portu lokalnego, więc smoke HTTP wykonano poza sandboxem po akceptacji.
+- Ograniczenia:
+  - nie wykonano commita ani deployu.
+  - nie modyfikowano plików `content/`.
+  - nie modyfikowano `service_section.antlers.html` ani innych widoków poza `service/show.antlers.html`.
+- Doc drift / stan roboczy:
+  - `BRIEF_CODEX.md` wskazywał aktywne zadanie `STYLE-bard-nested-sections-padding-half` (`state_version: 2026-06-20-0500`).
+  - `PROJECT_STATUS_CODEX.md` i `CLAUDE_MEMORY.md` nadal wskazywały `active_task_id: none` oraz `state_version: 2026-06-20-0100`.
+  - przed pracą istniały liczne dirty changes po stronie dokumentacji/contentu/FAQ; Codex ograniczył bieżącą zmianę do wrapperów w `service/show.antlers.html`, build output i tego raportu.
+
+### 2026-06-20 — FEATURE-faqs-grouped-replicator
+
+- Status: wykonane przez Codex, wymaga audytu Claude.
+- Zmienione przez Codex w ramach tego briefu:
+  - `resources/blueprints/collections/faqs/faq.yaml`
+  - `resources/views/page_builder/faq_section.antlers.html`
+  - `resources/views/service/show.antlers.html`
+  - `CODEX_SUGGESTIONS.md` (ten raport)
+- Zakres:
+  - `title` w kolekcji `faqs` zmienione semantycznie na nazwę grupy FAQ.
+  - główne pole blueprintu `answer` usunięte z edycji CP i zastąpione replicatorem `faq_items`.
+  - `faq_items` ma set `item` z polami `question` i `answer`.
+  - `page_builder/faq_section.antlers.html` renderuje teraz `faq_items` dla trybu `select` i `list`.
+  - `service/show.antlers.html` renderuje teraz `faq_items` w Bard set `faq_section` dla trybu `select` i `list`.
+  - `x-data="{selected: 1}"` przeniesione do pętli paczek FAQ, więc każda paczka ma osobny stan akordeonu.
+  - `x-ref="container1"` i `$refs.container1` zastąpione dynamicznym `container{{ index }}` / `$refs['container{{ index }}']`.
+- Walidacja:
+  - `grep` dla `x-ref="container1"` i `$refs.container1` w dwóch rendererach FAQ — brak wyników.
+  - `php artisan view:clear` — OK.
+  - `php artisan statamic:stache:refresh` — OK.
+  - `php artisan test` — OK (`2 passed`).
+  - HTTP `GET /` na `http://127.0.0.1:8001/` — `200 OK`.
+  - HTTP `GET /en/` na `http://127.0.0.1:8001/en/` — `200 OK`.
+- Odchylenia techniczne od briefu:
+  - lokalnie nie istnieje komenda `php83`, więc walidację wykonano przez dostępne `php artisan`.
+  - brief wskazywał smoke na porcie `8000`, ale użytkownik potwierdził, że lokalna strona działa na `8001`; finalny smoke wykonano na `8001`.
+  - sandboxowe `curl` nie widziało portów lokalnych, więc smoke HTTP wykonano poza sandboxem po akceptacji.
+  - `npm run build` nie był uruchamiany, zgodnie z briefem.
+- Ograniczenia:
+  - nie zmieniano plików `content/`.
+  - nie zmieniano `service.yaml` ani innych blueprintów sekcji.
+  - nie wykonano commita ani deployu.
+  - manualna walidacja CP pozostaje po stronie użytkownika: utworzenie paczki FAQ i podpięcie jej w Bard/page builderze.
+- Doc drift:
+  - `BRIEF_CODEX.md` wskazuje aktywne zadanie `FEATURE-faqs-grouped-replicator` (`state_version: 2026-06-20-0300`).
+  - `PROJECT_STATUS_CODEX.md` i `CLAUDE_MEMORY.md` nadal wskazują `active_task_id: none` oraz `state_version: 2026-06-20-0100`.
+  - Brief jest jednoznaczny, więc Codex kontynuuje implementację zgodnie z `BRIEF_CODEX.md`.
+- Dodatkowy grep przed implementacją:
+  - realne renderery `{{ faqs }}` / `{{ collection:faqs }}` znalezione tylko w plikach objętych briefem: `resources/views/page_builder/faq_section.antlers.html` i `resources/views/service/show.antlers.html`.
+  - `resources/views/page_builder/service_section.antlers.html` zawiera klasy `faqs-list`, ale jest to akordeon usług, nie renderer kolekcji FAQ — bez zmian.
+
+-->
 
 ---
 
