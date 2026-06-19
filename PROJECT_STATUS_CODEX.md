@@ -276,6 +276,38 @@ Brak aktywnych zadań.
 - Integracja formularzy kontaktowych z EspoCRM przez API
 - Po wdrożeniu formularzy (punkt 1)
 
+### 4. AI Meta Descriptions — batch generowanie przez Claude API ⚡ pomysł, nie zaplanowane
+
+Artisan command `meta:generate` — iteruje po wszystkich wpisach Statamic (kolekcje `pages`, `projects`, blog), wysyła tytuł + krótki kontekst do Claude API (Anthropic PHP SDK), zapisuje wynik do pola SEO Pro `meta_description`. Priorytet: po finalnym uzupełnieniu contentu strony.
+
+**Technicznie:**
+- `anthropic-sdk-php` lub raw Guzzle do `api.anthropic.com/v1/messages`
+- Batch mode: 1 zapytanie per wpis, cache wyników, `--dry-run` flag
+- Prompt: `"Napisz meta description (max 160 znaków) dla strony o tytule '{title}', treści: '{excerpt}'. Język: {locale}."`
+- Zapis: `$entry->set('seo_pro.meta_description', $result)->save()`
+
+### 5. Smart Search z Meilisearch + AI sugestie ⚡ pomysł, nie zaplanowane
+
+Meilisearch jako driver Statamic Scout — pełnotekstowe wyszukiwanie z autocomplete, semantyczne zapytania w stylu "realizacje przy wodzie". Opcjonalnie: RAG/LLM layer dla zapytań naturalnych.
+
+**Technicznie:**
+- `php artisan scout:import` indeksuje kolekcje Statamic
+- Meilisearch self-hosted lub Meilisearch Cloud
+- Statamic Scout driver: `meilisearch` w `config/scout.php`
+- Frontend: Meilisearch InstantSearch.js lub własny `<input>` z debounced AJAX
+- AI warstwa: pytanie do Claude → wyciąg słów kluczowych → query Meilisearch (opcjonalne)
+
+### 6. Tracking fraz wyszukiwania + linki w stopce ⚡ pomysł, nie zaplanowane
+
+Logowanie wyszukiwanych fraz, top N wyświetlane jako linki do wyników w stopce strony. Buduje "semantic SEO" — podlinkowane frazy to realne zapytania użytkowników.
+
+**Technicznie:**
+- Tabela MySQL `search_queries (phrase VARCHAR, count INT, updated_at)`
+- Controller `SearchController` inkrementuje licznik przy każdym wyszukiwaniu (`upsert`)
+- Scheduled job (cron) lub live query: top 10 fraz → Statamic Global `popular_searches`
+- Stopka: `{{ popular_searches }}{{ phrase }}: <a href="/szukaj?q={{ phrase }}">{{ phrase }}</a>{{ /popular_searches }}`
+- Brak AI — czysty analityczny feature
+
 ### 3. SEO — wdrożenie batch na końcu projektu ⚡ niski priorytet
 
 Robić jako ostatnie, gdy struktura strony jest gotowa. Całość jednym podejściem batch.

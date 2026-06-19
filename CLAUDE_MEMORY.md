@@ -246,8 +246,13 @@ Multisite:
 | 1 | Formularze kontaktowe (Statamic Forms) | normalny |
 | 2 | EspoCRM Lead Capture | normalny (po #1) |
 | 3 | SEO batch — po ukończeniu struktury strony | **niski — na koniec** |
+| 4 | AI Meta Descriptions — `meta:generate` Artisan, Claude API, batch SEO Pro | pomysł — niepodjęty |
+| 5 | Smart Search — Meilisearch Scout driver + AI sugestie fraz | pomysł — niepodjęty |
+| 6 | Tracking fraz wyszukiwania + linki w stopce | pomysł — niepodjęty |
 
 SEO zadanie #3: audyt wykonany 2026-06-06, dane z skalisty.pl udokumentowane w PROJECT_STATUS_CODEX.md → sekcja "Do wykonania / 3. SEO".
+
+Zadania #4–6: pomysły zgłoszone 2026-06-19 w kontekście SEO 100/100. Szczegóły techniczne w PROJECT_STATUS_CODEX.md → sekcja "Do wykonania / 4–6". Użytkownik jeszcze nie podjął decyzji o wdrożeniu.
 
 ---
 
@@ -422,6 +427,10 @@ Dodane do `.gitignore`: `ADMIN_ACCESS.txt`, `/users/*.yaml`
 **BUGFIX-icon-box-center-icon**: `mx-auto` na kontenerze ikony w `icon_box_with_text_section.antlers.html`. Deploy na `dev.skalisty.pl` (748 KB, 2 passed). Wykonane przez Claude bezpośrednio na polecenie użytkownika.
 
 **Audyt i zamknięcie zadań z poprzednich sesji**: SYNC-orientarium, FEATURE-blueprint-details-defaults, UPDATE-statamic-6.21.0, UPDATE-statamic-6.20.3-deploy, SYNC-and-deploy-completion-year, FEATURE-completion-year-sort. Wszystkie zaakceptowane.
+
+**LOGO-SVG-SWITCH**: Logo zmienione z PNG na SVG (`setting.yaml`: `logo-skalisty-2.png` → `logo-skalisty-2.svg`). Nowy SVG skopiowany z `logo/skalisty-logo.svg` — 100% paths, zero `<text>` (stary SVG miał live Overpass text). Header-1 + header-4: mobilny rozmiar wyrównany do md breakpointu (`max-w-[190px]/[180px]`, `max-h-[42px]`). `npm run build` — output.css przebudowany. Deploy na `dev.skalisty.pl`.
+
+**AI features — zapisane jako pomysły**: 3 koncepcje SEO/AI (meta generation Claude API, Meilisearch search, search phrase tracking) zapisane w sekcji "Do wykonania / 4–6" w PROJECT_STATUS_CODEX.md + tabela Zaplanowane zadania. Nie podjęto decyzji o wdrożeniu.
 
 **Zamknięcie sesji**: CHANGE-LOG uzupełniony, CLAUDE_MEMORY zaktualizowana, sync dokumentacji, push na `origin/main`.
 
