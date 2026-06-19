@@ -4,6 +4,19 @@ Changelog projektu `skalisty-orion` — prowadzony przez Claude po każdym zako�
 
 ---
 
+## 2026-06-19 (BUGFIX-icon-box-center-icon — wyśrodkowanie ikony w Icon Box With Text Section)
+
+_Wykonane przez Claude bezpośrednio (na polecenie użytkownika)._
+
+### Naprawiono
+
+- **Wyśrodkowanie ikony w `Icon Box With Text Section`** — kontener ikony (`h-[38px] w-[38px]`) otrzymał klasę `mx-auto`; ikona wyśrodkowana poziomo w każdej karcie, tytuł i opis nadal wyrównane do lewej.
+- Plik: `resources/views/page_builder/icon_box_with_text_section.antlers.html` linia 11.
+- `mx-auto` była już obecna w `output.css` — `npm run build` zbędny.
+- Wdrożono na `dev.skalisty.pl` (rsync przyrostowy, 748 KB / 492 MB, speedup 652×); post-deploy: `view:clear`, `cache:clear`, `stache:refresh`, `php84 artisan test` → 2 passed ✅.
+
+---
+
 ## 2026-06-18 (BUGFIX-blog-image-section — image_section w Bard bloga)
 
 _Wykonane przez Claude bezpośrednio (na polecenie użytkownika)._
