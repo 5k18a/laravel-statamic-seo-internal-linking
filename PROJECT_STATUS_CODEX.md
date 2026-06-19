@@ -302,6 +302,18 @@ Stała lokalnego dev (2026-06-20): frontend działa na `http://127.0.0.1:8001/`.
 - Integracja formularzy kontaktowych z EspoCRM przez API
 - Po wdrożeniu formularzy (punkt 1)
 
+### 3. Panel sugestii linkowania wewnętrznego ⚡ do zrobienia
+
+Panel CP (Tools) skanujący content kolekcji (`pages`, `projects`, `services`, `blogs`) i generujący sugestie linków wewnętrznych — lista fraz pasujących do tytułów/slugów innych wpisów, bez automatycznej podmiany (użytkownik zatwierdza ręcznie w edytorze).
+
+**Decyzja architektoniczna (2026-06-19):** panel z sugestiami zamiast auto-linkowania — pełna kontrola redaktora, zero ryzyka błędnych podmian.
+
+**Technicznie (do doprecyzowania w briefie):**
+- Artisan command lub kontroler CP skanujący wszystkie wpisy pod kątem fraz z innych wpisów
+- Wynik: lista `[strona źródłowa → fraza → strona docelowa → sugestia URL]`
+- Widok Blade w CP Tools
+- Locale-aware (URL docelowy dopasowany do locale źródłowego wpisu)
+
 ### 4. AI Meta Descriptions — batch generowanie przez Claude API ⚡ pomysł, nie zaplanowane
 
 Artisan command `meta:generate` — iteruje po wszystkich wpisach Statamic (kolekcje `pages`, `projects`, blog), wysyła tytuł + krótki kontekst do Claude API (Anthropic PHP SDK), zapisuje wynik do pola SEO Pro `meta_description`. Priorytet: po finalnym uzupełnieniu contentu strony.
