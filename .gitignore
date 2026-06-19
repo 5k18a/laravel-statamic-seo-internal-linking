@@ -41,6 +41,3 @@ ADMIN_ACCESS.txt
 
 # Published vendor assets - regenerate with: php artisan vendor:publish --all
 /public/vendor/statamic/
-# Icon libraries (Statamic asset containers — large SVG sets)
-/public/assets/icons/
-/public/assets/icons2/
