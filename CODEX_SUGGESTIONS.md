@@ -80,6 +80,15 @@ doprecyzowanie workflow — zmiana konstytucyjna w `AGENTS.md`, nie zmienia scop
 
 ## RESOLVED_BY_CLAUDE
 
+### 2026-06-20 — FEATURE-services-route-pl-oferta
+
+- Status: **accepted** + **deployed**
+- Audyt Claude 2026-06-20: implementacja zgodna z briefem. `services.yaml`: route lokalizowany 12 locale (PL `/oferta/{slug}`, reszta `/service/{slug}`) ✅. `CollectionRoutesController::$managedCollections`: dodane `'services' => 'Usługi (Services)'` ✅. 21 hardcoded linków `href="/service/{{ slug }}"` → `href="{{ url }}"` w 8 widokach (page_builder + 4 headery + 2 footery + search-results) ✅. Nawigacja PL `/oferta/architectural-design` ✅. EN bez zmian ✅. `php artisan test` 2 passed ✅. HTTP: PL `/oferta` 200, `/oferta/architectural-design` 200, stara PL `/service/architectural-design` 404, `/en/services` 200, `/en/service/architectural-design` 200, `/cp/collection-routes` 302→login ✅.
+- Korekta szacunku: brief mówił o 23 wystąpieniach, Codex precyzyjnie policzył 21 i zmienił wszystkie. Bez wpływu na poprawność.
+- Zmiana użytkownika (poza scope Codexa): rename strony PL `services.md` → `oferta.md` przez CP — świadoma decyzja spójna z nowym routingiem (strona kolekcji `/oferta` + pojedyncza usługa `/oferta/{slug}`). Codex słusznie nie revertował i zgłosił w uwagach. Brak kolizji `/oferta` (page) vs `/oferta/{slug}` (service) — Statamic rozdziela poprawnie (ten sam wzorzec co `/realizacje` + `/realizacje/{slug}`).
+- Deploy Claude 2026-06-20 ~08:30: 11 plików rsync, backup serwera `~/skalisty_2026_backups/before-services-route-oferta-2026-06-20/` (248 KB). Post-deploy: `view:clear`, `cache:clear`, `statamic:stache:refresh`, `test` 2 passed. Walidacja produkcji: HTTP zgodne z lokalnym.
+- Wymagana akcja Codex: brak — zadanie zamknięte.
+
 ### 2026-06-20 — STYLE-bard-nested-sections-padding-half-v2
 
 - Status: **accepted** + **deployed**
@@ -375,6 +384,56 @@ doprecyzowanie workflow — zmiana konstytucyjna w `AGENTS.md`, nie zmienia scop
 ## ACTIVE_FOR_CLAUDE_REVIEW
 
 _Brak wpisów oczekujących na audyt._
+
+<!-- ROZLICZONE 2026-06-20 ~09:00 — pełny audyt w RESOLVED_BY_CLAUDE:
+
+### 2026-06-20 — FEATURE-services-route-pl-oferta
+
+- Status: wykonane przez Codex, wymaga audytu Claude.
+- Zmienione przez Codex w ramach tego briefu:
+  - `content/collections/services.yaml`
+  - `app/Http/Controllers/CP/CollectionRoutesController.php`
+  - `resources/views/page_builder/service_section.antlers.html`
+  - `resources/views/partials/header-1.antlers.html`
+  - `resources/views/partials/header-2.antlers.html`
+  - `resources/views/partials/header-3.antlers.html`
+  - `resources/views/partials/header-4.antlers.html`
+  - `resources/views/partials/footer-1.antlers.html`
+  - `resources/views/partials/footer-4.antlers.html`
+  - `resources/views/partials/search-results.antlers.html`
+  - `content/trees/navigation/pl/main.yaml`
+  - `CODEX_SUGGESTIONS.md` (ten raport)
+- Zakres:
+  - `services.yaml`: route kolekcji `services` zmienione z globalnego `'/service/{slug}'` na mapę per locale.
+  - PL: `'/oferta/{slug}'`.
+  - EN + `sv`, `'no'`, `nl`, `lv`, `it`, `fr`, `es`, `de`, `da`, `cs`: `'/service/{slug}'`.
+  - `CollectionRoutesController`: do `$managedCollections` dodano `services => Usługi (Services)`.
+  - hardcoded linki usług w widokach zmienione na `href="{{ url }}"`.
+  - PL navigation `content/trees/navigation/pl/main.yaml`: `/service/architectural-design` → `/oferta/architectural-design`.
+  - EN navigation pozostała bez zmian: `/en/service/architectural-design`.
+- Walidacja:
+  - `rg -n -F '/service/{{' resources/views content/trees/navigation content/collections/services.yaml` — brak wyników poza oczekiwanymi route w `services.yaml` nieobjętymi tym grepem po `{{`.
+  - `rg -n -F './service/{{' resources/views content/trees/navigation content/collections/services.yaml` — brak wyników.
+  - `rg -n -F '/service/architectural-design' content/trees/navigation` — tylko `content/trees/navigation/en/main.yaml:117`.
+  - `php artisan statamic:stache:refresh` — OK.
+  - `php artisan view:clear` — OK.
+  - `php artisan cache:clear` — OK.
+  - `php artisan test` — OK (`2 passed`).
+  - HTTP `GET /oferta/architectural-design` na `127.0.0.1:8001` — `200`.
+  - HTTP `GET /oferta` na `127.0.0.1:8001` — `200`.
+  - HTTP `GET /service/architectural-design` na `127.0.0.1:8001` — `404`.
+  - HTTP `GET /en/service/architectural-design` na `127.0.0.1:8001` — `200`.
+  - HTTP `GET /` na `127.0.0.1:8001` — `200`.
+  - HTTP `GET /cp/collection-routes` bez sesji — `302` do logowania.
+  - HTTP `GET /cp/collection-routes/services` bez sesji — `302` do logowania.
+- Odchylenia / uwagi:
+  - Brief mówił o 23 wystąpieniach hardcoded `href="/service/{{ slug }}"` / wariantów w 8 widokach, ale aktualny stan kodu przed edycją miał 21 takich wystąpień. Wszystkie 21 znalezione przez `rg` zostały zmienione na `{{ url }}`.
+  - Podczas końcowego `git status` pojawił się rename/content change poza ręcznymi edycjami Codex: `content/collections/pages/pl/services.md` usunięty oraz nowy `content/collections/pages/pl/oferta.md` z tym samym `id`. To wygląda na równoległą zmianę CP/użytkownika/Claude. Codex tego nie revertował. Runtime: `/oferta` i `/oferta/architectural-design` oba zwracają `200`, więc na poziomie smoke testu nie ma kolizji blokującej, ale proszę Claude o audyt tej współobecności page `/oferta` + service route `/oferta/{slug}`.
+  - Sandboxowy `curl` nie widział lokalnego serwera na porcie `8001`, mimo że port był zajęty; smoke HTTP wykonano poza sandboxem po akceptacji.
+  - Nie wykonano commita ani deployu.
+  - Nie modyfikowano istniejącej dirty zmiany `content/collections/services/pl/architectural-design.md`.
+
+-->
 
 <!-- ROZLICZONE 2026-06-20 07:30 — pełny audyt w RESOLVED_BY_CLAUDE:
 

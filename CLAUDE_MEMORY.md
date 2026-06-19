@@ -4,14 +4,14 @@
 # Aktualizowany po każdym zakończonym zadaniu
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-20-0800
+state_version: 2026-06-20-1000
 active_task_id: none
 active_task_name: Brak aktywnego zadania
 active_task_status: closed
 active_task_source: BRIEF_CODEX.md
-last_sync: 2026-06-20 07:30 Europe/Warsaw
+last_sync: 2026-06-20 09:00 Europe/Warsaw
 last_synced_by: Claude
-last_closed: STYLE-bard-nested-sections-padding-half-v2
+last_closed: FEATURE-services-route-pl-oferta
 next_after_active: Decyzja użytkownika
 <!-- PROJECT_SYNC_END -->
 
@@ -450,6 +450,14 @@ Dodane do `.gitignore`: `ADMIN_ACCESS.txt`, `/users/*.yaml`
 - W przyszłych briefach walidacyjnych stosować te wartości.
 
 **Zamknięcie sesji**: CHANGE-LOG (6 wpisów: 4 zadania + 2 deploye), DEPLOYMENT (2 wpisy), CLAUDE_MEMORY (ten wpis), PROJECT_STATUS_CODEX zaktualizowane. Commit + push na `origin/main`.
+
+### 2026-06-20 (sesja popołudniowa)
+
+**FEATURE-services-route-pl-oferta**: zlokalizowanie trasy URL dla kolekcji `services`. `content/collections/services.yaml`: `route` ze stringa `/service/{slug}` na mapę 12 locale (PL `/oferta/{slug}`, reszta `/service/{slug}`); wzorzec analogiczny do Projects (`/realizacje/{slug}` PL). `CollectionRoutesController::$managedCollections`: dodane `'services' => 'Usługi (Services)'` — w CP > Tools > Trasy URL kolekcji widać teraz Projekty + Usługi. 21 hardcoded `href="/service/{{slug}}"` zamienionych na `href="{{ url }}"` w 8 widokach (`service_section.antlers.html` × 13, header-1/2/3/4 × 1, footer-1 × 2, footer-4 × 1, search-results × 1) — Statamic generuje URL z `route` per locale automatycznie. Nawigacja PL: `/oferta/architectural-design`. **Rename strony PL `services.md` → `oferta.md`** zrobiony przez użytkownika w CP — świadoma decyzja spójna z duchem zmiany (strona kolekcji = `/oferta`, pojedyncza usługa = `/oferta/{slug}`). EN bez zmian.
+
+**Deploy**: 11 plików rsync, backup serwera `~/skalisty_2026_backups/before-services-route-oferta-2026-06-20/` (248 KB). HTTP walidacja: `/oferta` 200, `/oferta/architectural-design` 200, stara PL `/service/architectural-design` 404, `/en/services` 200, `/en/service/architectural-design` 200, `/cp/collection-routes` 302→login. Brak kolizji `/oferta` (page entry) vs `/oferta/{slug}` (service entry) — Statamic prawidłowo rozdziela.
+
+**Zamknięcie sesji**: CHANGE-LOG (2 nowe wpisy: zadanie + deploy), DEPLOYMENT (1 wpis deploya), CLAUDE_MEMORY (ten wpis), PROJECT_STATUS_CODEX (sekcja Wykonane + Ostatnio zamknięte zsynchronizowane z frontmatterem). Commit + push na `origin/main`.
 
 ### 2026-06-19
 

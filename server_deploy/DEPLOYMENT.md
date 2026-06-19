@@ -931,3 +931,58 @@ Wynik: OK, 2 passed. `dev.skalisty.pl` HTTP 200 PL+EN. Klasa `py-[18px]` wykryta
 
 - **Port lokalnego dev**: `127.0.0.1:8001` (nie `8000`) — odnotowane jako stała w `CLAUDE_MEMORY.md`.
 - **Komenda PHP lokalnie**: `php artisan` (na serwerze dhosting: `php84`).
+
+---
+
+## Deploy przyrostowy — 2026-06-20 — FEATURE-services-route-pl-oferta
+
+### Zakres wdrożenia
+
+**FEATURE-services-route-pl-oferta (trasa PL `/oferta/{slug}` + CP Trasy URL kolekcji):**
+- `content/collections/services.yaml` (507 B) — `route` (string) → mapa 12 locale: PL `/oferta/{slug}`, reszta `/service/{slug}`
+- `app/Http/Controllers/CP/CollectionRoutesController.php` (2.9 KB) — `'services' => 'Usługi (Services)'` w `$managedCollections`
+- `resources/views/page_builder/service_section.antlers.html` (21 KB) — 13 hardcoded `href="/service/{{slug}}"` → `href="{{ url }}"`
+- `resources/views/partials/header-{1,2,3,4}.antlers.html` (4 pliki, ~ 135 KB łącznie) — po 1 zamianie linku
+- `resources/views/partials/footer-1.antlers.html` (2 zamiany), `footer-4.antlers.html` (1), `search-results.antlers.html` (1)
+- `content/trees/navigation/pl/main.yaml` (6.6 KB) — `/service/architectural-design` → `/oferta/architectural-design`
+
+### Stan serwera przed deployem
+
+- `content/collections/pages/pl/services.md` — **już nie istniał** (użytkownik wcześniej zrobił rename w CP na `oferta.md`).
+- `content/collections/services.yaml` — stary `route: '/service/{slug}'` (string).
+- `app/Http/Controllers/CP/CollectionRoutesController.php` — bez `services` w `$managedCollections` (tylko `projects`).
+
+### Backup serwera
+
+`~/skalisty_2026_backups/before-services-route-oferta-2026-06-20/` (248 KB) — services.yaml, CollectionRoutesController.php, service_section.antlers.html, cały katalog partials/, nav-pl-main.yaml.
+
+### Metoda
+
+Rsync per plik (5 rsyncs):
+
+```bash
+SSHPASS=$(sed -n 's/.*sshpass -p \([^ ]*\).*/\1/p' '/home/pestycyd/Insync/.../skalisty-ssh' | head -1)
+sshpass -p "$SSHPASS" rsync -avz -e "ssh -o StrictHostKeyChecking=no" \
+  content/collections/services.yaml \
+  skalisty@skalisty.ssh.dhosting.pl:skalisty_2026/content/collections/services.yaml
+# + analogicznie dla CollectionRoutesController, service_section, nav PL i 7 partials (w jednym rsync do katalogu partials/)
+```
+
+### Komendy po deployu
+
+```bash
+php84 artisan view:clear && php84 artisan cache:clear && php84 artisan statamic:stache:refresh && php84 artisan test
+```
+
+Wynik: OK, 2 passed.
+
+### Walidacja runtime
+
+| URL | Wynik | Status |
+|-----|-------|--------|
+| `https://dev.skalisty.pl/oferta` | 200 ✅ | strona kolekcji PL |
+| `https://dev.skalisty.pl/oferta/architectural-design` | 200 ✅ | pojedyncza usługa PL |
+| `https://dev.skalisty.pl/service/architectural-design` (stara PL) | 404 ✅ | trasa wyłączona |
+| `https://dev.skalisty.pl/en/services` | 200 ✅ | strona kolekcji EN |
+| `https://dev.skalisty.pl/en/service/architectural-design` | 200 ✅ | pojedyncza usługa EN |
+| `https://dev.skalisty.pl/cp/collection-routes` | 302 → login ✅ | panel CP (po zalogowaniu: 2 pozycje — Projekty + Usługi) |
