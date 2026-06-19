@@ -18,11 +18,14 @@ fields:
       type: text
       display: 'Button Text'
   -
-    handle: button_link
+    handle: button_page
     field:
-      default: /contact
-      type: text
-      display: 'Button Link'
+      type: entries
+      display: 'Button Page'
+      max_items: 1
+      mode: select
+      collections:
+        - pages
   -
     handle: gallery_images
     field:
