@@ -1,15 +1,15 @@
 # PROJECT_STATUS_CODEX.md
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-19-1945
-active_task_id: none
-active_task_name: Brak aktywnego zadania
-active_task_status: none
+state_version: 2026-06-19-2100
+active_task_id: FEATURE-services-icon-iconify
+active_task_name: Zmiana pola icon w kolekcji services — assets → Iconify
+active_task_status: active
 active_task_source: BRIEF_CODEX.md
-last_sync: 2026-06-19 19:45 Europe/Warsaw
+last_sync: 2026-06-19 21:00 Europe/Warsaw
 last_synced_by: Claude
 last_closed: BUGFIX-icon-box-center-icon
-next_after_active: Decyzja użytkownika — retłumaczenie Home EN lub Formularze kontaktowe
+next_after_active: Decyzja użytkownika
 <!-- PROJECT_SYNC_END -->
 
 ---
