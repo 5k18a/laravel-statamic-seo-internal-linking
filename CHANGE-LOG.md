@@ -4,6 +4,23 @@ Changelog projektu `skalisty-orion` — prowadzony przez Claude po każdym zako�
 
 ---
 
+## 2026-06-19 (sesja lokalna — synchronizacja + hotfix blueprint)
+
+### Zmieniono
+
+- **Synchronizacja lokalnego projektu z GitHub** — `git remote add origin https://github.com/5k18a/skalisty-laravel.git`, `git reset --hard origin/main` (57 commitów do przodu), `composer install`, `npm install`, `npm run build`. Projekt lokalny aktualny ze stanem 2026-06-20.
+- **Usunięto nieaktualne kopie `.md`** z workspace root (`/home/pestycyd/Dokumenty/Skalisty-New-2/*.md`) — pliki przeniesione wcześniej do `skalisty-orion/` na głównym komputerze.
+
+### Dodano
+
+- **`resources/blueprints/collections/pages/page.yaml`** — nowe pole `image` (type: assets, container: assets, max_files: 1, display: Hero Image, localizable: true) umożliwiające przypisanie zdjęcia nagłówkowego do stron kolekcji `pages`. Pole jest opcjonalne — jeśli szablon go nie używa (np. `default`), jest ignorowane. Używa go template `service/show` w sekcji hero.
+
+### Decyzje techniczne
+
+- Pole `image` dodane do globalnego blueprinta `page`, a nie jako osobny blueprint ani hardkodowana grafika — zgodnie z zasadą prostoty obsługi CMS. Strony niebędące serwisami nie ucierpią (pole ignorowane przez inne szablony).
+
+---
+
 ## 2026-06-20 (Deploy — FEATURE-services-route-pl-oferta)
 
 _Deploy wykonany przez Claude._

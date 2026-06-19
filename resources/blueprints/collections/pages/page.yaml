@@ -14,6 +14,15 @@ tabs:
                 - required
               localizable: false
           -
+            handle: image
+            field:
+              type: assets
+              container: assets
+              max_files: 1
+              display: 'Hero Image'
+              instructions: 'Zdjęcie nagłówkowe (używane przez template service/show i inne z sekcją hero)'
+              localizable: true
+          -
             handle: content
             field:
               type: markdown
