@@ -20,8 +20,8 @@ tree:
       copyright_text: '© Wszelkie prawa zastrzeżone przez Skalisty Group sp. z o.o.'
   -
     id: 0f64feda-3c94-4b43-98f5-0e39fadceca2
-    title: Services
-    url: /services
+    title: Oferta
+    url: /oferta
     data:
       menu_type: service-list
       service_entries:
@@ -114,7 +114,7 @@ tree:
           -
             id: f30c4073-8404-4da4-a087-a5290f3f5683
             title: 'Service Detail'
-            url: /service/architectural-design
+            url: /oferta/architectural-design
       -
         id: daf37ae8-3414-48c9-adae-fadb5d996b97
         title: Teams

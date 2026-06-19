@@ -1,7 +1,19 @@
 title: Services
 template: service/show
 revisions: false
-route: '/service/{slug}'
+route:
+  pl: '/oferta/{slug}'
+  en: '/service/{slug}'
+  sv: '/service/{slug}'
+  'no': '/service/{slug}'
+  nl: '/service/{slug}'
+  lv: '/service/{slug}'
+  it: '/service/{slug}'
+  fr: '/service/{slug}'
+  es: '/service/{slug}'
+  de: '/service/{slug}'
+  da: '/service/{slug}'
+  cs: '/service/{slug}'
 date_behavior:
   past: public
   future: private

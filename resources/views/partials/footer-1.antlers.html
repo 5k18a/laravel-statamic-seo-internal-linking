@@ -44,7 +44,7 @@
               <ul class="mt-2 space-y-1 text-white">
                 {{ service_entries limit="7" }}
                 <li>
-                  <a href="/service/{{ slug }}" class="hover:underline underline-offset-4 p font-lexend block w-fit">{{ title }}</a>
+                  <a href="{{ url }}" class="hover:underline underline-offset-4 p font-lexend block w-fit">{{ title }}</a>
                 </li>
                 {{ /service_entries }}
                 
@@ -70,7 +70,7 @@
             <ul class="text-white text-md 1xl:text-1xl 2xl:text-2xl xl:space-y-1 space-y-0.5">
               {{ service_entries limit="7" }}
               <li>
-                <a href="/service/{{ slug }}" class="hover:underline underline-offset-4 p font-lexend block w-fit">{{ title }}</a>
+                <a href="{{ url }}" class="hover:underline underline-offset-4 p font-lexend block w-fit">{{ title }}</a>
               </li>
               {{ /service_entries }}
             </ul>

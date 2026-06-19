@@ -10,7 +10,7 @@
             <ul
                class="text-black p2 list-disc pl-[18px] grid sm:grid-cols-3 grid-cols-1 gap-3 w-full justify-between item-start">
                {{ services limit="5" }}
-               <li><a href="/service/{{ slug }}">{{ title }}</a></li>
+               <li><a href="{{ url }}">{{ title }}</a></li>
                {{ /services }}
             </ul>
             {{ if services | count > 5 }}

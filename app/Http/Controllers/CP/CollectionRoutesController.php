@@ -15,6 +15,7 @@ class CollectionRoutesController extends Controller
 {
     private array $managedCollections = [
         'projects' => 'Projekty (Projects)',
+        'services' => 'Usługi (Services)',
     ];
 
     public function index(): View
