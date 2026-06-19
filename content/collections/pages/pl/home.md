@@ -544,13 +544,16 @@ page_builder:
     button_text: 'Przeglądaj Wszystkie Projekty'
     button_link: /realizacje
     projects:
-      - d7807c38-e351-4b78-b67d-e3138f717163
-      - 930b2660-8020-4da4-a48c-5a89242ac209
-      - 0960496c-40bd-4061-9e79-f74e3bf2dcaa
-      - 339182d4-7ccd-483f-9d0e-5d24bb1ba1fe
-      - f881146c-f217-4370-a4f5-79d69e2c5e51
-      - 3a9e9898-fec3-4f0f-adf0-5b13a60b6a63
-      - eb7b771a-d305-4f8b-b629-143285988fd8
+      - 2faf2240-5b5a-4561-b19b-60864e00b00a
+      - 68f2f470-b879-45f4-8b18-15a517fb45c0
+      - 4bf11ec3-db39-4adc-b450-f67ea21f83b6
+      - c30048a3-d75f-4eba-8ff4-7851ab8d6ea7
+      - 776d6513-d845-4f20-96a7-0268d19c0409
+      - c4a1e1e4-1b71-4a1e-9f0d-d86787f865aa
+      - 73de8fcf-e76d-4afd-841d-f565fae391a2
+      - 461858ae-a693-47e7-917b-f8657281eb58
+      - a5db69e5-e801-4b16-a5ae-5a24e1df2d03
+      - ccdaf420-c608-44dc-978f-c350d0650089
     type: featured_projects
     enabled: true
   -
@@ -766,5 +769,5 @@ page_builder:
     type: trusted_partners_section
     enabled: true
 updated_by: 07f72358-0580-4aaf-b00c-6a3760228419
-updated_at: 1781782994
+updated_at: 1781857072
 ---
