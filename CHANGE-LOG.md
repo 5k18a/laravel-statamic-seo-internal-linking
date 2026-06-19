@@ -4,6 +4,18 @@ Changelog projektu `skalisty-orion` — prowadzony przez Claude po każdym zako�
 
 ---
 
+## 2026-06-19 (sesja lokalna — CSS fix Bard paragraphs + blueprint + sync)
+
+### Zmieniono
+
+- **`resources/views/service/show.antlers.html`** — owinięto `{{ text }}` w `<div class="[&>p]:mb-4 [&>p:last-child]:mb-0">` w gałęzi `else` pętli Bard. Akapity pisane w Bard (podwójny Enter) mają teraz odstęp między sobą, identycznie jak w `project/show.antlers.html`. Klasy skompilowane przez `npm run build`.
+
+### Decyzje techniczne
+
+- Wzorzec `[&>p]:mb-4 [&>p:last-child]:mb-0` przeniesiony z `project/show.antlers.html` (linia 26) — spójny styl we wszystkich szablonach z Bard content.
+
+---
+
 ## 2026-06-19 (sesja lokalna — synchronizacja + hotfix blueprint)
 
 ### Zmieniono
