@@ -1,0 +1,27 @@
+title: 'Embedded Video Section'
+fields:
+  -
+    handle: video_service
+    field:
+      type: select
+      display: 'Video Service'
+      options:
+        -
+          key: youtube
+          value: YouTube
+        -
+          key: vimeo
+          value: Vimeo
+      default: youtube
+      required: true
+      validate:
+        - required
+  -
+    handle: video_url
+    field:
+      type: text
+      display: 'Video URL'
+      instructions: 'Wklej pełny link do wideo, np. https://www.youtube.com/watch?v=... lub https://vimeo.com/...'
+      required: true
+      validate:
+        - required

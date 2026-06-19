@@ -261,3 +261,8 @@ fields:
               fields:
                 -
                   import: columns_section
+            embedded_video_section:
+              display: 'Embedded Video Section'
+              fields:
+                -
+                  import: embedded_video_section

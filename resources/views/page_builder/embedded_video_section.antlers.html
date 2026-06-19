@@ -1,0 +1,95 @@
+<section class="embedded-video-section 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] md:mb-[50px] mb-8">
+    <div class="container">
+        <div class="mx-auto w-[70%] max-sm:w-[95%]"
+             x-data="embeddedVideo('{{ video_service }}', '{{ video_url | replace("'", "\\'") }}')"
+             x-init="init()">
+
+            <div class="relative w-full" style="padding-bottom: 56.25%;">
+
+                <!-- Thumbnail + play button (stan początkowy) -->
+                <div x-show="!playing"
+                     class="absolute inset-0 cursor-pointer group"
+                     @click="play()">
+
+                    <img :src="thumbnail"
+                         class="w-full h-full object-cover"
+                         alt="Video thumbnail"
+                         loading="lazy" />
+
+                    <!-- Overlay ciemny -->
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors duration-300"></div>
+
+                    <!-- Przycisk play -->
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center text-white group-hover:text-primary-900 transition-colors duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="currentColor" class="w-full h-full drop-shadow-lg">
+                                <circle cx="40" cy="40" r="40" fill="currentColor" fill-opacity="0.85"/>
+                                <polygon points="32,24 60,40 32,56" fill="white"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Iframe (po kliknięciu play) -->
+                <div x-show="playing" class="absolute inset-0">
+                    <iframe :src="embedUrl"
+                            class="w-full h-full"
+                            frameborder="0"
+                            allow="autoplay; fullscreen; picture-in-picture; accelerometer; clipboard-write; encrypted-media; gyroscope"
+                            allowfullscreen>
+                    </iframe>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+function embeddedVideo(service, url) {
+    return {
+        playing: false,
+        thumbnail: '',
+        embedUrl: '',
+
+        init() {
+            if (service === 'youtube') {
+                const id = this._youtubeId(url);
+                this.thumbnail = id
+                    ? 'https://img.youtube.com/vi/' + id + '/maxresdefault.jpg'
+                    : '';
+                this.embedUrl = id
+                    ? 'https://www.youtube.com/embed/' + id + '?autoplay=1&controls=1&rel=0'
+                    : '';
+            } else if (service === 'vimeo') {
+                const id = this._vimeoId(url);
+                this.embedUrl = id
+                    ? 'https://player.vimeo.com/video/' + id + '?autoplay=1&controls=1'
+                    : '';
+                if (id) {
+                    fetch('https://vimeo.com/api/oembed.json?url=https://vimeo.com/' + id)
+                        .then(r => r.json())
+                        .then(data => { this.thumbnail = data.thumbnail_url_with_play_button
+                            ? data.thumbnail_url
+                            : data.thumbnail_url || ''; })
+                        .catch(() => {});
+                }
+            }
+        },
+
+        play() {
+            if (this.embedUrl) this.playing = true;
+        },
+
+        _youtubeId(url) {
+            const m = url.match(/(?:youtube\.com\/watch\?.*v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([A-Za-z0-9_-]{11})/);
+            return m ? m[1] : null;
+        },
+
+        _vimeoId(url) {
+            const m = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+            return m ? m[1] : null;
+        }
+    };
+}
+</script>
