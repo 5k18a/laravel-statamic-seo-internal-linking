@@ -4,6 +4,21 @@ Changelog projektu `skalisty-orion` — prowadzony przez Claude po każdym zako�
 
 ---
 
+## 2026-06-20 (feat — mega menu: locale-aware button links)
+
+### Zmieniono
+
+- **`resources/blueprints/navigation/main.yaml`** — pole `button_link` (type: text) zastąpione polem `button_page` (type: entries, max_items: 1, collections: [pages]). Picker stron automatycznie resolwuje URL dla aktualnego locale.
+- **`resources/views/partials/header-{1,2,3,4}.antlers.html`** — `href="{{ button_link }}"` → `href="{{ button_page }}{{ url }}{{ /button_page }}"` (8 miejsc w sumie).
+- **`content/trees/navigation/pl/main.yaml`** — `button_link: /realizacje` → `button_page: 4fbd395d...`, `button_link: /services` → `button_page: 068133ec...`.
+- **`content/trees/navigation/en/main.yaml`** — j.w. (te same origin ID, Statamic resolwuje EN URL automatycznie).
+
+### Wynik
+
+Przycisk w mega menu projekty i oferty prowadzi teraz do poprawnej wersji językowej strony bez ręcznego wpisywania URL per locale. Naprawiono też błąd w PL gdzie przycisk services wskazywał na `/services` zamiast `/oferta`.
+
+---
+
 ## 2026-06-19 (bugfix — podwójny description w image_with_text_section)
 
 ### Naprawiono
