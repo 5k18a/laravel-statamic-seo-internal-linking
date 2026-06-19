@@ -137,9 +137,16 @@ Projekt `skalisty-orion` jest aktywną instalacją Laravel 13 + Statamic 6 opart
 | ICONIFY-magic-translator-check | ✅ Sprawdzone (2026-06-17, Codex) — Magic Translator widzi `section_title`, `items.*.title`, `items.*.description`; Home EN wymaga ponownego tłumaczenia z PL, jeśli ma dostać nowy blok |
 | ICONIFY-prefix-extension | ✅ Gotowe (2026-06-17, Codex) — dodane prefixy `map`, `temaki`, `maki`, `game-icons`, `bx`, `bxs`, `bxl`; `mdi` było już obecne |
 | Backup-8 | ✅ Gotowe (2026-06-17 20:33, Codex) — `backup-projekt/skalisty-orion-backup-8.tar.gz` (354 MB); zawiera `skalisty-orion/` + główne pliki dokumentacji workspace; wykluczone cache, logi, sesje, views, `.git`, `node_modules` |
-| Deploy-2026-06-17 | ✅ Wdrożono (2026-06-17, Codex) — `dev.skalisty.pl`: Iconify + `Icon Box With Text Section` + cleanup zdalnych kontenerów `icons/icons2`; remote backup starych ikon `~/skalisty_2026-icons-containers-before-delete-2026-06-17.tar.gz`; post-deploy `package:discover`, cache clear, stache refresh, `php84 artisan test` 2 passed; HTTP `/` 200, `/en/` 301→200, `/cp/login` 302; Claude audit required |
-
-> Uwaga dokumentacyjna: wpisy z 2026-06-17 dotyczące `FEATURE-icon-box-with-text`, `ICONIFY-magic-translator-check` i `ICONIFY-prefix-extension` zostały dopisane przez Codex w trybie zastępczym, na prośbę użytkownika. Claude powinien po powrocie przeprowadzić audyt i ewentualnie doprecyzować dokumentację zgodnie z `AGENTS.md`.
+| Deploy-2026-06-17 | ✅ Wdrożono (2026-06-17, Codex) — `dev.skalisty.pl`: Iconify + `Icon Box With Text Section` + cleanup zdalnych kontenerów `icons/icons2`; remote backup starych ikon; `php84 artisan test` 2 passed |
+| BUGFIX-sticky-header-default | ✅ Gotowe (2026-06-18, Codex) — `<body data-header-type>` + przepisany blok sticky w `custom.js`; `switcherVisible` + `serverHeaderType`; czyszczenie stale localStorage; 2 passed |
+| FEATURE-logos-slider-with-icons | ✅ Gotowe (2026-06-18, Codex) — nowy set Page Buildera; fieldset + widok; ikony Iconify (`fill-current` + `text-white`); rejestracja w `all_page_builder.yaml` |
+| BUGFIX-slider-seamless-loop | ✅ Gotowe (2026-06-18) — duplikacja `{{ logos }}`/`{{ text_slider }}` w `trusted_partners_section`, `logos_slider_with_icons`, `text_slider_section`; drugi zestaw `aria-hidden="true"` |
+| FEATURE-completion-year-sort | ✅ Gotowe (2026-06-19, Codex) — blueprint `completion_year` (integer, sidebar); computed field `completion_year_sort` w `AppServiceProvider`; `sort_field: completion_year_sort` w `projects.yaml`; 3 tagi `collection:projects`; `/realizacje` posortowane malejąco |
+| UPDATE-statamic-6.20.3 | ✅ Gotowe (2026-06-19, Codex) — `statamic/cms` v6.20.3; patch HOTFIX-18 nałożony; 2 passed |
+| UPDATE-statamic-6.21.0 | ✅ Gotowe (2026-06-19) — `statamic/cms` v6.21.0; patch HOTFIX-18 nałożony bez konfliktów; deploy na serwer; 2 passed |
+| FEATURE-blueprint-details-defaults | ✅ Gotowe (2026-06-19) — 4 pre-wypełnione Info Items w replicatorze `details` blueprinta `projects`; deploy celowany |
+| SYNC-orientarium | ✅ Gotowe (2026-06-19) — nowy projekt `orientarium` zsynchronizowany z serwera (PL + 11 locale + galeria) |
+| BUGFIX-icon-box-center-icon | ✅ Gotowe (2026-06-19) — `mx-auto` na kontenerze ikony w `icon_box_with_text_section.antlers.html`; deploy na serwer; 2 passed |
 
 ---
 
@@ -172,8 +179,8 @@ Projekt `skalisty-orion` jest aktywną instalacją Laravel 13 + Statamic 6 opart
 | DB | MySQL — dane w `server_deploy/SERWER_DOSTEP.txt` |
 | APP_ENV | `local` (świadoma decyzja — pomija licencję Statamic Pro) |
 | Statamic na serwerze | v6.21.0 (zaktualizowane 2026-06-19) |
-| Ostatni deploy | 2026-06-18 — rsync przyrostowy (logo proportions fix + CSS rebuild) |
-| Ostatni content pull | 2026-06-18 — djurs-sommerland, osada-jaworzyny galerie + logo klienta |
+| Ostatni deploy | 2026-06-19 — BUGFIX-icon-box-center-icon (rsync 748 KB); wcześniej: statamic 6.21.0 + completion-year-sort + blueprint-defaults |
+| Ostatni content pull | 2026-06-19 — orientarium (PL + 11 locale + galeria) + completion_year daty |
 | Ostatni backup lokalny | 2026-06-17 — `skalisty-orion-backup-8.tar.gz` (354 MB) |
 | Dokumentacja | `server_deploy/DEPLOYMENT.md` |
 
@@ -253,13 +260,17 @@ SEO zadanie #3: audyt wykonany 2026-06-06, dane z skalisty.pl udokumentowane w P
 
 ## Aktywny brief
 
-Brak aktywnego zadania. Sesja 2026-06-18 zamknięta.
+Brak aktywnego zadania. Sesja 2026-06-19 zamknięta.
 
 ## Ostatnio zamknięte
 
-**BUGFIX-logo-proportions** ✅ 2026-06-18 — header-1 + header-4: `max-h-9 xl:max-h-13 2xl:max-h-14 h-auto w-auto max-w-full` na img; kontener `shrink-0 max-w-[150px] md:max-w-[190px] xl:max-w-[300px] 1xl:max-w-[340px] 2xl:max-w-full`; `npm run build` wymagany (klasy były pominięte przez Tailwind tree-shaking). Ryzyko: Orion działa poza Composerem — aktualizacje Oriona mogą nadpisać header partials.
+**BUGFIX-icon-box-center-icon** ✅ 2026-06-19 — `mx-auto` na kontenerze ikony (h-[38px] w-[38px]) w `icon_box_with_text_section.antlers.html:11`; ikona wyśrodkowana poziomo, tytuł i opis z lewej; `mx-auto` była już w `output.css`; deploy + 2 passed.
 
-**FEATURE-back-now-i18n** ✅ 2026-06-18 — `BACK NOW` hardcoded → `{{ trans key="Back Now" }}` w 4 widokach (gallery-lightbox, skalisty_gallery_section, gallery_section ×2); `lang/en.json` + `lang/pl.json` (klucz 36); 10 pozostałych języków przez `php artisan lang:translate --force`.
+**SYNC-orientarium** ✅ 2026-06-19 — nowy projekt tematyzacji orientarium zsynchronizowany z serwera.
+
+**FEATURE-blueprint-details-defaults** ✅ 2026-06-19 — 4 Info Items domyślne w replicatorze `details` blueprinta `projects`.
+
+**UPDATE-statamic-6.21.0** ✅ 2026-06-19 — `statamic/cms` v6.21.0 lokalnie + serwer; patch HOTFIX-18 bez konfliktów.
 
 **Content-pull-6 + Backup-5** ✅ 2026-06-08 — rsync serwer→lokalnie: `content/` (--delete): 3 nowe projekty × 12 locale (baseny-tropikalne, woliera-dzioborozca-zoo-warszawa, wybieg-wydry-europejskiej); `public/assets/` (excl. css/): galeria/baseny-tropikalne (5 webp), images/strony (5 webp), projekty (2 webp); `users/` profil admina; post-pull: stache:refresh OK. Backup `skalisty-orion-backup-5.tar.gz` 344 MB.
 
@@ -405,6 +416,14 @@ Dodane do `.gitignore`: `ADMIN_ACCESS.txt`, `/users/*.yaml`
 ---
 
 ## Dziennik sesji
+
+### 2026-06-19
+
+**BUGFIX-icon-box-center-icon**: `mx-auto` na kontenerze ikony w `icon_box_with_text_section.antlers.html`. Deploy na `dev.skalisty.pl` (748 KB, 2 passed). Wykonane przez Claude bezpośrednio na polecenie użytkownika.
+
+**Audyt i zamknięcie zadań z poprzednich sesji**: SYNC-orientarium, FEATURE-blueprint-details-defaults, UPDATE-statamic-6.21.0, UPDATE-statamic-6.20.3-deploy, SYNC-and-deploy-completion-year, FEATURE-completion-year-sort. Wszystkie zaakceptowane.
+
+**Zamknięcie sesji**: CHANGE-LOG uzupełniony, CLAUDE_MEMORY zaktualizowana, sync dokumentacji, push na `origin/main`.
 
 ### 2026-06-18
 

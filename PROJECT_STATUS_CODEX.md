@@ -154,7 +154,7 @@ next_after_active: Decyzja użytkownika — retłumaczenie Home EN lub Formularz
 
 ## W trakcie
 
-Brak aktywnych zadań. Ostatnie prace Iconify wykonane przez Codex zostały opisane w dokumentacji zastępczo za Claude; Claude ma po powrocie wykonać audyt dokumentacji i zgodności z `AGENTS.md`.
+Brak aktywnych zadań.
 
 ---
 
