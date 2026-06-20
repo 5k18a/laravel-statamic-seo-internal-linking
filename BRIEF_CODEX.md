@@ -1,12 +1,12 @@
 # BRIEF_CODEX.md
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-20-1000
+state_version: 2026-06-20-1006
 active_task_id: none
 active_task_name: Brak aktywnego zadania
 active_task_status: closed
 active_task_source: BRIEF_CODEX.md
-last_sync: 2026-06-20 09:00 Europe/Warsaw
+last_sync: 2026-06-20 10:06 Europe/Warsaw
 last_synced_by: Claude
 last_closed: FEATURE-services-route-pl-oferta
 next_after_active: Decyzja użytkownika

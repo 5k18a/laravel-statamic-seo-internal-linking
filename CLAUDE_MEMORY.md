@@ -4,12 +4,12 @@
 # Aktualizowany po każdym zakończonym zadaniu
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-20-1000
+state_version: 2026-06-20-1006
 active_task_id: none
 active_task_name: Brak aktywnego zadania
 active_task_status: closed
 active_task_source: BRIEF_CODEX.md
-last_sync: 2026-06-20 09:00 Europe/Warsaw
+last_sync: 2026-06-20 10:06 Europe/Warsaw
 last_synced_by: Claude
 last_closed: FEATURE-services-route-pl-oferta
 next_after_active: Decyzja użytkownika
@@ -466,6 +466,20 @@ Dodane do `.gitignore`: `ADMIN_ACCESS.txt`, `/users/*.yaml`
 **Deploy**: rsync 11 plików (partials, blueprints, fieldsets, views, extra.css, output.css, content). HTTP 200 na `dev.skalisty.pl`. Kafle mega menu z efektem hover, cover image aktywna.
 
 **Zamknięcie sesji**: CHANGE-LOG (3 wpisy: cover image, kafle, content), DEPLOYMENT (1 wpis), CLAUDE_MEMORY (ten wpis). Commit + push na `origin/main`.
+
+### 2026-06-20 (powrót na komputer główny — sync z remote)
+
+**Kontekst**: po dwóch sesjach na komputerze zastępczym (FAQ replicator, services route /oferta, embedded video, mega menu kafle, content sztuczna-rafa-koralowa, BUGFIX-embedded-video-mobile) trzeba było dogonić remote.
+
+**SYNC**: `git pull ab55105..fb693ed` — 21 commitów / 86 plików / +1073 -373. Composer i npm bez różnic; Laravel 13.16.1, Statamic 6.21.0. Lokalny testowy bełkot w `architectural-design.md` (Bard sety z "uiytruirtiurtyijrtui", "uyituyi" w polach quote_text i client_name) odrzucony przez `git checkout --`; plik i tak usunięty na remote (zastąpiony przez `sztuczna-rafa-koralowa.md`).
+
+**Diagnoza pseudo-duplikatu `/oferta/architectural-design`**: HTTP 200 lokalnie po pullu, mimo że plik usunięty. Przyczyna: stache lokalny nadal trzymał stare mapowanie slug→entry (slug `architectural-design` wskazywał na ten sam wpis co nowy `sztuczna-rafa-koralowa`). Po `php artisan statamic:stache:refresh` stary URL → 404, nowy `/oferta/sztuczna-rafa-koralowa` 200 (title "Dekoracje Akwarystyczne"). **Próba rename pliku na `dekoracje-akwarystyczne.md` + nav update wycofana** — slug `sztuczna-rafa-koralowa` to świadoma decyzja użytkownika utrzymana na serwerze (`dev.skalisty.pl` zweryfikowany: `/oferta/sztuczna-rafa-koralowa` 200, `/oferta/dekoracje-akwarystyczne` 404).
+
+**Kluczowy wniosek (do CLAUDE_MEMORY → Kluczowe decyzje)**: po `git pull` zawierającym zmiany w `content/collections/` (rename, delete, slug changes) ZAWSZE `php artisan statamic:stache:refresh` PRZED jakąkolwiek diagnozą URL. Stache trzyma cached mapping slug→entry i bez refresh ten sam entry może odpowiadać pod dwoma URL — co fałszywie wygląda jak duplikat w content/blueprintach.
+
+**Stan operacyjny po sesji**: brak aktywnego zadania, last_closed pozostaje FEATURE-services-route-pl-oferta. Lokalny stan = `origin/main` = stan serwera.
+
+**Uwaga długoterminowa**: nawigacja PL `content/trees/navigation/pl/main.yaml:117` ma martwy link demo "Service Detail" `url: /oferta/architectural-design` (404 lokalnie i na serwerze). Demo Orion, niewykorzystywane; do decyzji użytkownika (zaktualizować URL na działający `/oferta/sztuczna-rafa-koralowa` lub usunąć całą gałąź demo Pages > Services z nawigacji).
 
 ### 2026-06-20 (sesja popołudniowa)
 

@@ -1,12 +1,12 @@
 # PROJECT_STATUS_CODEX.md
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-20-1000
+state_version: 2026-06-20-1006
 active_task_id: none
 active_task_name: Brak aktywnego zadania
 active_task_status: closed
 active_task_source: BRIEF_CODEX.md
-last_sync: 2026-06-20 09:00 Europe/Warsaw
+last_sync: 2026-06-20 10:06 Europe/Warsaw
 last_synced_by: Claude
 last_closed: FEATURE-services-route-pl-oferta
 next_after_active: Decyzja użytkownika
@@ -155,6 +155,7 @@ next_after_active: Decyzja użytkownika
 - Deploy-2026-06-20b ✅ — `service/show.antlers.html` (padding v2) + `output.css` (rebuild Tailwind 4); backup serwera `~/skalisty_2026_backups/before-bard-padding-v2-2026-06-20/` (300 KB); HTTP 200 + klasa `py-[18px]` wykryta na live output.css.
 - FEATURE-services-route-pl-oferta ✅ — `content/collections/services.yaml`: `route` (string) → mapa per locale (PL `/oferta/{slug}`, reszta `/service/{slug}`); `CollectionRoutesController::$managedCollections` rozszerzone o `'services' => 'Usługi (Services)'` (CP > Tools > Trasy URL kolekcji pokazuje teraz obie pozycje); 21 hardcoded `href="/service/{{ slug }}"` zamienione na `href="{{ url }}"` w 8 widokach (`service_section.antlers.html` × 13, header-1/2/3/4 × 1, footer-1 × 2, footer-4 × 1, search-results × 1); `content/trees/navigation/pl/main.yaml`: `/service/architectural-design` → `/oferta/architectural-design`; rename strony PL `services.md` → `oferta.md` (przez użytkownika w CP, świadoma decyzja); EN bez zmian. `php artisan test` 2 passed; brak kolizji `/oferta` (page) vs `/oferta/{slug}` (service entry) — Statamic rozdziela poprawnie.
 - Deploy-2026-06-20c ✅ — `services.yaml`, `CollectionRoutesController.php`, `service_section.antlers.html`, 7 partials (header-1..4, footer-1, footer-4, search-results), nav PL; rsync 11 plików; backup `~/skalisty_2026_backups/before-services-route-oferta-2026-06-20/` (248 KB); post-deploy: `view:clear`, `cache:clear`, `statamic:stache:refresh`, `test` 2 passed; HTTP `/oferta` 200, `/oferta/architectural-design` 200, `/service/architectural-design` (stara PL) 404, `/en/services` 200, `/en/service/architectural-design` 200, `/cp/collection-routes` 302→login.
+- SYNC-powrót-na-komputer-główny ✅ (2026-06-20 10:06, Claude) — `git pull ab55105..fb693ed` (21 commitów z sesji zastępczych: embedded video + cover image + mega menu ivena tiles + sztuczna-rafa-koralowa + 2 hotfixy); lokalny testowy bełkot w `architectural-design.md` (`uiytruirtiurtyijrtui`) odrzucony — plik i tak usunięty na remote (zastąpiony przez `sztuczna-rafa-koralowa.md`); composer/npm bez różnic (Laravel 13.16.1, Statamic 6.21.0). Diagnoza pseudo-duplikatu `/oferta/architectural-design` HTTP 200 — przyczyna: skażony stache po pullu trzymał stare mapowanie slug→entry; `php artisan statamic:stache:refresh` rozwiązał (`/oferta/sztuczna-rafa-koralowa` 200 title "Dekoracje Akwarystyczne", stary slug 404). Próbny rename `sztuczna-rafa-koralowa.md` → `dekoracje-akwarystyczne.md` + nav update wycofany — slug to świadoma decyzja użytkownika utrzymana na serwerze. Serwer `dev.skalisty.pl` zweryfikowany jako aktualny, brak potrzeby deployu. Reguła operacyjna: po `git pull` z dużymi zmianami w `content/collections/` zawsze `stache:refresh` PRZED diagnozą URL.
 
 ### Wdrożenie serwera
 
