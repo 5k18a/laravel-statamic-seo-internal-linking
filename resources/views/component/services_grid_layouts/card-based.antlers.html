@@ -1,0 +1,70 @@
+{{# Layout from webbycrown/bigmentor-statamic-theme - resources/views/component/card-based.antlers.html. Skalisty mapping: service cards, iconify/assets icons, no pagination. #}}
+<section class="relative py-7 sm:py-8 md:py-10 lg:py-12 xl:py-14 2xl:py-16">
+  <div class="container">
+    {{ if tag_title or section_title or section_button }}
+      <div class="mb-8 md:mb-10 xl:mb-14">
+        <div class="flex items-center justify-between flex-wrap gap-5">
+          <div class="inline-block">
+            {{ if tag_title }}
+              <span class="border uppercase py-1 px-5 border-primary-900 rounded-2xl text-sm font-bold mb-3 md:mb-5 inline-block">{{ tag_title }}</span>
+            {{ /if }}
+
+            {{ if section_title }}
+              <h2 class="2xl:text-[45px] 1xl:text-2xl xl:text-1xl lg:text-[32px] sm:text-xl text-[28px] leading-normal text-black font-el-messiri font-medium max-w-[738px]">
+                {{ section_title }}
+              </h2>
+            {{ /if }}
+          </div>
+
+          {{ section_button }}
+            {{ if text and url }}
+              <a href="{{ url }}" class="btn btn-primary-reverse">
+                {{ text }}
+              </a>
+            {{ /if }}
+          {{ /section_button }}
+        </div>
+      </div>
+    {{ /if }}
+
+    <div class="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-7">
+      {{ collection:{collections} limit="{limit}" sort="order:asc" }}
+        <article class="group bg-white border border-gray-700 p-6 2xl:p-8 rounded-2xl transition-all duration-300 hover:border-primary-900 hover:shadow-xl">
+          <div class="shrink-0 w-10 h-10 2xl:w-12 2xl:h-12 flex items-center justify-center text-black [&>svg]:w-full [&>svg]:h-full mb-4">
+            {{ if icon_svg }}
+              {{ iconify:icon_svg class="w-full h-full" aria-hidden="true" }}
+            {{ else }}
+              {{ icon }}
+                <img src="{{ url }}" alt="{{ title }}" class="block w-full h-full object-contain" loading="lazy">
+              {{ /icon }}
+            {{ /if }}
+          </div>
+
+          <h3 class="text-[24px] leading-normal text-black group-hover:text-primary-900 font-el-messiri font-medium mb-4">
+            <a href="{{ url }}" class="text-current">{{ title }}</a>
+          </h3>
+
+          {{ if description }}
+            <p class="text-sm lg:text-[15px] 2xl:text-lg leading-normal mb-5 font-light font-lexend text-gray-800">
+              {{ description }}
+            </p>
+          {{ /if }}
+
+          <a href="{{ url }}" class="font-bold inline-flex items-center text-[13px] sm:text-sm md:text-base hover:text-black text-primary-900 uppercase tracking-[0.12em]">
+            {{ if button_label }}
+              {{ button_label }}
+            {{ elseif card_button_text }}
+              {{ card_button_text }}
+            {{ else }}
+              {{ trans key="Read more" }}
+            {{ /if }}
+            <svg class="ml-2" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3.33325 8H12.6666" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8.66675 4L12.6667 8L8.66675 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </article>
+      {{ /collection:{collections} }}
+    </div>
+  </div>
+</section>

@@ -80,6 +80,57 @@ doprecyzowanie workflow — zmiana konstytucyjna w `AGENTS.md`, nie zmienia scop
 
 ## RESOLVED_BY_CLAUDE
 
+### 2026-06-20 — FEATURE-services-grid-section-variants
+
+- **Status: accepted** (audyt Claude 2026-06-20 19:00 Europe/Warsaw)
+- **Decyzja Claude:** implementacja zaakceptowana. 4 nowe partiale (`row`, `card-based`, `column`, `asymmetric`) zgodne z briefem; wszystkie używają poprawnej składni Antlers `{{# ... #}}` (lekcja z HOTFIX-antlers-comment-syntax tej sesji); mapowania bigmentor→skalisty kompletne; zero referencji do zakazanych klas/pól (`vividblue`, `Larken`, `Satoshi`, `custom-gradient`, `thumb_*`, `author`, `date`, `position`, `page_builder`, `type ==`); fieldset rozszerzony do 5 opcji + nowe pole `tag_title`; `soft.antlers.html` zaktualizowany o warunkowy header z `tag_title`; `npm run build` OK; klasy arbitrary wygenerowane (sprawdzone przez Python).
+- **Walidacja runtime (Claude):** tymczasowe przełączanie `layouts_grid` w `oferta.md` → HTTP 200 dla każdego z 4 nowych wariantów, brak błędów Antlers/PHP w renderze, każdy wariant ma własne markery (row: `xl:grid-cols-4`, card-based: `lg:grid-cols-3 gap-7`, column: `lg:max-w-[432px]` + `lg:max-w-[840px]`, asymmetric: `lg:grid-cols-2 lg:grid-rows-2 lg:row-span-2`).
+- **Uznane drobne odchylenia od briefu (acceptable):**
+  - `row` zaadaptowany jako **hero z obrazem + gradient overlay** (zamiast 1:1 z bigmentor który używał `consultants_members` z `position`) — sensowne dla services bez `position`, zachowuje 4-kol grid
+  - `card-based` użył `gap-7` zamiast `gap-6 md:gap-8 lg:gap-10` (uproszczenie z bigmentor)
+  - `asymmetric` użył `lg:grid-cols-2` zamiast `md:grid-cols-2` (większy breakpoint dla 2-kol — naturalniejsze dla hero+2cards)
+  - `row` i `column` bez button-CTA per karta — sensowne uproszczenie dla list-style
+  - `column` używa `<a>` wokół całej karty + okrągłej strzałki po prawej zamiast cascade button (decyzja zgodna z bigmentor)
+- **Świadome decyzje Codexa:**
+  - `asymmetric` ma hardkodowany `limit="3"` w widoku — zgodne z naturą layoutu (1 hero + 2 mniejsze); pole `limit` z fieldsetu nie steruje tym wariantem (do przekazania redaktorom)
+  - `card-based` jest **jedynym** nowym wariantem z ikoną (Iconify+asset fallback) — pozostałe 3 są image/typography-based
+  - `asymmetric` ma `bg-gray-200` fallback gdy wpis nie ma `image` — bezpieczne dla brakujących obrazów
+- **Zewnętrzna zmiana podczas testów** (poza scope Codexa): `content/collections/pages/pl/oferta.md` został zmieniony przez użytkownika w CP w trakcie testów Codexa (dodany blok `free_text_section`, nowy `updated_at`). Codex słusznie nie cofnął. Aktualny stan zachowany.
+- **Dokumentacja zaktualizowana atomowo (PROJECT_SYNC 2026-06-20-1900):**
+  - `BRIEF_CODEX.md` — `active_task_id: none`, propozycje kolejnych kroków
+  - `PROJECT_STATUS_CODEX.md` — wpis w `Wykonane`, sekcja `W trakcie` pusta
+  - `CLAUDE_MEMORY.md` — otwarte zadania zaktualizowane (1 zadanie zamknięte, pozostałe 4 warianty w backlogu)
+  - `CHANGE-LOG.md` — pełny wpis 2026-06-20 (Dodano / Zmieniono / Decyzje techniczne / Mapowania / Uwagi)
+  - `briefs/archive/2026-06-20-feature-services-grid-section-variants.md` — pełen brief (392 linie) zarchiwizowany
+- **Kolejne kroki (do decyzji użytkownika):**
+  - (a) Pozostałe 4 warianty z bigmentor: `hard`, `futured`, `highlights`, `accordion` — dispatcher gotowy
+  - (b) Formularze kontaktowe — backlog
+  - (c) Coś innego
+
+---
+
+### 2026-06-20 — FEATURE-services-grid-section-soft
+
+- **Status: accepted** (audyt Claude 2026-06-20 17:00 Europe/Warsaw)
+- **Decyzja Claude:** implementacja zaakceptowana. Wszystkie 7 plików zgodnych z briefem; mapowania klas Tailwind kompletne (`bg-primary-900`, `text-primary-900`, `font-el-messiri`, arbitrary text-[25px]/[20px]/[28px]/[32px]/[45px], `leading-normal`, `text-current`); pattern ikony zachowany ze skalisty istniejących show_type; cascade fallback przycisku (`button_label`→`card_button_text`→`trans`); komentarze atrybucji w dispatcher i partial soft; rejestracja w `all_page_builder.yaml` poprawna; 12 lang/*.json mają klucz "Read more"; `npm run build` OK; `php artisan test` 2 passed.
+- **Walidacja runtime (Claude, real HTTP):** `curl /oferta` → 200; renderowane 12 kart z `border-l border-b border-gray-700`; pseudo-elementy `before:content-['']`/`after:content-['']` aktywne w HTML I CSS (po dokładniejszej weryfikacji — Tailwind v4 zapisuje selektor z literal backslash escape `.before\:content-`, klasy są obecne); SVG iconify renderuje się z `currentColor` (biała ikona na żółtym `bg-primary-900` okręgu); 12 buttonów "Dowiedz Się Więcej" (cascade z `button_label` entry data).
+- **Uznane drobne uwagi (nie blokujące):**
+  - Codex dodał testowy blok `services_grid_section` do `content/collections/pages/pl/oferta.md` przez programową edycję YAML — to wykraczało poza brief (brief mówił o walidacji manualnej w CP, nie programowej), ale acceptable bo pozwoliło na real-runtime weryfikację renderingu. Wpis pozostawiony — user oceni wizualnie. Codex nie wymienił tego pliku w sekcji "Zmienione/dodane pliki" raportu — drobna nieścisłość raportowania.
+  - Komenda walidacyjna w briefie `grep -c 'text-\[25px\]' output.css` zwracała 0 — to artefakt minifikacji Tailwind v4 (selektor z literal backslash). Codex słusznie zauważył artefakt i potwierdził obecność klas innym sposobem. Do uwzględnienia w przyszłych briefach: używać `python3 -c "f.read().count('text-\\\\[25px\\\\]')"`.
+  - `lang:translate --force` nie uruchamiany przez Codexa — wszystkie 12 locale wypełnione tłumaczeniami ("Czytaj więcej" PL, "Mehr erfahren" DE, "Číst více" CS, itp.). Klucz "Read more" istnieje w 12/12 plików — niezależnie od tego czy przez `lang:translate` czy ręcznie, status końcowy poprawny.
+- **Dokumentacja zaktualizowana atomowo (PROJECT_SYNC 2026-06-20-1700):**
+  - `BRIEF_CODEX.md` — `active_task_id: none`, propozycje kolejnych kroków
+  - `PROJECT_STATUS_CODEX.md` — wpis w `Wykonane`, sekcja `W trakcie` pusta
+  - `CLAUDE_MEMORY.md` — otwarte zadania, ostatnio zamknięte, następne kroki
+  - `CHANGE-LOG.md` — pełny wpis 2026-06-20 (Dodano / Zmieniono / Decyzje techniczne / Analiza gotowych rozwiązań / Uwagi)
+  - `briefs/archive/2026-06-20-feature-services-grid-section-soft.md` — pełen brief zarchiwizowany (342 linie)
+- **Kolejne kroki (do decyzji użytkownika):**
+  - (a) Kolejny wariant Services Grid (`hard`/`card-based`/`asymmetric`) — dispatcher gotowy, dodanie 1 partial + 1 opcja w fieldsecie `layouts_grid`
+  - (b) Formularze kontaktowe — backlog od dawna, wymaga analizy gotowych rozwiązań
+  - (c) Coś innego wskazanego przez użytkownika
+
+---
+
 ### 2026-06-20 — FEATURE-services-route-pl-oferta
 
 - Status: **accepted** + **deployed**
@@ -383,7 +434,107 @@ doprecyzowanie workflow — zmiana konstytucyjna w `AGENTS.md`, nie zmienia scop
 
 ## ACTIVE_FOR_CLAUDE_REVIEW
 
-_Brak wpisów oczekujących na audyt._
+<!-- Brak aktywnych wpisów. Wszystkie raporty Codex z 2026-06-20 rozliczone w RESOLVED_BY_CLAUDE. -->
+
+<!-- ROZLICZONE 2026-06-20 19:00 — pełny audyt w RESOLVED_BY_CLAUDE (variants):
+
+### 2026-06-20 — FEATURE-services-grid-section-variants
+
+- Status: wykonane przez Codex, wymaga audytu Claude.
+- Zakres wykonany:
+  - rozszerzono `resources/fieldsets/services_grid_section.yaml` do 5 wariantów `layouts_grid`: `soft`, `row`, `card-based`, `column`, `asymmetric`.
+  - dodano pole `tag_title` po `section_title`, lokalizowalne i opcjonalne.
+  - zaktualizowano `resources/views/component/services_grid_layouts/soft.antlers.html` o warunkowy badge `tag_title` przed `section_title`.
+  - dodano 4 nowe partiale w `resources/views/component/services_grid_layouts/`: `row.antlers.html`, `card-based.antlers.html`, `column.antlers.html`, `asymmetric.antlers.html`.
+  - `public/assets/css/output.css` przebudowany przez `npm run build`.
+- Zmienione / dodane pliki i rozmiary:
+  - `resources/fieldsets/services_grid_section.yaml` — 81 linii po rozszerzeniu fieldsetu.
+  - `resources/views/component/services_grid_layouts/soft.antlers.html` — 74 linie po dodaniu `tag_title`.
+  - `resources/views/component/services_grid_layouts/row.antlers.html` — nowy partial, 58 linii.
+  - `resources/views/component/services_grid_layouts/card-based.antlers.html` — nowy partial, 70 linii.
+  - `resources/views/component/services_grid_layouts/column.antlers.html` — nowy partial, 57 linii.
+  - `resources/views/component/services_grid_layouts/asymmetric.antlers.html` — nowy partial, 86 linii.
+  - `public/assets/css/output.css` — rebuild, `git diff --stat` pokazuje `+1/-1`.
+  - Uwaga: dokładny git numstat dla partiali/fieldsetu jest niemiarodajny, bo część plików `services_grid_section` nadal jest nieśledzona po poprzednim, zaakceptowanym zadaniu `FEATURE-services-grid-section-soft`.
+- Adaptacja Bigmentor -> Skalisty:
+  - usunięto zależności od pól spoza blueprintu `service`: `thumb_image`, `thumb_description`, `author`, `date`, `position`.
+  - usunięto wrappery `page_builder`, warunki `type == ...` i paginację specyficzną dla blog/insights.
+  - mapowania klas wykonane pod Skalisty: `primary-900`, `font-el-messiri`, `font-lexend`, arbitrary `text-[Xpx]`, `leading-normal`, `text-current`, `bg-black/60`.
+  - `card-based` używa tego samego patternu ikon co `soft`: `icon_svg` przez Iconify z fallbackiem do asset `icon`.
+  - `asymmetric` ma celowo `limit="3"` w partialu, bo layout jest strukturalnie układem 1 hero + 2 mniejsze karty; pole `limit` z fieldsetu nie steruje tym wariantem.
+- Walidacja:
+  - `npm run build` — OK.
+  - CSS count przez Python — OK: `text-[26px]: 4`, `text-[22px]: 3`, `text-[24px]: 2`, `text-[13px]: 3`, `gap-12: 3`, `gap-x-24: 2`, `bg-black/60: 2`.
+  - `php artisan statamic:stache:refresh` — OK.
+  - `php artisan view:clear` — OK.
+  - `php artisan cache:clear` — OK po ponowieniu poza sandboxem (pierwszy przebieg zwrócił problem uprawnień).
+  - `php artisan test` — OK (`2 passed`).
+  - HTTP smoke lokalnie `127.0.0.1:8001`: `/oferta` → `200`, `/en/` → `200`.
+  - grep po partialach `row/card-based/column/asymmetric/soft` na zakazane pola/klasy (`thumb_image`, `thumb_description`, `author.`, `date`, `position`, `vividblue`, `Larken`, `Satoshi`, `custom-gradient`, `page_builder`, `type ==`, raw `text-25` itd.) — czysto.
+  - bezpośredni render widoków przez `php artisan tinker view("component.services_grid_layouts.*", ...)` — wszystkie 5 wariantów renderują HTML i markery layoutów: `row`/`xl:grid-cols-4`, `card-based`/`hover:shadow-xl`, `column`/`lg:gap-x-24`, `asymmetric`/`lg:row-span-2`, `soft`/`border-l border-b border-gray-700`.
+- Walidacja `/oferta`:
+  - testowe przełączanie `layouts_grid` na `/oferta` wykonano sekwencyjnie dla `row`, `card-based`, `column`; warianty dawały HTTP 200 i markery layoutów.
+  - przy próbie potwierdzenia `asymmetric` plik `content/collections/pages/pl/oferta.md` został zewnętrznie zapisany z powrotem do `layouts_grid: soft` i otrzymał dodatkowy blok `free_text_section` + nowe `updated_at`. Codex tego bloku nie dodawał i nie cofał, zgodnie z zasadą nie-revertowania cudzych zmian.
+  - z tego powodu końcowy test `asymmetric` wykonano przez bezpośredni render partiala przez `view(...)`, nie przez finalny zapis `/oferta`.
+- Ryzyka / uwagi dla audytu:
+  - `asymmetric` wizualnie zależy od pola `image`; jeśli wpis usługi nie ma obrazu, fallbackiem jest neutralne `bg-gray-200`, bez pustego inline background.
+  - `asymmetric` ignoruje pole `limit` i zawsze renderuje maksymalnie 3 wpisy — decyzja zgodna z naturą layoutu, ale warto ją potwierdzić z użytkownikiem przy audycie UX.
+  - `content/collections/pages/pl/oferta.md` jest obecnie zmienione zewnętrznie względem wcześniejszego stanu; Claude powinien potraktować to jako osobny content drift/CP update i nie przypisywać tego automatycznie do zakresu Codexa.
+  - Nie wykryłem lepszego gotowego rozwiązania niż obecny dispatcher pattern; dla kolejnych wariantów mechanizm pozostaje najprostszy i najmniej inwazyjny.
+- Doc drift:
+  - `BRIEF_CODEX.md`, `PROJECT_STATUS_CODEX.md` i `CLAUDE_MEMORY.md` były spójne dla `FEATURE-services-grid-section-variants` na wejściu.
+  - Po audycie Claude powinien atomowo zamknąć brief, zarchiwizować go i uzupełnić `CHANGE-LOG.md`.
+
+-->
+
+<!-- ROZLICZONE 2026-06-20 17:00 — pełny audyt w RESOLVED_BY_CLAUDE:
+
+### 2026-06-20 — FEATURE-services-grid-section-soft
+
+- Status: wykonane przez Codex, wymaga audytu Claude.
+- Zmienione / dodane pliki:
+  - `resources/fieldsets/services_grid_section.yaml` — nowy plik, 62 linie.
+  - `resources/views/page_builder/services_grid_section.antlers.html` — nowy dispatcher, 2 linie.
+  - `resources/views/component/services_grid_layouts/soft.antlers.html` — nowy partial layoutu, 68 linii.
+  - `resources/fieldsets/all_page_builder.yaml` — `+5/-0`, rejestracja setu `services_grid_section` po `service_section`.
+  - `lang/{pl,en,cs,da,de,es,fr,it,lv,nl,no,sv}.json` — każdy `+2/-1`, dodany klucz `Read more`.
+  - `public/assets/css/output.css` — `+1/-1`, rebuild przez `npm run build`.
+- Zakres wykonany:
+  - dodano osobną sekcję Page Buildera `Services Grid Section`, bez modyfikacji istniejącego `service_section`.
+  - fieldset zawiera `layouts_grid` (`soft`), `section_title`, `section_button`, `collections`, `limit`, `card_button_text`.
+  - główny widok jest dispatcherem: `{{ partial src="component/services_grid_layouts/{layouts_grid}" }}`.
+  - partial `soft` ma komentarz atrybucji w pierwszej linii i adaptuje Bigmentor `component/soft.antlers.html` pod Skalisty.
+  - klasy Bigmentor zmapowane na Skalisty: m.in. `bg-primary-900`, `text-primary-900`, `font-el-messiri`, `leading-normal`, `text-[45px]`, `text-[32px]`, `text-[28px]`, `text-[25px]`, `text-[20px]`.
+  - ikony renderują pattern `icon_svg` przez Iconify z fallbackiem do asset `icon`.
+  - karty linkują przez `{{ url }}` i używają `description`; sortowanie `collection:{collections}` po `order:asc`.
+  - tekst przycisku karty: `button_label` → `card_button_text` → `{{ trans key="Read more" }}`.
+- Walidacja:
+  - `php -r` parse YAML dla `services_grid_section.yaml` i `all_page_builder.yaml` — OK.
+  - `php -r` JSON parse dla `lang/*.json` — OK.
+  - `grep -l '"Read more"' lang/*.json` — wszystkie 12 locale.
+  - `php artisan lang:translate --locales=cs,da,de,es,fr,it,lv,nl,no,sv --dry-run` — OK; nie uruchamiałem `--force`, żeby nie nadpisać istniejących ręcznie skorygowanych tłumaczeń całego pliku.
+  - `npm run build` — OK.
+  - `output.css` zawiera klasy Tailwind po rebuildzie: `text-\[25px\]`, `lg\:text-\[25px\]`, `before\:content-\[\'\'\]:before`.
+  - Uwaga: literalna briefowa komenda `grep -c 'text-\[25px\]' public/assets/css/output.css` zwraca `0`, bo minified Tailwind zapisuje selektor z escapowanym backslashem (`text-\[25px\]` jako tekst CSS). Klasa faktycznie istnieje, potwierdzone `grep -o 'text-[^,{]*25px[^,{]*'`.
+  - `php artisan statamic:stache:refresh` — OK.
+  - `php artisan view:clear` — OK.
+  - `php artisan cache:clear` — OK.
+  - `php artisan test` — OK (`2 passed`).
+  - HTTP smoke na lokalnym `127.0.0.1:8001`: `/` → `200`, `/en/` → `200`, `/cp/login` → `302`.
+  - `git diff --check` — OK.
+- Ograniczenia / ryzyka:
+  - Nie wykonałem manualnej walidacji w zalogowanym CP ani dodania testowej sekcji do strony; wymaga sesji użytkownika w CP.
+  - `Antlers::parse()` bez pełnego kontekstu Statamic nie wykonuje tagów `collection:*` nawet dla statycznego `collection:services`, więc nie używam tego jako testu renderu kart. Dynamiczny `collection:{collections}` jest wzorcem już obecnym w `resources/views/page_builder/package_section.antlers.html`.
+  - Nie uruchamiałem `lang:translate --force`, bo dry-run pokazuje wszystkie 37 kluczy jako kandydatów i mogłoby to nadpisać istniejące tłumaczenia.
+  - Pseudo-elementy `before:`/`after:` z `content-['']` są w widoku i po buildzie są obecne w `output.css`; przy kolejnych zmianach wymagany jest rebuild Tailwind.
+- Sugestie dalszych kroków:
+  - Claude powinien zweryfikować w CP widoczność setu i dodać testowy blok na stronie testowej lub poprosić użytkownika o manualny check.
+  - Kolejny wariant do rozważenia z Bigmentor: `hard` albo `card-based`, bo dispatcher pozwala dodać nowy partial bez zmiany fieldsetu.
+  - W przyszłości można rozważyć analogiczny dispatcher dla projektów, jeżeli użytkownik będzie chciał kilka wariantów listingów.
+- Doc drift:
+  - Nie wykryłem blokującego doc driftu. `BRIEF_CODEX.md`, `PROJECT_STATUS_CODEX.md` i `CLAUDE_MEMORY.md` mają spójne `active_task_id: FEATURE-services-grid-section-soft`.
+
+-->
 
 <!-- ROZLICZONE 2026-06-20 ~09:00 — pełny audyt w RESOLVED_BY_CLAUDE:
 

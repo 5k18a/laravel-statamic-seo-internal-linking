@@ -1,15 +1,15 @@
 # PROJECT_STATUS_CODEX.md
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-20-1006
+state_version: 2026-06-20-1900
 active_task_id: none
 active_task_name: Brak aktywnego zadania
 active_task_status: closed
 active_task_source: BRIEF_CODEX.md
-last_sync: 2026-06-20 10:06 Europe/Warsaw
+last_sync: 2026-06-20 19:00 Europe/Warsaw
 last_synced_by: Claude
-last_closed: FEATURE-services-route-pl-oferta
-next_after_active: Decyzja użytkownika
+last_closed: FEATURE-services-grid-section-variants
+next_after_active: Decyzja użytkownika (pozostałe warianty — futured/hard/highlights/accordion — lub Formularze kontaktowe)
 <!-- PROJECT_SYNC_END -->
 
 ---
@@ -167,6 +167,74 @@ next_after_active: Decyzja użytkownika
 ## W trakcie
 
 Brak aktywnych zadań.
+
+---
+
+### ✅ Ostatnio zamknięte: FEATURE-services-grid-section-variants (2026-06-20, ACCEPTED)
+
+Rozszerzenie sekcji `services_grid_section` o 4 nowe warianty layoutu (`row`, `card-based`, `column`, `asymmetric`). Dispatcher z poprzedniego zadania (FEATURE-services-grid-section-soft) obsługuje teraz 5 wariantów.
+
+**Architektura wdrożona:**
+- `resources/fieldsets/services_grid_section.yaml` (81 linii) — 5 opcji `layouts_grid` + nowe pole `tag_title` (text, localizable, opcjonalne)
+- 4 nowe partiale w `resources/views/component/services_grid_layouts/`:
+  - `row.antlers.html` (58 linii) — 4-kol grid z obrazami jako tło + gradient overlay
+  - `card-based.antlers.html` (70 linii) — 3-kol grid z borderem + hover (border-primary + shadow), ikony Iconify + cascade button
+  - `column.antlers.html` (57 linii) — 2-kol flex (header lewa + lista prawa), okrągłe strzałki per karta, hover bg primary
+  - `asymmetric.antlers.html` (86 linii) — 2-kol 2-row grid: hero (lg:row-span-2) + 2 mniejsze karty, hardkodowany `limit="3"`
+- `soft.antlers.html` (74 linie) — warunkowy header z `tag_title`
+- `output.css` — rebuild przez `npm run build`, arbitrary classes wszystkich wariantów wygenerowane
+
+**Audyt Claude — werdykt ACCEPTED:**
+- Wszystkie 4 nowe partiale mają poprawną składnię Antlers `{{# ... #}}` (lekcja z HOTFIX-antlers-comment-syntax)
+- Wszystkie używają skalisty palety: `primary-900`, `font-el-messiri` (Syne), `font-lexend`, `font-light` na paragrafach, `text-current`, `leading-normal`
+- Zero referencji do zakazanych klas/pól bigmentor: `vividblue`, `Larken`, `Satoshi`, `custom-gradient`, `thumb_*`, `author`, `date`, `position`, `page_builder`, `type ==`
+- `card-based` zachowuje wzorzec ikony z `soft` (Iconify + asset fallback)
+- Cascade fallback przycisku w `card-based` (`button_label` → `card_button_text` → `trans:key="Read more"`)
+- HTTP 200 dla wszystkich 5 wariantów po tymczasowej zmianie `layouts_grid`, brak błędów Antlers/PHP
+- Poprzednie poprawki w `soft.antlers.html` (text-black na ikonie, font-light font-lexend na paragrafie) zachowane
+
+**Drobne odchylenia od briefu (acceptable):**
+- `row` zaadaptowany jako hero z obrazem + gradient overlay (zamiast 1:1 z bigmentor który miał `consultants_members` z `position`) — sensowne dla services bez `position`
+- `card-based` użył `gap-7` zamiast `gap-6 md:gap-8 lg:gap-10` (uproszczenie)
+- `asymmetric` użył `lg:grid-cols-2` zamiast `md:grid-cols-2` (większy breakpoint dla 2-kol)
+- `row` i `column` bez button (klik na całą kartę zamiast osobnego CTA) — sensowne dla list-style
+
+**Zewnętrzna zmiana podczas testów Codexa:** `content/collections/pages/pl/oferta.md` został zmieniony przez użytkownika (dodany blok `free_text_section`, zmieniony `updated_at`). Codex słusznie nie cofnął — poza scope. Aktualny stan: `services_grid_section` z `layouts_grid: soft`, plus nowy `free_text_section` block.
+
+**Pozostałe warianty bigmentor (4):** `hard`, `futured`, `highlights`, `accordion` — w backlogu, opcjonalne, dispatcher gotowy.
+
+---
+
+### ✅ Ostatnio zamknięte: FEATURE-services-grid-section-soft (2026-06-20, ACCEPTED)
+
+Nowa, odrębna sekcja page buildera `Services Grid Section` z dispatcherem layoutu (pierwszy wariant `soft`). Wzorzec wizualny zaadaptowany z `webbycrown/bigmentor-statamic-theme` (publiczne repo, siostrzany motyw Webbycrown).
+
+**Architektura wdrożona:**
+- Dispatcher `resources/views/page_builder/services_grid_section.antlers.html` (2 linie) — `{{ partial src="component/services_grid_layouts/{layouts_grid}" }}`
+- Partial `resources/views/component/services_grid_layouts/soft.antlers.html` (68 linii) — adaptacja `component/soft.antlers.html` z bigmentor z komentarzem atrybucji
+- Fieldset `resources/fieldsets/services_grid_section.yaml` (62 linie) — 6 pól: `layouts_grid` (select, default `soft`), `section_title`, `section_button` (grid: text+url), `collections` (single-select), `limit` (default 0), `card_button_text` (text, default "Read more")
+- Rejestracja w `all_page_builder.yaml` (+5/-0, po `service_section` w grupie `new_set_group`)
+
+**i18n:** Klucz `"Read more"` dodany do 12 locale (`lang/{pl,en,cs,da,de,es,fr,it,lv,nl,no,sv}.json`) — PL "Czytaj więcej", EN "Read more", reszta przez DeepL via prior session prefill. Cascade fallback w widoku: `button_label` (per-entry) → `card_button_text` (per-section) → `{{ trans key="Read more" }}` (lang/*.json).
+
+**Audyt Claude — werdykt ACCEPTED:**
+- Wszystkie 6 pól zgodne z briefem
+- Mapowania klas Tailwind kompletne (`bg-primary-900`, `text-primary-900`, `font-el-messiri`, arbitrary text-[25px]/[20px]/[28px]/[32px]/[45px], `leading-normal`, `text-current`)
+- Pattern ikony zachowany z istniejących show_type (`{{ if icon_svg }}{{ iconify }}{{ else }}{{ icon }}<img>{{ /icon }}{{ /if }}`)
+- Sortowanie `order:asc` zgodne z briefem
+- Komentarz atrybucji w dispatcherze i partial soft
+- Walidacja runtime: render `/oferta` 200, w HTML wykryte 12 kart z `border-l border-b border-gray-700`, 12 buttonów "Dowiedz Się Więcej" (cascade z `button_label` entry data), pseudo-elementy `before:content-['']`/`after:content-['']` w HTML i CSS, SVG iconify renderuje się z `currentColor`
+- `php artisan test` 2 passed, `npm run build` OK, klasy arbitrary w output.css (verified: `text-[25px]`×2, `text-[20px]`×3, `text-[28px]`×2, `before\:content-` obecne)
+
+**Bonus Codexa (poza zakresem briefu):**
+Codex dodał testowy blok `services_grid_section` bezpośrednio do `content/collections/pages/pl/oferta.md` (przez edycję YAML, nie CP) — wykraczając poza brief (brief mówił o walidacji manualnej w CP). Zaakceptowane — pozwoliło na real-runtime test renderingu strony. Plik zostawiony — Claude zachowa testowy blok dla user'a do oceny wizualnej, decyzja o pozostaniu/usunięciu po sesji manualnej weryfikacji.
+
+**Drobne uwagi:**
+- Brief miał błędną komendę walidacyjną `grep -c 'text-\[25px\]' output.css` — zwraca 0 ze względu na backslash escaping w CSS (Tailwind v4 zapisuje `.text-\[25px\]` z literal backslash). Faktyczne klasy SĄ w output.css; do weryfikacji używać `python3 -c "with open(...) as f: f.read().count('text-\\\\[25px\\\\]')"`.
+- `lang:translate --force` nie uruchomione (Codex nie chciał nadpisać istniejących tłumaczeń) — wszystkie 12 locale wypełnione ręcznie/przez prior session, brak braków.
+
+**Następne iteracje sekcji (po decyzji user'a):**
+- Kolejny wariant w `layouts_grid` (np. `hard`, `card-based`, `asymmetric`) — dispatcher gotowy, dodanie partial + opcji w fieldsecie
 
 ---
 

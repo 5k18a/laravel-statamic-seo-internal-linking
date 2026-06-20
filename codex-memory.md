@@ -1,5 +1,90 @@
 # Codex Memory
 
+## Ostatnia sesja — 2026-06-20 — FEATURE-services-grid-section-variants
+
+- Aktywny brief:
+  - `FEATURE-services-grid-section-variants`
+- Cel:
+  - rozszerzyć istniejącą sekcję Page Buildera `services_grid_section` o warianty `row`, `card-based`, `column`, `asymmetric`
+  - nie ruszać dispatchera ani blueprintu `service`
+- Wykonane:
+  - `resources/fieldsets/services_grid_section.yaml`
+    - `layouts_grid` ma teraz `soft`, `row`, `card-based`, `column`, `asymmetric`
+    - dodano `tag_title` po `section_title`
+  - `resources/views/component/services_grid_layouts/soft.antlers.html`
+    - dodano obsługę `tag_title` w headerze
+  - nowe partiale:
+    - `resources/views/component/services_grid_layouts/row.antlers.html`
+    - `resources/views/component/services_grid_layouts/card-based.antlers.html`
+    - `resources/views/component/services_grid_layouts/column.antlers.html`
+    - `resources/views/component/services_grid_layouts/asymmetric.antlers.html`
+  - `public/assets/css/output.css`
+    - rebuild przez `npm run build`
+- Ważne decyzje techniczne:
+  - Dispatcher pattern działa dobrze: dodanie wariantu to partial + opcja w `layouts_grid`.
+  - Mapowania Bigmentor -> Skalisty pozostają takie jak w briefach `soft` i `variants`: `primary-900`, `font-el-messiri`, `font-lexend`, arbitrary `text-[Xpx]`, brak `vividblue/Larken/Satoshi/custom-gradient`.
+  - Blueprint `service` nie ma `date`, `author`, `position`, `thumb_image`, `thumb_description`; warianty Bigmentor projektowane dla blog/insights trzeba adaptować do `title`, `image`, `description`, `icon`, `icon_svg`, `button_label`.
+  - `asymmetric` jest strukturalnie layoutem 1 hero + 2 mniejsze karty, dlatego partial ma `limit="3"` i nie korzysta z pola `limit`.
+- Walidacja:
+  - `npm run build` — OK
+  - CSS count przez Python dla nowych klas — OK
+  - `php artisan statamic:stache:refresh` — OK
+  - `php artisan view:clear` — OK
+  - `php artisan cache:clear` — OK po ponowieniu poza sandboxem
+  - `php artisan test` — OK (`2 passed`)
+  - HTTP lokalnie na `127.0.0.1:8001`: `/oferta` 200, `/en/` 200
+  - render widoków przez `php artisan tinker view(...)` potwierdził markery wszystkich 5 wariantów
+  - grep partiali na pola/klasy zakazane z briefu — czysto
+- Uwaga operacyjna:
+  - podczas testowego przełączania `/oferta` plik `content/collections/pages/pl/oferta.md` został zewnętrznie zapisany z powrotem na `layouts_grid: soft` i dostał dodatkowy blok `free_text_section`; Codex tego bloku nie dodawał i nie revertował
+  - przy audycie Claude powinien traktować tę zmianę contentu jako osobny content drift/CP update, nie jako część implementacji partiali
+- Git:
+  - bez commita i bez deployu, zgodnie z AGENTS.md
+
+## Ostatnia sesja — 2026-06-20 — FEATURE-services-grid-section-soft
+
+- Aktywny brief:
+  - `FEATURE-services-grid-section-soft`
+- Cel:
+  - dodać osobną sekcję Page Buildera `services_grid_section`
+  - pierwszy wariant layoutu: `soft`, adaptowany z `webbycrown/bigmentor-statamic-theme`
+  - nie modyfikować istniejącego `service_section`
+- Wykonane:
+  - `resources/fieldsets/services_grid_section.yaml`
+    - pola: `layouts_grid`, `section_title`, `section_button`, `collections`, `limit`, `card_button_text`
+  - `resources/views/page_builder/services_grid_section.antlers.html`
+    - dispatcher: `{{ partial src="component/services_grid_layouts/{layouts_grid}" }}`
+  - `resources/views/component/services_grid_layouts/soft.antlers.html`
+    - partial `soft` z komentarzem atrybucji w pierwszej linii
+    - mapowanie Bigmentor -> Skalisty: `bg-primary-900`, `text-primary-900`, `font-el-messiri`, arbitrary text classes
+    - ikony: `icon_svg` przez Iconify, fallback do asset `icon`
+    - linki kart: `{{ url }}` per locale
+  - `resources/fieldsets/all_page_builder.yaml`
+    - rejestracja setu `services_grid_section` obok `service_section`
+  - `lang/*.json`
+    - dodany klucz `Read more` w 12 locale
+  - `public/assets/css/output.css`
+    - rebuild przez `npm run build`
+- Notatki operacyjne:
+  - Dispatcher pattern `{{ partial src="component/services_grid_layouts/{layouts_grid}" }}` umożliwia dorzucanie kolejnych wariantów bez zmiany fieldsetu.
+  - Mapping bigmentor -> skalisty jest udokumentowany w briefie; wartości pikselowe, np. `text-[25px]`, zachowano dla wierności wizualnej.
+  - Pseudo-elementy `before:`/`after:` z `content-['']` w Tailwind v4 wymagają obecności klas w widoku przy każdym buildzie.
+  - Briefowa walidacja `grep -c 'text-\[25px\]' output.css` może zwrócić `0`, bo Tailwind zapisuje selektory jako escapowane `text-\[25px\]`; używać grep po `25px` albo `lg\:text-\[25px\]`.
+  - `lang:translate --dry-run` pokazał wszystkie 37 kluczy jako kandydatów, więc nie uruchamiać `--force` pochopnie, żeby nie nadpisać ręcznych tłumaczeń.
+- Walidacja:
+  - YAML parse nowych/zmienionych fieldsetów — OK
+  - JSON parse `lang/*.json` — OK
+  - `npm run build` — OK
+  - `php artisan statamic:stache:refresh` — OK
+  - `php artisan view:clear` — OK
+  - `php artisan cache:clear` — OK
+  - `php artisan test` — OK (`2 passed`)
+  - HTTP lokalnie na `127.0.0.1:8001`: `/` 200, `/en/` 200, `/cp/login` 302
+  - `git diff --check` — OK
+- Ograniczenia:
+  - nie wykonano manualnego testu w zalogowanym CP ani dodania testowego bloku do strony
+  - nie wykonano commita ani deployu
+
 ## Ostatnia sesja — 2026-06-18 — FEATURE-completion-year-sort
 
 - Aktywny brief:

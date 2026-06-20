@@ -72,6 +72,70 @@ fields:
       if:
         layout_mode: 'equals columns'
   -
+    handle: column_gap
+    field:
+      type: select
+      display: 'Odstęp między kolumnami'
+      instructions: 'Poziomy odstęp między sąsiadującymi kolumnami.'
+      options:
+        -
+          key: none
+          value: 'Bez odstępu (0)'
+        -
+          key: small
+          value: 'Mały (16px)'
+        -
+          key: medium
+          value: 'Średni (24px) — domyślny'
+        -
+          key: large
+          value: 'Duży (40px)'
+        -
+          key: xl
+          value: 'Bardzo duży (64px)'
+      default: medium
+      if:
+        layout_mode: 'equals columns'
+  -
+    handle: column_padding
+    field:
+      type: select
+      display: 'Padding wewnątrz kolumny'
+      instructions: 'Wewnętrzny odstęp tekstu od krawędzi kolumny.'
+      options:
+        -
+          key: none
+          value: 'Brak — domyślny'
+        -
+          key: small
+          value: 'Mały (12px)'
+        -
+          key: medium
+          value: 'Średni (24px)'
+        -
+          key: large
+          value: 'Duży (40px)'
+      default: none
+      if:
+        layout_mode: 'equals columns'
+  -
+    handle: content_max_width
+    field:
+      type: select
+      display: 'Maksymalna szerokość tekstu (długość linii)'
+      instructions: 'Ogranicza szerokość bloku tekstu. „Optymalna" daje ~65 znaków/linia (najczytelniejsze dla długich tekstów). Działa w obu trybach układu.'
+      options:
+        -
+          key: full
+          value: 'Pełna szerokość — domyślny'
+        -
+          key: prose
+          value: 'Optymalna (~65 znaków/linia)'
+        -
+          key: narrow
+          value: 'Wąska (~45 znaków/linia)'
+      default: full
+  -
     handle: columns
     field:
       type: replicator

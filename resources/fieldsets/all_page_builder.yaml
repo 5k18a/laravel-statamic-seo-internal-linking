@@ -26,6 +26,11 @@ fields:
               fields:
                 -
                   import: service_section
+            services_grid_section:
+              display: 'Services Grid Section'
+              fields:
+                -
+                  import: services_grid_section
             overview_section:
               display: 'Overview Section'
               fields:

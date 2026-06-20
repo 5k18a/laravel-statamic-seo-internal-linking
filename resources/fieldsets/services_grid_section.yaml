@@ -1,0 +1,91 @@
+title: 'Services Grid Section'
+fields:
+  -
+    handle: layouts_grid
+    field:
+      type: select
+      display: 'Layout Variant'
+      options:
+        -
+          key: soft
+          value: 'Soft (3 kolumny z liniami siatki)'
+        -
+          key: row
+          value: 'Row (4 kolumny — gęsta siatka, bez wewnętrznych borderów)'
+        -
+          key: card-based
+          value: 'Card-based (3 kolumny — karty z borderem i hover)'
+        -
+          key: column
+          value: 'Column (wertykalna lista pełnej szerokości)'
+        -
+          key: asymmetric
+          value: 'Asymmetric (1 hero + 2 mniejsze, z obrazami)'
+      default: soft
+      instructions: 'Wariant układu kart usług.'
+  -
+    handle: section_title
+    field:
+      type: text
+      display: 'Section Title'
+      localizable: true
+  -
+    handle: tag_title
+    field:
+      type: text
+      display: 'Tag Title (badge nad section_title)'
+      localizable: true
+      instructions: 'Opcjonalna etykieta wyświetlana jako badge nad tytułem sekcji. Wykorzystywana w wariantach row/column/asymmetric. Wariant soft również ją wyświetla, jeśli pole jest uzupełnione.'
+  -
+    handle: section_button
+    field:
+      type: grid
+      display: 'Section Button (opcjonalny — w nagłówku sekcji)'
+      mode: stacked
+      max_rows: 1
+      fields:
+        -
+          handle: text
+          field:
+            type: text
+            display: 'Button Text'
+            localizable: true
+        -
+          handle: url
+          field:
+            type: text
+            display: 'Button URL'
+            instructions: 'np. /oferta lub /services'
+  -
+    handle: collections
+    field:
+      type: collections
+      display: Collections
+      mode: select
+      max_items: 1
+      instructions: 'Wybierz kolekcję do wyświetlenia (np. services).'
+  -
+    handle: limit
+    field:
+      type: integer
+      default: 0
+      display: Limit
+      instructions: '0 = wszystkie wpisy.'
+  -
+    handle: card_button_text
+    field:
+      type: text
+      display: 'Card Button Text (fallback)'
+      default: 'Read more'
+      instructions: 'Tekst „czytaj więcej" pod każdą kartą. Jeśli wpis kolekcji ma własne pole button_label, ono ma priorytet.'
+      localizable: true
+  -
+    handle: asymmetric_entries
+    field:
+      type: entries
+      mode: select
+      max_items: 3
+      display: 'Wybrane wpisy (Asymmetric)'
+      instructions: 'Tylko dla wariantu Asymmetric. Wybierz maksymalnie 3 wpisy — pierwszy będzie hero (lewa kolumna), kolejne dwa małymi kartami (prawa). Jeśli puste, wariant pobierze automatycznie pierwsze 3 wpisy z wybranej kolekcji wg pola Order.'
+      if:
+        layouts_grid: 'equals asymmetric'

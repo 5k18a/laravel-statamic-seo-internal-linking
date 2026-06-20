@@ -3,15 +3,19 @@
     <div class="{{ if width == 'full' || width == 'full_no_padding' }}w-full{{ /if }} {{ if width != 'full_no_padding' }}2xl:py-20 1xl:py-16 lg:py-14 sm:py-10 py-6 px-4{{ /if }}"
         {{ if width != 'full' && width != 'full_no_padding' }}style="max-width: {{ width }}%; margin: 0 auto;"{{ /if }}>
         {{ if layout_mode == 'columns' }}
-            <div class="grid gap-6 grid-cols-1 {{ if columns_layout == '2' }}md:grid-cols-2{{ elseif columns_layout == '3' }}md:grid-cols-3{{ else }}md:grid-cols-4{{ /if }}">
+            <div class="grid grid-cols-1 {{ if columns_layout == '2' }}md:grid-cols-2{{ elseif columns_layout == '3' }}md:grid-cols-3{{ else }}md:grid-cols-4{{ /if }} {{ if column_gap == 'none' }}gap-0{{ elseif column_gap == 'small' }}gap-4{{ elseif column_gap == 'large' }}gap-10{{ elseif column_gap == 'xl' }}gap-16{{ else }}gap-6{{ /if }}">
                 {{ columns }}
-                    <div class="min-w-0">
-                        {{ content }}
+                    <div class="min-w-0 {{ if column_padding == 'small' }}p-3{{ elseif column_padding == 'medium' }}p-6{{ elseif column_padding == 'large' }}p-10{{ /if }}">
+                        <div class="{{ if content_max_width == 'prose' }}max-w-prose mx-auto{{ elseif content_max_width == 'narrow' }}max-w-[45ch] mx-auto{{ /if }}">
+                            {{ content }}
+                        </div>
                     </div>
                 {{ /columns }}
             </div>
         {{ else }}
-            {{ content }}
+            <div class="{{ if content_max_width == 'prose' }}max-w-prose mx-auto{{ elseif content_max_width == 'narrow' }}max-w-[45ch] mx-auto{{ /if }}">
+                {{ content }}
+            </div>
         {{ /if }}
     </div>
 </section>

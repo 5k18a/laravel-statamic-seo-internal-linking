@@ -4,15 +4,15 @@
 # Aktualizowany po każdym zakończonym zadaniu
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-20-1006
+state_version: 2026-06-20-1900
 active_task_id: none
 active_task_name: Brak aktywnego zadania
 active_task_status: closed
 active_task_source: BRIEF_CODEX.md
-last_sync: 2026-06-20 10:06 Europe/Warsaw
+last_sync: 2026-06-20 19:00 Europe/Warsaw
 last_synced_by: Claude
-last_closed: FEATURE-services-route-pl-oferta
-next_after_active: Decyzja użytkownika
+last_closed: FEATURE-services-grid-section-variants
+next_after_active: Decyzja użytkownika (pozostałe warianty — futured/hard/highlights/accordion — lub Formularze kontaktowe)
 <!-- PROJECT_SYNC_END -->
 
 > **Stała lokalnego dev (2026-06-20)**: frontend działa na `http://127.0.0.1:8001/` (nie `8000`). Komenda PHP lokalnie: `php artisan` (na serwerze: `php84`). Te stałe stosować w briefach walidacyjnych.
@@ -346,13 +346,41 @@ Z `CODEX_SUGGESTIONS.md` (2026-06-05, SEO-Pro):
 
 | # | Zadanie | Status |
 |---|---------|--------|
-| 1 | Formularze kontaktowe (Statamic Forms) | 🔮 Zakres do ustalenia z użytkownikiem |
-| 2 | Integracja formularzy z EspoCRM (Lead Capture) | 🔮 Do zrobienia w ramach zadania Formularze |
+| 1 | Pozostałe warianty Services Grid (futured / hard / highlights / accordion) | 🔮 Opcjonalne — dispatcher gotowy, tani dodatek |
+| 2 | Formularze kontaktowe (Statamic Forms) | 🔮 Zakres do ustalenia z użytkownikiem |
+| 3 | Integracja formularzy z EspoCRM (Lead Capture) | 🔮 Do zrobienia w ramach zadania Formularze |
+
+## Ostatnio zamknięte
+
+**FEATURE-services-grid-section-soft** (2026-06-20, ACCEPTED) — nowa sekcja page buildera `Services Grid Section` z dispatcherem layoutu (wariant `soft`). Pliki: `resources/fieldsets/services_grid_section.yaml`, `resources/views/page_builder/services_grid_section.antlers.html`, `resources/views/component/services_grid_layouts/soft.antlers.html`, rejestracja w `all_page_builder.yaml`, klucz "Read more" w 12 lang/*.json, output.css rebuild. Render zweryfikowany na `/oferta` (12 kart, ikony iconify, pseudo-elementy siatki, button cascade `button_label`→`card_button_text`→trans).
+
+### Ostatnia analiza gotowych rozwiązań
+
+`FEATURE-services-grid-section-soft` — skrócona (adaptacja istniejącego layoutu z motywu siostrzanego):
+
+| Rozwiązanie | Werdykt |
+|---|---|
+| Natywne Statamic page builder | Brak generic "grid showcase" — sekcje page buildera są customowe per-motyw |
+| Mechanizm Orion (`service_section`) | Odrzucony — modele danych nieprzystające, fieldset zaśmieciłby się polami warunkowymi |
+| Addon Statamic | Brak gotowego addonu dla configurable grid showcase |
+| **Bigmentor `component/soft`** | **Wybrane** — publiczne repo Webbycrown (siostrzany motyw), markup gotowy, paleta/font do prostego remappingu |
+| Custom from scratch | Niepotrzebne |
+
+### Ostatni brief dla Codex
+
+`BRIEF_CODEX.md` (state_version 2026-06-20-1500, FEATURE-services-grid-section-soft) — zamknięty po audycie 2026-06-20-1700. Brief zarchiwizowany w `briefs/archive/2026-06-20-feature-services-grid-section-soft.md`.
+
+### Ostatni feedback Codex
+
+`FEATURE-services-grid-section-soft` (2026-06-20) — pełny raport w `CODEX_SUGGESTIONS.md` (ACTIVE_FOR_CLAUDE_REVIEW → RESOLVED_BY_CLAUDE accepted). Codex zrealizował wszystkie wymagania briefu + bonus dodał testowy blok do `content/collections/pages/pl/oferta.md` dla real-runtime weryfikacji renderingu. Wykrył też artefakt minifikacji Tailwind v4 (klasy z escape backslash w CSS — komenda walidacyjna z briefu zwracała 0, faktyczne klasy obecne).
 
 ## Następne kroki
 
-1. **Formularze** — ustalić zakres z użytkownikiem, przeprowadzić analizę gotowych rozwiązań (natywne Statamic Forms vs addon vs autorskie), przygotować brief dla Codex
-2. **EspoCRM Lead Capture** — po wdrożeniu formularzy: listener `FormSubmitted` → `Http::post()` do `/api/v1/LeadCapture/{apiKey}`; apiKey konfigurowany w EspoCRM Administration → Lead Capture; brak potrzeby auth headers; działa na dhosting (Guzzle/curl, bez exec/proc_open)
+1. **Wybór następnego priorytetu** — decyzja użytkownika:
+   - (a) kolejny wariant Services Grid (`hard`/`card-based`/`asymmetric`) — tani, dispatcher gotowy
+   - (b) **Formularze kontaktowe** — backlog od dawna, wymaga analizy gotowych rozwiązań (natywne Statamic Forms vs addon vs autorskie), brief dla Codex
+   - (c) coś innego wskazanego przez użytkownika
+2. **Po Formularzach: EspoCRM Lead Capture** — listener `FormSubmitted` → `Http::post()` do `/api/v1/LeadCapture/{apiKey}`
 
 ---
 

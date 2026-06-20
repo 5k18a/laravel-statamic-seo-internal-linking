@@ -1,0 +1,74 @@
+{{# Layout adapted from webbycrown/bigmentor-statamic-theme — resources/views/component/soft.antlers.html. Adapted for skalisty-orion: paleta primary-900 (żółto-brązowy #8f6900), font-el-messiri (Syne), iconify+asset fallback, i18n przez trans key #}}
+<section class="relative overflow-hidden py-7 sm:py-8 md:py-10 lg:py-12 xl:py-14 2xl:py-16">
+  <div class="container">
+    {{ if tag_title or section_title or section_button }}
+      <div class="mb-8 md:mb-10 xl:mb-14">
+        <div class="flex items-center justify-between flex-wrap gap-5">
+          <div class="inline-block">
+            {{ if tag_title }}
+              <span class="border uppercase py-1 px-5 border-primary-900 rounded-2xl text-sm font-bold mb-3 md:mb-5 inline-block">{{ tag_title }}</span>
+            {{ /if }}
+
+            {{ if section_title }}
+              <h2 class="2xl:text-[45px] 1xl:text-2xl xl:text-1xl lg:text-[32px] sm:text-xl text-[28px] leading-normal text-black font-el-messiri font-medium max-w-[738px]">
+                {{ section_title }}
+              </h2>
+            {{ /if }}
+          </div>
+
+          {{ section_button }}
+            {{ if text and url }}
+              <a href="{{ url }}" class="btn btn-primary-reverse">
+                {{ text }}
+              </a>
+            {{ /if }}
+          {{ /section_button }}
+        </div>
+      </div>
+    {{ /if }}
+
+    <div class="grid grid-cols-1 border-b border-t border-gray-700 sm:grid-cols-2 lg:grid-cols-3 relative before:content-[''] before:absolute before:left-0 before:top-0 before:w-[1px] before:h-full before:bg-white after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-[1px] after:bg-white">
+      {{ collection:{collections} limit="{limit}" sort="order:asc" }}
+        <div class="border-l border-b border-gray-700 py-5 sm:p-5 2xl:px-0 2xl:pt-[60px] 2xl:pb-[50px] xl:pt-12 xl:pb-11 lg:py-8 md:py-6">
+          <div class="md:max-w-[380px] md:mx-auto">
+            <div class="shrink-0 w-8 h-8 2xl:w-10 2xl:h-10 flex items-center justify-center text-black [&>svg]:w-8 [&>svg]:h-8 2xl:[&>svg]:w-10 2xl:[&>svg]:h-10">
+              {{ if icon_svg }}
+                {{ iconify:icon_svg class="w-8 h-8 2xl:w-10 2xl:h-10" aria-hidden="true" }}
+              {{ else }}
+                {{ icon }}
+                  <img src="{{ url }}" alt="{{ title }}" class="block w-8 h-8 2xl:w-10 2xl:h-10 object-contain" loading="lazy">
+                {{ /icon }}
+              {{ /if }}
+            </div>
+
+            <div class="w-full mt-7">
+              <h4 class="lg:text-[25px] sm:text-[20px] text-lg lg:mb-4 mb-3 leading-normal text-black hover:text-primary-900 font-el-messiri font-medium">
+                <a href="{{ url }}" class="text-current">{{ title }}</a>
+              </h4>
+
+              {{ if description }}
+                <p class="2xl:text-lg lg:text-[15px] text-sm leading-normal mb-4 lg:mb-5 font-light font-lexend text-gray-800">
+                  {{ description }}
+                </p>
+              {{ /if }}
+
+              <a href="{{ url }}" class="font-bold inline-flex items-center md:text-lg text-md hover:text-black text-primary-900">
+                {{ if button_label }}
+                  {{ button_label }}
+                {{ elseif card_button_text }}
+                  {{ card_button_text }}
+                {{ else }}
+                  {{ trans key="Read more" }}
+                {{ /if }}
+                <svg class="ml-1" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3.33325 8H12.6666" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M8.66675 4L12.6667 8L8.66675 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      {{ /collection:{collections} }}
+    </div>
+  </div>
+</section>
