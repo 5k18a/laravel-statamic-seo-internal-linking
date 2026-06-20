@@ -1,15 +1,15 @@
 # PROJECT_STATUS_CODEX.md
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-20-2010
+state_version: 2026-06-20-2300
 active_task_id: none
 active_task_name: Brak aktywnego zadania
 active_task_status: closed
 active_task_source: BRIEF_CODEX.md
-last_sync: 2026-06-20 20:10 Europe/Warsaw
+last_sync: 2026-06-20 23:00 Europe/Warsaw
 last_synced_by: Claude
-last_closed: section_button-entry-picker
-next_after_active: Decyzja użytkownika — Formularze kontaktowe lub Wtyczka chatbota AI multi-provider (duża inicjatywa, osobny projekt)
+last_closed: HOTFIX-entries-picker-default-mode
+next_after_active: Wybór z backlogu (chatbot AI multi-provider / Formularze kontaktowe / pozostałe warianty Services Grid / kolejne idee)
 <!-- PROJECT_SYNC_END -->
 
 ---

@@ -95,6 +95,31 @@ mv www skalisty_2026
 
 ---
 
+## Deploy przyrostowy — 2026-06-20 (17:08-17:50) — services_grid iteracja UX (4 mini-rsync)
+
+### Zakres wdrożenia
+
+Iteracyjne mini-deploye po głównym 17:01 — drobne korekty UX/translatable/entry picker po feedback'u testowym:
+
+- **17:08** — `services_grid_section.yaml` z `localizable: true` + `translatable: false` na `section_button.url` (Magic Translator nie tłumaczy URL).
+- **17:18** — refactor `section_button` z grid (text+url) → 3 top-level pola (`section_button_text`, `section_button_entry` entries picker, `section_button_url`) + zmiana 5 partials (`soft`/`row`/`card-based`/`column`/`asymmetric`).
+- **17:50** — entries picker default mode (usunięto `mode: select` z `section_button_entry` + `asymmetric_entries` — UX: kafelki z X do usuwania).
+- **+ content sync** `oferta.md` — h3 zmieniony z "Nasza Oferta" → "Zakres naszych usług" (user edit w CP).
+
+Wszystkie wdrożone w non-auto mode (auto-mode classifier w Claude Code v2.1.150 blokował SSH deployy — Anthropic przeniósł "Production Deploy" z `soft_deny` do `hard_deny` w defaults).
+
+### Metoda
+
+Per mini-deploy: rsync konkretnych plików + `view:clear` + `stache:refresh` na serwerze. `skalisty-ssh` wrapper (po `chmod +x` ustawionym raz na stałe).
+
+### Walidacja
+
+- HTTP `/oferta` 200 ✅
+- `php artisan stache:refresh` per deploy ✅
+- Render produkcji potwierdzony przez `curl https://dev.skalisty.pl/oferta`: 12 kart services_grid soft, free_text z marginesami, 12 buttonów "Dowiedz się więcej" (cascade card_button_text > button_label > trans).
+
+---
+
 ## Deploy przyrostowy — 2026-06-20 (17:01) — services_grid_section + free_text margins + asymmetric hover
 
 ### Zakres wdrożenia

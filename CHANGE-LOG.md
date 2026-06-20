@@ -4,6 +4,64 @@ Changelog projektu `skalisty-orion` — prowadzony przez Claude po każdym zako�
 
 ---
 
+## 2026-06-20 (SESJA-CLOSE — zamknięcie sesji)
+
+### Zamknięte (sesja 2026-06-20, FEATURE Services Grid + chatbot setup)
+
+W ciągu sesji 2026-06-20 zamknięto **9 zadań** związanych z `services_grid_section`, wdrożono na `dev.skalisty.pl`, plus **dodano nowe repo GitHub** dla wtyczki chatbota AI. Atomowa aktualizacja dokumentacji.
+
+### Zadania zamknięte (chronologicznie)
+
+1. **FEATURE-services-grid-section-soft** — nowa sekcja page buildera + dispatcher + wariant soft
+2. **FEATURE-services-grid-section-variants** — 4 nowe warianty (row, card-based, column, asymmetric)
+3. **HOTFIX-antlers-comment-syntax** — `{# #}` → `{{# #}}` (Claude bezpośrednio)
+4. **HOTFIX-icon-container-color** — kolor czcionki (Claude bezpośrednio)
+5. **STYLE-description-lighter** — `font-light font-lexend` (Claude bezpośrednio)
+6. **HOTFIX-column-fullwidth** — full-width column variant (Claude bezpośrednio)
+7. **STYLE-asymmetric-text-overlay** — text-white/80 + lżejsze overlay (Claude bezpośrednio)
+8. **STYLE-asymmetric-grayscale-hover** — grayscale + group-hover effects (Claude bezpośrednio)
+9. **FEATURE-asymmetric-entries-picker** — picker wpisów (max_items: 3) z fallback
+10. **FEATURE-free-text-margins-control** — 3 nowe pola (column_gap, column_padding, content_max_width)
+11. **STYLE-card-button-cascade-reverse** — `card_button_text` ma priorytet nad `button_label`
+12. **CONFIG-services-grid-translatable-fields** — section_button.url translatable: false
+13. **FEATURE-section-button-entry-picker** — section_button refactor (grid → 3 top-level pola, entries picker dla auto per-locale URL)
+14. **HOTFIX-entries-picker-default-mode** — usunięto `mode: select` z section_button_entry + asymmetric_entries (UX: kafelki z X do usuwania)
+
+### Dodano
+
+- **Nowe repo GitHub: `5k18a/laravel-statamic-ai-chatbot`** (private, MIT) — pre-alpha specification dla wtyczki chatbota AI multi-provider (DeepSeek/OpenAI/Claude/Ollama). 12 plików dokumentacji (~50 KB): README, ARCHITECTURE, ROADMAP (7 milestones), CONTRIBUTING, SECURITY, docs/PROVIDERS, CHANGELOG, LICENSE, composer.json, .gitignore, .github/ISSUE_TEMPLATE/. Repo URL: https://github.com/5k18a/laravel-statamic-ai-chatbot. Status: pre-alpha — implementacja jeszcze nie rozpoczęta.
+- **Wtyczka chatbota AI multi-provider** dodana do backlogu `PROJECT_STATUS_CODEX.md` sekcja "Do wykonania" #1 — pełna specyfikacja, 7 etapów wdrożenia, plan migracji do osobnego addonu w v1.0.
+
+### Zmieniono
+
+- **Content edit** `content/collections/pages/pl/oferta.md` — h3 "Nasza Oferta" → "Zakres naszych usług" (user edit w CP).
+- **Backlog renumerowany** w `PROJECT_STATUS_CODEX.md`: wtyczka chatbota = #1, Formularze = #2, EspoCRM = #3, etc. (do 8).
+
+### Wdrożenia
+
+- **Deploy 17:01** (główny) — services_grid_section + free_text margins + asymmetric hover (rsync 1.1 MB sent / 848 KB recv, speedup 254×); backup zdalny 160 KB.
+- **Mini-deploy 17:08** — `services_grid_section.yaml` translatable fields config.
+- **Mini-deploy 17:18** — refactor section_button do 3 top-level pól (fieldset + 5 partials).
+- **Mini-deploy 17:50** — entries picker default mode (UX X button).
+- **Mini-deploy oferta.md** — content sync (h3 + content "Skalisty oferuje...").
+
+Wszystkie deploye w non-auto mode (po wyłączeniu auto-mode classifiera, który blokował SSH w v2.1.150). Skrypt `skalisty-ssh` wrapper z `chmod +x` (ustawione raz, persistent).
+
+### Decyzje techniczne (z sesji)
+
+- **Antlers grid context** nie obsługuje `entry:0:url`/`entry.0.url` notation — `{{ entry }}` w grid row to tag block (echo'uje pusty). Workaround: spłaszczenie `section_button` (grid) → 3 top-level pola (`section_button_text`, `section_button_entry`, `section_button_url`).
+- **Statamic native `{{ url }}` w entry loop** generuje URL automatycznie per-locale — perfekcyjne dla wieloojęzycznych przycisków.
+- **Auto-mode classifier v2.1.150** — Anthropic przeniósł "Production Deploy / Remote Shell Writes" z `soft_deny` (gdzie user intent czyści) do `hard_deny` (zawsze blokuje). Workaround: non-auto mode dla SSH deployów.
+
+### Aktualizacja PROJECT_SYNC
+
+- `state_version: 2026-06-20-2300`
+- `active_task_id: none`
+- `last_closed: HOTFIX-entries-picker-default-mode`
+- `next_after_active: Wybór z backlogu (chatbot AI multi-provider / Formularze kontaktowe / pozostałe warianty Services Grid / kolejne idee)`
+
+---
+
 ## 2026-06-20 (FEATURE-section-button-entry-picker)
 
 ### Zmieniono

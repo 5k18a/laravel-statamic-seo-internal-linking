@@ -4,7 +4,7 @@ blueprint: page
 title: Oferta
 author: 15c0f104-0188-406c-b4ef-af40e61a13db
 updated_by: 07f72358-0580-4aaf-b00c-6a3760228419
-updated_at: 1781966846
+updated_at: 1781968897
 template: service/show
 page_builder:
   -
@@ -16,7 +16,7 @@ page_builder:
     columns:
       -
         id: aAADu_14IqAIDpOQOUyvK
-        content: '<h3 style="text-align: center;">Nasza Oferta</h3><p></p>'
+        content: '<h3 style="text-align: center;">Zakres naszych usług</h3><p></p>'
         type: column
         enabled: true
       -
