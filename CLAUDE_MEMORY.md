@@ -451,6 +451,10 @@ Dodane do `.gitignore`: `ADMIN_ACCESS.txt`, `/users/*.yaml`
 
 **Zamknięcie sesji**: CHANGE-LOG (6 wpisów: 4 zadania + 2 deploye), DEPLOYMENT (2 wpisy), CLAUDE_MEMORY (ten wpis), PROJECT_STATUS_CODEX zaktualizowane. Commit + push na `origin/main`.
 
+### 2026-06-20 (sesja nocna)
+
+**BUGFIX-embedded-video-mobile**: dwa problemy w player video (page builder + Bard): (1) autoplay na mobile — `x-show` ukrywa element ale iframe z `src` już załadowany odtwarza audio; fix: `:src="playing ? embedUrl : ''"`. (2) szerokość na mobile — `max-sm:w-[95%]` nie pokrywało wszystkich telefonów (viewport >640px); fix: `w-full md:w-[70%]`. Deploy: 2 pliki rsync, view:clear + cache:clear.
+
 ### 2026-06-20 (sesja wieczorna)
 
 **FEATURE-embedded-video-cover-image**: opcjonalne pole `cover_image` (type: assets) w sekcji Embedded Video — zarówno dla page buildera (`embedded_video_section.yaml`, `page_builder/embedded_video_section.antlers.html`) jak i Bard (`service.yaml` blueprint, `service/show.antlers.html`). JS `embeddedVideo(service, url, coverImage)`: jeśli `coverImage` podany → `this.thumbnail = coverImage`, pomijamy YouTube thumbnail i Vimeo oEmbed. Antlers `{{ cover_image }}{{ url }}{{ /cover_image }}` → puste string gdy brak = falsy w JS.

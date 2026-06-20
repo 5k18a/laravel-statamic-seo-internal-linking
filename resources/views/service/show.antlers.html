@@ -51,7 +51,7 @@
 
 {{ elseif type == "video_section" }}
 <div class="container 2xl:py-[18px] 1xl:py-4 lg:py-3.5 sm:py-2.5 py-2">
-  <div class="mx-auto w-[70%] max-sm:w-[95%]"
+  <div class="mx-auto w-full md:w-[70%]"
        x-data="embeddedVideo('{{ video_service }}', '{{ video_url | replace("'", "\\'") }}', '{{ cover_image }}{{ url }}{{ /cover_image }}')"
        x-init="init()">
     <div class="relative w-full" style="padding-bottom: 56.25%;">
@@ -68,7 +68,7 @@
         </div>
       </div>
       <div x-show="playing" class="absolute inset-0">
-        <iframe :src="embedUrl" class="w-full h-full" frameborder="0"
+        <iframe :src="playing ? embedUrl : ''" class="w-full h-full" frameborder="0"
                 allow="autoplay; fullscreen; picture-in-picture; accelerometer; clipboard-write; encrypted-media; gyroscope"
                 allowfullscreen></iframe>
       </div>

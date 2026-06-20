@@ -1019,3 +1019,20 @@ Rsync per plik / grupy plików (sshpass + rsync -avz). Komendy po deployu: `php8
 ### Wynik
 
 Deploy zakończony poprawnie. HTTP 200 na `dev.skalisty.pl`. Kafle w mega menu wyświetlają efekt hover. Cover image dla sekcji video aktywna.
+
+---
+
+## Deploy przyrostowy — 2026-06-20 — BUGFIX-embedded-video-mobile
+
+### Zakres wdrożenia
+
+- `resources/views/page_builder/embedded_video_section.antlers.html` — `:src="playing ? embedUrl : ''"` (brak autoplay) + `w-full md:w-[70%]` (szerokość mobile)
+- `resources/views/service/show.antlers.html` — j.w.
+
+### Metoda
+
+Rsync per plik × 2. `php84 artisan view:clear && php84 artisan cache:clear`.
+
+### Wynik
+
+HTTP 200. Brak autoplay na mobile. Player pełna szerokość kontenera na mobile, 70% od md wzwyż.

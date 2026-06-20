@@ -4,6 +4,16 @@ Changelog projektu `skalisty-orion` — prowadzony przez Claude po każdym zako�
 
 ---
 
+## 2026-06-20 (bugfix — embedded video: autoplay na mobile + szerokość na mobile)
+
+### Naprawiono
+
+- **`resources/views/page_builder/embedded_video_section.antlers.html`** i **`resources/views/service/show.antlers.html`**:
+  - **Autoplay mobile**: `iframe :src="embedUrl"` → `:src="playing ? embedUrl : ''"` — iframe nie ładuje się dopóki użytkownik nie kliknie play; `x-show` samo w sobie nie wystarczało (iframe był załadowany i odtwarzał audio będąc tylko ukrytym).
+  - **Szerokość mobile**: `w-[70%] max-sm:w-[95%]` → `w-full md:w-[70%]` — na mobile player wypełnia pełną szerokość kontenera (takie same marginesy jak tekst i obrazki), od `md` (768px) wraca do 70% z centrowaniem.
+
+---
+
 ## 2026-06-20 (feat — embedded video: opcjonalna cover image z lokalnych assetów)
 
 ### Zmieniono / dodano
