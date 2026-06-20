@@ -4,6 +4,48 @@ Changelog projektu `skalisty-orion` — prowadzony przez Claude po każdym zako�
 
 ---
 
+## 2026-06-20 (feat — embedded video: opcjonalna cover image z lokalnych assetów)
+
+### Zmieniono / dodano
+
+- **`resources/fieldsets/embedded_video_section.yaml`** — nowe pole `cover_image` (type: assets, max_files: 1) z instrukacją PL.
+- **`resources/blueprints/collections/services/service.yaml`** — `cover_image` dodane do setu `video_section` w Bard.
+- **`resources/views/page_builder/embedded_video_section.antlers.html`** — sygnatura `embeddedVideo(service, url, coverImage)`: `if (coverImage) this.thumbnail = coverImage;` jako guard przed logiką serwisu. YouTube i Vimeo thumbnail fetch wykonywany tylko gdy `!coverImage`.
+- **`resources/views/service/show.antlers.html`** — analogiczna zmiana w bloku Bard `video_section`; `{{ cover_image }}{{ url }}{{ /cover_image }}` jako 3. argument (puste = falsy w JS).
+
+### Wynik
+
+Jeżeli w sekcji video zostanie wgrana lokalna okładka → zastępuje miniaturkę z YouTube/Vimeo. Brak okładki → zachowanie bez zmian (miniaturka z serwisu).
+
+---
+
+## 2026-06-20 (feat — mega menu: kafle usług z hover bg, layout ivena)
+
+### Zmieniono
+
+- **`resources/views/partials/header-{1,2,3,4}.antlers.html`** — lista kaflowa usług (6 max) przeprojektowana na styl ivena:
+  - `<a>` jako `display: block` (nie flex) — wrapper z `rounded`, `bg-[#f5f5f5]`, `hover:bg-black/[0.08]`, `transition-colors` — efekt hover tła.
+  - Flex layout przeniesiony do wewnętrznego `<div class="flex items-start gap-[15px] px-[25px] py-[18px]">` — uniezależniony od reguł `extra.css` (`navbar li a { flex items-center }`).
+  - Ikona: `<span class="w-10 h-10 flex-shrink-0 [&>svg]:w-full [&>svg]:h-full">` + `{{ iconify:icon_svg }}` — wyrównana do góry ikona obok `<div>` z h4 + p.
+  - `h4` z `leading-[1.3] group-hover/tile:text-primary-900 transition-colors`, `p` z `text-gray-400 font-light text-[14px]`.
+  - Klasa `group/tile` na `<a>` obsługuje hover przez Tailwind `group-hover/tile:`.
+- **`public/assets/css/extra.css`** — nowa reguła `.navbar li.w-full > a.group\/tile { display: block !important; padding: 0 !important; }` — override `flex items-center` i `p-0` z theme.
+- **`public/assets/css/output.css`** — przebudowany przez `npm run build` (nowe arbitrary klasy Tailwind v4).
+
+### Wynik
+
+Kafle w mega menu mają efekt hover (szare tło → ciemniejsze) i layout 1:1 z motywem ivena: ikona 40×40 po lewej wyrównana do góry tytułu, tytuł + opis obok, padding i odstępy spójne z ivena. CSS konflikt z `extra.css` rozwiązany przez przeniesienie flex na wewnętrzny `<div>`.
+
+---
+
+## 2026-06-20 (content — nowy wpis usługi: sztuczna-rafa-koralowa)
+
+### Dodano
+
+- **`content/collections/services/pl/sztuczna-rafa-koralowa.md`** — nowy wpis usługi w języku polskim z sekcją video w Bard.
+
+---
+
 ## 2026-06-20 (feat — mega menu: locale-aware button links)
 
 ### Zmieniono

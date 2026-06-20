@@ -451,6 +451,18 @@ Dodane do `.gitignore`: `ADMIN_ACCESS.txt`, `/users/*.yaml`
 
 **Zamknięcie sesji**: CHANGE-LOG (6 wpisów: 4 zadania + 2 deploye), DEPLOYMENT (2 wpisy), CLAUDE_MEMORY (ten wpis), PROJECT_STATUS_CODEX zaktualizowane. Commit + push na `origin/main`.
 
+### 2026-06-20 (sesja wieczorna)
+
+**FEATURE-embedded-video-cover-image**: opcjonalne pole `cover_image` (type: assets) w sekcji Embedded Video — zarówno dla page buildera (`embedded_video_section.yaml`, `page_builder/embedded_video_section.antlers.html`) jak i Bard (`service.yaml` blueprint, `service/show.antlers.html`). JS `embeddedVideo(service, url, coverImage)`: jeśli `coverImage` podany → `this.thumbnail = coverImage`, pomijamy YouTube thumbnail i Vimeo oEmbed. Antlers `{{ cover_image }}{{ url }}{{ /cover_image }}` → puste string gdy brak = falsy w JS.
+
+**STYLE-mega-menu-ivena-tiles**: kafle usług w mega menu header-{1,2,3,4} przeprojektowane 1:1 z motywu ivena. Kluczowe odkrycie: `extra.css` `.navbar li a { @apply flex items-center; }` konfliktowało z każdym `<a>` wewnątrz `.navbar`. Rozwiązanie ivena: `<a>` = `display: block` (wrapper), flex na wewnętrznym `<div>` — CSS reguły na `<a>` nie dotyczą layoutu contentu. Dodano `.navbar li.w-full > a.group\/tile { display: block !important; padding: 0 !important; }` do `extra.css`. Efekt hover tła: `hover:bg-black/[0.08]`, ikona 40×40 wyrównana do góry, `group/tile` + `group-hover/tile:text-primary-900` na h4. `sed` z nawiasami `[&>svg]` → corrupcja — fix przez Python `re.sub()`.
+
+**CONTENT-sztuczna-rafa-koralowa**: nowy wpis usługi PL z sekcją video w Bard.
+
+**Deploy**: rsync 11 plików (partials, blueprints, fieldsets, views, extra.css, output.css, content). HTTP 200 na `dev.skalisty.pl`. Kafle mega menu z efektem hover, cover image aktywna.
+
+**Zamknięcie sesji**: CHANGE-LOG (3 wpisy: cover image, kafle, content), DEPLOYMENT (1 wpis), CLAUDE_MEMORY (ten wpis). Commit + push na `origin/main`.
+
 ### 2026-06-20 (sesja popołudniowa)
 
 **FEATURE-services-route-pl-oferta**: zlokalizowanie trasy URL dla kolekcji `services`. `content/collections/services.yaml`: `route` ze stringa `/service/{slug}` na mapę 12 locale (PL `/oferta/{slug}`, reszta `/service/{slug}`); wzorzec analogiczny do Projects (`/realizacje/{slug}` PL). `CollectionRoutesController::$managedCollections`: dodane `'services' => 'Usługi (Services)'` — w CP > Tools > Trasy URL kolekcji widać teraz Projekty + Usługi. 21 hardcoded `href="/service/{{slug}}"` zamienionych na `href="{{ url }}"` w 8 widokach (`service_section.antlers.html` × 13, header-1/2/3/4 × 1, footer-1 × 2, footer-4 × 1, search-results × 1) — Statamic generuje URL z `route` per locale automatycznie. Nawigacja PL: `/oferta/architectural-design`. **Rename strony PL `services.md` → `oferta.md`** zrobiony przez użytkownika w CP — świadoma decyzja spójna z duchem zmiany (strona kolekcji = `/oferta`, pojedyncza usługa = `/oferta/{slug}`). EN bez zmian.

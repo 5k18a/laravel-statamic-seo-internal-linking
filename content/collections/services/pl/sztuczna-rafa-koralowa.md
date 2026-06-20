@@ -7,7 +7,7 @@ image: galeria/afrykarium/afrykarium-5.webp
 description: 'Projektujemy i wykonujemy wielkoformatowe dekoracje akwarystyczne dla akwariów wielkolitrażowych i oceanariów, zarówno słodkowodnych, jak i morskich. Budujemy realistyczne sztuczne rafy koralowe, skały podwodne, sztuczne koralowce, pnie i scenografie, które odwzorowują naturalne biotopy oraz podnoszą atrakcyjność ekspozycji. Stosujemy materiały bezpieczne dla środowiska wodnego, a układ dekoracji dopasowujemy do cyrkulacji wody i wymagań technicznych zbiornika.'
 button_label: 'Dowiedz Się Więcej'
 updated_by: 07f72358-0580-4aaf-b00c-6a3760228419
-updated_at: 1781906798
+updated_at: 1781911454
 page_builder:
   -
     id: mgtcp0fs
@@ -189,6 +189,14 @@ content:
         type: text
         text: 'Każdą dekorację dopasowujemy do wielkości zbiornika, prezentowanych gatunków oraz założeń projektowych inwestora. Odpowiednio ukształtowane skały i rafy pozwalają stworzyć zróżnicowany krajobraz, wyznaczyć kryjówki i strefy funkcjonalne, a także zbudować czytelną kompozycję widoczną z perspektywy zwiedzających. Dzięki ręcznemu modelowaniu powierzchni możemy wiernie odtwarzać naturalne struktury skalne, rafy koralowe i charakterystyczne formy występujące w konkretnych biotopach.'
   -
+    type: set
+    attrs:
+      id: jI_ZOIjPBCv-91TtjJ1Rh
+      values:
+        type: skalisty_gallery_section
+        galleries:
+          - 84b4c9a2-de18-4da0-a89c-7b7fb3aabb9b
+  -
     type: heading
     attrs:
       textAlign: null
@@ -212,18 +220,6 @@ content:
         type: text
         text: ' wymaga uwzględnienia nie tylko estetyki, ale również warunków technicznych zbiornika. Już na etapie dokumentacji analizujemy cyrkulację wody, ograniczamy ryzyko powstawania martwych stref i kieszeni powietrznych oraz zapewniamy dostęp do elementów instalacyjnych wymagających obsługi. Do wykonania dekoracji wykorzystujemy specjalistyczne zaprawy i materiały dopuszczone do kontaktu z wodą pitną, odpowiednie zarówno do akwariów słodkowodnych, jak i morskich.'
   -
-    type: set
-    attrs:
-      id: jI_ZOIjPBCv-91TtjJ1Rh
-      values:
-        type: skalisty_gallery_section
-        galleries:
-          - 84b4c9a2-de18-4da0-a89c-7b7fb3aabb9b
-  -
-    type: paragraph
-    attrs:
-      textAlign: null
-  -
     type: paragraph
     attrs:
       textAlign: null
@@ -239,4 +235,17 @@ content:
       -
         type: text
         text: 'Doświadczenie zdobywaliśmy przy realizacji największych obiektów akwarystycznych w Polsce, między innymi Afrykarium we Wrocławiu oraz kompleksu Oceanika. Pracowaliśmy przy zbiornikach o pojemności wielu milionów litrów, w tym przy akwarium mieszczącym 15 milionów litrów wody. Dzięki połączeniu wiedzy technicznej, doświadczenia wykonawczego i artystycznego modelowania tworzymy trwałe, bezpieczne i realistyczne dekoracje akwarystyczne dopasowane do skali oraz charakteru inwestycji.'
+  -
+    type: set
+    attrs:
+      id: KgP8xi2gr1I541WGP-OsN
+      values:
+        type: video_section
+        video_service: vimeo
+        video_url: 'https://vimeo.com/135914207'
+        cover_image: galeria/akwaria/akwarystyka-1.webp
+  -
+    type: paragraph
+    attrs:
+      textAlign: null
 ---

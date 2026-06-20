@@ -138,6 +138,37 @@ tabs:
                             container: assets
                             type: assets
                             display: Images
+                    video_section:
+                      display: 'Video Section'
+                      fields:
+                        -
+                          handle: video_service
+                          field:
+                            type: select
+                            display: 'Video Service'
+                            options:
+                              -
+                                key: youtube
+                                value: YouTube
+                              -
+                                key: vimeo
+                                value: Vimeo
+                            default: youtube
+                        -
+                          handle: video_url
+                          field:
+                            type: text
+                            display: 'Video URL'
+                            instructions: 'Wklej pełny link do wideo, np. https://www.youtube.com/watch?v=... lub https://vimeo.com/...'
+                        -
+                          handle: cover_image
+                          field:
+                            type: assets
+                            display: 'Cover Image'
+                            instructions: 'Opcjonalna okładka. Jeśli nie zostanie dodana, użyta zostanie miniaturka z serwisu wideo.'
+                            container: assets
+                            max_files: 1
+                            restrict: false
                     dynamic_table:
                       display: 'Dynamic Table'
                       instructions: 'Create any table dynamically'

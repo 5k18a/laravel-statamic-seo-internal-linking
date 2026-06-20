@@ -393,6 +393,12 @@ p,
   @apply p-0;
 }
 
+/* service mega menu tiles — move layout to inner div, override theme flex/padding on <a> */
+.navbar li.w-full > a.group\/tile {
+  display: block !important;
+  padding: 0 !important;
+}
+
 .faqs-list.active .service-hover-img {
   @apply hidden;
 }

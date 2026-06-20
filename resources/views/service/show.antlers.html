@@ -49,6 +49,33 @@
   </ul>
 </div>
 
+{{ elseif type == "video_section" }}
+<div class="container 2xl:py-[18px] 1xl:py-4 lg:py-3.5 sm:py-2.5 py-2">
+  <div class="mx-auto w-[70%] max-sm:w-[95%]"
+       x-data="embeddedVideo('{{ video_service }}', '{{ video_url | replace("'", "\\'") }}', '{{ cover_image }}{{ url }}{{ /cover_image }}')"
+       x-init="init()">
+    <div class="relative w-full" style="padding-bottom: 56.25%;">
+      <div x-show="!playing" class="absolute inset-0 cursor-pointer group" @click="play()">
+        <img :src="thumbnail" class="w-full h-full object-cover" alt="Video thumbnail" loading="lazy" />
+        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors duration-300"></div>
+        <div class="absolute inset-0 flex items-center justify-center">
+          <div class="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center text-white group-hover:text-primary-900 transition-colors duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" class="w-full h-full drop-shadow-lg">
+              <circle cx="40" cy="40" r="40" fill="currentColor" fill-opacity="0.85"/>
+              <polygon points="32,24 60,40 32,56" class="fill-red-600 group-hover:fill-white transition-colors duration-300"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div x-show="playing" class="absolute inset-0">
+        <iframe :src="embedUrl" class="w-full h-full" frameborder="0"
+                allow="autoplay; fullscreen; picture-in-picture; accelerometer; clipboard-write; encrypted-media; gyroscope"
+                allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
 {{ elseif type == "image_section" }}
 <div class="container 2xl:py-[18px] 1xl:py-4 lg:py-3.5 sm:py-2.5 py-2">
   <div class="grid sm:grid-cols-2 grid-cols-1 w-full xl:gap-10 lg:gap-9 sm:gap-6 gap-5 js-gallery">
@@ -197,6 +224,43 @@
 {{ /content }}
 {{ /if }}
 {{ partial:gallery-lightbox }}
+<script>
+if (typeof embeddedVideo === 'undefined') {
+function embeddedVideo(service, url, coverImage) {
+    return {
+        playing: false,
+        thumbnail: '',
+        embedUrl: '',
+        init() {
+            if (coverImage) this.thumbnail = coverImage;
+            if (service === 'youtube') {
+                const id = this._youtubeId(url);
+                if (!coverImage) this.thumbnail = id ? 'https://img.youtube.com/vi/' + id + '/maxresdefault.jpg' : '';
+                this.embedUrl = id ? 'https://www.youtube.com/embed/' + id + '?autoplay=1&controls=1&rel=0' : '';
+            } else if (service === 'vimeo') {
+                const id = this._vimeoId(url);
+                this.embedUrl = id ? 'https://player.vimeo.com/video/' + id + '?autoplay=1&controls=1' : '';
+                if (id && !coverImage) {
+                    fetch('https://vimeo.com/api/oembed.json?url=https://vimeo.com/' + id)
+                        .then(r => r.json())
+                        .then(data => { this.thumbnail = data.thumbnail_url || ''; })
+                        .catch(() => {});
+                }
+            }
+        },
+        play() { if (this.embedUrl) this.playing = true; },
+        _youtubeId(url) {
+            const m = url.match(/(?:youtube\.com\/watch\?.*v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([A-Za-z0-9_-]{11})/);
+            return m ? m[1] : null;
+        },
+        _vimeoId(url) {
+            const m = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+            return m ? m[1] : null;
+        }
+    };
+}
+}
+</script>
 {{ page_builder scope="block" }}
 {{ partial src="page_builder/{type}" }}
 {{ /page_builder }}

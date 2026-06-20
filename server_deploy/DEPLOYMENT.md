@@ -986,3 +986,36 @@ Wynik: OK, 2 passed.
 | `https://dev.skalisty.pl/en/services` | 200 ✅ | strona kolekcji EN |
 | `https://dev.skalisty.pl/en/service/architectural-design` | 200 ✅ | pojedyncza usługa EN |
 | `https://dev.skalisty.pl/cp/collection-routes` | 302 → login ✅ | panel CP (po zalogowaniu: 2 pozycje — Projekty + Usługi) |
+
+
+---
+
+## Deploy przyrostowy — 2026-06-20 — FEATURE-embedded-video-cover-image + STYLE-mega-menu-ivena-tiles
+
+### Zakres wdrożenia
+
+**FEATURE-embedded-video-cover-image (opcjonalna okładka lokalnych assetów):**
+- `resources/fieldsets/embedded_video_section.yaml` — pole `cover_image`
+- `resources/blueprints/collections/services/service.yaml` — `cover_image` w secie `video_section` Bard
+- `resources/views/page_builder/embedded_video_section.antlers.html` — logika JS z `coverImage`
+- `resources/views/service/show.antlers.html` — Bard `video_section` + JS `embeddedVideo` z 3. argumentem
+
+**STYLE-mega-menu-ivena-tiles (kafle usług w mega menu, layout 1:1 ivena):**
+- `resources/views/partials/header-{1,2,3,4}.antlers.html` — nowa struktura kafli (block `<a>` + flex `<div>` wewnątrz, hover tło, ikona 40×40, `group/tile`)
+- `public/assets/css/extra.css` — override `.navbar li.w-full > a.group\/tile { display: block !important; padding: 0 !important; }`
+- `public/assets/css/output.css` — przebudowany `npm run build`
+
+**CONTENT-sztuczna-rafa-koralowa:**
+- `content/collections/services/pl/sztuczna-rafa-koralowa.md` — nowy wpis PL
+
+### Backup serwera
+
+Backup przed deployem wykonany przez użytkownika przed wdrożeniem.
+
+### Metoda
+
+Rsync per plik / grupy plików (sshpass + rsync -avz). Komendy po deployu: `php84 artisan view:clear && php84 artisan cache:clear && php84 artisan statamic:stache:refresh && php84 artisan test`.
+
+### Wynik
+
+Deploy zakończony poprawnie. HTTP 200 na `dev.skalisty.pl`. Kafle w mega menu wyświetlają efekt hover. Cover image dla sekcji video aktywna.

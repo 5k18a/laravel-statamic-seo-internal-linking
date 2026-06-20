@@ -1,7 +1,7 @@
 <section class="embedded-video-section 2xl:mb-[100px] 1xl:mb-20 lg:mb-[70px] md:mb-[50px] mb-8">
     <div class="container">
         <div class="mx-auto w-[70%] max-sm:w-[95%]"
-             x-data="embeddedVideo('{{ video_service }}', '{{ video_url | replace("'", "\\'") }}')"
+             x-data="embeddedVideo('{{ video_service }}', '{{ video_url | replace("'", "\\'") }}', '{{ cover_image }}{{ url }}{{ /cover_image }}')"
              x-init="init()">
 
             <div class="relative w-full" style="padding-bottom: 56.25%;">
@@ -46,18 +46,23 @@
 </section>
 
 <script>
-function embeddedVideo(service, url) {
+function embeddedVideo(service, url, coverImage) {
     return {
         playing: false,
         thumbnail: '',
         embedUrl: '',
 
         init() {
+            if (coverImage) {
+                this.thumbnail = coverImage;
+            }
             if (service === 'youtube') {
                 const id = this._youtubeId(url);
-                this.thumbnail = id
-                    ? 'https://img.youtube.com/vi/' + id + '/maxresdefault.jpg'
-                    : '';
+                if (!coverImage) {
+                    this.thumbnail = id
+                        ? 'https://img.youtube.com/vi/' + id + '/maxresdefault.jpg'
+                        : '';
+                }
                 this.embedUrl = id
                     ? 'https://www.youtube.com/embed/' + id + '?autoplay=1&controls=1&rel=0'
                     : '';
@@ -66,12 +71,10 @@ function embeddedVideo(service, url) {
                 this.embedUrl = id
                     ? 'https://player.vimeo.com/video/' + id + '?autoplay=1&controls=1'
                     : '';
-                if (id) {
+                if (id && !coverImage) {
                     fetch('https://vimeo.com/api/oembed.json?url=https://vimeo.com/' + id)
                         .then(r => r.json())
-                        .then(data => { this.thumbnail = data.thumbnail_url_with_play_button
-                            ? data.thumbnail_url
-                            : data.thumbnail_url || ''; })
+                        .then(data => { this.thumbnail = data.thumbnail_url || ''; })
                         .catch(() => {});
                 }
             }

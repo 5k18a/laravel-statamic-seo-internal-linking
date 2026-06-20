@@ -25,3 +25,12 @@ fields:
       required: true
       validate:
         - required
+  -
+    handle: cover_image
+    field:
+      type: assets
+      display: 'Cover Image'
+      instructions: 'Opcjonalna okładka. Jeśli nie zostanie dodana, użyta zostanie miniaturka z serwisu wideo.'
+      container: assets
+      max_files: 1
+      restrict: false
