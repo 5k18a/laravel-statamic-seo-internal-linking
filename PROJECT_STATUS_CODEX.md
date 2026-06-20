@@ -1,15 +1,15 @@
 # PROJECT_STATUS_CODEX.md
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-20-1900
+state_version: 2026-06-20-2010
 active_task_id: none
 active_task_name: Brak aktywnego zadania
 active_task_status: closed
 active_task_source: BRIEF_CODEX.md
-last_sync: 2026-06-20 19:00 Europe/Warsaw
+last_sync: 2026-06-20 20:10 Europe/Warsaw
 last_synced_by: Claude
-last_closed: FEATURE-services-grid-section-variants
-next_after_active: Decyzja użytkownika (pozostałe warianty — futured/hard/highlights/accordion — lub Formularze kontaktowe)
+last_closed: section_button-entry-picker
+next_after_active: Decyzja użytkownika — Formularze kontaktowe lub Wtyczka chatbota AI multi-provider (duża inicjatywa, osobny projekt)
 <!-- PROJECT_SYNC_END -->
 
 ---
@@ -361,17 +361,106 @@ Stała lokalnego dev (2026-06-20): frontend działa na `http://127.0.0.1:8001/`.
 
 ## Do wykonania
 
-### 1. Formularze kontaktowe
+### 1. Wtyczka chatbota AI multi-provider ⚡ duża inicjatywa, kandydat do osobnego repo GitHub
+
+**Wizja:** pełnoprawna wtyczka Statamic / Laravel — chatbot AI na stronie z konfigurowanym dostawcą LLM (DeepSeek / OpenAI / Anthropic Claude / lokalny Ollama itp.), własną knowledge base (plik MD lub kolekcja Statamic), widget UI w rogu strony, logi konwersacji, panel CP do zarządzania. Po wdrożeniu i stabilizacji → osobny projekt + repo GitHub poświęcone wyłącznie tej wtyczce (open-source albo własny).
+
+**Wymagania użytkownika (2026-06-20):**
+
+- **Multi-provider** — w panelu CP wybór modelu AI z listy dropdown (DeepSeek-V3, GPT-4o-mini, GPT-4o, Claude Haiku 4.5, Claude Sonnet 4.6, opcjonalnie Ollama lokalnie, Google Gemini, xAI Grok)
+- **API key per provider** — pole text w CP do wpisania klucza wybranego providera (lub dla aktywnego providera tylko jedno aktywne pole API key; szczegóły UX do ustalenia)
+- **Plik knowledge.md** lub edytowalny w CP (decyzja architektoniczna w briefie)
+- **Floating button** w prawym dolnym rogu strony (na całej stronie, toggle przez global setting)
+- **Tylko polski** na początku (multi-locale w przyszłej iteracji)
+- **Logi MySQL `chat_logs`** (user message + bot response + provider + model + timestamp + session)
+- **Persona + zasady** w knowledge MD (odpowiada wyłącznie z wiedzy, mówi "nie wiem" gdy spoza, zwięzłe odpowiedzi)
+
+**Architektura proponowana:**
+
+```
+┌────────────────────────────────────────────────────────────┐
+│ Frontend                                                    │
+│ resources/views/partials/chatbot-widget.antlers.html       │
+│ Alpine.js: floating button + drawer + message history      │
+│ POST /api/chat → JSON {reply}                              │
+└────────────────────────────────────────────────────────────┘
+                          ↓
+┌────────────────────────────────────────────────────────────┐
+│ Backend                                                     │
+│ ChatbotController::message()                               │
+│ ChatbotService → ProviderFactory wybiera adapter wg config│
+│  ├─ DeepSeekProvider (OpenAI-compat Http)                  │
+│  ├─ OpenAIProvider                                          │
+│  ├─ ClaudeProvider (Anthropic SDK)                          │
+│  ├─ OllamaProvider (local HTTP)                            │
+│  └─ ...                                                      │
+│ Każdy provider implementuje ChatProviderContract::chat()   │
+│ Zapis konwersacji do `chat_logs` (MySQL)                   │
+└────────────────────────────────────────────────────────────┘
+                          ↓
+┌────────────────────────────────────────────────────────────┐
+│ Knowledge                                                    │
+│ resources/chatbot/knowledge.md (persona + wiedza)           │
+│ + opcjonalnie kolekcja Statamic `chatbot_articles`         │
+└────────────────────────────────────────────────────────────┘
+                          ↓
+┌────────────────────────────────────────────────────────────┐
+│ CP Panel (Tools > Chatbot AI)                              │
+│ ├─ Settings — wybór providera + API key + model              │
+│ ├─ Knowledge — edycja knowledge.md przez wysiwyg_html         │
+│ ├─ Logs — przegląd konwersacji + filtry + delete             │
+│ └─ Test prompt — sandbox do testowania zmian knowledge      │
+└────────────────────────────────────────────────────────────┘
+```
+
+**Analiza gotowych rozwiązań (Claude, 2026-06-20):**
+
+| Rozwiązanie | Werdykt |
+|---|---|
+| `zsoltjanes/chatamic-starter-kit` | **Odrzucony** — Statamic 3.3 only, deprecated OpenAI Completions, repo opuszczone 2.5 roku |
+| Statamic Marketplace addons AI | Brak dobrego addonu z RAG + multi-provider dla Statamic 6 |
+| SaaS chatboty (Tidio, Chatbase, Intercom) | $30-100/mc, vendor lock-in, mniej kontroli — user odrzucił |
+| **Prism PHP** (`prism-php/prism`) | **Rozważyć** — uniwersalny client LLM (OpenAI/Anthropic/Gemini/Ollama), MIT, Laravel 11+. Dobry kandydat na backbone dla multi-provider. Sprawdzić aktualną aktywność i kompatybilność z Laravel 13/Statamic 6 |
+| Custom multi-provider z raw `Http::` | Bez nowych pakietów, ale więcej kodu (osobny adapter per provider) |
+| `anthropic-php-sdk` / `openai-php/laravel` | Pojedyncze providers — nadmiar dla multi-provider, każdy ma własną SDK |
+
+**Rekomendowany kierunek (do potwierdzenia w briefie):** **Prism PHP** jako backbone — natywne wsparcie 5+ providerów (OpenAI, Anthropic, Gemini, Mistral, Ollama, DeepSeek przez OpenAI-compat), spójne API. Custom adapter pattern fallback jeśli Prism nie wspiera DeepSeek bezpośrednio.
+
+**Etapy wdrożenia (do podzielenia na briefy):**
+
+1. **PoC — pojedynczy provider** (np. DeepSeek tylko) — endpoint `POST /api/chat` + plik knowledge MD + curl test. Walidacja jakości po polsku.
+2. **Multi-provider abstrakcja** — Prism PHP integration LUB custom factory pattern. Lista 3-5 providerów + adapter per każdy.
+3. **CP panel "Chatbot AI"** — Settings (provider + API key) + Knowledge editor (wysiwyg_html) + Logs viewer + Test prompt sandbox.
+4. **Widget UI** — floating button + Alpine.js drawer + message history w session storage.
+5. **MySQL `chat_logs`** — migracja + log w ChatbotService + CP log viewer.
+6. **Wielojęzyczność** — i18n widget, persona per locale, multilang knowledge.
+7. **Wydzielenie do osobnego repo** — refactor jako Statamic addon (`composer.json` package), opublikować na GitHub jako standalone projekt.
+
+**Ryzyka:**
+
+- **Koszty API tokenów** — chatbot na publicznej stronie = koszty rosną z ruchem. Rate limiting + caching odpowiedzi koniecznie.
+- **Abuse / spam** — chatbot bez auth = vector dla scraperów / GPT prompt injection. Captcha + rate limiting + content moderation.
+- **GDPR** — logi konwersacji to dane osobowe potencjalnie. Consent banner + opt-out + auto-cleanup po N dniach.
+- **Quality** — knowledge MD musi być starannie napisany. Halucynacje LLM = zła reputacja firmy.
+- **Vendor migration** — jeśli wybierzemy provider który padnie / podniesie ceny, multi-provider abstrakcja ratuje. Dlatego od początku Prism PHP albo własny factory pattern.
+
+**Pierwszy brief Codexa (gdy user da zielone światło):** PoC chatbota z DeepSeek (jednoprovider) — żeby zwalidować jakość zanim zbudujemy multi-provider abstrakcję, CP panel i widget. Po PoC akceptacji → następne 6 briefów wg etapów.
+
+**Po stabilizacji → osobny projekt GitHub:** refactor jako Statamic addon (composer.json, packagist publikacja), brand "Skalisty Chatbot AI" lub generic name. Open-source MIT albo własny (do decyzji user'a).
+
+---
+
+### 2. Formularze kontaktowe
 
 - Zacząć od natywnych Statamic Forms, addon dobrać do konkretnej potrzeby
 - Zakres do ustalenia z użytkownikiem
 
-### 2. EspoCRM Lead Capture
+### 3. EspoCRM Lead Capture
 
 - Integracja formularzy kontaktowych z EspoCRM przez API
 - Po wdrożeniu formularzy (punkt 1)
 
-### 3. Panel sugestii linkowania wewnętrznego ⚡ do zrobienia
+### 4. Panel sugestii linkowania wewnętrznego ⚡ do zrobienia
 
 Panel CP (Tools) skanujący content kolekcji (`pages`, `projects`, `services`, `blogs`) i generujący sugestie linków wewnętrznych — lista fraz pasujących do tytułów/slugów innych wpisów, bez automatycznej podmiany (użytkownik zatwierdza ręcznie w edytorze).
 
@@ -383,7 +472,7 @@ Panel CP (Tools) skanujący content kolekcji (`pages`, `projects`, `services`, `
 - Widok Blade w CP Tools
 - Locale-aware (URL docelowy dopasowany do locale źródłowego wpisu)
 
-### 4. AI Meta Descriptions — batch generowanie przez Claude API ⚡ pomysł, nie zaplanowane
+### 5. AI Meta Descriptions — batch generowanie przez Claude API ⚡ pomysł, nie zaplanowane
 
 Artisan command `meta:generate` — iteruje po wszystkich wpisach Statamic (kolekcje `pages`, `projects`, blog), wysyła tytuł + krótki kontekst do Claude API (Anthropic PHP SDK), zapisuje wynik do pola SEO Pro `meta_description`. Priorytet: po finalnym uzupełnieniu contentu strony.
 
@@ -393,7 +482,7 @@ Artisan command `meta:generate` — iteruje po wszystkich wpisach Statamic (kole
 - Prompt: `"Napisz meta description (max 160 znaków) dla strony o tytule '{title}', treści: '{excerpt}'. Język: {locale}."`
 - Zapis: `$entry->set('seo_pro.meta_description', $result)->save()`
 
-### 5. Smart Search z Meilisearch + AI sugestie ⚡ pomysł, nie zaplanowane
+### 6. Smart Search z Meilisearch + AI sugestie ⚡ pomysł, nie zaplanowane
 
 Meilisearch jako driver Statamic Scout — pełnotekstowe wyszukiwanie z autocomplete, semantyczne zapytania w stylu "realizacje przy wodzie". Opcjonalnie: RAG/LLM layer dla zapytań naturalnych.
 
@@ -404,7 +493,7 @@ Meilisearch jako driver Statamic Scout — pełnotekstowe wyszukiwanie z autocom
 - Frontend: Meilisearch InstantSearch.js lub własny `<input>` z debounced AJAX
 - AI warstwa: pytanie do Claude → wyciąg słów kluczowych → query Meilisearch (opcjonalne)
 
-### 6. Tracking fraz wyszukiwania + linki w stopce ⚡ pomysł, nie zaplanowane
+### 7. Tracking fraz wyszukiwania + linki w stopce ⚡ pomysł, nie zaplanowane
 
 Logowanie wyszukiwanych fraz, top N wyświetlane jako linki do wyników w stopce strony. Buduje "semantic SEO" — podlinkowane frazy to realne zapytania użytkowników.
 
@@ -415,7 +504,7 @@ Logowanie wyszukiwanych fraz, top N wyświetlane jako linki do wyników w stopce
 - Stopka: `{{ popular_searches }}{{ phrase }}: <a href="/szukaj?q={{ phrase }}">{{ phrase }}</a>{{ /popular_searches }}`
 - Brak AI — czysty analityczny feature
 
-### 3. SEO — wdrożenie batch na końcu projektu ⚡ niski priorytet
+### 8. SEO — wdrożenie batch na końcu projektu ⚡ niski priorytet
 
 Robić jako ostatnie, gdy struktura strony jest gotowa. Całość jednym podejściem batch.
 

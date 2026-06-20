@@ -4,15 +4,15 @@
 # Aktualizowany po każdym zakończonym zadaniu
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-20-1900
+state_version: 2026-06-20-2010
 active_task_id: none
 active_task_name: Brak aktywnego zadania
 active_task_status: closed
 active_task_source: BRIEF_CODEX.md
-last_sync: 2026-06-20 19:00 Europe/Warsaw
+last_sync: 2026-06-20 20:10 Europe/Warsaw
 last_synced_by: Claude
-last_closed: FEATURE-services-grid-section-variants
-next_after_active: Decyzja użytkownika (pozostałe warianty — futured/hard/highlights/accordion — lub Formularze kontaktowe)
+last_closed: section_button-entry-picker
+next_after_active: Decyzja użytkownika — Formularze kontaktowe lub Wtyczka chatbota AI multi-provider (duża inicjatywa, osobny projekt)
 <!-- PROJECT_SYNC_END -->
 
 > **Stała lokalnego dev (2026-06-20)**: frontend działa na `http://127.0.0.1:8001/` (nie `8000`). Komenda PHP lokalnie: `php artisan` (na serwerze: `php84`). Te stałe stosować w briefach walidacyjnych.
@@ -346,9 +346,10 @@ Z `CODEX_SUGGESTIONS.md` (2026-06-05, SEO-Pro):
 
 | # | Zadanie | Status |
 |---|---------|--------|
-| 1 | Pozostałe warianty Services Grid (futured / hard / highlights / accordion) | 🔮 Opcjonalne — dispatcher gotowy, tani dodatek |
-| 2 | Formularze kontaktowe (Statamic Forms) | 🔮 Zakres do ustalenia z użytkownikiem |
-| 3 | Integracja formularzy z EspoCRM (Lead Capture) | 🔮 Do zrobienia w ramach zadania Formularze |
+| 1 | **Wtyczka chatbota AI multi-provider** (DeepSeek / OpenAI / Claude / Ollama configurable) — kandydat do osobnego repo GitHub po stabilizacji | 🔮 Duża inicjatywa — szczegółowa specyfikacja w PROJECT_STATUS_CODEX.md sekcja "Do wykonania" #1. Pierwszy etap: PoC z DeepSeek (jednoprovider) → walidacja jakości PL → multi-provider abstrakcja (Prism PHP?) → CP panel → widget UI → MySQL chat_logs → wydzielenie do addonu |
+| 2 | Pozostałe warianty Services Grid (futured / hard / highlights / accordion) | 🔮 Opcjonalne — dispatcher gotowy, tani dodatek |
+| 3 | Formularze kontaktowe (Statamic Forms) | 🔮 Zakres do ustalenia z użytkownikiem |
+| 4 | Integracja formularzy z EspoCRM (Lead Capture) | 🔮 Do zrobienia w ramach zadania Formularze |
 
 ## Ostatnio zamknięte
 

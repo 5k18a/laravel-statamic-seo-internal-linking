@@ -1,15 +1,15 @@
 # BRIEF_CODEX.md
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-20-1900
+state_version: 2026-06-20-2010
 active_task_id: none
 active_task_name: Brak aktywnego zadania
 active_task_status: closed
 active_task_source: BRIEF_CODEX.md
-last_sync: 2026-06-20 19:00 Europe/Warsaw
+last_sync: 2026-06-20 20:10 Europe/Warsaw
 last_synced_by: Claude
-last_closed: FEATURE-services-grid-section-variants
-next_after_active: Decyzja użytkownika (pozostałe warianty — futured/hard/highlights/accordion — lub Formularze kontaktowe)
+last_closed: section_button-entry-picker
+next_after_active: Decyzja użytkownika — Formularze kontaktowe lub Wtyczka chatbota AI multi-provider (duża inicjatywa, osobny projekt)
 <!-- PROJECT_SYNC_END -->
 
 ---
@@ -18,15 +18,15 @@ next_after_active: Decyzja użytkownika (pozostałe warianty — futured/hard/hi
 
 **BRAK AKTYWNEGO ZADANIA**
 
-Ostatnio zamknięte: `FEATURE-services-grid-section-variants` (2026-06-20) — zaakceptowane po audycie Claude. 4 nowe warianty (row, card-based, column, asymmetric) wdrożone. Brief zarchiwizowany w `briefs/archive/2026-06-20-feature-services-grid-section-variants.md`.
+Ostatnio zamknięte: `section_button-entry-picker` (2026-06-20) — picker stron z auto per-locale URL + UX fix entries picker mode.
 
-Dispatcher `services_grid_section` ma teraz 5 wariantów (soft + 4 nowe). Pozostałe 4 warianty z bigmentor (`hard`, `futured`, `highlights`, `accordion`) są w backlogu — opcjonalne, dispatcher gotowy.
+## Otwarte priorytety (do uruchomienia kolejnego briefu)
 
-Propozycje następnego kroku:
+1. **Formularze kontaktowe** (backlog od dawna, wymaga analizy gotowych rozwiązań — Statamic Forms vs addon vs autorskie)
+2. **Wtyczka chatbota AI multi-provider** (duża inicjatywa — szczegóły w `PROJECT_STATUS_CODEX.md` w sekcji "Do wykonania")
+3. **Pozostałe warianty Services Grid** (hard / futured / highlights / accordion) — opcjonalne, dispatcher gotowy
 
-1. **Pozostałe 4 warianty z bigmentor** — `hard`/`futured`/`highlights`/`accordion`. Mechanizm gotowy, tani dodatek
-2. **Formularze kontaktowe** — backlog od dawna, wymaga analizy gotowych rozwiązań (Statamic Forms vs addon vs autorskie)
-3. **Inne** — wskazanie przez użytkownika
+Wybór czeka na user'a.
 
 ---
 
