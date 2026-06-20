@@ -47,10 +47,9 @@ fields:
     handle: section_button_entry
     field:
       type: entries
-      mode: select
       max_items: 1
       display: 'Section Button — Wpis (preferowane)'
-      instructions: 'Wybierz wpis z dowolnej kolekcji. URL będzie automatycznie dopasowany do języka (np. PL → „/oferta", EN → „/services"). Nadpisuje pole „URL (alternatywa)" poniżej.'
+      instructions: 'Wybierz wpis z dowolnej kolekcji. URL będzie automatycznie dopasowany do języka (np. PL → „/oferta", EN → „/services"). Nadpisuje pole „URL (alternatywa)" poniżej. Aby usunąć wybrany wpis — kliknij X na kafelku.'
   -
     handle: section_button_url
     field:
@@ -86,9 +85,8 @@ fields:
     handle: asymmetric_entries
     field:
       type: entries
-      mode: select
       max_items: 3
       display: 'Wybrane wpisy (Asymmetric)'
-      instructions: 'Tylko dla wariantu Asymmetric. Wybierz maksymalnie 3 wpisy — pierwszy będzie hero (lewa kolumna), kolejne dwa małymi kartami (prawa). Jeśli puste, wariant pobierze automatycznie pierwsze 3 wpisy z wybranej kolekcji wg pola Order.'
+      instructions: 'Tylko dla wariantu Asymmetric. Wybierz maksymalnie 3 wpisy — pierwszy będzie hero (lewa kolumna), kolejne dwa małymi kartami (prawa). Jeśli puste, wariant pobierze automatycznie pierwsze 3 wpisy z wybranej kolekcji wg pola Order. Aby usunąć wpis — kliknij X na kafelku.'
       if:
         layouts_grid: 'equals asymmetric'
