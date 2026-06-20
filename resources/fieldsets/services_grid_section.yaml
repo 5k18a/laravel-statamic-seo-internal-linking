@@ -55,7 +55,9 @@ fields:
           field:
             type: text
             display: 'Button URL'
-            instructions: 'np. /oferta lub /services'
+            instructions: 'np. /oferta (PL) lub /services (EN). Wpisuj per locale w CP — Magic Translator NIE tłumaczy automatycznie (zawartość URL nie powinna być semantycznie tłumaczona).'
+            localizable: true
+            translatable: false
   -
     handle: collections
     field:
