@@ -37,27 +37,28 @@ fields:
       localizable: true
       instructions: 'Opcjonalna etykieta wyświetlana jako badge nad tytułem sekcji. Wykorzystywana w wariantach row/column/asymmetric. Wariant soft również ją wyświetla, jeśli pole jest uzupełnione.'
   -
-    handle: section_button
+    handle: section_button_text
     field:
-      type: grid
-      display: 'Section Button (opcjonalny — w nagłówku sekcji)'
-      mode: stacked
-      max_rows: 1
-      fields:
-        -
-          handle: text
-          field:
-            type: text
-            display: 'Button Text'
-            localizable: true
-        -
-          handle: url
-          field:
-            type: text
-            display: 'Button URL'
-            instructions: 'np. /oferta (PL) lub /services (EN). Wpisuj per locale w CP — Magic Translator NIE tłumaczy automatycznie (zawartość URL nie powinna być semantycznie tłumaczona).'
-            localizable: true
-            translatable: false
+      type: text
+      display: 'Section Button — Tekst'
+      instructions: 'Tekst przycisku w nagłówku sekcji (opcjonalny). Jeśli puste, przycisk nie zostanie wyrenderowany.'
+      localizable: true
+  -
+    handle: section_button_entry
+    field:
+      type: entries
+      mode: select
+      max_items: 1
+      display: 'Section Button — Wpis (preferowane)'
+      instructions: 'Wybierz wpis z dowolnej kolekcji. URL będzie automatycznie dopasowany do języka (np. PL → „/oferta", EN → „/services"). Nadpisuje pole „URL (alternatywa)" poniżej.'
+  -
+    handle: section_button_url
+    field:
+      type: text
+      display: 'Section Button — URL (alternatywa)'
+      instructions: 'Tylko gdy „Wpis" wyżej nie pasuje — np. external URL (https://...) lub specjalny anchor. Wpisuj per locale w CP — Magic Translator NIE tłumaczy automatycznie.'
+      localizable: true
+      translatable: false
   -
     handle: collections
     field:

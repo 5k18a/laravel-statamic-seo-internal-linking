@@ -2,7 +2,7 @@
 <section class="relative py-7 sm:py-8 md:py-10 lg:py-12 xl:py-14 2xl:py-16">
   <div class="container">
     <div class="flex flex-col gap-8 md:gap-10 xl:gap-12">
-      {{ if tag_title or section_title or section_button }}
+      {{ if tag_title or section_title or section_button_text }}
         <div class="w-full flex flex-col md:flex-row md:items-end md:justify-between gap-5">
           <div class="inline-block">
             {{ if tag_title }}
@@ -16,13 +16,11 @@
             {{ /if }}
           </div>
 
-          {{ section_button }}
-            {{ if text and url }}
-              <a href="{{ url }}" class="btn btn-primary-reverse">
-                {{ text }}
-              </a>
-            {{ /if }}
-          {{ /section_button }}
+          {{ if section_button_text and (section_button_entry or section_button_url) }}
+            <a href="{{ if section_button_entry }}{{ section_button_entry }}{{ url }}{{ /section_button_entry }}{{ else }}{{ section_button_url }}{{ /if }}" class="btn btn-primary-reverse">
+              {{ section_button_text }}
+            </a>
+          {{ /if }}
         </div>
       {{ /if }}
 

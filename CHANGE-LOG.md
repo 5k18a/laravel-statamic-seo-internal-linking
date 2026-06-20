@@ -4,6 +4,44 @@ Changelog projektu `skalisty-orion` — prowadzony przez Claude po każdym zako�
 
 ---
 
+## 2026-06-20 (FEATURE-section-button-entry-picker)
+
+### Zmieniono
+
+- **`services_grid_section` — section_button przerobiony z grid na entries picker.** Wcześniej grid `section_button` (text + url) wymagał ręcznego wpisywania URL per-locale. Teraz: 3 osobne top-level pola:
+  - `section_button_text` (text, localizable) — tekst przycisku
+  - `section_button_entry` (entries, max_items: 1) — **preferowany** picker wpisu z dowolnej kolekcji; URL automatycznie per-locale przez Statamic `{{ url }}` w entry context
+  - `section_button_url` (text, localizable, `translatable: false`) — fallback dla external URL (https://...) lub specjalnych ścieżek; nie tłumaczony przez DeepL
+
+### Zmieniono — widoki
+
+Wszystkie 5 partials (`soft`, `row`, `card-based`, `column`, `asymmetric`) — zamiana grid loop `{{ section_button }}...{{ /section_button }}` na warunek z 3 polami:
+
+```antlers
+{{ if section_button_text and (section_button_entry or section_button_url) }}
+  <a href="{{ if section_button_entry }}{{ section_button_entry }}{{ url }}{{ /section_button_entry }}{{ else }}{{ section_button_url }}{{ /if }}"
+     class="btn btn-primary-reverse">
+    {{ section_button_text }}
+  </a>
+{{ /if }}
+```
+
+Warunek wrappera nagłówka: `{{ if tag_title or section_title or section_button }}` → `{{ if tag_title or section_title or section_button_text }}`.
+
+### Decyzje techniczne
+
+- **Spłaszczenie grid → 3 top-level pola** — bo Antlers w grid context nie pozwala na `{{ entry:0:url }}` ani `{{ entry.0.url }}` dot/colon notation; pełna ścieżka `entry` jako tag wymagałaby loop'a, co psuje scope dla `text`. Po debug stwierdzono że `{{ entry }}` w grid row context echoes pusty string (jest tag block, nie variable). 3 top-level pola = czysty render, brak scope tricks. Migracja danych nie potrzebna (przed zmianą żaden entry nie miał wypełnionego section_button).
+- **Statamic `{{ url }}` w entry loop** — automatycznie generuje URL per-locale (PL → `/oferta/{slug}`, EN → `/en/service/{slug}`, etc.) zgodnie z `content/collections/services.yaml` route map. Test PL: `<a href="/oferta/landscape-construction">Zobacz wszystkie usługi</a>` ✅
+
+### Walidacja
+
+- Pola fieldsetu (10): layouts_grid, section_title, tag_title, **section_button_text**, **section_button_entry**, **section_button_url**, collections, limit, card_button_text, asymmetric_entries
+- Empiryczny test: dodano testowy `section_button_text` + `section_button_entry` (UUID services entry) → render PL pokazał poprawny URL per-locale.
+
+**Wykonane przez Claude bezpośrednio.**
+
+---
+
 ## 2026-06-20 (CONFIG-services-grid-translatable-fields)
 
 ### Zmieniono
