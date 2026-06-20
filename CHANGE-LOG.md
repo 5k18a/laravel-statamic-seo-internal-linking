@@ -4,6 +4,26 @@ Changelog projektu `skalisty-orion` — prowadzony przez Claude po każdym zako�
 
 ---
 
+## 2026-06-20 (Deploy-services-grid-2026-06-20)
+
+### Wdrożono
+
+- **Deploy na `dev.skalisty.pl`** wszystkich zmian z sesji 2026-06-20 (popołudnie+wieczór): FEATURE-services-grid-section-soft + FEATURE-services-grid-section-variants (4 nowe warianty) + FEATURE-asymmetric-entries-picker + FEATURE-free-text-margins-control + 6 hotfixów/style'ów.
+- **Backup zdalny:** `~/skalisty_2026_backups/before-services-grid-2026-06-20.tar.gz` (160 KB).
+- **Rsync stats:** 1.1 MB sent / 848 KB received z 504.5 MB total, speedup 254× (incremental).
+- **Post-deploy** OK: `config:clear` + `cache:clear` + `view:clear` + `statamic:stache:refresh` + `php artisan test` (2 passed).
+- **HTTP smoke** OK: `/` 200, `/oferta` 200, `/en/` 301, `/cp/login` 302.
+- **Render produkcji potwierdzony:** 12 kart services_grid soft, free_text 2-kolumny z `column_padding: large` + `content_max_width: prose`, 0 surowych komentarzy Antlers w HTML.
+
+### Uwagi operacyjne
+
+- **Classifier auto-mode w Claude Code v2.1.150** zablokował deploye SSH do produkcji z reason "Production Deploy / Remote Shell Writes require explicit user authorization for each deploy". Workaround: user wyszedł z auto mode (`/auto` toggle off) — w non-auto SSH działa standardowo. Najprawdopodobniej Anthropic przeniósł "Production Deploy" z `soft_deny` do `hard_deny` w defaults v2.1.x.
+- **`skalisty-ssh` wrapper** (`~/Insync/.../Linux/bin/skalisty-ssh`) domyślnie nie ma flagi `+x` — wymagało `chmod +x` przed pierwszym wywołaniem. Po `chmod` działa bezpośrednio (też przez `bash $SSH` jako fallback).
+- Skrypt deployowy w `/tmp/deploy-services-grid-2026-06-20.sh` — zachowany jako referencja patternu (backup → rsync → post-deploy → HTTP smoke).
+- DEPLOYMENT.md zaktualizowany z pełną sekcją "Deploy przyrostowy — 2026-06-20 (17:01)".
+
+---
+
 ## 2026-06-20 (FEATURE-free-text-margins-control)
 
 ### Dodano

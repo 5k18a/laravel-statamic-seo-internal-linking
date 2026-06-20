@@ -4,7 +4,7 @@ blueprint: page
 title: Oferta
 author: 15c0f104-0188-406c-b4ef-af40e61a13db
 updated_by: 07f72358-0580-4aaf-b00c-6a3760228419
-updated_at: 1781966546
+updated_at: 1781966846
 template: service/show
 page_builder:
   -
@@ -21,7 +21,7 @@ page_builder:
         enabled: true
       -
         id: fZAsTWxfrcwE1S_YQXrpi
-        content: "<p>At BigMentor Company, we offer a comprehensive suite of mentoring services designed to cater to the diverse needs of individuals and businesses. Our expert mentors provide personalized guidance to help you navigate the complexities of your professional journey. Whether you're a startup seeking to refine your business model, a leader aiming to enhance your leadership skills, or a professional looking to advance your career, our tailored mentoring programs are structured to support your specific goals. We focus on fostering growth through strategic advice, practical insights, and actionable plans that align with your unique aspirations.</p>"
+        content: '<p>Skalisty oferuje kompleksowe usługi projektowania i realizacji wielkoformatowych dekoracji tematycznych z betonu. Tworzymy sztuczne skały, drzewa, groty i jaskinie, rzeźby, reliefy, biotopy oraz dekoracje akwarystyczne, w tym skały podwodne i sztuczne rafy koralowe. Wspieramy inwestorów, architektów i biura projektowe na każdym etapie - od koncepcji i dokumentacji technicznej po wykonanie oraz nadzór artystyczny. Realizujemy projekty dla ogrodów zoologicznych, oceanariów, parków wodnych, parków rozrywki, hoteli i stref SPA, łącząc realistyczny wygląd, trwałość i funkcjonalność.</p>'
         type: column
         enabled: true
     type: free_text_section

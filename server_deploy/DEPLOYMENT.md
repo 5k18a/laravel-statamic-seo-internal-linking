@@ -95,6 +95,54 @@ mv www skalisty_2026
 
 ---
 
+## Deploy przyrostowy — 2026-06-20 (17:01) — services_grid_section + free_text margins + asymmetric hover
+
+### Zakres wdrożenia
+
+Pakiet zmian z sesji 2026-06-20 (popołudnie+wieczór, Claude+Codex):
+
+- **FEATURE-services-grid-section-soft** — nowa sekcja page buildera `services_grid_section` z dispatcherem layoutu + wariant `soft` (3-kol z liniami siatki). Wzorzec z `webbycrown/bigmentor-statamic-theme`.
+- **FEATURE-services-grid-section-variants** — 4 dodatkowe warianty layoutu: `row` (4-kol hero+gradient), `card-based` (3-kol z hover+border+iconify), `column` (lista pełnej szerokości), `asymmetric` (1 hero `lg:row-span-2` + 2 mniejsze karty).
+- **FEATURE-asymmetric-entries-picker** — pole `asymmetric_entries` (entries picker, `max_items: 3`, warunkowy `if: layouts_grid: equals asymmetric`). Cascade fallback: picker → auto-listing pierwszych 3 z kolekcji.
+- **FEATURE-free-text-margins-control** — 3 nowe pola w `free_text_section`: `column_gap` (5 presetów gap-0/4/6/10/16), `column_padding` (4 presety brak/p-3/p-6/p-10), `content_max_width` (full/prose/45ch).
+- **HOTFIX-antlers-comment-syntax** — `{# ... #}` → `{{# ... #}}` w 2 plikach (Antlers wymaga dwóch nawiasów).
+- **HOTFIX-icon-container-color** — usunięto `bg-primary-900 rounded-full text-white` z ikony soft, zostało `text-black` (kolor czcionki, spójność z istniejącym `service_section`).
+- **STYLE-description-lighter** — paragraph: `text-md font-normal` → `text-sm font-light font-lexend` (lżejsza typografia per `tailwind.css:364`).
+- **HOTFIX-column-fullwidth** — wariant column: layout 2-kol → header NAD listą pełnej szerokości.
+- **STYLE-asymmetric-text-overlay** — `text-white/80` (20% transparency) + overlay -30 punktów (`bg-black/30`, `from-black/50 via-black/5`).
+- **STYLE-asymmetric-grayscale-hover** — obrazy `grayscale group-hover:grayscale-0`, tekst `text-white/80 group-hover:text-white`, `transition-all duration-500`.
+
+### Metoda
+
+Skrypt `/tmp/deploy-services-grid-2026-06-20.sh` (sequencja: backup zdalny → rsync → post-deploy → HTTP smoke). Klucz: wywoływanie `skalisty-ssh` wrapper'a wymaga `bash $SSH "command"` (skrypt nie ma `+x` bit'u domyślnie; ustawiłem przed deployem). Dla rsync wyciągnięcie hasła ze skryptu wrapper'a (jak w poprzednich deployach).
+
+### Komendy post-deploy
+
+```bash
+/opt/alt/php84/usr/bin/php artisan config:clear
+/opt/alt/php84/usr/bin/php artisan cache:clear
+/opt/alt/php84/usr/bin/php artisan view:clear
+/opt/alt/php84/usr/bin/php artisan statamic:stache:refresh
+/opt/alt/php84/usr/bin/php artisan test  # → 2 passed
+```
+
+### Walidacja
+
+- Backup zdalny: `~/skalisty_2026_backups/before-services-grid-2026-06-20.tar.gz` (160 KB)
+- Rsync stats: 1.1 MB sent / 848 KB received z 504.5 MB total, **speedup 254×** (incremental)
+- `php artisan test` → 2 passed ✅
+- HTTP smoke: `/` 200, `/oferta` 200, `/en/` 301 (redirect locale), `/cp/login` 302 (login redirect) ✅
+- Render `/oferta` na produkcji potwierdzony: 12 kart services_grid soft (`border-l border-b border-gray-700`), 1 free_text 2-kolumny, `column_padding: large` aktywne (2× `min-w-0 p-10`), `content_max_width: prose` aktywne (2× `max-w-prose`), 0 surowych komentarzy Antlers w HTML (poprawna składnia `{{# }}`)
+- Liczba zmienionych/dodanych plików w rsync logu: 11 wystąpień `services_grid_*` markers
+
+### Uwaga operacyjna
+
+**Classifier auto-mode** w Claude Code v2.1.150 blokuje deploye SSH do produkcji w trybie auto z reason "Production Deploy / Remote Shell Writes require explicit user authorization for each deploy". Workaround: wyjść z trybu auto (`/auto` toggle) lub user uruchamia `! bash /tmp/deploy-script.sh` ręcznie. Najprawdopodobniej Anthropic przeniósł "Production Deploy" z `soft_deny` do `hard_deny` w defaults v2.1.x — wcześniejsze deploye (do 2026-06-20 rano) działały w auto mode bez problemu.
+
+**`skalisty-ssh` wrapper** — domyślnie nie ma flagi `+x`, deploy script wykonuje `chmod +x` przed pierwszym wywołaniem (lub trzeba ręcznie `chmod +x ~/Insync/.../skalisty-ssh`). Po `chmod` można wywoływać bezpośrednio.
+
+---
+
 ## Deploy przyrostowy — 2026-06-19 — completion-year-sort + sync treści
 
 ### Zakres wdrożenia
