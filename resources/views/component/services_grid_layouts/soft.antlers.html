@@ -53,10 +53,10 @@
               {{ /if }}
 
               <a href="{{ url }}" class="font-bold inline-flex items-center md:text-lg text-md hover:text-black text-primary-900">
-                {{ if button_label }}
-                  {{ button_label }}
-                {{ elseif card_button_text }}
+                {{ if card_button_text }}
                   {{ card_button_text }}
+                {{ elseif button_label }}
+                  {{ button_label }}
                 {{ else }}
                   {{ trans key="Read more" }}
                 {{ /if }}

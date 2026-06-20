@@ -75,9 +75,9 @@ fields:
     handle: card_button_text
     field:
       type: text
-      display: 'Card Button Text (fallback)'
+      display: 'Card Button Text'
       default: 'Read more'
-      instructions: 'Tekst „czytaj więcej" pod każdą kartą. Jeśli wpis kolekcji ma własne pole button_label, ono ma priorytet.'
+      instructions: 'Tekst „czytaj więcej" pod każdą kartą — nadpisuje pole button_label wpisu kolekcji. Jeśli puste, użyte zostanie button_label wpisu (lub klucz tłumaczenia „Read more" jeśli i to puste).'
       localizable: true
   -
     handle: asymmetric_entries

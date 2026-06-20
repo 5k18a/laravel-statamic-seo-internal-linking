@@ -4,6 +4,22 @@ Changelog projektu `skalisty-orion` — prowadzony przez Claude po każdym zako�
 
 ---
 
+## 2026-06-20 (STYLE-card-button-cascade-reverse)
+
+### Zmieniono
+
+- **Odwrócenie cascade priorytetu przycisku karty** w `services_grid_section`. Nowy porządek: `card_button_text` (pole fieldsetu, per-section) → `button_label` (pole entry) → `{{ trans key="Read more" }}`. Wcześniej: `button_label` (per-entry) miało priorytet. UX motivation: redaktor sekcji chce mieć kontrolę nad tekstem przycisku w danej sekcji bez konieczności edycji każdego wpisu kolekcji.
+- Zmiana w 2 plikach (warianty z przyciskiem CTA per karta): `resources/views/component/services_grid_layouts/soft.antlers.html`, `resources/views/component/services_grid_layouts/card-based.antlers.html`. Pozostałe warianty (`row`, `column`, `asymmetric`) nie używają button text per karta — klik na całą kartę.
+- Zaktualizowane instructions pola `card_button_text` w `services_grid_section.yaml` — usunięto słowo "(fallback)" z `display`, dopisano w instructions że pole **nadpisuje** `button_label` (wcześniej było odwrotnie udokumentowane).
+
+### Walidacja
+
+- Render `/oferta` lokalnie: 12 buttonów "Dowiedz się więcej" (z `card_button_text` w services_grid block — wcześniej było 12× "Dowiedz Się Więcej" z `button_label` Title Case).
+
+**Wykonane przez Claude bezpośrednio.**
+
+---
+
 ## 2026-06-20 (Deploy-services-grid-2026-06-20)
 
 ### Wdrożono
