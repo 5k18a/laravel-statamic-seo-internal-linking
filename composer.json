@@ -1,0 +1,41 @@
+{
+    "name": "skalisty/internal-links",
+    "description": "Statamic 6 addon - automatyczne wewnetrzne linkowanie slow kluczowych z multilingual support",
+    "version": "0.1.0",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marcin Skibicki",
+            "homepage": "https://skalisty.pl"
+        }
+    ],
+    "keywords": [
+        "statamic",
+        "statamic-addon",
+        "internal-links",
+        "seo",
+        "auto-link"
+    ],
+    "autoload": {
+        "psr-4": {
+            "Skalisty\\InternalLinks\\": "src"
+        }
+    },
+    "require": {
+        "php": "^8.2",
+        "statamic/cms": "^6.0"
+    },
+    "extra": {
+        "statamic": {
+            "name": "Internal Links",
+            "description": "Auto-linkowanie slow kluczowych w content"
+        },
+        "laravel": {
+            "providers": [
+                "Skalisty\\InternalLinks\\ServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
