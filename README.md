@@ -1,5 +1,7 @@
 # Blog Internal Linking for Statamic
 
+![Blog Internal Linking](gfx/cover.png)
+
 A Statamic 6 addon for automatic keyword-based internal linking in blog content.
 
 Works at render time via an Antlers modifier. Uses a native Statamic `internal_links` collection as storage for keyword → entry mappings. Supports per-locale keywords in a single entry — no multisite propagation required.
@@ -107,6 +109,11 @@ The modifier automatically:
 - `nofollow` — toggle
 - `open_in_new_window` — toggle
 - `enabled` — toggle
+
+## Screenshots
+
+![CP — keyword management](gfx/links.png)
+![CP — keyword management 2](gfx/links-2.png)
 
 ## Example
 
