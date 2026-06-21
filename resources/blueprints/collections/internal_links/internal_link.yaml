@@ -29,6 +29,16 @@ tabs:
               validate:
                 - required
           -
+            handle: blog_collection
+            field:
+              type: collections
+              display: 'Blog collection'
+              instructions: 'Select the collection that contains your blog posts (e.g. blog, posts, articles). The modifier will only run on entries from this collection.'
+              max_items: 1
+              required: true
+              validate:
+                - required
+          -
             handle: keywords
             field:
               type: replicator

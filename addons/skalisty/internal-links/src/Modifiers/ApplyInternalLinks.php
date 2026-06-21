@@ -15,15 +15,15 @@ class ApplyInternalLinks extends Modifier
 {
     private static array $usedTargetUrls = [];
 
-    /**
-     * Usage: {{ text | apply_internal_links }} (blog-detail templates only)
-     * Internal links are managed in the 'pl' site and support per-locale keywords.
-     */
     public function index($value, $params, $context)
     {
         $content = $this->stringValue($value);
 
         if ($content === null || trim($content) === '') {
+            return $value;
+        }
+
+        if (! $this->isAllowedCollection($context)) {
             return $value;
         }
 
@@ -102,6 +102,43 @@ class ApplyInternalLinks extends Modifier
         }
 
         return null;
+    }
+
+    private function isAllowedCollection($context): bool
+    {
+        $currentCollection = $context['collection'] ?? null;
+
+        if ($currentCollection === null) {
+            return true;
+        }
+
+        if (is_object($currentCollection) && method_exists($currentCollection, 'value')) {
+            $currentCollection = $currentCollection->value();
+        }
+
+        if (is_object($currentCollection) && method_exists($currentCollection, 'handle')) {
+            $currentCollection = $currentCollection->handle();
+        }
+
+        $currentCollection = (string) $currentCollection;
+
+        // Load allowed collections from all active internal_links entries.
+        $allowed = Entry::query()
+            ->where('collection', 'internal_links')
+            ->where('site', 'pl')
+            ->where('enabled', true)
+            ->get()
+            ->flatMap(fn ($link) => (array) $link->get('blog_collection', []))
+            ->filter()
+            ->unique()
+            ->values();
+
+        // If no entry has a blog_collection configured, skip the guard.
+        if ($allowed->isEmpty()) {
+            return true;
+        }
+
+        return $allowed->contains($currentCollection);
     }
 
     private function currentSite($context): string

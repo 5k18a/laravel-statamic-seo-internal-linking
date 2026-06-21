@@ -19,8 +19,15 @@ class InstallCommand extends Command
 
         $this->components->info('Blog Internal Linking installed successfully.');
         $this->line('');
-        $this->line('  Add the modifier to your Bard blog templates:');
-        $this->line('  <fg=green>{{ text | apply_internal_links }}</>');
+        $this->line('  Next steps:');
+        $this->line('');
+        $this->line('  1. Go to <fg=cyan>CP → Collections → Blog Internal Linking</> and create your first entry.');
+        $this->line('     Set the <fg=yellow>Blog collection</> field to the handle of your blog collection (e.g. <fg=yellow>blog</>, <fg=yellow>posts</>, <fg=yellow>articles</>).');
+        $this->line('');
+        $this->line('  2. Add the modifier to your Bard blog template:');
+        $this->line('     <fg=green>{{ text | apply_internal_links }}</>');
+        $this->line('');
+        $this->line('  See DOCUMENTATION.md for full setup instructions.');
 
         return self::SUCCESS;
     }

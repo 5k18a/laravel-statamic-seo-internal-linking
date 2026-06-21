@@ -62,6 +62,12 @@ propagate: false
 
 The collection should always be scoped to **one site** — your admin/content language. Keywords for other languages are managed within each entry using the `locale` field.
 
+### Blog collection
+
+Each internal link entry has a **Blog collection** field. Set it to the handle of your blog collection (e.g. `blog`, `posts`, `articles`). The modifier will only process content on entries that belong to this collection — it silently skips all other pages.
+
+If no entry has a blog collection configured, the guard is disabled and the modifier runs everywhere it is placed.
+
 ### Collections for target entries
 
 The blueprint's `target_entry` picker defaults to `pages`, `services`, and `projects`. To add more collections, publish the blueprint and edit `resources/blueprints/collections/internal_links/internal_link.yaml`:
@@ -88,6 +94,7 @@ Go to **CP → Collections → Blog Internal Linking** and create a new entry.
 | Field | Description |
 |---|---|
 | **Name** | Admin label only — not displayed on the site. E.g. `Coral Reef → Decorative Aquariums page` |
+| **Blog collection** | The collection that contains your blog posts. The modifier only runs on entries from this collection. |
 | **Target page** | The entry to link to. URL resolves to the correct language automatically. |
 | **Keywords** | One or more keyword rows (see below). |
 | **Priority (weight)** | Higher number = processed first. Useful when two entries share similar keywords. Default: `0`. |
@@ -180,9 +187,10 @@ The **Target page** field is set once. The modifier calls `Entry::in($site)` int
 Full list of fields in `resources/blueprints/collections/internal_links/internal_link.yaml`:
 
 ```yaml
-- handle: title          # text, required — admin label
-- handle: target_entry   # entries picker, max 1, required
-- handle: keywords       # replicator
+- handle: title            # text, required — admin label
+- handle: blog_collection  # collections picker, max 1, required
+- handle: target_entry     # entries picker, max 1, required
+- handle: keywords         # replicator
     - handle: keyword    # text, required
     - handle: locale     # select (optional) — pl, en, de, fr, es, it, nl, sv, no, da, lv, cs
 - handle: weight         # integer, default 0
