@@ -25,11 +25,12 @@ W glownym projekcie musi istnieć path repository:
 
 ## Uzycie
 
+Addon dziala wylacznie w tresci **wpisow blogowych** (kolekcja `blogs`). Modifier `apply_internal_links` jest uzywany tylko w szablonach `blog-detail-*.antlers.html`.
+
 Dodaj mapping w CP w kolekcji `Internal Links`:
 
 - wybierz `target_entry`
 - dodaj jedno lub wiecej slow kluczowych
-- ustaw limit `max_per_page`
 - wlacz `enabled`
 
 Nastepnie zastosuj modifier w widoku Antlers:
@@ -80,7 +81,6 @@ Blueprint kolekcji zawiera:
 
 - `target_entry` - picker entries: pages, services, projects
 - `keywords` - replicator slow kluczowych
-- `max_per_page` - maksymalna liczba podmian dla mappingu na pojedynczy render
 - `weight` - priorytet podmiany
 - `nofollow`
 - `open_in_new_window`
