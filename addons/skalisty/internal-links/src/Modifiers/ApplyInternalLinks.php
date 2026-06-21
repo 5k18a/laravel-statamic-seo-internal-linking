@@ -17,6 +17,7 @@ class ApplyInternalLinks extends Modifier
 
     /**
      * Usage: {{ text | apply_internal_links }} (blog-detail templates only)
+     * Internal links are managed in the 'pl' site and support per-locale keywords.
      */
     public function index($value, $params, $context)
     {
@@ -30,7 +31,7 @@ class ApplyInternalLinks extends Modifier
 
         $links = Entry::query()
             ->where('collection', 'internal_links')
-            ->where('site', $currentSite)
+            ->where('site', 'pl')
             ->where('enabled', true)
             ->orderBy('weight', 'desc')
             ->get();
@@ -50,9 +51,19 @@ class ApplyInternalLinks extends Modifier
             }
 
             foreach ($link->get('keywords', []) as $keywordItem) {
-                $keyword = is_array($keywordItem) ? ($keywordItem['keyword'] ?? null) : null;
+                if (! is_array($keywordItem)) {
+                    continue;
+                }
+
+                $keyword = $keywordItem['keyword'] ?? null;
+                $locale = $keywordItem['locale'] ?? null;
 
                 if (! is_string($keyword) || trim($keyword) === '') {
+                    continue;
+                }
+
+                // Skip if this keyword is for a different locale.
+                if ($locale !== null && $locale !== '' && $locale !== $currentSite) {
                     continue;
                 }
 

@@ -11,7 +11,7 @@ tabs:
               type: text
               required: true
               display: 'Nazwa (administracyjna, nie wyświetlana)'
-              instructions: 'Np. "Skały do akwarium → Strona Dekoracje Akwarystyczne". Uwaga: linkowanie działa wyłącznie w treści wpisów blogowych (kolekcja Blogs).'
+              instructions: 'Np. "Skały do akwarium → Strona Dekoracje Akwarystyczne". Linkowanie działa wyłącznie w treści wpisów blogowych.'
               validate:
                 - required
           -
@@ -19,7 +19,7 @@ tabs:
             field:
               type: entries
               display: 'Strona docelowa'
-              instructions: 'Wybierz wpis do którego linki będą podstawiane. URL dopasuje się automatycznie do języka.'
+              instructions: 'Wybierz wpis do którego linki będą podstawiane. URL dopasuje się automatycznie do języka strony.'
               max_items: 1
               collections:
                 - pages
@@ -33,7 +33,7 @@ tabs:
             field:
               type: replicator
               display: 'Słowa kluczowe'
-              instructions: 'Lista słów które będą zamieniane na link.'
+              instructions: 'Dodaj słowa kluczowe dla każdego języka. Pole "Język" zostaw puste jeśli słowo działa dla wszystkich języków.'
               sets:
                 main:
                   sets:
@@ -44,11 +44,32 @@ tabs:
                           handle: keyword
                           field:
                             type: text
-                            display: 'Słowo'
-                            instructions: 'Np. "akwarium", "sztuczne skały"'
+                            display: 'Słowo / fraza'
+                            instructions: 'Np. "sztuczne skały", "artificial rocks"'
                             required: true
                             validate:
                               - required
+                        -
+                          handle: locale
+                          field:
+                            type: select
+                            display: 'Język'
+                            instructions: 'Zostaw puste = działa we wszystkich językach'
+                            placeholder: 'Wszystkie języki'
+                            clearable: true
+                            options:
+                              pl: 'Polski (pl)'
+                              en: 'English (en)'
+                              de: 'Deutsch (de)'
+                              fr: 'Français (fr)'
+                              es: 'Español (es)'
+                              it: 'Italiano (it)'
+                              nl: 'Nederlands (nl)'
+                              sv: 'Svenska (sv)'
+                              no: 'Norsk (no)'
+                              da: 'Dansk (da)'
+                              lv: 'Latviešu (lv)'
+                              cs: 'Čeština (cs)'
               required: true
               validate:
                 - required
@@ -60,25 +81,21 @@ tabs:
               display: 'Priorytet (waga)'
               instructions: 'Wyższy = pierwszy podmieniany przy konflikcie keywords.'
               default: 0
-              localizable: false
           -
             handle: nofollow
             field:
               type: toggle
               display: 'nofollow'
               default: false
-              localizable: false
           -
             handle: open_in_new_window
             field:
               type: toggle
               display: 'Otwieraj w nowej karcie'
               default: false
-              localizable: false
           -
             handle: enabled
             field:
               type: toggle
               display: 'Aktywne'
               default: true
-              localizable: false
