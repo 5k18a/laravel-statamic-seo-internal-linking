@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2026-06-22
+
+### Added
+- `config/internal-links.php` — global configuration file with `blog_collection` and `admin_site` keys
+- `InstallCommand` auto-detects blog collection by scanning collection handles for keywords (`blog`, `post`, `article`, `news`, `journal`, `entry`)
+- On multisite installs, `InstallCommand` asks which site is used to manage content in the CP
+- Detected values are written automatically into the published config file
+- `vendor:publish --tag=internal-links-config` for config-only publish
+
+### Changed
+- `blog_collection` moved from a per-entry CP field to a global config key — set once, applies everywhere
+- `admin_site` replaces the hardcoded `'pl'` in the modifier query — now read from config
+- Blueprint simplified: `blog_collection` field removed from CP
+- Composer package renamed to `5k18a/blog-internal-links`
+- CP blueprint and collection labels translated to English for Statamic Marketplace compatibility
+
+### Removed
+- `blog_collection` entries picker field from blueprint (replaced by config)
+
 ## [0.1.0] - 2026-06-22
 
 ### Added

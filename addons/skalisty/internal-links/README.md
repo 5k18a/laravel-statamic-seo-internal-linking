@@ -12,40 +12,44 @@ Works at render time via an Antlers modifier. Uses a native Statamic `internal_l
 
 ## Installation
 
-Add a path repository to your project's `composer.json`:
-
-```json
-{
-    "repositories": [
-        {
-            "type": "path",
-            "url": "./addons/skalisty/internal-links"
-        }
-    ]
-}
-```
-
-Then require and install:
-
 ```bash
-composer require skalisty/internal-links @dev
+composer require 5k18a/blog-internal-links
 php artisan internal-links:install
 ```
 
-The install command creates `content/collections/internal_links.yaml`, publishes the blueprint to `resources/blueprints/`, and refreshes the Statamic stache.
+The install command:
+- Publishes `config/internal-links.php`
+- Creates `content/collections/internal_links.yaml`
+- Publishes the blueprint to `resources/blueprints/collections/internal_links/`
+- **Auto-detects** your blog collection by scanning collection handles for keywords like `blog`, `post`, `articles`, `news`
+- On multisite installs, asks which site you use to manage content in the CP
+- Writes detected values into `config/internal-links.php`
+- Runs `php artisan statamic:stache:refresh`
 
 ### Manual install (alternative)
 
 ```bash
-composer require skalisty/internal-links @dev
+composer require 5k18a/blog-internal-links
+php artisan vendor:publish --tag=internal-links-config
 php artisan vendor:publish --tag=internal-links-collection
 php artisan vendor:publish --tag=internal-links-blueprints
 php artisan statamic:stache:refresh
 ```
 
+## Configuration
+
+After install, review `config/internal-links.php`:
+
+```php
+return [
+    'blog_collection' => 'blog',  // handle of your blog collection
+    'admin_site'      => 'en',    // site used to manage internal_links in CP
+];
+```
+
 ## Usage
 
-The addon works exclusively on **blog entry content** (the `blogs` collection). Apply the modifier inside your `blog-detail` Antlers templates, within the Bard field loop:
+Add the modifier inside your blog Antlers template, within the Bard field loop:
 
 ```antlers
 {{ content }}
@@ -66,12 +70,10 @@ The modifier also works on any string or HTML field:
 
 ## Managing Internal Links
 
-The `internal_links` collection is managed from a single admin language (e.g. `pl`). Create one entry per target page.
+Go to **CP → Collections → Blog Internal Linking** and create one entry per target page.
 
-The modifier only runs on entries belonging to the collection defined in `config/internal-links.php` — it skips all other pages silently.
-
-Each keyword item in the replicator has two fields:
-- **Keyword / phrase** — the text to match (case-insensitive)
+Each keyword row in the replicator has two fields:
+- **Word / phrase** — the text to match (case-insensitive)
 - **Language** — optional locale code (`en`, `de`, `fr`, …). Leave empty to apply to all languages.
 
 Example configuration for one entry:
@@ -81,7 +83,7 @@ Example configuration for one entry:
 | sztuczne skały | pl |
 | artificial rocks | en |
 | Kunstfelsen | de |
-| roches artificielles | (empty — all) |
+| roches artificielles | *(empty — all)* |
 
 The modifier automatically:
 1. Filters keywords for the current site locale
@@ -90,22 +92,12 @@ The modifier automatically:
 ## Behaviour
 
 - Only active (`enabled: true`) entries from the `internal_links` collection are processed.
-- The target URL comes from the selected entry and resolves to the current site's language automatically.
-- Existing links, headings, figures, images, iframes, and WordPress embed comments are hidden from replacement.
+- The modifier only runs on entries belonging to the `blog_collection` defined in config — all other pages are skipped silently.
+- The target URL resolves to the current site's language automatically.
+- Existing links, headings, figures, images, iframes, and WordPress embed comments are protected from replacement.
 - Matching is case-insensitive and respects Unicode word boundaries.
 - Higher `weight` means earlier processing when keywords conflict.
-- **Deduplication:** each target URL is linked at most once per page request, preventing multiple links to the same destination on a single page.
-
-## Configuration
-
-After install, edit `config/internal-links.php`:
-
-```php
-return [
-    'blog_collection' => 'blog',  // handle of your blog collection
-    'admin_site'      => 'en',    // site used to manage internal_links in CP
-];
-```
+- **Deduplication:** each target URL is linked at most once per page request.
 
 ## Blueprint Fields
 
