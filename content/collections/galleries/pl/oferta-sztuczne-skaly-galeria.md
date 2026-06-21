@@ -17,5 +17,7 @@ image:
   - galeria/termy-tarnowskie/termy-tarnowskie-3.webp
 url: 'javascript:;'
 updated_by: 07f72358-0580-4aaf-b00c-6a3760228419
-updated_at: 1782029813
+updated_at: 1782041561
+gallery_tags:
+  - oferta
 ---

@@ -1,5 +1,54 @@
 # Codex Memory
 
+## Ostatnia sesja — 2026-06-21 — FEATURE-seo-errors-manager
+
+- Aktywny brief:
+  - `FEATURE-seo-errors-manager`
+- Cel:
+  - dodać paralelny panel CP `SEO Errors Manager` do zarządzania błędami 404 logowanymi przez `statamic/seo-pro`
+  - dodać komendę CLI `seo:errors:prune` do batch cleanupu bez UI
+  - nie modyfikować `vendor/statamic/seo-pro`
+- Wykonane:
+  - dodano `app/Http/Controllers/CP/SeoErrorsController.php`
+  - dodano `resources/views/cp/seo_errors/index.blade.php`
+  - dodano `app/Console/Commands/SeoErrorsPrune.php`
+  - rozszerzono `routes/cp.php` o 3 route’y `seo-errors-manager`
+  - dodano item nav `SEO Errors` w `app/Providers/AppServiceProvider.php`
+  - zaktualizowano `CODEX_SUGGESTIONS.md` dla audytu Claude
+- Ważne decyzje techniczne:
+  - SEO Pro model używa pola/metody `site()`, nie `locale`; UI może mówić „Locale”, ale kod filtruje po `site`.
+  - `Error::find($id)` istnieje, ale jest niebezpieczne w multisite dla delete, bo szuka tylko po `id`.
+  - Stache store SEO Pro używa klucza `site::id`, więc panel też używa `site::id` i kasuje po `site + id`.
+  - `Error::query()->where('site', ...)->where('id', ...)` działa poprawnie i jest najlepszym sposobem na precyzyjny delete bez vendora.
+  - `routes/cp.php` jest już ładowany przez `Statamic::pushCpRoutes()` w `AppServiceProvider::boot()`.
+  - Własne panele Tools w projekcie: route prefix + name group w `routes/cp.php`, nav item w `Nav::extend`, Blade view w `resources/views/cp/<panel>/index.blade.php`, JS vanilla.
+- Publiczne API SEO Pro:
+  - `Statamic\SeoPro\Facades\Error::all()` — kolekcja errors.
+  - `Statamic\SeoPro\Facades\Error::query()` — Stache query builder, obsługuje `where`, `whereIn`, `orderBy`.
+  - `Statamic\SeoPro\Facades\Error::find($id)` — tylko po `id`, bez site.
+  - `$error->delete()` — usuwa YAML przez repository i dispatchuje event.
+- Gotowe rozwiązania:
+  - SEO Pro ma natywne `statamic:seo-pro:purge-errors`, ale tylko dla wpisów starszych niż `config('statamic.seo-pro.redirects.errors.purge_after_days')`; brak `locale`, `hits-lt`, `dry-run`.
+- Walidacja:
+  - `php -l` controller/command — OK
+  - `php artisan view:clear` — OK
+  - `php artisan cache:clear` — OK
+  - `php artisan route:list | rg seo-errors` — 3 route’y
+  - `php artisan list seo:errors` — `seo:errors:prune`
+  - `php artisan test` — OK (`2 passed`)
+  - `curl -sSI http://127.0.0.1:8001/cp/seo-errors-manager` — 302 do loginu CP bez sesji
+  - render Blade przez `php artisan tinker view(...)` — OK
+  - `seo:errors:prune --dry-run --older-than=1d` — 9 z 16 wpisów, bez usuwania
+  - `seo:errors:prune` bez filtrów — failure zgodnie z założeniem
+  - `seo:errors:prune --dry-run --older-than=abc` — failure zgodnie z założeniem
+  - tymczasowy wpis `codex::codex-seo-prune-test` został utworzony i usunięty przez `seo:errors:prune --locale=codex --confirm`; licznik wrócił do 16
+- Nie wykonano:
+  - manualnego klikania delete/bulk delete w zalogowanym CP
+  - powód: brak aktywnej sesji admina po stronie Codexa; zostawione do audytu Claude/user
+- Git:
+  - bez commita i bez deployu, zgodnie z AGENTS.md
+  - w `git status` są wcześniejsze zmiany Claude/użytkownika w contentach i dokumentacji; Codex ich nie ruszał
+
 ## Ostatnia sesja — 2026-06-21 — FEATURE-mega-menu-globals-i18n
 
 - Aktywny brief:

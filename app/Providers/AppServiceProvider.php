@@ -81,6 +81,11 @@ class AppServiceProvider extends ServiceProvider
                 ->section('Tools')
                 ->url(cp_route('translator-api.index'))
                 ->icon('key');
+
+            $nav->create('Błędy SEO (404)')
+                ->section('Tools')
+                ->url(cp_route('seo-errors-manager.index'))
+                ->icon('alert-warning-exclamation-mark');
         });
     }
 }

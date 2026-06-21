@@ -17,5 +17,7 @@ image:
   - galeria/oceanika/oceanika-akwaria-2.webp
 url: 'javascript:;'
 updated_by: 07f72358-0580-4aaf-b00c-6a3760228419
-updated_at: 1781905954
+updated_at: 1782035098
+gallery_tags:
+  - oferta
 ---

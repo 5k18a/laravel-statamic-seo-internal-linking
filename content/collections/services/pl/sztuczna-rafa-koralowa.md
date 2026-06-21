@@ -7,7 +7,7 @@ image: galeria/afrykarium/afrykarium-5.webp
 description: 'Projektujemy i wykonujemy wielkoformatowe dekoracje akwarystyczne dla akwariów wielkolitrażowych i oceanariów, zarówno słodkowodnych, jak i morskich. Budujemy realistyczne sztuczne rafy koralowe, skały podwodne, sztuczne koralowce, pnie i scenografie, które odwzorowują naturalne biotopy oraz podnoszą atrakcyjność ekspozycji. Stosujemy materiały bezpieczne dla środowiska wodnego, a układ dekoracji dopasowujemy do cyrkulacji wody i wymagań technicznych zbiornika.'
 button_label: 'Dowiedz Się Więcej'
 updated_by: 07f72358-0580-4aaf-b00c-6a3760228419
-updated_at: 1782033135
+updated_at: 1782045447
 page_builder:
   -
     id: mgtcp0fs
@@ -126,7 +126,7 @@ page_builder:
       page: bb164406-1a5b-4522-b08d-ea504245c3dd
     contact_button:
       phone_label: '+48 504 133 554'
-      phone_number: 'tel:+48504133554'
+      phone_number: 'tel: +48504133554'
     image: images/identyfikacja-strony/marcin-skibicki-skalisty-group.jpg
     type: confidence_section
     enabled: true

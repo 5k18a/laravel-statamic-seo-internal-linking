@@ -13,5 +13,7 @@ image:
   - galeria/strona-glowna/9.webp
 url: 'javascript:;'
 updated_by: 07f72358-0580-4aaf-b00c-6a3760228419
-updated_at: 1780762752
+updated_at: 1782041611
+gallery_tags:
+  - strona-glowna
 ---

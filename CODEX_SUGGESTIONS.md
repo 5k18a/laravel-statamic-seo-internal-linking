@@ -465,6 +465,107 @@ doprecyzowanie workflow — zmiana konstytucyjna w `AGENTS.md`, nie zmienia scop
 
 ## ACTIVE_FOR_CLAUDE_REVIEW
 
+### 2026-06-21 14:47 — FEATURE-seo-errors-manager / SEO Errors Manager
+
+#### Status
+
+Wykonane
+
+#### Wykonane zmiany
+
+- Dodano paralelny panel CP `SEO Errors Manager` w sekcji Tools, bez modyfikowania `vendor/statamic/seo-pro`.
+- Dodano listing błędów SEO Pro z filtrem po locale/site, sortowaniem po `url`, `hits`, `last_hit_at`, licznikiem widocznych i zaznaczonych wpisów.
+- Dodano akcję pojedynczego delete przez AJAX `DELETE` oraz bulk delete przez AJAX `POST`.
+- Dodano link per wiersz do natywnego SEO Pro `Create Redirect` z query `source=<url>`.
+- Dodano komendę `seo:errors:prune` z opcjami `--locale`, `--older-than`, `--hits-lt`, `--all`, `--confirm`, `--dry-run`.
+- Dodano nav item `SEO Errors` w `AppServiceProvider::boot()` obok istniejących paneli Tools.
+- Potwierdzono, że `routes/cp.php` jest już ładowany przez `Statamic::pushCpRoutes()` w `AppServiceProvider`.
+
+#### Zmienione pliki
+
+- `app/Http/Controllers/CP/SeoErrorsController.php` — nowy controller CP.
+- `resources/views/cp/seo_errors/index.blade.php` — nowy widok Blade panelu.
+- `app/Console/Commands/SeoErrorsPrune.php` — nowa komenda CLI.
+- `routes/cp.php` — 3 route’y `seo-errors-manager`.
+- `app/Providers/AppServiceProvider.php` — nowy item nav w Tools.
+- `CODEX_SUGGESTIONS.md` — ten raport dla Claude.
+- `codex-memory.md` — pamięć robocza Codexa po zadaniu.
+
+#### Problemy wykryte podczas pracy
+
+- Brief używał pojęcia `locale`, ale publiczny model SEO Pro nazywa pole `site`; implementacja UI nadal pokazuje „Locale”, lecz technicznie filtruje po `site`.
+- `Statamic\SeoPro\Facades\Error::find($id)` istnieje, ale w repozytorium Stache szuka wyłącznie po `id`, bez `site`. W multisite SEO Pro dopuszcza ten sam `id` w różnych site’ach, bo store używa klucza `site::id`.
+- Żeby nie skasować błędu z niewłaściwego języka, Codex użył klucza panelu `site::id` i delete robi przez `Error::query()->where('site', $site)->where('id', $id)->first()`.
+- Literalny route z briefu `DELETE /{id}` został wdrożony jako `DELETE /{key}`, gdzie `key = site::id`; to celowe zabezpieczenie przed kolizjami ID w multisite.
+- `Error::query()->where('site', ...)` działa poprawnie; nie trzeba było przechodzić wyłącznie na `Error::all()` dla panelu. W CLI użyto `Error::all()` + Collection filters, bo zakres jest batchowy i prostszy do dry-run.
+- W vendorze istnieje natywna komenda `statamic:seo-pro:purge-errors`, ale czyści tylko wpisy starsze niż konfigurowany próg `purge_after_days`; nie obsługuje `locale`, `hits-lt`, `dry-run` ani selektywnego batch cleanupu.
+
+#### Ryzyka
+
+- Nie wykonano manualnego kliknięcia w zalogowanym CP, bo Codex nie ma aktywnej sesji admina w sandboxie. Widok Blade renderuje się poprawnie przez `php artisan tinker`, a endpoint CP bez sesji zwraca oczekiwane `302` do `/cp/auth/login`.
+- Delete single i bulk delete w UI wymagają finalnej walidacji w przeglądarce przez zalogowanego admina: klik Delete, klik Bulk Delete, potwierdzenie że wiersz znika i plik YAML znika ze storage.
+- Nav icon `alert` powinien zostać potwierdzony wizualnie w CP; jeśli Statamic nie ma tej ikony w danym buildzie, zmienić na `warning-diamond` albo inną dostępną ikonę.
+
+#### Sugestie dla Claude
+
+- Podczas audytu sprawdzić w zalogowanym CP `/cp/seo-errors-manager`: render listy 16 lokalnych wpisów, filtr locale, sortowanie, link `Create Redirect`.
+- Do testu UI delete/bulk najlepiej utworzyć 2 tymczasowe wpisy SEO Pro przez facade w sztucznym lub kontrolowanym locale, a nie kasować realnych wpisów użytkownika.
+- Potwierdzić, czy nazwa w nav ma pozostać angielska `SEO Errors`, czy dla spójności Tools zmienić ją na polskie `Błędy SEO` / `Błędy 404`.
+- Przy audycie zwrócić uwagę na decyzję `site::id`; to odstępstwo od sample briefu, ale zgodne z `ErrorsStore::getItemKey()` i bezpieczniejsze dla multisite.
+
+#### Gotowe rozwiązania zauważone przez Codex
+
+- SEO Pro ma natywne `statamic:seo-pro:purge-errors`, ale zakres jest zbyt wąski dla tego briefu: tylko wiek według konfiguracji, bez filtrów i bez dry-run.
+- SEO Pro natywny Inertia listing ma `create_redirect_url`, ale brak delete UI i brak standardowego systemu Actions; panel paralelny pozostaje najstabilniejszą ścieżką bez patchowania vendora.
+
+#### Doc drift
+
+- Brak blokującego doc drift w aktywnym briefie: `BRIEF_CODEX.md`, `PROJECT_STATUS_CODEX.md` i `CLAUDE_MEMORY.md` wskazują `FEATURE-seo-errors-manager`.
+- Istnieją wcześniejsze zmiany Claude/użytkownika w contentach i dokumentacji w `git status`; Codex ich nie ruszał i nie revertował.
+- `CODEX_SUGGESTIONS.md` ma historycznie sekcję `ACTIVE_FOR_CLAUDE_REVIEW` po `RESOLVED_BY_CLAUDE`, mimo że AGENTS.md wskazuje odwrotną kolejność kanoniczną. Codex nie robił większego porządkowania struktury w ramach tego zadania.
+
+#### Testy i komendy kontrolne
+
+Uruchomiono:
+
+- `php -l app/Http/Controllers/CP/SeoErrorsController.php` → brak błędów składni.
+- `php -l app/Console/Commands/SeoErrorsPrune.php` → brak błędów składni.
+- `php artisan view:clear` → OK.
+- `php artisan cache:clear` → OK.
+- `php artisan route:list | rg seo-errors` → 3 route’y: GET index, POST bulk-delete, DELETE destroy.
+- `php artisan list seo:errors` → komenda `seo:errors:prune` widoczna.
+- `php artisan test` → `2 passed`.
+- `curl -sSI http://127.0.0.1:8001/cp/seo-errors-manager` → `302 Found` do `/cp/auth/login`, oczekiwane bez sesji CP.
+- `php artisan tinker` render widoku `cp.seo_errors.index` z przykładowym wpisem → Blade renderuje bez wyjątku.
+- `php artisan tinker` query `Error::query()->where("site", "pl")->where("id", "projects")->first()` → zwróciło `/projects`.
+- `php artisan seo:errors:prune --dry-run --older-than=1d` → 9 wpisów z 16, nic nie usunięto:
+  ```text
+  Wpisów do usunięcia: 9 (z 16 łącznie).
+  --dry-run: poniżej lista wpisów, nic nie usunięto.
+    en::project → /project (hits=2, last=2026-06-18 13:09:05)
+    pl::projects → /projects (hits=1, last=2026-06-18 17:07:39)
+    pl::projectaerotech-engineering-campus → /project/aerotech-engineering-campus (hits=1, last=2026-06-18 17:07:41)
+    pl::servicearchitectural-design → /service/architectural-design (hits=1, last=2026-06-19 16:45:18)
+    pl::oferta → /oferta/ (hits=1, last=2026-06-19 16:45:56)
+    pl::services → /services (hits=1, last=2026-06-19 16:49:53)
+    pl::ofertasztuczna-rafa-koralowa → /oferta/sztuczna-rafa-koralowa (hits=2, last=2026-06-20 07:36:57)
+    pl::ofertaarchitectural-design → /oferta/architectural-design (hits=5, last=2026-06-20 07:53:18)
+    pl::ofertadekoracje-akwarystyczne → /oferta/dekoracje-akwarystyczne (hits=2, last=2026-06-20 07:53:18)
+  ```
+- `php artisan seo:errors:prune` → failure, komunikat `Musisz podać co najmniej jeden filtr lub --all.`
+- `php artisan seo:errors:prune --dry-run --older-than=abc` → failure, komunikat o błędnym formacie.
+- Test realnego delete CLI na tymczasowym wpisie `codex::codex-seo-prune-test`: dry-run pokazał 1 wpis, `--locale=codex --confirm` usunął 1 wpis, licznik wrócił do 16, plik YAML zniknął.
+
+Nie uruchomiono:
+
+- Manualny test klikany w zalogowanym CP dla single delete i bulk delete.
+
+Powód:
+
+- Brak aktywnej sesji admina CP po stronie Codexa; endpoint bez sesji poprawnie przekierowuje do loginu.
+
+---
+
 <!-- ROZLICZONE 2026-06-21 16:10 — pełny audyt w RESOLVED_BY_CLAUDE (FEATURE-mega-menu-globals-i18n):
 
 ### 2026-06-21 — FEATURE-mega-menu-globals-i18n

@@ -4,6 +4,81 @@
 
 ---
 
+## Deploy przyrostowy — 2026-06-21 — FEATURE-seo-errors-manager (panel CP + CLI + auto-prune)
+
+### Zakres wdrożenia
+
+Pełny moduł SEO Errors Manager — paralelny panel CP w sekcji Tools dla zarządzania błędami 404 logowanymi przez `statamic/seo-pro` v7.11.0:
+
+- Listing z filter (search + locale) + sort + paginacja (10/20/50/100/500 per strona)
+- Akcje: single delete (AJAX), bulk delete (AJAX), delete-all z 2-step confirm (`USUN` typed)
+- Link "Utwórz przekierowanie" do natywnego SEO Pro `/cp/seo-pro/redirects/create?source=<URL>`
+- Auto-prune: dropdown 0/3/7/15/20/30 dni → setting w `storage/app/seo-errors-settings.json` → Laravel Scheduler daily 03:00 wywołuje `seo:errors:prune --older-than=Xd --confirm`
+- CLI command `seo:errors:prune` z filtrami `--locale`, `--older-than`, `--hits-lt`, `--all`, `--confirm`, `--dry-run`
+
+**Bez modyfikacji vendora `statamic/seo-pro`** — wykorzystanie publicznego API `Statamic\SeoPro\Facades\Error::*`. `composer update statamic/seo-pro` ma działać normalnie.
+
+### Pre-deploy backup
+
+`~/skalisty_2026_backups/before-seo-errors-manager-2026-06-21/` (3 pliki, 12 KB): AppServiceProvider.php, routes/console.php, routes/cp.php.
+
+### Metoda
+
+Rsync `--files-from` 6 plików (50 KB):
+- Nowe: `SeoErrorsController.php`, `SeoErrorsPrune.php`, `resources/views/cp/seo_errors/index.blade.php`
+- Edytowane: `AppServiceProvider.php` (nav), `routes/cp.php` (5 routes), `routes/console.php` (schedule)
+
+Plus `mkdir -p storage/app` (dla settings JSON).
+
+### Komendy post-deploy
+
+```bash
+php84 artisan config:clear
+php84 artisan cache:clear
+php84 artisan view:clear
+php84 artisan statamic:stache:refresh
+php84 artisan test  # 2 passed
+```
+
+### Walidacja
+
+```
+$ php84 artisan route:list | grep seo-errors
+  GET    cp/seo-errors-manager           → index
+  POST   cp/seo-errors-manager/bulk-delete → bulkDelete
+  POST   cp/seo-errors-manager/delete-all  → deleteAll
+  POST   cp/seo-errors-manager/settings    → updateSettings
+  DELETE cp/seo-errors-manager/{key}       → destroy
+
+$ php84 artisan schedule:list
+  0 3 * * *  seo-errors-auto-prune  Next Due: 13 hours from now
+
+$ php84 artisan list seo:errors
+  seo:errors:prune  Bulk delete SEO Pro 404 error entries with optional filters.
+```
+
+HTTP:
+- `https://dev.skalisty.pl/cp/seo-errors-manager` → 302 → `/cp/auth/login` (oczekiwane bez sesji) ✅
+- `https://dev.skalisty.pl/cp/auth/login` → 200 ✅
+
+### WAŻNE — konfiguracja crona na hostingu
+
+Auto-prune wymaga dodania **1 wpisu crona** w panelu dhosting → Narzędzia → Harmonogram zadań:
+
+```
+* * * * * /usr/local/bin/php84 /home/klient.dhosting.pl/skalisty/skalisty_2026/artisan schedule:run >> /dev/null 2>&1
+```
+
+Ten jeden wpis obsługuje wszystkie Laravel scheduled tasks (włącznie z `seo-errors-auto-prune` codziennie o 03:00 + przyszłymi w `routes/console.php`). Plus istniejący wpis crona Magic Translator queue worker pozostaje bez zmian.
+
+Test natychmiastowy bez czekania na 03:00:
+```bash
+php84 artisan schedule:test
+# Wybierz "seo-errors-auto-prune" → wymusi natychmiastowe uruchomienie
+```
+
+---
+
 ## Deploy przyrostowy — 2026-06-21 — FEATURE-services-pagebuilder-defaults
 
 ### Zakres wdrożenia

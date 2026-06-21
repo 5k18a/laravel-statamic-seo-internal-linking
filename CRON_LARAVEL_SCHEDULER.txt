@@ -1,0 +1,114 @@
+CRON DLA LARAVEL SCHEDULER — dev.skalisty.pl (dhosting GUI)
+============================================================
+
+Gdzie dodać:
+  Panel dhosting → Narzędzia → Harmonogram zadań (Cron) → Dodaj nowy
+
+============================================================
+WYPEŁNIJ FORMULARZ — SPOSÓB A (rekomendowany, jeśli jest pole "Katalog roboczy"):
+============================================================
+
+Profil:           5 minut i więcej
+
+Program:          PHP 8.4
+
+Katalog roboczy:  /home/klient.dhosting.pl/skalisty/skalisty_2026/
+
+Ścieżka:          artisan schedule:run
+
+Interwał:         co 5 minut
+
+Opis:             Laravel Scheduler (m.in. seo-errors-auto-prune daily 03:00)
+
+============================================================
+WYPEŁNIJ FORMULARZ — SPOSÓB B (gdy nie ma osobnego pola "Katalog roboczy"):
+============================================================
+
+Profil:    5 minut i więcej
+
+Program:   PHP 8.4
+
+Ścieżka:   /home/klient.dhosting.pl/skalisty/skalisty_2026/artisan schedule:run
+
+Interwał:  co 5 minut
+
+Opis:      Laravel Scheduler (m.in. seo-errors-auto-prune daily 03:00)
+
+Uwaga: oba sposoby działają. Plik artisan ustawia kontekst Laravela
+przez __DIR__/vendor/autoload.php — niezależnie od katalogu roboczego.
+
+============================================================
+
+WAŻNE — ścieżka PHP binarki:
+
+  Panel dhosting w polu "Program" sam wybiera prawidłową binarkę PHP
+  na podstawie wybranej wersji (PHP 8.4). NIE podawaj pełnej ścieżki
+  do binarki PHP w polu "Ścieżka".
+
+  Prawidłowa ścieżka PHP na tym serwerze to /opt/alt/php84/usr/bin/php
+  (NIE /usr/local/bin/php84 — ta nie istnieje na dhosting).
+  Ścieżka jest istotna tylko przy SSH ręcznym wywoływaniu artisan;
+  cron przez panel używa swojej wbudowanej binarki PHP 8.4.
+
+============================================================
+
+NIE USUWAJ istniejącego crona Magic Translator queue worker.
+Oba crony mają działać RÓWNOLEGLE.
+
+============================================================
+
+WERYFIKACJA — po dodaniu crona (przez SSH):
+
+  # 1. Sprawdź czy artisan widzi nasze scheduled task:
+  /opt/alt/php84/usr/bin/php ~/skalisty_2026/artisan schedule:list
+  # Powinno wyświetlić:
+  #   0 3 * * *  seo-errors-auto-prune  Next Due: X hours from now
+
+  # 2. Wymuś natychmiastowe uruchomienie seo-errors-auto-prune
+  #    (bez czekania na 03:00) — wybierz "seo-errors-auto-prune":
+  /opt/alt/php84/usr/bin/php ~/skalisty_2026/artisan schedule:test
+
+  # 3. Sprawdź czy schedule:run działa ręcznie:
+  /opt/alt/php84/usr/bin/php ~/skalisty_2026/artisan schedule:run --verbose
+
+  # 4. Po pierwszym automatycznym uruchomieniu (jutro o 03:00, jeśli
+  #    auto_prune_days > 0 w panelu CP):
+  cat ~/skalisty_2026/storage/app/seo-errors-settings.json
+  # Powinno mieć last_pruned_at + last_prune_count wypełnione.
+
+  Uwaga: crontab -l jest na dhosting ZABLOKOWANY dla SSH user.
+  Sprawdzić listę cronów można TYLKO przez panel dhosting.
+
+============================================================
+
+JAK ZWERYFIKOWAĆ ŻE CRON PANEL DZIAŁA:
+
+  Najlepsza weryfikacja — przy następnym otwarciu /cp/seo-errors-manager
+  po 03:00 (rano):
+  - Jeśli auto_prune_days > 0 (ustawione w dropdown),
+  - Po 03:00 cron powinien uruchomić seo-errors-auto-prune,
+  - Następne otwarcie panelu pokaże "Ostatnio: X godzin temu" obok
+    dropdownu Auto-usuwaj.
+
+  Manualny test bez czekania:
+  - SSH: /opt/alt/php84/usr/bin/php ~/skalisty_2026/artisan schedule:test
+  - Wybierz "seo-errors-auto-prune"
+  - Wykona od razu + zaktualizuje JSON
+
+============================================================
+
+CO ROBI ten cron:
+  - Uruchamia "php artisan schedule:run" co 5 minut (lub wybrany interwał)
+  - Laravel sczytuje routes/console.php i wykonuje zadania zgodnie z ich rozkładem
+  - Aktualnie obsługuje:
+      * seo-errors-auto-prune — codziennie o 03:00
+        (czyta storage/app/seo-errors-settings.json, jeśli auto_prune_days > 0,
+        wywołuje seo:errors:prune --older-than=Xd --confirm)
+  - Wszystkie przyszłe scheduled tasks dodawane w routes/console.php
+    będą automatycznie obsługiwane przez ten sam jeden wpis crona.
+
+============================================================
+
+Plik utworzony 2026-06-21 przez Claude.
+Dokumentacja pełna: server_deploy/DEPLOYMENT.md sekcja
+  "Deploy przyrostowy — 2026-06-21 — FEATURE-seo-errors-manager"

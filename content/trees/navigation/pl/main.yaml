@@ -25,6 +25,9 @@ tree:
       service_entries:
         - cb338a28-c5c7-4af1-9ac3-93e5e0b7c4ef
         - c17181eb-b81d-4321-8f30-57c00ff23162
+        - 39216cf2-7c41-422c-8a53-f4e1e8cd7e4f
+        - 7f531233-c182-4b63-8a1f-e5ae0612474f
+        - 073f8beb-962e-48aa-80e4-f24d443c7d11
       button_page: 068133ec-7b84-40f4-9122-53373a1c74b5
   -
     id: 5e6e966f-4559-408b-85f3-b4ddfbaad27c

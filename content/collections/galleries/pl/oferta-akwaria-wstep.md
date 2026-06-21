@@ -9,5 +9,7 @@ image:
   - galeria/akwaria/dekoracje-akwarystyczne-1.webp
 url: 'javascript:;'
 updated_by: 07f72358-0580-4aaf-b00c-6a3760228419
-updated_at: 1781904413
+updated_at: 1782041565
+gallery_tags:
+  - oferta
 ---

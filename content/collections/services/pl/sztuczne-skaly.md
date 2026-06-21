@@ -19,7 +19,7 @@ image: galeria/bel-mare-miedzyzdroje/park-wodny-bel-mare-sztuczne-skaly-02.webp
 button_label: 'Dowiedz się więcej'
 order: 2
 updated_by: 07f72358-0580-4aaf-b00c-6a3760228419
-updated_at: 1782033132
+updated_at: 1782042255
 description: 'Projektujemy i budujemy wielkoformatowe sztuczne skały, głazy, ściany skalne oraz elewacje imitujące naturalny kamień. Tworzymy realistyczne dekoracje dla ogrodów zoologicznych, parków wodnych, parków rozrywki, hoteli, stref SPA i przestrzeni komercyjnych, łącząc naturalny wygląd z trwałą konstrukcją i funkcjonalnością.'
 content_title: 'Projektowanie i budowa sztucznych skał'
 page_builder:
@@ -100,18 +100,21 @@ page_builder:
         description: 'Poznajemy charakter inwestycji, funkcję dekoracji oraz warunki panujące w miejscu realizacji. Analizujemy dostępne podłoże, przewidywane obciążenia, instalacje techniczne i sposób użytkowania przestrzeni.'
         type: step_item
         enabled: true
+        step_number: '01'
       -
         id: 0icoFA9CyZJay22GYEApr
         title: 'Budowa i modelowanie'
         description: 'Wykonujemy konstrukcję wsporczą, przygotowujemy bryłę formacji i ręcznie modelujemy jej powierzchnię. Nadajemy skale charakterystyczne warstwy, spękania, nawisy, uskoki oraz inne naturalne detale.'
         type: step_item
         enabled: true
+        step_number: '02'
       -
         id: lGUb1iKU4TVgcz35RCIBz
         title: 'Kolorystyka i wykończenie'
         description: 'Dobieramy barwy i efekty patynowania do rodzaju odwzorowywanej skały oraz otoczenia. Po zakończeniu prac kontrolujemy detale, stabilność zabudowy i spójność całej kompozycji.'
         type: step_item
         enabled: true
+        step_number: '03'
     type: how_it_works_section
     enabled: true
   -

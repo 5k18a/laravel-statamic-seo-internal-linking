@@ -4,12 +4,12 @@
 # Aktualizowany po każdym zakończonym zadaniu
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-21-EOD
-active_task_id: none
-active_task_name: Brak aktywnego zadania
-active_task_status: closed
+state_version: 2026-06-21-2200
+active_task_id: FEATURE-seo-errors-manager
+active_task_name: SEO Errors Manager (CP panel + CLI prune)
+active_task_status: active
 active_task_source: BRIEF_CODEX.md
-last_sync: 2026-06-21 21:30 Europe/Warsaw
+last_sync: 2026-06-21 22:00 Europe/Warsaw
 last_synced_by: Claude
 last_closed: HOTFIX-gallery-tags-fieldtype
 next_after_active: Wybór z backlogu (cleanup demo Orion content / chatbot AI PoC / Formularze kontaktowe / pozostałe warianty Services Grid)
@@ -271,7 +271,7 @@ Zadania #4–6: pomysły zgłoszone 2026-06-19 w kontekście SEO 100/100. Szczeg
 
 ## Aktywny brief
 
-Brak aktywnego zadania. Sesja 2026-06-21 zamknięta — 6 zadań + 5 deployów + sync z serwera. Last closed: `HOTFIX-gallery-tags-fieldtype`. Czeka na decyzję usera o kolejnym priorytecie z backlogu.
+**FEATURE-seo-errors-manager** (aktywowany 2026-06-21 22:00) — paralelny CP panel "SEO Errors" w sekcji Tools do zarządzania błędami 404 logowanymi przez addon `statamic/seo-pro` v7.11.0. Plus artisan command `seo:errors:prune`. Bez modyfikacji vendora — wykorzystanie publicznych facade `Statamic\SeoPro\Facades\Error::*`. Wzorzec: istniejące Tools panels (`CollectionRoutesController`, `UiTranslationsController`, `TranslatorApiController`). Brief w `BRIEF_CODEX.md` — czeka na implementację Codex.
 
 ## Ostatnio zamknięte
 
@@ -369,7 +369,9 @@ Z `CODEX_SUGGESTIONS.md` (2026-06-05, SEO-Pro):
 
 ### Ostatni brief dla Codex
 
-`BRIEF_CODEX.md` (state_version 2026-06-21-EOD, **HOTFIX-gallery-tags-fieldtype**) — ZAMKNIĘTY 2026-06-21 21:30. W sesji 2026-06-21 zamknięto łącznie 6 zadań: `HOTFIX-gallery-tags-fieldtype` (terms zamiast taxonomy), `FEATURE-gallery-tags-taxonomy` (natywny Statamic), `HOTFIX-services-icon-svg-store-as` (przywrócony svg_data), `FEATURE-services-pagebuilder-defaults` (5 default setów), sync 12 nowych usług + 24 lokalizacji galerii, `FEATURE-mega-menu-globals-i18n` (główne ACCEPTED). 5 deployów w sesji. Pełen brief mega_menu zarchiwizowany w `briefs/archive/2026-06-21-feature-mega-menu-globals-i18n.md`.
+`BRIEF_CODEX.md` (state_version 2026-06-21-2200, **FEATURE-seo-errors-manager**) — AKTYWNY od 2026-06-21 22:00, oczekuje implementacji Codex. Poprzedni `HOTFIX-gallery-tags-fieldtype` zamknięty 2026-06-21 21:30.
+
+W sesji 2026-06-21 (przed FEATURE-seo-errors-manager) zamknięto łącznie 6 zadań: `HOTFIX-gallery-tags-fieldtype`, `FEATURE-gallery-tags-taxonomy`, `HOTFIX-services-icon-svg-store-as`, `FEATURE-services-pagebuilder-defaults`, sync 12 nowych usług + 24 lokalizacji galerii, `FEATURE-mega-menu-globals-i18n` (ACCEPTED + DEPLOYED). 5 deployów. Brief mega_menu zarchiwizowany w `briefs/archive/2026-06-21-feature-mega-menu-globals-i18n.md`.
 
 ### Ostatni feedback Codex
 

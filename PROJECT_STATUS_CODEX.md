@@ -1,12 +1,12 @@
 # PROJECT_STATUS_CODEX.md
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-21-EOD
-active_task_id: none
-active_task_name: Brak aktywnego zadania
-active_task_status: closed
+state_version: 2026-06-21-2200
+active_task_id: FEATURE-seo-errors-manager
+active_task_name: SEO Errors Manager (CP panel + CLI prune)
+active_task_status: active
 active_task_source: BRIEF_CODEX.md
-last_sync: 2026-06-21 21:30 Europe/Warsaw
+last_sync: 2026-06-21 22:00 Europe/Warsaw
 last_synced_by: Claude
 last_closed: HOTFIX-gallery-tags-fieldtype
 next_after_active: Wybór z backlogu (cleanup demo Orion content / chatbot AI PoC / Formularze kontaktowe / pozostałe warianty Services Grid)
@@ -166,7 +166,14 @@ next_after_active: Wybór z backlogu (cleanup demo Orion content / chatbot AI Po
 
 ## W trakcie
 
-Brak aktywnych zadań.
+### FEATURE-seo-errors-manager — SEO Errors Manager (CP panel + CLI prune)
+
+- **Status:** active (brief aktywowany 2026-06-21 22:00, czeka na implementację Codex)
+- **Źródło wykonawcze:** `BRIEF_CODEX.md`
+- **Cel:** paralelny panel CP w sekcji Tools ("SEO Errors") do zarządzania błędami 404 logowanymi przez `statamic/seo-pro` v7.11.0 — delete pojedynczo + bulk delete + filter locale + sort + link do natywnego "Create Redirect" SEO Pro. Plus artisan command `seo:errors:prune` z filtrami (`--locale`, `--older-than`, `--hits-lt`, `--all`, `--confirm`, `--dry-run`).
+- **Powód:** SEO Pro natywnie loguje 404 do `storage/statamic/seopro/errors/<locale>/*.yaml`, ale UI nie ma akcji delete (tylko "Create Redirect"). User chce regularnie kasować znane mu, nieistotne błędy. SEO Pro wewnętrznie ma `Error::delete()` i `ErrorRepository::delete()` — wykorzystujemy publiczne API.
+- **Architektura:** **bez modyfikacji vendora SEO Pro** — własny CP controller w `app/Http/Controllers/CP/SeoErrorsController.php`, własny widok Blade `resources/views/cp/seo_errors/index.blade.php`, routes w `routes/cp.php`, nav item w `AppServiceProvider::boot()`, artisan command `app/Console/Commands/SeoErrorsPrune.php`. Wzorzec: `CollectionRoutesController`, `UiTranslationsController`, `TranslatorApiController` (już ugruntowane w projekcie).
+- **Ryzyka:** (1) `Error::find($id)` może mieć composite key (locale+slug) — Codex sprawdza vendor i adaptuje; (2) `Error::query()->where('locale', ...)` może nie działać — fallback do Collection filtering; (3) Bulk delete na dużej liście może timeoutować — w przyszłej iteracji można dodać queue job (na razie sync OK dla <500 wpisów); (4) Permission check minimal `'view seo redirects'` — uproszczenie, dla delete nie tworzymy osobnej permission.
 
 ---
 
