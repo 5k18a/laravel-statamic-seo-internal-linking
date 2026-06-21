@@ -1,12 +1,18 @@
-# Skalisty Internal Links
+# Laravel Statamic SEO Internal Linking
 
-Statamic 6 addon do automatycznego linkowania slow kluczowych w tresci CMS.
+A Statamic 6 addon for automatic keyword-based internal linking in blog content.
 
-Wariant A MVP dziala w czasie renderowania przez modifier Antlers i korzysta z natywnej kolekcji Statamic `internal_links` jako storage mappingow keyword -> entry.
+Works at render time via an Antlers modifier. Uses a native Statamic `internal_links` collection as storage for keyword → entry mappings. Supports per-locale keywords in a single entry — no multisite propagation required.
 
-## Instalacja
+## Requirements
 
-Addon jest lokalnym pakietem Composer:
+- PHP 8.2+
+- Laravel 11+
+- Statamic 6+
+
+## Installation
+
+This addon is a local Composer path package:
 
 ```bash
 composer require skalisty/internal-links @dev
@@ -14,7 +20,7 @@ php artisan vendor:publish --tag=internal-links-blueprints --force
 php artisan statamic:stache:refresh
 ```
 
-W glownym projekcie musi istnieć path repository:
+Add a path repository to your project's `composer.json`:
 
 ```json
 {
@@ -23,71 +29,88 @@ W glownym projekcie musi istnieć path repository:
 }
 ```
 
-## Uzycie
+## Usage
 
-Addon dziala wylacznie w tresci **wpisow blogowych** (kolekcja `blogs`). Modifier `apply_internal_links` jest uzywany tylko w szablonach `blog-detail-*.antlers.html`.
-
-Dodaj mapping w CP w kolekcji `Internal Links`:
-
-- wybierz `target_entry`
-- dodaj jedno lub wiecej slow kluczowych
-- wlacz `enabled`
-
-Nastepnie zastosuj modifier w widoku Antlers:
+The addon works exclusively on **blog entry content** (the `blogs` collection). Apply the modifier inside your `blog-detail` Antlers templates, within the Bard field loop:
 
 ```antlers
-{{ content | apply_internal_links }}
+{{ content }}
+    {{ if type == "quote_section" }}
+        {{-- handle quote --}}
+    {{ else }}
+        {{ text | apply_internal_links }}
+    {{ /if }}
+{{ /content }}
 ```
 
-Modifier moze byc uzywany na dowolnym string/HTML output:
+The modifier also works on any string or HTML field:
 
 ```antlers
 {{ free_text_content | apply_internal_links }}
 {{ wysiwyg_html | apply_internal_links }}
 ```
 
-## Zachowanie
+## Managing Internal Links
 
-- Linkowane sa tylko aktywne wpisy kolekcji `internal_links` z aktualnego site.
-- URL docelowy pochodzi z wybranego entry i dopasowuje sie do jezyka przez natywne URL-e Statamic.
-- Istniejace linki, naglowki, figury, obrazki, iframe oraz WordPress embed comments sa ukrywane przed podmiana.
-- Linkowanie jest case-insensitive i respektuje granice slow z uwzglednieniem znakow Unicode.
-- Wyższy `weight` oznacza wcześniejsze przetwarzanie mappingu.
+The `internal_links` collection is managed from a single admin language (e.g. `pl`). Create one entry per target page.
 
-## Przyklad
+Each keyword item in the replicator has two fields:
+- **Keyword / phrase** — the text to match (case-insensitive)
+- **Language** — optional locale code (`en`, `de`, `fr`, …). Leave empty to apply to all languages.
+
+Example configuration for one entry:
+
+| Keyword | Language |
+|---|---|
+| sztuczne skały | pl |
+| artificial rocks | en |
+| Kunstfelsen | de |
+| roches artificielles | (empty — all) |
+
+The modifier automatically:
+1. Filters keywords for the current site locale
+2. Resolves the target entry URL to the correct language version via Statamic's native multisite URL resolution
+
+## Behaviour
+
+- Only active (`enabled: true`) entries from the `internal_links` collection are processed.
+- The target URL comes from the selected entry and resolves to the current site's language automatically.
+- Existing links, headings, figures, images, iframes, and WordPress embed comments are hidden from replacement.
+- Matching is case-insensitive and respects Unicode word boundaries.
+- Higher `weight` means earlier processing when keywords conflict.
+- **Deduplication:** each target URL is linked at most once per page request, preventing multiple links to the same destination on a single page.
+
+## Blueprint Fields
+
+- `target_entry` — entries picker (pages, services, projects)
+- `keywords` — replicator with `keyword` (text) and `locale` (select, optional)
+- `weight` — processing priority (higher = first)
+- `nofollow` — toggle
+- `open_in_new_window` — toggle
+- `enabled` — toggle
+
+## Example
 
 Mapping:
-
-- keyword: `akwarium`
-- target entry: `sztuczna-rafa-koralowa`
+- keyword: `coral reef`
+- target entry: `artificial-coral-reef` (URL: `/offer/artificial-coral-reef`)
 
 Content:
-
 ```html
-<h2>akwarium w naglowku</h2>
-<p>akwarium w paragrafie</p>
+<h2>coral reef in a heading</h2>
+<p>Build a coral reef for your aquarium.</p>
 ```
 
 Output:
-
 ```html
-<h2>akwarium w naglowku</h2>
-<p><a href="/oferta/sztuczna-rafa-koralowa">akwarium</a> w paragrafie</p>
+<h2>coral reef in a heading</h2>
+<p>Build a <a href="/offer/artificial-coral-reef">coral reef</a> for your aquarium.</p>
 ```
 
-## Blueprint
-
-Blueprint kolekcji zawiera:
-
-- `target_entry` - picker entries: pages, services, projects
-- `keywords` - replicator slow kluczowych
-- `weight` - priorytet podmiany
-- `nofollow`
-- `open_in_new_window`
-- `enabled`
+Headings are protected from replacement. Only the first occurrence of each target URL is linked per page.
 
 ## Roadmap
 
-- Wariant A: MVP storage + modifier + parser HTML.
-- Wariant B: settings global, exclusions per entry, cron/pre-computation.
-- Wariant C: logs, custom CP panel, sugestie auto-linkow, import/export.
+- Variant A (current): runtime modifier + HTML parser + CP collection storage
+- Variant B: global settings, per-entry exclusions, pre-computation
+- Variant C: link logs, custom CP panel, auto-link suggestions, import/export
