@@ -4,8 +4,60 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1fdb96579b67d98a2240b2a2d767f92d",
+    "content-hash": "86bbbe8d7dc9272c310fb6bf4ad5761f",
     "packages": [
+        {
+            "name": "5k18a/blog-internal-links",
+            "version": "0.1.0",
+            "dist": {
+                "type": "path",
+                "url": "./addons/skalisty/internal-links",
+                "reference": "26a16567c2f8a34a435ef188d65b6485483a82ab"
+            },
+            "require": {
+                "php": "^8.2",
+                "statamic/cms": "^6.0"
+            },
+            "type": "library",
+            "extra": {
+                "statamic": {
+                    "name": "Blog Internal Linking",
+                    "description": "Automatic keyword-based internal linking for blog content with per-locale keyword support"
+                },
+                "laravel": {
+                    "providers": [
+                        "Skalisty\\InternalLinks\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Skalisty\\InternalLinks\\": "src"
+                }
+            },
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "Marcin Skibicki",
+                    "homepage": "https://skalisty.pl"
+                }
+            ],
+            "description": "Statamic addon for automatic keyword-based internal linking with per-locale keyword support",
+            "keywords": [
+                "auto-link",
+                "interlinking",
+                "internal-links",
+                "multilingual",
+                "seo",
+                "statamic",
+                "statamic-addon"
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
         {
             "name": "ajthinking/archetype",
             "version": "v2.0.0",
@@ -5461,56 +5513,6 @@
                 }
             ],
             "time": "2022-12-17T21:53:22+00:00"
-        },
-        {
-            "name": "skalisty/internal-links",
-            "version": "0.1.0",
-            "dist": {
-                "type": "path",
-                "url": "./addons/skalisty/internal-links",
-                "reference": "c47ce87036d0a1916bfacf74d60aea1956d7a2b4"
-            },
-            "require": {
-                "php": "^8.2",
-                "statamic/cms": "^6.0"
-            },
-            "type": "library",
-            "extra": {
-                "statamic": {
-                    "name": "Internal Links",
-                    "description": "Auto-linkowanie slow kluczowych w content"
-                },
-                "laravel": {
-                    "providers": [
-                        "Skalisty\\InternalLinks\\ServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Skalisty\\InternalLinks\\": "src"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Marcin Skibicki",
-                    "homepage": "https://skalisty.pl"
-                }
-            ],
-            "description": "Statamic 6 addon - automatyczne wewnetrzne linkowanie slow kluczowych z multilingual support",
-            "keywords": [
-                "auto-link",
-                "internal-links",
-                "seo",
-                "statamic",
-                "statamic-addon"
-            ],
-            "transport-options": {
-                "relative": true
-            }
         },
         {
             "name": "skalisty/wysiwyg-html-fieldtype",
@@ -13253,7 +13255,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "skalisty/internal-links": 20
+        "5k18a/blog-internal-links": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
