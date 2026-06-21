@@ -12,21 +12,35 @@ Works at render time via an Antlers modifier. Uses a native Statamic `internal_l
 
 ## Installation
 
-This addon is a local Composer path package:
-
-```bash
-composer require skalisty/internal-links @dev
-php artisan vendor:publish --tag=internal-links-blueprints --force
-php artisan statamic:stache:refresh
-```
-
 Add a path repository to your project's `composer.json`:
 
 ```json
 {
-    "type": "path",
-    "url": "./addons/skalisty/internal-links"
+    "repositories": [
+        {
+            "type": "path",
+            "url": "./addons/skalisty/internal-links"
+        }
+    ]
 }
+```
+
+Then require and install:
+
+```bash
+composer require skalisty/internal-links @dev
+php artisan internal-links:install
+```
+
+The install command creates `content/collections/internal_links.yaml`, publishes the blueprint to `resources/blueprints/`, and refreshes the Statamic stache.
+
+### Manual install (alternative)
+
+```bash
+composer require skalisty/internal-links @dev
+php artisan vendor:publish --tag=internal-links-collection
+php artisan vendor:publish --tag=internal-links-blueprints
+php artisan statamic:stache:refresh
 ```
 
 ## Usage
