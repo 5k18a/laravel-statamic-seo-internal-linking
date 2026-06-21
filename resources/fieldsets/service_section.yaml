@@ -40,12 +40,21 @@ fields:
       type: text
       display: 'Button Text'
   -
+    handle: button_entry
+    field:
+      type: entries
+      display: 'Strona docelowa buttona'
+      instructions: 'Wybierz stronę (np. Oferta / Services) — URL dopasuje się automatycznie do języka. Jeśli puste, button nie wyświetli się.'
+      max_items: 1
+      collections:
+        - pages
+  -
     handle: collections
     field:
       max_items: 1
       mode: select
       type: collections
-      display: Collections
+      display: 'Kolekcja źródłowa (skąd brać wpisy do wyświetlenia)'
   -
     handle: limit
     field:

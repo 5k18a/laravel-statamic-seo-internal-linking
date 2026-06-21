@@ -4,6 +4,32 @@
 
 ---
 
+## Deploy przyrostowy — 2026-06-21 — FIX-service-section-button-entry
+
+### Zakres wdrożenia
+
+Naprawiono **8 hardcoded `<a href="/services">`** w `service_section.antlers.html` (wszystkie 7 wariantów `show_type`). PL ma slug strony kolekcji `/oferta` (rename z 2026-06-20), więc hardcoded `/services` dawało 404. Wzorzec analogiczny do `services_grid_section.section_button_entry` (2026-06-20): entries picker na pages collection + `{{ button_entry }}<a href="{{ url }}">{{ /button_entry }}` — Statamic native generuje URL per locale automatycznie.
+
+### Metoda
+
+```bash
+# 2 pliki rsync (8 KB):
+rsync -av resources/fieldsets/service_section.yaml skalisty@...:~/skalisty_2026/...
+rsync -av resources/views/page_builder/service_section.antlers.html skalisty@...:~/skalisty_2026/...
+
+# Post-deploy
+php84 artisan view:clear
+php84 artisan statamic:stache:refresh
+```
+
+### Walidacja
+
+- Server `grep -c 'href="/services"'` → 0 (wszystkie hardcoded zamienione)
+- Server `grep -c button_entry` → 17 (pętle Antlers + warunki)
+- HTTPS `/`, `/en/`, `/oferta` 200 ✅
+
+---
+
 ## Deploy przyrostowy — 2026-06-21 — UPDATE-statamic-6.22.0 + UX nav icon
 
 ### Zakres wdrożenia

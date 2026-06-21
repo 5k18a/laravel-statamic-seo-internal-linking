@@ -3,11 +3,13 @@
     <div class="container">
       <div class="flex sm:items-center items-start justify-between w-full sm:flex-row flex-col sm:gap-4 2xl:mb-10 1xl:mb-8 md:mb-7 sm:mb-5 mb-4">
         <h2 class="m-0">{{ sub_title }}</h2>
-        {{ if button_text }}
+        {{ if button_text && button_entry }}
         <div class="w-auto sm:flex hidden items-center justify-end">
-          <a href="/services" class="btn btn-primary-reverse">
+          {{ button_entry }}
+          <a href="{{ url }}" class="btn btn-primary-reverse">
             {{ button_text }}
           </a>
+          {{ /button_entry }}
         </div>
         {{ /if }}
       </div>
@@ -53,11 +55,15 @@
 
 
     </div>
+    {{ if button_text && button_entry }}
     <div class="flex items-center mt-5 sm:hidden">
-      <a href="/services" class="btn btn-primary-reverse">
+      {{ button_entry }}
+      <a href="{{ url }}" class="btn btn-primary-reverse">
         {{ button_text }}
       </a>
+      {{ /button_entry }}
     </div>
+    {{ /if }}
   </div>
 
   <img id="hoverImage" class="hover-image 2xl:max-w-[260px] 2xl:max-h-[308px] xl:max-w-[240px] xl:max-h-[270px] sm:max-h-[215px] sm:max-w-[175px] max-w-[110px] max-h-[140px] w-full h-full object-cover opacity-0 absolute z-50 pointer-events-none transition-opacity duration-200" alt="Service Preview" loading="lazy" />
@@ -69,11 +75,13 @@
   <div class="container-2">
     <div class="flex sm:items-center items-start justify-between w-full sm:flex-row flex-col sm:gap-4 2xl:mb-10 1xl:mb-8 md:mb-7 sm:mb-5 mb-3">
       <h2 class="m-0">{{ sub_title }}</h2>
-      {{ if button_text }}
+      {{ if button_text && button_entry }}
       <div class="w-auto sm:flex hidden items-center justify-end">
-        <a href="/services" class="btn btn-primary-reverse sm:block hidden">
+        {{ button_entry }}
+        <a href="{{ url }}" class="btn btn-primary-reverse sm:block hidden">
           {{ button_text }}
         </a>
+        {{ /button_entry }}
       </div>
       {{ /if }}
     </div>
@@ -119,11 +127,15 @@
       {{ /if }}
     </div>
     {{ if button_text }}
+    {{ if button_text && button_entry }}
     <div class="w-auto flex sm:hidden items-center sm:justify-end justify-start mt-5">
-      <a href="/services" class="btn btn-primary-reverse sm:block hidden">
+      {{ button_entry }}
+      <a href="{{ url }}" class="btn btn-primary-reverse sm:block hidden">
         {{ button_text }}
       </a>
+      {{ /button_entry }}
     </div>
+    {{ /if }}
     {{ /if }}
   </div>
 </section>
@@ -137,7 +149,7 @@
             <!-- Header -->
             <div class="flex sm:items-center items-start justify-between w-full sm:flex-row flex-col gap-5">
               <h2>{{ sub_title }}</h2>
-              {{ if button_text }}<a href="/services" class="btn btn-primary sm:!flex !hidden">{{ button_text }}</a> {{ /if }}
+              {{ if button_text && button_entry }}{{ button_entry }}<a href="{{ url }}" class="btn btn-primary sm:!flex !hidden">{{ button_text }}</a>{{ /button_entry }} {{ /if }}
             </div>
            
             <!-- Service Cards Grid -->
@@ -165,9 +177,11 @@
                 {{ /if }}
             </div>
             {{ if button_text }}
+            {{ if button_text && button_entry }}
             <div class="sm:hidden flex mt-6">
-              <a href="/services" class="btn btn-primary">{{ button_text }}</a>
+              {{ button_entry }}<a href="{{ url }}" class="btn btn-primary">{{ button_text }}</a>{{ /button_entry }}
             </div>
+            {{ /if }}
             {{ /if }}
           </div>
         </div>
@@ -179,7 +193,7 @@
     <!-- Header -->
     <div class="flex sm:items-center items-start justify-between w-full sm:flex-row flex-col gap-5 lg:mb-[42px] sm:mb-8 mb-5">
       <h2>{{ sub_title }}</h2>
-      {{ if button_text }}<a href="/services" class="btn btn-primary sm:!flex !hidden" accordion-item>{{ button_text }}</a>{{ /if }}
+      {{ if button_text && button_entry }}{{ button_entry }}<a href="{{ url }}" class="btn btn-primary sm:!flex !hidden" accordion-item>{{ button_text }}</a>{{ /button_entry }}{{ /if }}
     </div>
 
     <!-- Service Cards Grid -->
@@ -205,7 +219,7 @@
       {{ /if }}
     </div>
     <div class="sm:hidden flex mt-6">
-      {{ if button_text }}<a href="/services" class="btn btn-primary">{{ button_text }}</a>{{ /if }}
+      {{ if button_text && button_entry }}{{ button_entry }}<a href="{{ url }}" class="btn btn-primary">{{ button_text }}</a>{{ /button_entry }}{{ /if }}
     </div>
   </div>
 </section>
