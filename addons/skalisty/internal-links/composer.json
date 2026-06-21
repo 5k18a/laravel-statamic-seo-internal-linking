@@ -29,8 +29,8 @@
     },
     "extra": {
         "statamic": {
-            "name": "Internal Links",
-            "description": "Automatic keyword-based internal linking with per-locale keyword support"
+            "name": "Blog Internal Linking",
+            "description": "Automatic keyword-based internal linking for blog content with per-locale keyword support"
         },
         "laravel": {
             "providers": [

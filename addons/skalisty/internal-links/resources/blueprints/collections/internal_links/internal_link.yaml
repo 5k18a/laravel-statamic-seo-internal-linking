@@ -10,16 +10,16 @@ tabs:
             field:
               type: text
               required: true
-              display: 'Nazwa (administracyjna, nie wyświetlana)'
-              instructions: 'Np. "Skały do akwarium → Strona Dekoracje Akwarystyczne". Linkowanie działa wyłącznie w treści wpisów blogowych.'
+              display: 'Name (admin label, not displayed)'
+              instructions: 'E.g. "Aquarium rocks → Decorative Aquariums page". Linking works in blog entry content only.'
               validate:
                 - required
           -
             handle: target_entry
             field:
               type: entries
-              display: 'Strona docelowa'
-              instructions: 'Wybierz wpis do którego linki będą podstawiane. URL dopasuje się automatycznie do języka strony.'
+              display: 'Target page'
+              instructions: 'Select the entry to link to. The URL resolves automatically to the current site language.'
               max_items: 1
               collections:
                 - pages
@@ -32,20 +32,20 @@ tabs:
             handle: keywords
             field:
               type: replicator
-              display: 'Słowa kluczowe'
-              instructions: 'Dodaj słowa kluczowe dla każdego języka. Pole "Język" zostaw puste jeśli słowo działa dla wszystkich języków.'
+              display: 'Keywords'
+              instructions: 'Add one row per keyword. Set Language to restrict a keyword to one locale, or leave empty to match all languages.'
               sets:
                 main:
                   sets:
                     keyword:
-                      display: 'Słowo kluczowe'
+                      display: 'Keyword'
                       fields:
                         -
                           handle: keyword
                           field:
                             type: text
-                            display: 'Słowo / fraza'
-                            instructions: 'Np. "sztuczne skały", "artificial rocks"'
+                            display: 'Word / phrase'
+                            instructions: 'E.g. "artificial rocks", "coral reef aquarium"'
                             required: true
                             validate:
                               - required
@@ -53,23 +53,23 @@ tabs:
                           handle: locale
                           field:
                             type: select
-                            display: 'Język'
-                            instructions: 'Zostaw puste = działa we wszystkich językach'
-                            placeholder: 'Wszystkie języki'
+                            display: 'Language'
+                            instructions: 'Leave empty = matches all languages'
+                            placeholder: 'All languages'
                             clearable: true
                             options:
-                              pl: 'Polski (pl)'
+                              pl: 'Polish (pl)'
                               en: 'English (en)'
-                              de: 'Deutsch (de)'
-                              fr: 'Français (fr)'
-                              es: 'Español (es)'
-                              it: 'Italiano (it)'
-                              nl: 'Nederlands (nl)'
-                              sv: 'Svenska (sv)'
-                              no: 'Norsk (no)'
-                              da: 'Dansk (da)'
-                              lv: 'Latviešu (lv)'
-                              cs: 'Čeština (cs)'
+                              de: 'German (de)'
+                              fr: 'French (fr)'
+                              es: 'Spanish (es)'
+                              it: 'Italian (it)'
+                              nl: 'Dutch (nl)'
+                              sv: 'Swedish (sv)'
+                              no: 'Norwegian (no)'
+                              da: 'Danish (da)'
+                              lv: 'Latvian (lv)'
+                              cs: 'Czech (cs)'
               required: true
               validate:
                 - required
@@ -78,8 +78,8 @@ tabs:
             handle: weight
             field:
               type: integer
-              display: 'Priorytet (waga)'
-              instructions: 'Wyższy = pierwszy podmieniany przy konflikcie keywords.'
+              display: 'Priority (weight)'
+              instructions: 'Higher = processed first when keywords conflict.'
               default: 0
           -
             handle: nofollow
@@ -91,11 +91,11 @@ tabs:
             handle: open_in_new_window
             field:
               type: toggle
-              display: 'Otwieraj w nowej karcie'
+              display: 'Open in new tab'
               default: false
           -
             handle: enabled
             field:
               type: toggle
-              display: 'Aktywne'
+              display: 'Active'
               default: true

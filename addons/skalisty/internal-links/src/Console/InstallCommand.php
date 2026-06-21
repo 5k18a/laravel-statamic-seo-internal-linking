@@ -9,7 +9,7 @@ class InstallCommand extends Command
 {
     protected $signature = 'internal-links:install';
 
-    protected $description = 'Install the Internal Links addon (collection + blueprint)';
+    protected $description = 'Install the Blog Internal Linking addon (collection + blueprint)';
 
     public function handle(): int
     {
@@ -17,7 +17,7 @@ class InstallCommand extends Command
         $this->publishBlueprint();
         $this->call('statamic:stache:refresh');
 
-        $this->components->info('Internal Links installed successfully.');
+        $this->components->info('Blog Internal Linking installed successfully.');
         $this->line('');
         $this->line('  Add the modifier to your Bard blog templates:');
         $this->line('  <fg=green>{{ text | apply_internal_links }}</>');
