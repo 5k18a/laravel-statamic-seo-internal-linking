@@ -2,7 +2,7 @@
     "name": "skalisty/internal-links",
     "description": "Statamic addon for automatic keyword-based internal linking with per-locale keyword support",
     "version": "0.1.0",
-    "license": "MIT",
+    "license": "proprietary",
     "authors": [
         {
             "name": "Marcin Skibicki",

@@ -1,21 +1,43 @@
-MIT License
+Copyright (c) 2026 Marcin Skibicki <marcin@skalisty.pl>
 
-Copyright (c) 2026 Marcin Skibicki
+STATAMIC COMMERCIAL ADDON LICENSE
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+This software is a commercial addon for Statamic CMS. A valid license purchased
+through the Statamic Marketplace is required for each site on which this addon
+is installed and used.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+GRANT OF LICENSE
+Subject to the terms of this license and payment of the applicable fee, the
+licensor grants you a non-exclusive, non-transferable license to install and
+use this addon on a single Statamic site.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+PERMITTED USES
+- Install and use this addon on one (1) Statamic site per purchased license.
+- Modify the source code for your own use on that site.
+- Use in local development and staging environments associated with the
+  licensed production site.
+
+RESTRICTIONS
+- You may not redistribute, resell, sublicense, or transfer this addon or any
+  modified version of it to any third party.
+- You may not remove or alter any copyright, trademark, or license notices.
+- You may not use this addon on more sites than the number of licenses purchased.
+
+INTELLECTUAL PROPERTY
+All title and intellectual property rights in and to this addon remain with
+Marcin Skibicki. This license does not grant you any rights to trademarks,
+service marks, or trade names.
+
+DISCLAIMER OF WARRANTIES
+THIS SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND. THE LICENSOR
+DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO
+WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND
+NON-INFRINGEMENT.
+
+LIMITATION OF LIABILITY
+IN NO EVENT SHALL THE LICENSOR BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL,
+EXEMPLARY, OR CONSEQUENTIAL DAMAGES ARISING OUT OF OR IN CONNECTION WITH THIS
+SOFTWARE OR ITS USE.
+
+For licensing inquiries: marcin@skalisty.pl
+Statamic Marketplace: https://statamic.com/addons
