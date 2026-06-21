@@ -18,6 +18,12 @@ class ServiceProvider extends AddonServiceProvider
 
     public function bootAddon()
     {
+        $this->mergeConfigFrom(__DIR__.'/../config/internal-links.php', 'internal-links');
+
+        $this->publishes([
+            __DIR__.'/../config/internal-links.php' => config_path('internal-links.php'),
+        ], 'internal-links-config');
+
         $this->publishes([
             __DIR__.'/../resources/blueprints' => resource_path('blueprints'),
         ], 'internal-links-blueprints');

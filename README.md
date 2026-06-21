@@ -68,7 +68,7 @@ The modifier also works on any string or HTML field:
 
 The `internal_links` collection is managed from a single admin language (e.g. `pl`). Create one entry per target page.
 
-Set the **Blog collection** field to the handle of your blog collection (e.g. `blog`, `posts`, `articles`). The modifier only runs on entries belonging to that collection — it skips all other pages silently.
+The modifier only runs on entries belonging to the collection defined in `config/internal-links.php` — it skips all other pages silently.
 
 Each keyword item in the replicator has two fields:
 - **Keyword / phrase** — the text to match (case-insensitive)
@@ -96,9 +96,19 @@ The modifier automatically:
 - Higher `weight` means earlier processing when keywords conflict.
 - **Deduplication:** each target URL is linked at most once per page request, preventing multiple links to the same destination on a single page.
 
+## Configuration
+
+After install, edit `config/internal-links.php`:
+
+```php
+return [
+    'blog_collection' => 'blog',  // handle of your blog collection
+    'admin_site'      => 'en',    // site used to manage internal_links in CP
+];
+```
+
 ## Blueprint Fields
 
-- `blog_collection` — collections picker (required — select your blog collection handle)
 - `target_entry` — entries picker (pages, services, projects)
 - `keywords` — replicator with `keyword` (text) and `locale` (select, optional)
 - `weight` — processing priority (higher = first)
