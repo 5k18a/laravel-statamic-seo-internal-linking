@@ -24,21 +24,26 @@
 ### Via Composer (recommended)
 
 ```bash
-composer require skalisty/internal-links
+composer require 5k18a/blog-internal-links
 php artisan internal-links:install
 ```
 
-The install command does three things:
-1. Creates `content/collections/internal_links.yaml`
-2. Publishes the blueprint to `resources/blueprints/collections/internal_links/`
-3. Runs `php artisan statamic:stache:refresh`
+The install command:
+1. Publishes `config/internal-links.php`
+2. Creates `content/collections/internal_links.yaml`
+3. Publishes the blueprint to `resources/blueprints/collections/internal_links/`
+4. **Auto-detects** your blog collection by scanning collection handles for keywords like `blog`, `post`, `articles`, `news`
+5. On a multisite install, asks which site you use to manage content in the CP
+6. Writes the detected values into `config/internal-links.php`
+7. Runs `php artisan statamic:stache:refresh`
 
 ### Manual install
 
 If you prefer to control each step:
 
 ```bash
-composer require skalisty/internal-links
+composer require 5k18a/blog-internal-links
+php artisan vendor:publish --tag=internal-links-config
 php artisan vendor:publish --tag=internal-links-collection
 php artisan vendor:publish --tag=internal-links-blueprints
 php artisan statamic:stache:refresh
@@ -64,9 +69,16 @@ The collection should always be scoped to **one site** — your admin/content la
 
 ### Blog collection
 
-Each internal link entry has a **Blog collection** field. Set it to the handle of your blog collection (e.g. `blog`, `posts`, `articles`). The modifier will only process content on entries that belong to this collection — it silently skips all other pages.
+The blog collection is configured once in `config/internal-links.php` (created automatically by the install command):
 
-If no entry has a blog collection configured, the guard is disabled and the modifier runs everywhere it is placed.
+```php
+return [
+    'blog_collection' => 'blog',  // handle of your blog collection
+    'admin_site'      => 'en',    // site used to manage internal_links in CP
+];
+```
+
+The modifier only processes content on entries that belong to `blog_collection` — it silently skips all other pages. If `blog_collection` is empty or `null`, the guard is disabled and the modifier runs everywhere it is placed.
 
 ### Collections for target entries
 
@@ -94,7 +106,6 @@ Go to **CP → Collections → Blog Internal Linking** and create a new entry.
 | Field | Description |
 |---|---|
 | **Name** | Admin label only — not displayed on the site. E.g. `Coral Reef → Decorative Aquariums page` |
-| **Blog collection** | The collection that contains your blog posts. The modifier only runs on entries from this collection. |
 | **Target page** | The entry to link to. URL resolves to the correct language automatically. |
 | **Keywords** | One or more keyword rows (see below). |
 | **Priority (weight)** | Higher number = processed first. Useful when two entries share similar keywords. Default: `0`. |
@@ -187,9 +198,8 @@ The **Target page** field is set once. The modifier calls `Entry::in($site)` int
 Full list of fields in `resources/blueprints/collections/internal_links/internal_link.yaml`:
 
 ```yaml
-- handle: title            # text, required — admin label
-- handle: blog_collection  # collections picker, max 1, required
-- handle: target_entry     # entries picker, max 1, required
+- handle: title          # text, required — admin label
+- handle: target_entry   # entries picker, max 1, required
 - handle: keywords         # replicator
     - handle: keyword    # text, required
     - handle: locale     # select (optional) — pl, en, de, fr, es, it, nl, sv, no, da, lv, cs
@@ -205,10 +215,11 @@ Full list of fields in `resources/blueprints/collections/internal_links/internal
 
 ### Links are not appearing
 
-1. Check that the entry in the `Blog Internal Linking` collection has **Active** set to `true`.
-2. Verify the keyword exists verbatim in the rendered HTML (check page source, not browser inspector which may alter whitespace).
-3. Confirm the modifier is applied in the correct template and branch of the Bard loop.
-4. Check that the target entry has a published URL for the current site locale.
+1. Check that `config/internal-links.php` exists and `blog_collection` matches your blog collection handle exactly (e.g. `blog`, not `Blog`).
+2. Check that the entry in the `Blog Internal Linking` collection has **Active** set to `true`.
+3. Verify the keyword exists verbatim in the rendered HTML (check page source, not browser inspector which may alter whitespace).
+4. Confirm the modifier is applied in the correct template and branch of the Bard loop.
+5. Check that the target entry has a published URL for the current site locale.
 
 ### Links appear on some languages but not others
 

@@ -28,10 +28,11 @@ class ApplyInternalLinks extends Modifier
         }
 
         $currentSite = $this->currentSite($context);
+        $adminSite = config('internal-links.admin_site', 'en');
 
         $links = Entry::query()
             ->where('collection', 'internal_links')
-            ->where('site', 'pl')
+            ->where('site', $adminSite)
             ->where('enabled', true)
             ->orderBy('weight', 'desc')
             ->get();
@@ -87,6 +88,32 @@ class ApplyInternalLinks extends Modifier
         return $value instanceof Htmlable ? new HtmlString($linkedContent) : $linkedContent;
     }
 
+    private function isAllowedCollection($context): bool
+    {
+        $blogCollection = config('internal-links.blog_collection');
+
+        // If not configured, run everywhere the modifier is placed.
+        if (! $blogCollection) {
+            return true;
+        }
+
+        $currentCollection = $context['collection'] ?? null;
+
+        if ($currentCollection === null) {
+            return true;
+        }
+
+        if (is_object($currentCollection) && method_exists($currentCollection, 'value')) {
+            $currentCollection = $currentCollection->value();
+        }
+
+        if (is_object($currentCollection) && method_exists($currentCollection, 'handle')) {
+            $currentCollection = $currentCollection->handle();
+        }
+
+        return (string) $currentCollection === $blogCollection;
+    }
+
     private function stringValue($value): ?string
     {
         if (is_string($value)) {
@@ -102,43 +129,6 @@ class ApplyInternalLinks extends Modifier
         }
 
         return null;
-    }
-
-    private function isAllowedCollection($context): bool
-    {
-        $currentCollection = $context['collection'] ?? null;
-
-        if ($currentCollection === null) {
-            return true;
-        }
-
-        if (is_object($currentCollection) && method_exists($currentCollection, 'value')) {
-            $currentCollection = $currentCollection->value();
-        }
-
-        if (is_object($currentCollection) && method_exists($currentCollection, 'handle')) {
-            $currentCollection = $currentCollection->handle();
-        }
-
-        $currentCollection = (string) $currentCollection;
-
-        // Load allowed collections from all active internal_links entries.
-        $allowed = Entry::query()
-            ->where('collection', 'internal_links')
-            ->where('site', 'pl')
-            ->where('enabled', true)
-            ->get()
-            ->flatMap(fn ($link) => (array) $link->get('blog_collection', []))
-            ->filter()
-            ->unique()
-            ->values();
-
-        // If no entry has a blog_collection configured, skip the guard.
-        if ($allowed->isEmpty()) {
-            return true;
-        }
-
-        return $allowed->contains($currentCollection);
     }
 
     private function currentSite($context): string
