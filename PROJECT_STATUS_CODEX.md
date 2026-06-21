@@ -455,8 +455,11 @@ Stała lokalnego dev (2026-06-20): frontend działa na `http://127.0.0.1:8001/`.
   - Statistics widget (top linked, broken links detector — które linki celują w usunięte entries)
   - Import/export linków CSV (artisan command + CP panel)
   - **Auto-suggestions** — analiza titles/slugów wszystkich entries → propozycje keyword-to-entry mappings (integracja z backlog #4 "Panel sugestii linkowania wewnętrznego")
-- **Po stabilizacji v1.0 (C ACCEPTED):** wydzielenie do **standalone repo GitHub** analogicznie do `5k18a/laravel-statamic-ai-chatbot` (2026-06-20):
-  - Pełna dokumentacja: README, ROADMAP, CHANGELOG, LICENSE, CONTRIBUTING, SECURITY, docs/
+- **Repo GitHub utworzony 2026-06-21:** `https://github.com/5k18a/laravel-statamic-seo-internal-linking.git`
+  - **Plan push:** po acceptance MVP przez Claude → `cd addons/skalisty/internal-links/ && git init && git remote add origin <url> && git push -u origin main`
+  - Wariant B/C development dalej w lokalnym addonie, potem push do tego samego repo
+- **Po stabilizacji v1.0 (C ACCEPTED):** publikacja standalone repo z pełną dokumentacją:
+  - README, ROADMAP, CHANGELOG, LICENSE, CONTRIBUTING, SECURITY, docs/
   - composer.json statamic-addon type + publikacja Packagist (opcjonalnie)
   - Demo videos, screenshots
 

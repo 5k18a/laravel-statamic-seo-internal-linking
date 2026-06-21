@@ -273,7 +273,9 @@ Zadania #4–6: pomysły zgłoszone 2026-06-19 w kontekście SEO 100/100. Szczeg
 
 **FEATURE-internal-links-addon-mvp** (aktywowany 2026-06-21 23:00) — samodzielny addon Statamic `skalisty/internal-links` (lokalny w `addons/skalisty/internal-links/`) do auto-linkowania słów kluczowych w content. Wariant A (MVP): Collection + Antlers modifier `apply_internal_links` + `LinkableContentParser` z regex hide tags (port z WP plugin `typek-internal-links`). Etapowo: A → B (production-ready: settings + cron + exclusions) → C (logs + custom CP panel + auto-suggestions). Po stabilizacji v1.0 → standalone repo GitHub (analogicznie do chatbot AI 2026-06-20). Brief w `BRIEF_CODEX.md` — czeka na implementację Codex.
 
-**Przypomnienie persistent:** kiedy user utworzy osobny repo GitHub dla tego addonu — pomóc wypchnąć zawartość `addons/skalisty/internal-links/` jako standalone. Memory: `~/.claude/.../memory/project_internal_links_addon.md`.
+**Repo GitHub utworzony 2026-06-21:** `https://github.com/5k18a/laravel-statamic-seo-internal-linking.git`
+
+**Plan push po acceptance MVP:** `cd addons/skalisty/internal-links/ && git init && git remote add origin <url> && git push -u origin main`. Memory persistent: `~/.claude/.../memory/project_internal_links_addon.md`.
 
 **Poprzedni aktywny brief:** SEO Errors Manager (zamknięty wcześniej tej sesji jako ACCEPTED + DEPLOYED).
 
