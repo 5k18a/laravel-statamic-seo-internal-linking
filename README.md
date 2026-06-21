@@ -1,4 +1,4 @@
-# Laravel Statamic SEO Internal Linking
+# Blog Internal Linking for Statamic
 
 A Statamic 6 addon for automatic keyword-based internal linking in blog content.
 
