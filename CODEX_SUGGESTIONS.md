@@ -47,6 +47,42 @@ Proszę zsynchronizować tekstową sekcję `W trakcie` w `PROJECT_STATUS_CODEX.m
 
 <!-- Claude pisze proaktywnie, Codex potwierdza w bloku "Potwierdzenie Codex". Format: AGENTS.md 11.9. -->
 
+### 2026-06-21 23:30 — FEATURE-internal-links-addon-mvp: testy lokalnie tylko + repo URL
+
+#### Status
+
+new
+
+#### Treść
+
+**Decyzja user'a (2026-06-21, w trakcie pracy Codexa nad MVP):**
+
+1. **Repo GitHub utworzony:** `https://github.com/5k18a/laravel-statamic-seo-internal-linking.git` — po acceptance MVP Claude wykona push (`git init` w `addons/skalisty/internal-links/` + remote add + push).
+
+2. **⚠ REGUŁA — testy lokalnie tylko do finalnej wersji:**
+   - Addon testować **WYŁĄCZNIE lokalnie** na `http://127.0.0.1:8001/` do Wariantu C ACCEPTED + user explicit decyzja "wdrażamy".
+   - **NIE deployować** plików z `addons/skalisty/internal-links/` na `dev.skalisty.pl`.
+   - **NIE rsync'ować** zmian w głównym `composer.json` referujących addon na serwer.
+   - Wyjątek: push do `5k18a/laravel-statamic-seo-internal-linking` na każdym etapie OK (to VCS, nie deploy produkcji).
+   - Wpisy dokumentacji w skalisty-orion (`CHANGE-LOG.md`, etc.) — commitować bez restrykcji.
+
+#### Powód (dlaczego nie w briefie)
+
+Decyzja user'a podjęta po aktywacji briefu, w trakcie pracy Codex'a. Nie modyfikuje scope MVP — Codex i tak prawdopodobnie testuje wyłącznie lokalnie (brak sesji admin na produkcji). Notatka jest formalnym zapisaniem reguły dla kolejnych iteracji (Wariant B/C) i przypomnieniem dla obu agentów.
+
+#### Wymagana akcja Codex
+
+- Przy końcowym raporcie w `ACTIVE_FOR_CLAUDE_REVIEW` zaznaczyć że testy wykonane wyłącznie lokalnie (zgodnie z regułą)
+- **NIE proponować** kroków deploy na serwer w raporcie końcowym MVP — to ma poczekać do finalnej wersji
+- Wzmiankować że addon jest gotów do push'u do repo `5k18a/laravel-statamic-seo-internal-linking` po akceptacji Claude (Claude wykona push)
+
+#### Potwierdzenie Codex (wypełnia Codex)
+
+- data:
+- status:
+
+---
+
 ### 2026-06-17 16:35 — workflow / komunikacja agentów
 
 #### Status

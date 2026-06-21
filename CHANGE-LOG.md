@@ -4,6 +4,38 @@ Changelog projektu `skalisty-orion` — prowadzony przez Claude po każdym zako�
 
 ---
 
+## 2026-06-21 (reguła: Internal Links Addon — testy lokalnie tylko)
+
+### Decyzje techniczne
+
+- **Reguła user'a (2026-06-21 23:30, w trakcie pracy Codex nad MVP):** Internal Links Addon testować **WYŁĄCZNIE lokalnie** (`http://127.0.0.1:8001/`) do finalnej wersji (Wariant C ACCEPTED + user explicit autoryzacja "wdrażamy na produkcję").
+- **NIE deployować** plików z `addons/skalisty/internal-links/` na `dev.skalisty.pl` na żadnym etapie A/B/C
+- **NIE rsync'ować** zmian w głównym `composer.json` referujących addon na serwer
+- **Wyjątek dla VCS:** push do `5k18a/laravel-statamic-seo-internal-linking` na każdym etapie OK (po A → push, po B → push, po C → push final + ewentualnie Packagist) — to VCS hosting, nie deploy produkcji
+- **Wpisy dokumentacji** w skalisty-orion (`CHANGE-LOG.md`, `BRIEF_CODEX.md`, `DEPLOYMENT.md`, etc.) — commitować/pushować bez restrykcji
+- **Repo GitHub addonu utworzony 2026-06-21:** `https://github.com/5k18a/laravel-statamic-seo-internal-linking.git`
+
+### Powód
+
+- Addon przechodzi etapowy rozwój A → B → C z dużą ilością zmian
+- Wdrażanie pośrednich wersji na produkcję wprowadziłoby ryzyko broken state na contencie produkcji
+- Komplikacje przy rollback poszczególnych etapów
+- Nieprzewidziane interakcje z innymi systemami (Magic Translator, SEO Pro, etc.)
+
+### Akcje
+
+- Memory persistent: `~/.claude/.../memory/feedback_internal_links_local_only.md` (przeżywa sesje)
+- MEMORY.md index: dodany wpis
+- CLAUDE_MEMORY.md: sekcja "Aktywny brief" — reguła w widocznej pozycji
+- PROJECT_STATUS_CODEX.md: sekcja "W trakcie" — pełna reguła + warunki wygaśnięcia
+- CODEX_SUGGESTIONS.md: nowa NOTES_FROM_CLAUDE z wymaganiami dla Codex'a (status: new, czeka na potwierdzenie)
+
+### Reguła wygasa
+
+Wariant C addonu ACCEPTED + user decyzja o produkcji → standardowa procedura deploy (pre-deploy backup → rsync → post-deploy clear + test).
+
+---
+
 ## 2026-06-21 (aktywacja briefu FEATURE-internal-links-addon-mvp)
 
 ### Aktywowano

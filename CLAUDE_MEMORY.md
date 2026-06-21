@@ -277,6 +277,8 @@ Zadania #4–6: pomysły zgłoszone 2026-06-19 w kontekście SEO 100/100. Szczeg
 
 **Plan push po acceptance MVP:** `cd addons/skalisty/internal-links/ && git init && git remote add origin <url> && git push -u origin main`. Memory persistent: `~/.claude/.../memory/project_internal_links_addon.md`.
 
+**⚠ REGUŁA (decyzja user 2026-06-21):** addon testować **WYŁĄCZNIE lokalnie** (`http://127.0.0.1:8001/`) do finalnej wersji (Wariant C ACCEPTED + user explicit decyzja "wdrażamy"). NIE deployować na `dev.skalisty.pl`. Wyjątek: push do `5k18a/laravel-statamic-seo-internal-linking` na każdym etapie OK (to VCS, nie deploy produkcji). Memory feedback: `~/.claude/.../memory/feedback_internal_links_local_only.md`.
+
 **Poprzedni aktywny brief:** SEO Errors Manager (zamknięty wcześniej tej sesji jako ACCEPTED + DEPLOYED).
 
 ## Ostatnio zamknięte

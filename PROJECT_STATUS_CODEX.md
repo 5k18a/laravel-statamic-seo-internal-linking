@@ -184,8 +184,25 @@ next_after_active: Wariant B Internal Links (production-ready: settings + cron +
 User explicit zaznaczył (2026-06-21):
 - Etapowo: A → B → C
 - Końcowo: standalone addon Statamic do reuse na innych instalacjach
-- **Po stabilizacji:** osobny repo GitHub (przypomnieć przy kolejnej sesji jeśli user już utworzył)
+- **Repo GitHub utworzony:** `https://github.com/5k18a/laravel-statamic-seo-internal-linking.git`
+- Po acceptance MVP → push do tego repo (git init + remote add + push)
 - Plan analogiczny do chatbot AI (`5k18a/laravel-statamic-ai-chatbot` z 2026-06-20)
+
+### ⚠ REGUŁA — testy lokalnie tylko (decyzja user 2026-06-21)
+
+**Internal Links Addon testować WYŁĄCZNIE lokalnie** na `http://127.0.0.1:8001/` do finalnej wersji (Wariant C ACCEPTED + user explicit autoryzacja "wdrażamy na produkcję"):
+
+- **NIE deployować** plików z `addons/skalisty/internal-links/` na serwer `dev.skalisty.pl`
+- **NIE rsync'ować** zmian w głównym `composer.json` które referują addon (path repository + require) na serwer
+- **NIE robić** post-deploy `composer install` na serwerze dla zależności addonu
+
+**Why:** addon przechodzi etapowy rozwój A → B → C, każdy z dużą ilością zmian. Wdrażanie pośrednich wersji na produkcję wprowadziłoby ryzyko broken state, side effects na contencie produkcji, komplikacje przy rollback poszczególnych etapów.
+
+**Wyjątek dla VCS:**
+- Push do **repo GitHub** `5k18a/laravel-statamic-seo-internal-linking` OK na każdym etapie (po A → push, po B → push, po C → push final + ewentualnie Packagist)
+- Wpisy dokumentacji w skalisty-orion repo (`CHANGE-LOG.md`, `DEPLOYMENT.md`, etc.) commitować/pushować bez restrykcji
+
+**Reguła wygasa:** Wariant C ACCEPTED + user decyzja "wdrażamy na produkcję" → standardowa procedura deploy (pre-deploy backup → rsync → post-deploy clear + test).
 
 ---
 
