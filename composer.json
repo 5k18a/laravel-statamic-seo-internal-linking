@@ -7,6 +7,10 @@
         {
             "type": "path",
             "url": "./addons/skalisty/wysiwyg-html-fieldtype"
+        },
+        {
+            "type": "path",
+            "url": "./addons/skalisty/internal-links"
         }
     ],
     "keywords": [
@@ -22,6 +26,7 @@
         "eminos/statamic-iconify": "^2.1",
         "laravel/framework": "^13.8",
         "laravel/tinker": "^3.0",
+        "skalisty/internal-links": "@dev",
         "skalisty/wysiwyg-html-fieldtype": "^1.1.0",
         "statamic/cms": "^6.0",
         "statamic/seo-pro": "^7.10",

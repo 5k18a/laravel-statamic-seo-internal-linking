@@ -1,15 +1,15 @@
 # PROJECT_STATUS_CODEX.md
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-21-2300
-active_task_id: FEATURE-internal-links-addon-mvp
-active_task_name: Internal Links Addon — Wariant A (MVP)
-active_task_status: active
+state_version: 2026-06-21-EOD2
+active_task_id: none
+active_task_name: Brak aktywnego zadania
+active_task_status: closed
 active_task_source: BRIEF_CODEX.md
-last_sync: 2026-06-21 23:00 Europe/Warsaw
+last_sync: 2026-06-21 23:50 Europe/Warsaw
 last_synced_by: Claude
-last_closed: FIX-service-section-button-entry
-next_after_active: Wariant B Internal Links (production-ready: settings + cron + exclusions)
+last_closed: FEATURE-internal-links-addon-mvp
+next_after_active: Wariant B Internal Links Addon (production-ready) lub inny element z backlogu
 <!-- PROJECT_SYNC_END -->
 
 ---
@@ -166,7 +166,47 @@ next_after_active: Wariant B Internal Links (production-ready: settings + cron +
 
 ## W trakcie
 
-### FEATURE-internal-links-addon-mvp — Internal Links Addon (Wariant A: MVP)
+Brak aktywnych zadań.
+
+---
+
+### ✅ Ostatnio zamknięte: FEATURE-internal-links-addon-mvp (2026-06-21 wieczór, ACCEPTED)
+
+**Wariant A (MVP)** samodzielnego addonu Statamic `skalisty/internal-links` w `addons/skalisty/internal-links/` — auto-linkowanie słów kluczowych z multilingual support.
+
+**Architektura zaimplementowana:**
+- 11 plików addonu: composer.json (PSR-4 autoload), ServiceProvider, Modifier `ApplyInternalLinks`, `LinkableContentParser`, blueprint internal_link.yaml, README, ROADMAP, CHANGELOG, LICENSE, VERSION, .gitignore
+- 5 plików integracyjnych: główny composer.json (path repository + require @dev), composer.lock, content/collections/internal_links.yaml (12 sites, propagate: false), resources/blueprints/collections/internal_links/internal_link.yaml (auto-published), 2 widoki page_builder (free_text_section + wysiwyg_html_block z `{{ content | apply_internal_links }}`)
+
+**Audyt Claude — werdykt ACCEPTED:**
+- Parser test: `<h2>akwarium</h2><p>Akwarium w paragrafie. Inne sztuczne skały.</p>` → H2 wyłączony, P zlinkowany z capitalization preserved, polskie znaki działają, rel="nofollow" działa, kropka poza linkiem
+- `composer show skalisty/internal-links` → 0.1.0 (path package)
+- `php artisan test` 2 passed
+
+**Ulepszenia Codexa względem briefu (kierunek lepszy, acceptable):**
+- Unicode lookbehind `\p{L}` w regex — wsparcie dla polskich/CEE znaków
+- Smart sentence punctuation preservation — kropka zachowana poza anchor
+- `htmlspecialchars` na URL + keyword — XSS-safe
+- Re-hide po każdym replace — zapobiega nested anchor tags
+- `HtmlString` return gdy input był `Htmlable` — Bard-friendly
+- `target_blank` automatycznie dodaje `rel="noopener"` (security)
+
+**Push do standalone repo** (Claude wykonał per plan):
+- `git init` w `addons/skalisty/internal-links/` → `git remote add origin https://github.com/5k18a/laravel-statamic-seo-internal-linking.git` → commit "feat: initial release Wariant A (MVP)" → `git push -u origin main` → **`[new branch] main -> main`** ✅
+- Po push: `.git/` w addonie usunięte (skalisty-orion traktuje katalog jako zwykły katalog)
+
+**Reguła respektowana** (`feedback_internal_links_local_only.md`): NIE deploy na `dev.skalisty.pl`. Testy wyłącznie lokalnie.
+
+**Manualne testy w CP** (do walidacji przez user'a):
+- Czy "Internal Links" collection w lewej belce Content
+- Czy replicator `keywords` edytowalny w CP
+- Czy entries picker `target_entry` multilingual działa
+
+**Brief zarchiwizowany:** `briefs/archive/2026-06-21-feature-internal-links-addon-mvp.md`
+
+---
+
+### FEATURE-internal-links-addon-mvp — Internal Links Addon (Wariant A: MVP) [PRZED audyt]
 
 - **Status:** active (brief aktywowany 2026-06-21 23:00, czeka na implementację Codex)
 - **Źródło wykonawcze:** `BRIEF_CODEX.md`

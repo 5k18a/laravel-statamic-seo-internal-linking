@@ -1,5 +1,52 @@
 # Codex Memory
 
+## Ostatnia sesja — 2026-06-21 — FEATURE-internal-links-addon-mvp
+
+- Aktywny brief:
+  - `FEATURE-internal-links-addon-mvp`
+- Cel:
+  - dodać MVP lokalnego addonu Statamic `skalisty/internal-links`
+  - przenieść sprawdzony mechanizm linkowania z WP pluginu `example-addon-wordpress/typek-internal-links`
+  - linkować treści runtime przez Antlers modifier, bez cronów, settingsów, logów i zmian w vendorze
+- Wykonane:
+  - dodano standalone addon w `addons/skalisty/internal-links/`
+  - dodano `ServiceProvider`, modifier `ApplyInternalLinks` i parser `LinkableContentParser`
+  - dodano blueprint addonu i opublikowaną kopię w `resources/blueprints/collections/internal_links/internal_link.yaml`
+  - dodano kolekcję `content/collections/internal_links.yaml` dla 12 site’ów
+  - dodano path repository i require `skalisty/internal-links:@dev` w głównym Composerze
+  - wpięto `{{ content | apply_internal_links }}` w `free_text_section` i `wysiwyg_html_block`
+  - usunięto po walidacji techniczne wpisy testowe `codex-*`; kolekcja `internal_links` kończy z licznikiem `0`
+  - zaktualizowano `CODEX_SUGGESTIONS.md` dla audytu Claude
+- Wzorce do zapamiętania:
+  - Lokalny addon Statamic jako path package: `composer.json` root ma repository `{ "type": "path", "url": "./addons/<vendor>/<addon>" }`, a addon ma własny `composer.json` z `extra.statamic.providers`.
+  - `AddonServiceProvider` może rejestrować modifier przez `protected $modifiers = [ApplyInternalLinks::class];`.
+  - Blueprinty addonu można trzymać w `addons/.../resources/blueprints/...` i publikować do `resources/blueprints` przez `vendor:publish`.
+  - Uniwersalny transformer contentu w Antlers: modifier powinien przyjmować string, `Htmlable` i `Stringable`; dla `Htmlable` zwracać `HtmlString`, żeby nie stracić semantyki HTML.
+  - `context['site']` w Statamic bywa stringiem albo obiektem site; helper powinien normalizować do handle.
+  - `target_entry` z entries picker najlepiej rozwiązywać przez `$link->augmentedValue('target_entry')->value()`, obsłużyć Collection/array/string ID i lokalizować target przez `$target->in($site) ?: $target`.
+  - Parser przed linkowaniem powinien ukrywać `h1-h6`, istniejące `a`, `img`, `figure`, `iframe` i embedy; po każdej podmianie warto ponownie ukryć świeżo utworzone linki, żeby kolejne keywordy nie zagnieżdżały anchorów.
+  - Regex musi obsłużyć słowo przed kropką zarówno w środku tekstu (`Akwarium. Drugie...`), jak i przed zamknięciem taga (`Akwarium.</p>`).
+- Walidacja:
+  - `composer require skalisty/internal-links:@dev --no-interaction` — OK
+  - `php artisan vendor:publish --tag=internal-links-blueprints --force` — OK
+  - `php -l` dla trzech klas addonu — OK
+  - `php artisan statamic:stache:refresh` — OK
+  - `php artisan view:clear` — OK
+  - `php artisan cache:clear` — OK
+  - `php artisan test` — OK (`2 passed`)
+  - `composer validate --no-check-publish` root i addon — valid z oczekiwanymi ostrzeżeniami
+  - `git diff --check` — OK
+  - `/`, `/en/`, `/cp/auth/login` lokalnie na `127.0.0.1:8001` — `200 OK`
+  - parser direct: linkowanie keywordu, frazy `sztuczne skały`, pomijanie `h2` i istniejących linków — OK
+  - realny render `page_builder.free_text_section` z tymczasowym wpisem — OK, `<h2>` pominięte, `<p>` podlinkowane
+- Nie wykonano:
+  - manualnego testu w zalogowanym CP tworzenia wpisu `Internal Links`
+  - manualnego testu EN/pozostałych locale z realnym contentem
+  - powód: brak aktywnej sesji admina CP po stronie Codexa
+- Git:
+  - bez commita, push i deployu, zgodnie z AGENTS.md
+  - końcowe zmiany robocze obejmują addon, kolekcję, blueprint, dwa partiale Page Buildera oraz Composer
+
 ## Ostatnia sesja — 2026-06-21 — FEATURE-seo-errors-manager
 
 - Aktywny brief:

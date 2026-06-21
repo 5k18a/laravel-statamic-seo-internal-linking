@@ -116,6 +116,18 @@ doprecyzowanie workflow — zmiana konstytucyjna w `AGENTS.md`, nie zmienia scop
 
 ## RESOLVED_BY_CLAUDE
 
+### 2026-06-21 — FEATURE-internal-links-addon-mvp
+
+- **Status: accepted** (audyt Claude 2026-06-21 wieczór)
+- **Walidacja runtime:** Parser test `<h2>akwarium</h2><p>Akwarium w paragrafie. Inne sztuczne skały.</p>` → `<h2>akwarium</h2><p><a href="/oferta/sztuczna-rafa-koralowa">Akwarium</a> w paragrafie. Inne <a href="/oferta/sztuczne-skaly" rel="nofollow">sztuczne skały</a>.</p>` ✅ (H2 wyłączony, P zlinkowany, capitalization preserved, polskie znaki działają, rel="nofollow" działa, kropka poza linkiem). `php artisan test` 2 passed.
+- **Ulepszenia Codexa względem briefu:** Unicode `\p{L}` lookbehind (polskie znaki), smart kropka preservation, `htmlspecialchars` XSS-safe, re-hide po replace (no nested anchors), HtmlString gdy Htmlable input, `target_blank` → `rel="noopener"` automatycznie.
+- **Push do standalone repo:** `git init` w `addons/skalisty/internal-links/` → push do `https://github.com/5k18a/laravel-statamic-seo-internal-linking.git` → `[new branch] main -> main` ✅. `.git/` w addonie usunięte po push (skalisty-orion traktuje jako zwykły katalog).
+- **Reguła respektowana:** NIE deploy na `dev.skalisty.pl` (zgodnie z `feedback_internal_links_local_only.md`).
+- **Manualne testy w CP** (do walidacji przez user'a): collection w lewej belce Content, replicator keywords edytowalność, entries picker target_entry, toggles.
+- **Kolejne kroki:** (a) Wariant B (production-ready) po feedbacku; (b) manualne testy w CP; (c) inne z backlogu.
+
+---
+
 ### 2026-06-21 — FEATURE-mega-menu-globals-i18n
 
 - **Status: accepted** (audyt Claude 2026-06-21 16:10 Europe/Warsaw)
@@ -500,6 +512,135 @@ doprecyzowanie workflow — zmiana konstytucyjna w `AGENTS.md`, nie zmienia scop
 ---
 
 ## ACTIVE_FOR_CLAUDE_REVIEW
+
+### 2026-06-21 18:00 — FEATURE-internal-links-addon-mvp / Internal Links Addon Wariant A
+
+#### Status
+
+Wykonane lokalnie przez Codex — wymaga audytu Claude i manualnej walidacji CP na zalogowanym adminie.
+
+#### Wykonane zmiany
+
+- Dodano lokalny standalone addon Statamic `skalisty/internal-links` w `addons/skalisty/internal-links/`.
+- Dodano `composer.json` addonu z autoloadem `Skalisty\\InternalLinks\\`, `ServiceProvider`, MIT `LICENSE`, `README.md`, `CHANGELOG.md`, `VERSION.md`, `ROADMAP.md` i `.gitignore`.
+- Dodano `Skalisty\InternalLinks\ServiceProvider`, rejestrujący Antlers modifier `apply_internal_links` i publikowanie blueprintów przez tag `internal-links-blueprints`.
+- Dodano `Skalisty\InternalLinks\Modifiers\ApplyInternalLinks` jako runtime transformer treści.
+- Dodano `Skalisty\InternalLinks\Support\LinkableContentParser`, portujący mechanizm z WP pluginu `typek-internal-links`: ukrywanie `h1-h6`, `a`, `img`, `figure`, `iframe`, embedów i dopiero potem podmiana słów kluczowych.
+- Dodano kolekcję Statamic `internal_links` dla 12 site’ów projektu (`pl,en,sv,no,nl,lv,it,fr,es,de,da,cs`) z `propagate: false`.
+- Dodano blueprint `internal_link` z polami: `target_entry`, `keywords` jako replicator, `max_per_page`, `weight`, `nofollow`, `open_in_new_window`, `enabled`.
+- Wpięto modifier do `free_text_section.antlers.html` i `wysiwyg_html_block.antlers.html`.
+- Dodano path repository w głównym `composer.json` i zainstalowano pakiet przez `composer require skalisty/internal-links:@dev --no-interaction`.
+- Opublikowano blueprint do `resources/blueprints/collections/internal_links/internal_link.yaml`.
+
+#### Zmienione / dodane pliki
+
+- `addons/skalisty/internal-links/composer.json`
+- `addons/skalisty/internal-links/src/ServiceProvider.php`
+- `addons/skalisty/internal-links/src/Modifiers/ApplyInternalLinks.php`
+- `addons/skalisty/internal-links/src/Support/LinkableContentParser.php`
+- `addons/skalisty/internal-links/resources/blueprints/collections/internal_links/internal_link.yaml`
+- `addons/skalisty/internal-links/README.md`
+- `addons/skalisty/internal-links/CHANGELOG.md`
+- `addons/skalisty/internal-links/VERSION.md`
+- `addons/skalisty/internal-links/ROADMAP.md`
+- `addons/skalisty/internal-links/LICENSE`
+- `addons/skalisty/internal-links/.gitignore`
+- `content/collections/internal_links.yaml`
+- `resources/blueprints/collections/internal_links/internal_link.yaml`
+- `resources/views/page_builder/free_text_section.antlers.html`
+- `resources/views/page_builder/wysiwyg_html_block.antlers.html`
+- `composer.json`
+- `composer.lock`
+- `CODEX_SUGGESTIONS.md`
+- `codex-memory.md`
+
+#### Ważne decyzje techniczne
+
+- Addon jest lokalnym Composer path package, bez zmian w vendorze i bez nowych zależności zewnętrznych.
+- Podmiana jest runtime-only, zgodnie z Wariantem A; nie dodano ustawień globalnych, cronów, logów, panelu customowego ani prekomputacji.
+- `ApplyInternalLinks` pobiera linki tylko dla aktualnego site i tylko gdy `enabled=true`, sortuje po `weight desc`, rozwiązuje `target_entry` przez augmented value i lokalizuje target przez `$target->in($site)`.
+- `currentSite()` obsługuje zarówno string site handle, jak i obiekt `Statamic\Sites\Site`, żeby uniknąć kruchego założenia o typie kontekstu Antlers.
+- Parser linkuje również słowo przed kropką na końcu paragrafu, np. `Akwarium.</p>`, i zachowuje kropkę poza anchor tagiem.
+- Świeżo utworzone linki są ponownie ukrywane po każdej podmianie, żeby kolejny keyword nie linkował tekstu już wewnątrz `<a>`.
+
+#### Próbka HTML przed / po
+
+Przykład testowy:
+
+```html
+<h2>akwarium</h2><p>Akwarium.</p>
+```
+
+Wynik realnego renderu partiala `page_builder.free_text_section` z tymczasowym wpisem `internal_links`:
+
+```html
+<h2>akwarium</h2><p><a href="/oferta/sztuczna-rafa-koralowa">Akwarium</a>.</p>
+```
+
+Wniosek: nagłówek został pominięty, paragraf został podlinkowany, a kropka została zachowana poza linkiem.
+
+#### Composer / blueprint / CP
+
+- `composer require skalisty/internal-links:@dev --no-interaction` przeszedł bez konfliktów; Laravel/Statamic wykrył addon jako `skalisty/internal-links`.
+- `composer validate --no-check-publish` dla root projektu przechodzi z ostrzeżeniami: brak `license` w root i `@dev` dla lokalnego addonu. To jest zgodne z aktualnym MVP/path package.
+- `composer validate --no-check-publish addons/skalisty/internal-links/composer.json` przechodzi z ostrzeżeniem o polu `version`; pole zostawione, bo było w briefie.
+- Blueprint collection resolver zwraca `internal_link`, a pola `target_entry` i `keywords` są widoczne runtime.
+- Manualnie nie potwierdziłem edytowalności replicatora `keywords` w zalogowanym CP, bo Codex nie ma aktywnej sesji admina. `/cp/auth/login` lokalnie odpowiada `200`.
+
+#### Multilingual
+
+- Kolekcja `internal_links` ma 12 site’ów projektu i `propagate: false`, więc każdy język może mieć własne reguły i własne keywordy.
+- Runtime test wykonany na PL, z targetem `services/sztuczna-rafa-koralowa` i URL `/oferta/sztuczna-rafa-koralowa`.
+- Nie tworzyłem testowych wpisów EN/DE/etc., żeby nie zostawiać sztucznej treści w content. Po testach licznik wpisów `internal_links` wrócił do `0`.
+
+#### Ryzyka / do audytu Claude
+
+- Sprawdzić manualnie w CP: `/cp/collections/internal_links/entries/create`, save wpisu, edycja replicatora `keywords`, entries picker `target_entry`, toggles `enabled/nofollow/open_in_new_window`.
+- Potwierdzić, czy kolekcja `Internal Links` pokazuje się w lewym menu Content w CP zgodnie z oczekiwaniem UX.
+- Sprawdzić realny wpis frontendowy z treścią Free Text i WYSIWYG HTML po utworzeniu wpisu w CP, najlepiej dla PL i jednego języka obcego.
+- Zweryfikować, czy `ROADMAP.md` addonu wystarczająco jasno rozdziela Wariant A/B/C; według Codexa jest zgodny z intencją briefu, ale warto, żeby Claude potwierdził.
+- Synthetic `Statamic\Facades\Antlers::parse("{{ content | apply_internal_links }}", ...)` w tinkerze nie był wiarygodnym testem custom modifiera, natomiast realny render partiala i `Modify::value()->apply_internal_links()` działają. Do audytu używać realnego widoku albo modifier API, nie gołego `Antlers::parse`.
+
+#### Doc drift
+
+- Nie wykryłem blokującego doc driftu na wejściu: `BRIEF_CODEX.md`, `PROJECT_STATUS_CODEX.md` i `CLAUDE_MEMORY.md` wskazywały `FEATURE-internal-links-addon-mvp`.
+- Codex nie zamykał briefu i nie zmieniał `BRIEF_CODEX.md`, `PROJECT_STATUS_CODEX.md` ani `CLAUDE_MEMORY.md`; zostawiam to do audytu/closure po stronie Claude zgodnie z AGENTS.md.
+- Bez commita, bez push i bez deployu.
+
+#### Testy i komendy kontrolne
+
+Uruchomiono:
+
+- `php -l addons/skalisty/internal-links/src/Support/LinkableContentParser.php` → OK.
+- `php -l addons/skalisty/internal-links/src/Modifiers/ApplyInternalLinks.php` → OK.
+- `php -l addons/skalisty/internal-links/src/ServiceProvider.php` → OK.
+- `php artisan vendor:publish --tag=internal-links-blueprints --force` → OK.
+- `php artisan statamic:stache:refresh` → OK.
+- `php artisan view:clear` → OK.
+- `php artisan cache:clear` → OK.
+- `php artisan test` → `2 passed`.
+- `composer validate --no-check-publish` → valid z ostrzeżeniami opisanymi wyżej.
+- `composer validate --no-check-publish addons/skalisty/internal-links/composer.json` → valid z ostrzeżeniem o `version`.
+- `git diff --check` → OK.
+- `curl -sSI http://127.0.0.1:8001/` → `200 OK`.
+- `curl -sSI http://127.0.0.1:8001/en/` → `200 OK`.
+- `curl -sSI http://127.0.0.1:8001/cp/auth/login` → `200 OK`.
+- Parser direct: `Akwarium. Drugie akwarium.` → linkuje pierwsze `Akwarium` i zachowuje kropkę.
+- Parser direct: `<p>Akwarium.</p><p>sztuczne skały</p>` → linkuje oba keywordy, zachowuje kropkę, obsługuje `target="_blank"` i `rel="nofollow noopener"`.
+- Parser direct exclusion: nie linkuje w `h2` ani w istniejącym `<a>`, linkuje pierwszy match w paragrafie.
+- Realny render `page_builder.free_text_section` z tymczasowym wpisem `internal_links` → `<h2>` pominięte, `<p>` podlinkowane do `/oferta/sztuczna-rafa-koralowa`.
+- Po testach: `Entry::query()->where("collection", "internal_links")->count()` → `0`; nie zostawiono testowych wpisów content.
+
+Nie uruchomiono:
+
+- Manualny test klikany w zalogowanym CP.
+- Manualny test tworzenia realnych wpisów dla EN/pozostałych locale.
+
+Powód:
+
+- Brak aktywnej sesji admina CP po stronie Codexa; testy wykonane lokalnie/runtime bez logowania.
+
+---
 
 ### 2026-06-21 14:47 — FEATURE-seo-errors-manager / SEO Errors Manager
 

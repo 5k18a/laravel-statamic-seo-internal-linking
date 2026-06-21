@@ -4,15 +4,15 @@
 # Aktualizowany po każdym zakończonym zadaniu
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-21-2300
-active_task_id: FEATURE-internal-links-addon-mvp
-active_task_name: Internal Links Addon — Wariant A (MVP)
-active_task_status: active
+state_version: 2026-06-21-EOD2
+active_task_id: none
+active_task_name: Brak aktywnego zadania
+active_task_status: closed
 active_task_source: BRIEF_CODEX.md
-last_sync: 2026-06-21 23:00 Europe/Warsaw
+last_sync: 2026-06-21 23:50 Europe/Warsaw
 last_synced_by: Claude
-last_closed: FIX-service-section-button-entry
-next_after_active: Wariant B Internal Links (production-ready: settings + cron + exclusions)
+last_closed: FEATURE-internal-links-addon-mvp
+next_after_active: Wariant B Internal Links Addon (production-ready) lub inny element z backlogu
 <!-- PROJECT_SYNC_END -->
 
 > **Stała lokalnego dev (2026-06-20)**: frontend działa na `http://127.0.0.1:8001/` (nie `8000`). Komenda PHP lokalnie: `php artisan` (na serwerze: `php84`). Te stałe stosować w briefach walidacyjnych.
@@ -271,15 +271,19 @@ Zadania #4–6: pomysły zgłoszone 2026-06-19 w kontekście SEO 100/100. Szczeg
 
 ## Aktywny brief
 
-**FEATURE-internal-links-addon-mvp** (aktywowany 2026-06-21 23:00) — samodzielny addon Statamic `skalisty/internal-links` (lokalny w `addons/skalisty/internal-links/`) do auto-linkowania słów kluczowych w content. Wariant A (MVP): Collection + Antlers modifier `apply_internal_links` + `LinkableContentParser` z regex hide tags (port z WP plugin `typek-internal-links`). Etapowo: A → B (production-ready: settings + cron + exclusions) → C (logs + custom CP panel + auto-suggestions). Po stabilizacji v1.0 → standalone repo GitHub (analogicznie do chatbot AI 2026-06-20). Brief w `BRIEF_CODEX.md` — czeka na implementację Codex.
+**Brak aktywnego zadania.** Sesja zamknięta 2026-06-21 EOD2 (~23:50).
 
-**Repo GitHub utworzony 2026-06-21:** `https://github.com/5k18a/laravel-statamic-seo-internal-linking.git`
+**Ostatnio zamknięte tej sesji (3 commity major):**
+- `FEATURE-internal-links-addon-mvp` (Wariant A ACCEPTED 23:50, pushed do `5k18a/laravel-statamic-seo-internal-linking` standalone repo)
+- `FIX-service-section-button-entry` (deployed)
+- `UPDATE-statamic-6.22.0 + UX nav icon` (deployed)
+- + cała sesja `FEATURE-seo-errors-manager` + `FEATURE-mega-menu-globals-i18n` etc.
 
-**Plan push po acceptance MVP:** `cd addons/skalisty/internal-links/ && git init && git remote add origin <url> && git push -u origin main`. Memory persistent: `~/.claude/.../memory/project_internal_links_addon.md`.
+User kontynuuje pracę na komputerze zastępczym.
 
-**⚠ REGUŁA (decyzja user 2026-06-21):** addon testować **WYŁĄCZNIE lokalnie** (`http://127.0.0.1:8001/`) do finalnej wersji (Wariant C ACCEPTED + user explicit decyzja "wdrażamy"). NIE deployować na `dev.skalisty.pl`. Wyjątek: push do `5k18a/laravel-statamic-seo-internal-linking` na każdym etapie OK (to VCS, nie deploy produkcji). Memory feedback: `~/.claude/.../memory/feedback_internal_links_local_only.md`.
+**Repo standalone addonu:** `https://github.com/5k18a/laravel-statamic-seo-internal-linking.git` (MVP pushed 2026-06-21).
 
-**Poprzedni aktywny brief:** SEO Errors Manager (zamknięty wcześniej tej sesji jako ACCEPTED + DEPLOYED).
+**⚠ REGUŁA Internal Links Addon (active do Wariant C):** testy WYŁĄCZNIE lokalnie. NIE deploy na `dev.skalisty.pl`. Push do `5k18a/laravel-statamic-seo-internal-linking` na każdym etapie OK. Memory feedback: `~/.claude/.../memory/feedback_internal_links_local_only.md`.
 
 ## Ostatnio zamknięte
 

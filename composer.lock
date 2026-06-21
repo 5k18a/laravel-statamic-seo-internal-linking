@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b6de1ec685a9a012f894415920968303",
+    "content-hash": "9edcb46e107e94f47d0e9652b25778b7",
     "packages": [
         {
             "name": "ajthinking/archetype",
@@ -5461,6 +5461,56 @@
                 }
             ],
             "time": "2022-12-17T21:53:22+00:00"
+        },
+        {
+            "name": "skalisty/internal-links",
+            "version": "0.1.0",
+            "dist": {
+                "type": "path",
+                "url": "./addons/skalisty/internal-links",
+                "reference": "c47ce87036d0a1916bfacf74d60aea1956d7a2b4"
+            },
+            "require": {
+                "php": "^8.2",
+                "statamic/cms": "^6.0"
+            },
+            "type": "library",
+            "extra": {
+                "statamic": {
+                    "name": "Internal Links",
+                    "description": "Auto-linkowanie slow kluczowych w content"
+                },
+                "laravel": {
+                    "providers": [
+                        "Skalisty\\InternalLinks\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Skalisty\\InternalLinks\\": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marcin Skibicki",
+                    "homepage": "https://skalisty.pl"
+                }
+            ],
+            "description": "Statamic 6 addon - automatyczne wewnetrzne linkowanie slow kluczowych z multilingual support",
+            "keywords": [
+                "auto-link",
+                "internal-links",
+                "seo",
+                "statamic",
+                "statamic-addon"
+            ],
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "skalisty/wysiwyg-html-fieldtype",
@@ -12965,7 +13015,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "skalisty/internal-links": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

@@ -1,0 +1,94 @@
+title: 'Internal Link'
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              display: 'Nazwa (administracyjna, nie wyświetlana)'
+              instructions: 'Np. "Skały do akwarium → Strona Dekoracje Akwarystyczne"'
+              validate:
+                - required
+          -
+            handle: target_entry
+            field:
+              type: entries
+              display: 'Strona docelowa'
+              instructions: 'Wybierz wpis do którego linki będą podstawiane. URL dopasuje się automatycznie do języka.'
+              max_items: 1
+              collections:
+                - pages
+                - services
+                - projects
+              required: true
+              validate:
+                - required
+          -
+            handle: keywords
+            field:
+              type: replicator
+              display: 'Słowa kluczowe'
+              instructions: 'Lista słów które będą zamieniane na link.'
+              sets:
+                main:
+                  sets:
+                    keyword:
+                      display: 'Słowo kluczowe'
+                      fields:
+                        -
+                          handle: keyword
+                          field:
+                            type: text
+                            display: 'Słowo'
+                            instructions: 'Np. "akwarium", "sztuczne skały"'
+                            required: true
+                            validate:
+                              - required
+              required: true
+              validate:
+                - required
+              min_sets: 1
+          -
+            handle: max_per_page
+            field:
+              type: integer
+              display: 'Max wystąpień na stronie'
+              instructions: 'Ile razy ten link może wystąpić na pojedynczej stronie.'
+              default: 1
+              min: 1
+              max: 10
+              localizable: false
+          -
+            handle: weight
+            field:
+              type: integer
+              display: 'Priorytet (waga)'
+              instructions: 'Wyższy = pierwszy podmieniany przy konflikcie keywords.'
+              default: 0
+              localizable: false
+          -
+            handle: nofollow
+            field:
+              type: toggle
+              display: 'nofollow'
+              default: false
+              localizable: false
+          -
+            handle: open_in_new_window
+            field:
+              type: toggle
+              display: 'Otwieraj w nowej karcie'
+              default: false
+              localizable: false
+          -
+            handle: enabled
+            field:
+              type: toggle
+              display: 'Aktywne'
+              default: true
+              localizable: false

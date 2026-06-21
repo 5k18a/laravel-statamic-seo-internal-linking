@@ -4,6 +4,68 @@ Changelog projektu `skalisty-orion` — prowadzony przez Claude po każdym zako�
 
 ---
 
+## 2026-06-21 (FEATURE-internal-links-addon-mvp — closed/accepted + push do standalone repo)
+
+### Dodano
+
+- **Samodzielny addon Statamic `skalisty/internal-links`** (lokalny w `addons/skalisty/internal-links/`, v0.1.0) — Wariant A (MVP) auto-linkowania słów kluczowych z multilingual support. 11 plików addonu + 5 plików integracyjnych. PSR-4 autoload `Skalisty\InternalLinks\\`, AddonServiceProvider z modifier register + blueprint publish.
+- **Collection `internal_links`** w 12 sites (`pl,en,sv,no,nl,lv,it,fr,es,de,da,cs`) z `propagate: false` — każdy język ma własne reguły linkowania.
+- **Blueprint `internal_link`** z 8 polami: title, target_entry (entries picker pages+services+projects, multilingual auto-URL), keywords (replicator), max_per_page, weight, nofollow, open_in_new_window, enabled.
+- **Antlers modifier `apply_internal_links`** — uniwersalny content transformer (działa dla wszystkich string content). Wpięty w `free_text_section.antlers.html` (2 miejsca) + `wysiwyg_html_block.antlers.html` (1 miejsce).
+- **`LinkableContentParser`** PHP class z regex hide tags (h1-6, a, img, figure, iframe, WP embeds) — port z WP plugin `wptypek-internal-links` + ulepszenia (Unicode `\p{L}`, smart kropka, htmlspecialchars XSS-safe, re-hide po replace).
+- **Path repository** + require `skalisty/internal-links: @dev` w głównym `composer.json`.
+
+### Ulepszenia Codexa względem briefu (kierunek lepszy)
+
+- **Unicode lookbehind `\p{L}`** w regex — wsparcie dla polskich/CEE znaków (lepszy niż WP wersja)
+- **Smart sentence punctuation preservation** — `Akwarium.` zachowuje kropkę poza anchor
+- **`htmlspecialchars`** na URL + keyword — XSS-safe
+- **Re-hide po każdym replace** — zapobiega nested anchor tags
+- **HtmlString** return gdy input był `Htmlable` — Bard-friendly
+- **`target_blank` automatycznie dodaje `rel="noopener"`** — security best practice
+
+### Decyzje techniczne
+
+- **Wzorzec lokalnego addonu** `addons/skalisty/wysiwyg-html-fieldtype/` zachowany — standalone composer.json + AddonServiceProvider + blueprint publish
+- **Multilingual native** przez Statamic Collection + `propagate: false` + `target_entry->in($site)` z fallback
+- **`currentSite()` defensive** — obsługuje string handle albo `Statamic\Sites\Site` object
+- **Real-time substitution bez cron** — wystarcza dla <500 linków (Wariant A scope)
+
+### Push do standalone repo
+
+- **Repo:** `https://github.com/5k18a/laravel-statamic-seo-internal-linking`
+- `cd addons/skalisty/internal-links/` → `git init` → `git branch -M main` → `git remote add origin <url>` → `git add -A && git commit -m "feat: initial release Wariant A (MVP)"` → `git push -u origin main` → **`[new branch] main -> main`** ✅
+- Po push: `.git/` w katalogu addonu usunięte (skalisty-orion repo traktuje katalog jako zwykły katalog, standalone repo zachowuje swoją historię). Pełna historia addonu w standalone repo.
+
+### Reguła respektowana (`feedback_internal_links_local_only.md`)
+
+- **NIE deploy** na `dev.skalisty.pl` — testy wyłącznie lokalnie do finalnej wersji (Wariant C ACCEPTED + user explicit autoryzacja)
+- Push do `5k18a/laravel-statamic-seo-internal-linking` jako VCS — OK (nie deploy produkcji)
+
+### Walidacja (audyt Claude)
+
+- `composer show skalisty/internal-links` → 0.1.0 (path package) ✅
+- Parser test (`<h2>akwarium</h2><p>Akwarium w paragrafie. Inne sztuczne skały.</p>`) → poprawne podlinkowanie z exclusion H2, capitalization, polskie znaki, rel="nofollow", kropka poza linkiem ✅
+- `php artisan test` → 2 passed ✅
+
+### Manualne testy do walidacji przez user'a
+
+- "Internal Links" collection w lewej belce Content
+- Replicator `keywords` edytowalność w CP
+- Entries picker `target_entry` multilingual
+- Toggles `enabled`, `nofollow`, `open_in_new_window`
+
+### Kolejne etapy roll-out
+
+- **Wariant B (production-ready)** — settings global + Laravel Scheduler pre-computation + exclusions per entry. Po feedbacku z lokalnych testów MVP. Push do tego samego repo.
+- **Wariant C (pełna parytet WP)** — 1-2 sprinty. Logs DB + custom CP panel + auto-suggestions + import/export CSV. Po stabilizacji v1.0 → publikacja na repo + ewentualnie Packagist.
+
+### Archiwum briefu
+
+- `briefs/archive/2026-06-21-feature-internal-links-addon-mvp.md` — pełen audyt MVP
+
+---
+
 ## 2026-06-21 (reguła: Internal Links Addon — testy lokalnie tylko)
 
 ### Decyzje techniczne

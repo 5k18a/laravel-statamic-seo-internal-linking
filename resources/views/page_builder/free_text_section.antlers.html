@@ -7,14 +7,14 @@
                 {{ columns }}
                     <div class="min-w-0 {{ if column_padding == 'small' }}p-3{{ elseif column_padding == 'medium' }}p-6{{ elseif column_padding == 'large' }}p-10{{ /if }}">
                         <div class="{{ if content_max_width == 'prose' }}max-w-prose mx-auto{{ elseif content_max_width == 'narrow' }}max-w-[45ch] mx-auto{{ /if }}">
-                            {{ content }}
+                            {{ content | apply_internal_links }}
                         </div>
                     </div>
                 {{ /columns }}
             </div>
         {{ else }}
             <div class="{{ if content_max_width == 'prose' }}max-w-prose mx-auto{{ elseif content_max_width == 'narrow' }}max-w-[45ch] mx-auto{{ /if }}">
-                {{ content }}
+                {{ content | apply_internal_links }}
             </div>
         {{ /if }}
     </div>
