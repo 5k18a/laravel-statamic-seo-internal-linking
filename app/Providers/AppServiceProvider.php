@@ -75,7 +75,7 @@ class AppServiceProvider extends ServiceProvider
             $nav->create('Tłumaczenia UI')
                 ->section('Tools')
                 ->url(cp_route('ui-translations.index'))
-                ->icon('translate');
+                ->icon('dictionary-language-book');
 
             $nav->create('Translator API')
                 ->section('Tools')

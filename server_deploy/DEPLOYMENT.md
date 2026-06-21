@@ -4,6 +4,77 @@
 
 ---
 
+## Deploy przyrostowy — 2026-06-21 — UPDATE-statamic-6.22.0 + UX nav icon
+
+### Zakres wdrożenia
+
+**Update Statamic 6.21.0 → 6.22.0** (minor release) + 4 drobne security/patch updates dla zależności + UX poprawka ikony nav.
+
+**Co nowego w 6.22.0:**
+- 2 features: Chips fieldtype, server-side image cropping
+- Krytyczne fixy: nested Bard data loss when editing a set (używamy Bard sets w `service/show.antlers.html`), mobile nav button, asset video player dimensions, tab hash retention przy switching localization, dark mode text colours
+
+**Drobne dependency updates:**
+- `phpunit/phpunit` 12.5.28 → 12.5.30
+- `phpunit/php-code-coverage` 12.5.6 → 12.5.7
+- `guzzlehttp/uri-template` v1.0.6 → v1.0.7
+- `ramsey/uuid` 4.9.2 → 4.9.3
+
+**UX poprawka nav:**
+- `AppServiceProvider.php` — ikona `'translate'` (broken — w Statamic CP brak takiej ikony, log warning `Icon [translate] not found`) → `'dictionary-language-book'` dla nav item "Tłumaczenia UI" w sekcji Tools
+
+### Pre-deploy backup
+
+`~/skalisty_2026_backups/before-statamic-6.22.0-2026-06-21/` (3 pliki, 488 KB): composer.json, composer.lock, patches.lock.json.
+
+### Metoda
+
+```bash
+# Lokalnie
+composer update statamic/cms phpunit/phpunit phpunit/php-code-coverage guzzlehttp/uri-template ramsey/uuid --with-dependencies
+# Patches auto-reaplikowane (composer-patches plugin) — HOTFIX-18 (Locales.php) + 5 magic-translator HOTFIXes nadal działają
+php artisan test  # 2 passed
+
+# Deploy: rsync 4 katalogi vendor + 3 lock files + public/vendor/statamic/
+sshpass -p '...' rsync -av --copy-links composer.json composer.lock patches.lock.json skalisty@...:~/skalisty_2026/
+sshpass -p '...' rsync -av --copy-links --delete vendor/statamic/cms/ skalisty@...:~/skalisty_2026/vendor/statamic/cms/
+sshpass -p '...' rsync -av --copy-links vendor/{phpunit,guzzlehttp,ramsey}/ skalisty@...:~/skalisty_2026/vendor/...
+sshpass -p '...' rsync -av --copy-links --delete public/vendor/statamic/ skalisty@...:~/skalisty_2026/public/vendor/statamic/
+# Plus rsync 1 plik dla nav icon: app/Providers/AppServiceProvider.php
+```
+
+Razem: ~38 MB transferowanych (vendor 20 MB + public/vendor 19 MB).
+
+### Komendy post-deploy
+
+```bash
+php84 artisan config:clear
+php84 artisan cache:clear
+php84 artisan view:clear
+php84 artisan statamic:stache:refresh
+php84 artisan test  # 2 passed ✅
+```
+
+### Walidacja produkcji
+
+| Sprawdzenie | Wynik |
+|---|---|
+| Server `composer.lock` `statamic/cms` v6.22.0 | ✅ |
+| Patch HOTFIX-18 (`function_exists('proc_open')` + `@is_dir($localeDir)`) zachowany w `vendor/statamic/cms/src/Dictionaries/Locales.php` | ✅ |
+| `php artisan test` | ✅ 2 passed |
+| HTTPS `/` 200 | ✅ |
+| HTTPS `/en/` 200 | ✅ |
+| HTTPS `/oferta` 200 | ✅ |
+| HTTPS `/cp/auth/login` 200 | ✅ |
+| HTTPS `/cp/seo-errors-manager` 200 | ✅ |
+
+### Lekcje techniczne
+
+- **Patches auto-reaplikowane przy `composer update`** dzięki `cweagans/composer-patches ^2.0` + `composer-exit-on-patch-failure: true`. Sekwencja `composer patches-relock && composer patches-repatch` NIE była potrzebna (patches.lock.json hash bez zmian = wszystkie patches są aktualne dla nowej wersji vendora).
+- **Statamic CP ikony** — nie istnieją wszystkie nazwy intuicyjne (`translate`, `alert` etc.). Sprawdzaj `vendor/statamic/cms/resources/svg/icons/` dla listy dostępnych. Aktualnie używane w Tools: `link` (Trasy URL), `dictionary-language-book` (Tłumaczenia UI), `key` (Translator API), `alert-warning-exclamation-mark` (Błędy SEO).
+
+---
+
 ## Deploy przyrostowy — 2026-06-21 — FEATURE-seo-errors-manager (panel CP + CLI + auto-prune)
 
 ### Zakres wdrożenia
