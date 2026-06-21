@@ -12,6 +12,7 @@ tabs:
               required: true
               validate:
                 - required
+              localizable: false
           -
             handle: icon
             field:
@@ -20,12 +21,14 @@ tabs:
               container: assets
               type: assets
               display: Icon
+              localizable: false
           -
             handle: icon_svg
             field:
               type: iconify
-              store_as: svg_data
               display: 'Icon SVG'
+              store_as: svg_data
+              localizable: false
           -
             handle: image
             field:
@@ -34,18 +37,21 @@ tabs:
               container: assets
               type: assets
               display: image
+              localizable: false
           -
             handle: description
             field:
               type: textarea
               display: 'Service Description'
               instructions: 'Short paragraph describing the service'
+              localizable: false
           -
             handle: button_label
             field:
               default: 'Read More'
               type: text
               display: 'Button Label'
+              localizable: false
           -
             handle: content_title
             field:
@@ -81,6 +87,7 @@ tabs:
                 - aligncenter
                 - alignright
                 - alignjustify
+              localizable: false
               sets:
                 content_sections:
                   display: 'Content Sections'
@@ -390,6 +397,24 @@ tabs:
                               display_type: 'equals list'
           -
             import: all_page_builder
+            config:
+              page_builder:
+                default:
+                  -
+                    type: overview_section
+                    enabled: true
+                  -
+                    type: image_with_text_section
+                    enabled: true
+                  -
+                    type: how_it_works_section
+                    enabled: true
+                  -
+                    type: skalisty_gallery_section
+                    enabled: true
+                  -
+                    type: confidence_section
+                    enabled: true
   sidebar:
     display: Sidebar
     sections:
@@ -410,3 +435,30 @@ tabs:
               localizable: false
               listable: false
               validate: 'nullable|integer|min:1'
+  'SEO Meta':
+    display: 'SEO Meta'
+    sections:
+      -
+        fields:
+          -
+            handle: seo
+            field:
+              type: seo_pro
+              listable: false
+              display: SEO
+              localizable: false
+  'SEO Previews':
+    display: 'SEO Previews'
+    sections:
+      -
+        fields:
+          -
+            handle: seo_previews
+            field:
+              type: seo_pro_previews
+              listable: false
+              display: 'SEO Previews'
+              localizable: false
+              hide_display: true
+              unless:
+                seo.enabled: 'equals false'

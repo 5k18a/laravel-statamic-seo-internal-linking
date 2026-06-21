@@ -36,3 +36,14 @@ tabs:
               type: slug
               localizable: true
               validate: 'max:200'
+          -
+            handle: gallery_tags
+            field:
+              type: terms
+              taxonomies:
+                - gallery_tags
+              create: true
+              mode: select
+              display: 'Tagi (sekcje)'
+              instructions: 'Przypisz galerię do tagów/sekcji (możesz wpisać nowy tag — zostanie utworzony). Zarządzanie wszystkimi tagami: CP → Taxonomies → Gallery Tags.'
+              localizable: false

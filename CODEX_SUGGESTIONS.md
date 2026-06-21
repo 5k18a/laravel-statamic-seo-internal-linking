@@ -80,6 +80,37 @@ doprecyzowanie workflow — zmiana konstytucyjna w `AGENTS.md`, nie zmienia scop
 
 ## RESOLVED_BY_CLAUDE
 
+### 2026-06-21 — FEATURE-mega-menu-globals-i18n
+
+- **Status: accepted** (audyt Claude 2026-06-21 16:10 Europe/Warsaw)
+- **Decyzja Claude:** implementacja zaakceptowana. Wszystkie 8 kroków briefu wykonane 1:1. Blueprint globala `mega_menu` (3 pola `localizable: true`, defaultsy PL), meta z origin chain dla 12 locale, PL source values, `TRANSLATABLE_FIELDS['mega_menu']` z 3 kluczami, 4 headery (`header-{1,2,3,4}.antlers.html`) z konsekwentnym fallbackiem po 4 wrappery `{{ mega_menu }}` + po 1 `projects_button_text` + po 1 `services_button_text` per plik, wrappery `{{ mega_menu }}...{{ /mega_menu }}` użyte poprawnie (HOTFIX-14 lesson uwzględniony), czystka nav trees PL/EN (po 4 linie usunięte: `button_text` + `copyright_text` dla obu mega menu), 11 locale auto-przetłumaczonych przez `globals:translate mega_menu` (DeepL).
+- **Walidacja runtime (Claude):**
+  - Tinker (`GlobalSet::find("mega_menu")->in($loc)`) — wszystkie 12 locale mają poprawne wartości; jakość DeepL OK dla PL/EN/DE/CS/ES.
+  - HTTP `/` → 200; zawiera `Przeglądaj Realizacje`, `Sprawdź Naszą Ofertę`, `Wszelkie prawa zastrzeżone przez Skalisty Group sp. z o.o.`. Klasa `btn-border-b btn font-messiri` (mega menu button) = 2 trafienia.
+  - HTTP `/en/` → 200; zawiera `Browse Our Projects`, `Check Out Our Offer`, `All rights reserved by Skalisty Group sp. z o.o.`; demo Orion `All rights reserved to Orion` = 0 trafień.
+  - HTTP `/cs/ /da/ /es/` → 200 (aktywne locale); mega menu button = 0 trafień bo nav trees tych locale mają `tree: []` (istniejący stan z sesji 2026-06-07, nie problem briefu). Wartość dodana: gdy user doda nav items dla nowych locale w CP, mega menu automatycznie podciągnie tłumaczenie z globala — zero ręcznej pracy per locale.
+  - HTTP `/de/ /fr/ /sv/ /no/ /it/ /nl/ /lv/` → 302 do `/` (fallback locale routing z `bootstrap/app.php`, sesja 2026-05-31); Codex słusznie zauważył niespójność kryterium akceptacji z aktualnym routingiem.
+- **Uznane odchylenia od briefu (acceptable):**
+  - **Footer EN copyright + default blueprintu footer** (`content/globals/en/footer.yaml` + `resources/blueprints/globals/footer.yaml`) — poza ścisłym scope navigation, ale konieczne dla kryterium "brak demo Orion w HTML /en/". Zmiana z `© All rights reserved to Orion Constructions` na `© All rights reserved by Skalisty Group sp. z o.o.` (EN) + analogicznie default blueprintu na PL `© Wszelkie prawa zastrzeżone...`. Default blueprintu nie wpływa na inne 10 locale (footer ma origin chain pl→reszta, więc wszystkie dziedziczą z PL `content/globals/pl/footer.yaml` które ma własną wartość). Decyzja Codexa słuszna — kryterium akceptacji wymuszało.
+  - Codex nie uruchamiał manualnej walidacji w zalogowanym CP (sandbox bez sesji admin). Stache widzi pliki — wystarczy.
+- **Drobne uwagi (nie blokujące):**
+  - ES: `Echa un vistazo a nuestros proyectos` / `Echa un vistazo a nuestra oferta` — DeepL użył tego samego zwrotu dla obu CTA. Akceptowalne; user może edytować w CP > Globals > Mega Menu jeśli chce zróżnicować.
+  - "Orion Construction" nadal w HTML /en/ — 4 trafienia w testimonialach (`reviews_section`) i cookie popup (`newsletter_cookies`). To demo content kolekcji, NIE w scope tego briefu — do osobnego zadania (cleanup demo content jako kolejny ticket).
+- **Test override/fallback** — Codex wykonał: tymczasowo dodał `button_text: 'TEST OVERRIDE REALIZACJE'` do `content/trees/navigation/pl/main.yaml` project-list, frontend `/` pokazał `TEST OVERRIDE REALIZACJE` (override zadziałał), następnie usunięty + stache:refresh, fallback wrócił do `Przeglądaj Realizacje` z globala. Architektura override-z-fallbackiem działa zgodnie z założeniem.
+- **Walidacja runtime testu:** `php artisan test` → 2 passed. YAML/PHP syntax check OK.
+- **Dokumentacja zaktualizowana atomowo (PROJECT_SYNC 2026-06-21-1610):**
+  - `BRIEF_CODEX.md` — `active_task_id: none`, `last_closed: FEATURE-mega-menu-globals-i18n`, status zamknięty
+  - `PROJECT_STATUS_CODEX.md` — wpis w `Wykonane`, sekcja `W trakcie` pusta
+  - `CLAUDE_MEMORY.md` — aktywny brief → none, ostatnio zamknięte zaktualizowane
+  - `CHANGE-LOG.md` — pełny wpis 2026-06-21 (Dodano / Zmieniono / Decyzje techniczne / Uwagi)
+  - `briefs/archive/2026-06-21-feature-mega-menu-globals-i18n.md` — pełen brief zarchiwizowany
+- **Kolejne kroki (do decyzji użytkownika):**
+  - (a) Cleanup demo Orion content (testimoniale, cookie popup, newsletter description) — osobny ticket
+  - (b) Następny element z backlogu: Chatbot AI PoC / Formularze kontaktowe / pozostałe warianty Services Grid
+  - (c) Coś innego
+
+---
+
 ### 2026-06-20 — FEATURE-services-grid-section-variants
 
 - **Status: accepted** (audyt Claude 2026-06-20 19:00 Europe/Warsaw)
@@ -434,7 +465,61 @@ doprecyzowanie workflow — zmiana konstytucyjna w `AGENTS.md`, nie zmienia scop
 
 ## ACTIVE_FOR_CLAUDE_REVIEW
 
-<!-- Brak aktywnych wpisów. Wszystkie raporty Codex z 2026-06-20 rozliczone w RESOLVED_BY_CLAUDE. -->
+<!-- ROZLICZONE 2026-06-21 16:10 — pełny audyt w RESOLVED_BY_CLAUDE (FEATURE-mega-menu-globals-i18n):
+
+### 2026-06-21 — FEATURE-mega-menu-globals-i18n
+
+- Status: wykonane przez Codex, wymaga audytu Claude.
+- Zakres wykonany:
+  - Krok 1: dodano blueprint globala `resources/blueprints/globals/mega_menu.yaml` z 3 polami `localizable: true`: `copyright_text`, `projects_button_text`, `services_button_text`.
+  - Krok 2: dodano meta globala `content/globals/mega_menu.yaml` z origin chain `pl -> 11 locale`.
+  - Krok 3: dodano source PL `content/globals/pl/mega_menu.yaml`.
+  - Krok 4: rozszerzono `TranslateGlobalSet::TRANSLATABLE_FIELDS` o `mega_menu`.
+  - Krok 5: zrefaktorowano `header-1..4.antlers.html` na override/fallback: `button_text` / `copyright_text` z nav item ma priorytet, else wrapper `{{ mega_menu }}...{{ /mega_menu }}`.
+  - Krok 6: wyczyszczono `button_text:` i `copyright_text:` z realnych navigation trees PL/EN; pozostałe 10 locale mają `tree: []` i były już czyste.
+  - Krok 7: wykonano `php artisan globals:translate mega_menu --locales=en,sv,no,nl,lv,it,fr,es,de,da,cs`; 11 locale zapisane bez błędów DeepL.
+  - Krok 8: wykonano walidację backend/HTTP/render oraz test override.
+- Zmienione / dodane pliki:
+  - Nowe: `resources/blueprints/globals/mega_menu.yaml`.
+  - Nowe: `content/globals/mega_menu.yaml`.
+  - Nowe: `content/globals/{pl,en,sv,no,nl,lv,it,fr,es,de,da,cs}/mega_menu.yaml` (12 plików locale).
+  - Edytowane: `app/Console/Commands/TranslateGlobalSet.php`.
+  - Edytowane: `resources/views/partials/header-{1,2,3,4}.antlers.html`.
+  - Edytowane: `content/trees/navigation/{pl,en}/main.yaml`; 10 pozostałych navigation trees bez zmian, bo są puste.
+  - Dodatkowa korekta demo Orion poza głównym zakresem: `content/globals/en/footer.yaml` i `resources/blueprints/globals/footer.yaml` — usunięto `© All rights reserved to Orion Constructions`, bo inaczej kryterium braku demo Oriona w HTML `/en/` nadal failowało przez footer.
+- Próbki tłumaczeń DeepL:
+  - EN: `© All rights reserved by Skalisty Group sp. z o.o.` / `Browse Our Projects` / `Check Out Our Offer`
+  - DE: `© Alle Rechte vorbehalten durch Skalisty Group sp. z o.o.` / `Projekte ansehen` / `Entdecken Sie unser Angebot`
+  - ES: `© Todos los derechos reservados por Skalisty Group sp. z o.o.` / `Echa un vistazo a nuestros proyectos` / `Echa un vistazo a nuestra oferta`
+- `globals:translate`:
+  - użyto domyślnego source `pl`; nie było potrzeby `--source`.
+  - DeepL przeszedł bez błędów i bez eskalacji poza sandbox.
+- Walidacja:
+  - Symfony YAML parse nowych plików i zmienionych nav trees — OK.
+  - `php -l app/Console/Commands/TranslateGlobalSet.php` — OK.
+  - `php artisan statamic:stache:refresh` — OK.
+  - `php artisan view:clear` — OK.
+  - `php artisan cache:clear` — OK po ponowieniu poza sandboxem (pierwszy przebieg miał problem uprawnień).
+  - `php artisan test` — OK (`2 passed`).
+  - HTML `/` — `200`, zawiera `Przeglądaj Realizacje`, `Sprawdź Naszą Ofertę`, `Wszelkie prawa zastrzeżone`.
+  - HTML `/en/` — `200`, zawiera `Browse Our Projects`, `Check Out Our Offer`, `All rights reserved by Skalisty Group`; brak `View Services`, `View Projects`, `All rights reserved to Orion`.
+  - `rg` po `content/resources/lang/app/public` — brak `All rights reserved to Orion Constructions`, `View Services`, `View Projects`.
+  - `rg -c "{{ mega_menu }}"` w każdym headerze — po 4 wrappery na plik; `projects_button_text/services_button_text` po 4 trafienia na plik.
+- Test override/fallback:
+  - Tymczasowo dodano `button_text: 'TEST OVERRIDE REALIZACJE'` do `content/trees/navigation/pl/main.yaml` dla project-list.
+  - Po `stache:refresh` frontend `/` pokazał `TEST OVERRIDE REALIZACJE`, a nie `Przeglądaj Realizacje` z globala.
+  - Testowy override został usunięty, `stache:refresh` wykonany ponownie; końcowy HTML wrócił do fallbacku globala.
+- Odchylenia / uwagi dla audytu:
+  - Brief oczekiwał HTTP 200 dla `/de/` i `/fr/`; aktualna architektura projektu ma istniejący fallback 302 dla nowych locale do `/` (opisany w statusie projektu). Lokalnie `/de/` i `/fr/` zwracają `302 Location: http://127.0.0.1:8001`, więc nie traktuję tego jako regresji tego taska, ale jako niespójność kryterium akceptacji z aktualnym routingiem.
+  - CP manualnie nieklikany; brak sesji admina w przeglądarce. Pliki globala i blueprint istnieją, a Stache je widzi.
+  - Korekta footer EN/default była poza ścisłym krokiem "navigation trees", ale konieczna dla realnego kryterium "brak demo Orion w HTML".
+- Gotowe rozwiązania:
+  - Nie wykryłem lepszego gotowego mechanizmu niż obecny global + `globals:translate`; Magic Translator nadal nie obsługuje navigation trees.
+- Doc drift:
+  - Na wejściu `BRIEF_CODEX.md`, `PROJECT_STATUS_CODEX.md`, `CLAUDE_MEMORY.md` były spójne (`state_version: 2026-06-21-1530`, aktywny `FEATURE-mega-menu-globals-i18n`).
+  - `BRIEF_CODEX.md`, `CHANGE-LOG.md`, `CLAUDE_MEMORY.md`, `PROJECT_STATUS_CODEX.md` były już zmienione przez Claude przed implementacją; Codex ich nie zamykał ani nie archiwizował.
+
+-->
 
 <!-- ROZLICZONE 2026-06-20 19:00 — pełny audyt w RESOLVED_BY_CLAUDE (variants):
 

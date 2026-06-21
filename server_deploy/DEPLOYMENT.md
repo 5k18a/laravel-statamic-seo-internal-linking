@@ -1,6 +1,79 @@
 # DEPLOYMENT.md
 # Dokumentacja wdrożenia — dev.skalisty.pl (dhosting)
-# Ostatnia aktualizacja: 2026-06-18
+# Ostatnia aktualizacja: 2026-06-21
+
+---
+
+## Deploy przyrostowy — 2026-06-21 — FEATURE-services-pagebuilder-defaults
+
+### Zakres wdrożenia
+
+Mała poprawka (1 plik): dodano 5 domyślnych setów (`overview_section`, `image_with_text_section`, `how_it_works_section`, `skalisty_gallery_section`, `confidence_section`) do `page_builder` w blueprintcie `services/service.yaml` przez `import: all_page_builder` + `config.page_builder.default`.
+
+### Pre-deploy backup
+
+`~/skalisty_2026_backups/before-services-page-builder-defaults-2026-06-21/service.yaml` (20 KB).
+
+### Metoda
+
+`rsync -av` 1 pliku (1.492 B sent / 185 B recv); post-deploy `view:clear` + `cache:clear` + `statamic:stache:refresh`.
+
+### Walidacja
+
+`php84 artisan tinker` na serwerze:
+```
+Blueprint::find("collections.services.service")->field("page_builder")->config()["default"]
+→ 5 setów (overview_section, image_with_text_section, how_it_works_section, skalisty_gallery_section, confidence_section) ✅
+```
+
+---
+
+## Deploy przyrostowy — 2026-06-21 — FEATURE-mega-menu-globals-i18n
+
+### Zakres wdrożenia
+
+Wdrożenie zaakceptowanego briefu `FEATURE-mega-menu-globals-i18n` (zamknięty 2026-06-21 16:10 ACCEPTED):
+
+- Nowy global Statamic `mega_menu` z 3 polami `localizable: true` (`copyright_text`, `projects_button_text`, `services_button_text`)
+- Refactor 4 widoków `header-{1,2,3,4}.antlers.html` na override-z-globalem (wrappery `{{ mega_menu }}...{{ /mega_menu }}` — HOTFIX-14 lesson)
+- Rozszerzenie `TRANSLATABLE_FIELDS` w `app/Console/Commands/TranslateGlobalSet.php`
+- 11 locale przetłumaczonych przez DeepL (`globals:translate mega_menu`)
+- Czystka demo Orion w nav trees PL/EN + footer EN copyright
+
+### Metoda
+
+- Pre-deploy backup serwera: `~/skalisty_2026_backups/before-mega-menu-globals-i18n-2026-06-21/` (9 plików, 164 KB) — kopie aktualnych wersji wszystkich plików które są modyfikowane (TranslateGlobalSet.php, 4 headery, footer.yaml blueprint+EN, 2 nav trees)
+- Rsync `--files-from=/tmp/deploy-files-mega-menu.txt` (23 pliki, 29.854 B sent / 1.781 B recv / total 158.725 B)
+- Pełne komendy w sekcji "Komendy" niżej
+
+### Komendy post-deploy
+
+```bash
+/opt/alt/php84/usr/bin/php artisan config:clear
+/opt/alt/php84/usr/bin/php artisan cache:clear
+/opt/alt/php84/usr/bin/php artisan view:clear
+/opt/alt/php84/usr/bin/php artisan statamic:stache:refresh
+/opt/alt/php84/usr/bin/php artisan test  # → 2 passed
+```
+
+Wszystkie OK ✅
+
+### Walidacja produkcji
+
+| URL | HTTP | Walidacja |
+|-----|------|-----------|
+| `https://dev.skalisty.pl/` | 200 | `Przeglądaj Realizacje`, `Sprawdź Naszą Ofertę`, `Wszelkie prawa zastrzeżone` ✅ |
+| `https://dev.skalisty.pl/en/` → `/en` | 301 → 200 | `Browse Our Projects`, `Check Out Our Offer`, `All rights reserved by Skalisty Group` ✅ |
+| `https://dev.skalisty.pl/cs/`, `/da/`, `/es/` | 301 → 200 | aktywne ✅ |
+| `/de/ /fr/ /sv/ /no/ /it/ /nl/ /lv/` | 301 do `/` | znane (fallback locale routing, bootstrap/app.php sesja 2026-05-31) |
+| Demo Orion `All rights reserved to Orion` w HTML /en/ | — | 0 trafień ✅ |
+
+### Wnioski operacyjne
+
+- Auto-mode Claude Code v2.1.15x nadal blokuje SSH writes na production — workaround: user wyłącza `/auto` przed deployem
+- Insync wrapper SSH (`/home/pestycyd/Insync/.../skalisty-ssh`) działa z argumentami; `/usr/bin/skalisty-ssh` to wrapper bez argumentów (otwiera interaktywną sesję)
+- `rsync --files-from=` z listą 23 plików — bardzo szybki transfer (158 KB), zero kolizji z innymi zmianami na serwerze
+- HTTP 301 dla `/en/` itd. (z trailing slash → bez) to normalny pattern Apache/dhosting, nie regresja
 
 ---
 

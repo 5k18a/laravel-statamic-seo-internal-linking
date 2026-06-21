@@ -1,4 +1,6 @@
 title: Galleries
+taxonomies:
+  - gallery_tags
 revisions: false
 date_behavior:
   past: public

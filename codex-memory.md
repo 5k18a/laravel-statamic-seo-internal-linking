@@ -1,5 +1,42 @@
 # Codex Memory
 
+## Ostatnia sesja — 2026-06-21 — FEATURE-mega-menu-globals-i18n
+
+- Aktywny brief:
+  - `FEATURE-mega-menu-globals-i18n`
+- Cel:
+  - przenieść teksty CTA/copyright mega menu z navigation trees do tłumaczalnego globala `mega_menu`
+  - zachować opcjonalny override per nav item (`button_text`, `copyright_text`)
+- Wykonane:
+  - dodano `resources/blueprints/globals/mega_menu.yaml`
+  - dodano `content/globals/mega_menu.yaml`
+  - dodano `content/globals/{pl,en,sv,no,nl,lv,it,fr,es,de,da,cs}/mega_menu.yaml`
+  - rozszerzono `app/Console/Commands/TranslateGlobalSet.php` o `TRANSLATABLE_FIELDS['mega_menu']`
+  - zrefaktorowano `resources/views/partials/header-1..4.antlers.html`
+  - usunięto `button_text` i `copyright_text` z `content/trees/navigation/pl/main.yaml` i `content/trees/navigation/en/main.yaml`
+  - dodatkowo usunięto demo copyright Oriona z `content/globals/en/footer.yaml` i defaultu `resources/blueprints/globals/footer.yaml`
+- Wzorce do zapamiętania:
+  - Statamic globals w partialach wymagają jawnego wrappera: `{{ mega_menu }}...{{ /mega_menu }}`.
+  - Fallback override w Antlers pisać klasycznie: `{{ if button_text }}...{{ else }}{{ mega_menu }}{{ if projects_button_text }}...{{ /if }}{{ /mega_menu }}{{ /if }}`.
+  - Dla każdego nowego globala tłumaczonego przez `globals:translate` trzeba dopisać handle i pola w `TranslateGlobalSet::TRANSLATABLE_FIELDS`, inaczej komenda skopiuje source as-is.
+  - Navigation trees są per site; `localizable: true` w blueprincie navigation nie rozwiązuje tłumaczeń tree fields.
+- Walidacja:
+  - `globals:translate mega_menu --locales=en,sv,no,nl,lv,it,fr,es,de,da,cs` — OK, source domyślne `pl`
+  - YAML parse przez Symfony YAML — OK
+  - `php -l TranslateGlobalSet.php` — OK
+  - `php artisan statamic:stache:refresh` — OK
+  - `php artisan view:clear` — OK
+  - `php artisan cache:clear` — OK po ponowieniu poza sandboxem
+  - `php artisan test` — OK (`2 passed`)
+  - `/` i `/en/` lokalnie na `127.0.0.1:8001` — 200, teksty mega menu z globala widoczne
+  - `/de/` i `/fr/` lokalnie — 302 do `/`, zgodnie z istniejącym fallbackiem nowych locale
+  - test override: tymczasowy `button_text: TEST OVERRIDE REALIZACJE` w nav PL przebił globala; po teście usunięty
+- Uwagi:
+  - Briefowe kryterium HTTP 200 dla `/de/` i `/fr/` jest niespójne z aktualną architekturą fallback 302 dla nowych locale.
+  - Brak manualnego kliknięcia CP Globals bez sesji admina; walidacja była plikowa/runtime.
+- Git:
+  - bez commita i bez deployu, zgodnie z AGENTS.md
+
 ## Ostatnia sesja — 2026-06-20 — FEATURE-services-grid-section-variants
 
 - Aktywny brief:

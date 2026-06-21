@@ -1,15 +1,15 @@
 # PROJECT_STATUS_CODEX.md
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-20-2300
+state_version: 2026-06-21-EOD
 active_task_id: none
 active_task_name: Brak aktywnego zadania
 active_task_status: closed
 active_task_source: BRIEF_CODEX.md
-last_sync: 2026-06-20 23:00 Europe/Warsaw
+last_sync: 2026-06-21 21:30 Europe/Warsaw
 last_synced_by: Claude
-last_closed: HOTFIX-entries-picker-default-mode
-next_after_active: Wybór z backlogu (chatbot AI multi-provider / Formularze kontaktowe / pozostałe warianty Services Grid / kolejne idee)
+last_closed: HOTFIX-gallery-tags-fieldtype
+next_after_active: Wybór z backlogu (cleanup demo Orion content / chatbot AI PoC / Formularze kontaktowe / pozostałe warianty Services Grid)
 <!-- PROJECT_SYNC_END -->
 
 ---
@@ -167,6 +167,63 @@ next_after_active: Wybór z backlogu (chatbot AI multi-provider / Formularze kon
 ## W trakcie
 
 Brak aktywnych zadań.
+
+---
+
+### ✅ Ostatnio zamknięte: sesja 2026-06-21 (6 zadań + 5 deployów + sync)
+
+**Główne zadania sesji 2026-06-21:**
+
+1. **FEATURE-mega-menu-globals-i18n** (główne, ACCEPTED + DEPLOYED) — nowy global `mega_menu` z 3 polami `localizable: true` (`copyright_text`, `projects_button_text`, `services_button_text`), refactor 4 headerów na override-z-globalem, 11 locale auto-tłumaczonych przez DeepL, czystka demo Orion z nav trees PL/EN + footer EN
+2. **Sync z serwera** (12 nowych usług PL+EN demo Orion + 2 polskie `sztuczne-skaly`, `sztuczna-rafa-koralowa` + 24 lokalizacje galerii + edycja `oferta.md` `section_title: 'Lista Usług'` + zmiana nav PL Oferta z 7 demo Orion services → 2 realne)
+3. **FEATURE-services-pagebuilder-defaults** — w blueprintcie `service.yaml` dodano `config.page_builder.default` z 5 setami: `overview_section`, `image_with_text_section`, `how_it_works_section`, `skalisty_gallery_section`, `confidence_section`. Nowe wpisy services dostają te 5 setów automatycznie. Mechanizm: `import: all_page_builder` + `config: <handle>: default: [...]` (per Statamic Fields::getImportedFields linia 286-291).
+4. **HOTFIX-services-icon-svg-store-as** — przywrócono `store_as: svg_data` w polu `icon_svg` blueprintu service.yaml (regresja po edycji w CP). Spójność z `icon_box_with_text_section.yaml` i `logos_slider_with_icons.yaml`.
+5. **FEATURE-gallery-tags-taxonomy** — nowa taxonomy `gallery_tags` (natywny Statamic) do segregacji wpisów galleries. Pliki: `content/taxonomies/gallery_tags.yaml`, `resources/blueprints/taxonomies/gallery_tags/gallery_tag.yaml`, `content/collections/galleries.yaml` (`taxonomies: [gallery_tags]`), `resources/blueprints/collections/galleries/gallery.yaml` (pole `gallery_tags` w sidebar). Decyzje user: nazwa `gallery_tags`, bez frontowych stron tagów (route), nie multilingual, demo `categories` zostawione na przyszłość.
+6. **HOTFIX-gallery-tags-fieldtype** — `type: taxonomy` → **`type: terms`** w polu `gallery_tags`. Statamic nie ma fieldtype `taxonomy` (klasa Terms.php obsługuje wybór termów). Bez fixa `/cp/taxonomies` zwracał 500 (`FieldtypeNotFoundException`).
+
+**5 deployów w sesji** (per `server_deploy/DEPLOYMENT.md` 2026-06-21):
+- Deploy 1: 23 plików mega_menu i18n
+- Deploy 2: 1 plik (page_builder defaults)
+- Deploy 3: 1 plik (icon_svg store_as)
+- Deploy 4: 4 pliki (gallery_tags taxonomy)
+- Deploy 5: 1 plik (gallery_tags fieldtype fix)
+
+**Diagnozy bez wprowadzania zmian:**
+- **DuplicateFieldException `confidence_section` w blueprintcie service** — user próbował dodać confidence_section jako sekcję blueprintu przez CP Blueprint Editor; pola `description`+`image` kolidowały z istniejącymi top-level. Diagnoza wskazała że CP Blueprint Editor nie ma UI dla `default:` setów replicatora — alternatywa: `config.page_builder.default` (zaaplikowane w punkcie 3). User samodzielnie usunie wcześniejsze próby przez CP.
+
+**Otwarte punkty (na następną sesję):**
+- 12 demo Orion PL services `published: false` — zachować jako template czy usunąć?
+- `architectural-design` w EN-only — usunąć z EN, czy zostawić?
+- Cleanup demo Orion content (testimoniale "Orion Construction took the time...", cookie popup "At Orion Construction, cookies...", newsletter description) — kandydat na osobny ticket
+- Re-zapis 2 PL services (`sztuczne-skaly`, `sztuczna-rafa-koralowa`) przez CP żeby `icon_svg` ląd ował jako inline SVG (po HOTFIX-services-icon-svg-store-as)
+
+---
+
+### ✅ Ostatnio zamknięte: FEATURE-mega-menu-globals-i18n (2026-06-21, ACCEPTED)
+
+Nowy global Statamic `mega_menu` z 3 polami `localizable: true` (`copyright_text`, `projects_button_text`, `services_button_text`) + refactor `header-{1,2,3,4}.antlers.html` na **override z fallbackiem** — pole `button_text` / `copyright_text` per nav item ma priorytet, w razie pustki widok bierze wartość z globala przez wrapper `{{ mega_menu }}...{{ /mega_menu }}` (HOTFIX-14 lesson uwzględniony). 11 locale auto-przetłumaczonych przez DeepL (`php artisan globals:translate mega_menu`); rozszerzono `TRANSLATABLE_FIELDS` w `TranslateGlobalSet.php`. Czystka demo Orion z nav trees PL/EN (4 linie na plik) + bonus footer EN copyright (poza ścisłym scope, ale konieczne dla kryterium "brak demo Orion w HTML /en/").
+
+**Architektura:**
+- `resources/blueprints/globals/mega_menu.yaml` — 3 pola text, `localizable: true`, defaultsy PL
+- `content/globals/mega_menu.yaml` — origin chain (`pl: null`, 11 locale: `origin: pl`)
+- `content/globals/{12 locale}/mega_menu.yaml` — PL ręcznie, 11 locale przez DeepL
+- `app/Console/Commands/TranslateGlobalSet.php` — `TRANSLATABLE_FIELDS['mega_menu']` z 3 kluczami
+- 4× `resources/views/partials/header-{1,2,3,4}.antlers.html` — fallback `{{ if button_text }}...{{ else }}{{ mega_menu }}{{ if projects_button_text }}...{{ /if }}{{ /mega_menu }}{{ /if }}` w obu blokach mega menu per header (project-list → `projects_button_text`, service-list → `services_button_text`)
+- `content/trees/navigation/{pl,en}/main.yaml` — usunięte `button_text:` i `copyright_text:` (po 4 linie); 10 pozostałych miało już `tree: []`
+- `content/globals/en/footer.yaml` + `resources/blueprints/globals/footer.yaml` — czystka "Orion" → "Skalisty"
+
+**Audyt Claude — werdykt ACCEPTED:**
+- Tinker `GlobalSet::find("mega_menu")->in($loc)` — wszystkie 12 locale mają poprawne wartości; jakość DeepL OK (EN: "Browse Our Projects" / "Check Out Our Offer", DE: "Projekte ansehen" / "Entdecken Sie unser Angebot", CS: "Prohlédněte si realizace" / "Prohlédněte si naši nabídku")
+- HTTP `/` → 200 z PL tłumaczeniami, mega menu button = 2 trafienia
+- HTTP `/en/` → 200 z EN tłumaczeniami, demo Orion `All rights reserved to Orion` = 0 trafień
+- HTTP `/cs/ /da/ /es/` → 200 (aktywne locale); mega menu się nie renderuje bo nav trees mają `tree: []` (istniejący stan, nie problem briefu — wartość dodana: gdy user doda nav items w CP, mega menu automatycznie podciągnie tłumaczenie z globala)
+- HTTP `/de/ /fr/ /sv/ /no/ /it/ /nl/ /lv/` → 302 do `/` (fallback locale routing z bootstrap/app.php sesja 2026-05-31); Codex słusznie zauważył niespójność z kryterium akceptacji briefu
+- Test override/fallback przez Codexa — działa zgodnie z założeniem
+- `php artisan test` → 2 passed
+
+**Drobne uwagi (nie blokujące):**
+- ES: `Echa un vistazo a nuestros proyectos` / `Echa un vistazo a nuestra oferta` — DeepL powtórzył zwrot; user może edytować w CP > Globals > Mega Menu jeśli chce zróżnicować
+- "Orion Construction" nadal w HTML /en/ (4 trafienia w testimonialach + cookie popup) — demo content kolekcji, poza scope briefu, **kandydat na osobny ticket "cleanup demo Orion content"**
 
 ---
 

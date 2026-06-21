@@ -25,7 +25,7 @@ tabs:
           -
             handle: copyright_text
             field:
-              default: '© All rights reserved to Orion Constructions'
+              default: '© Wszelkie prawa zastrzeżone przez Skalisty Group sp. z o.o.'
               type: text
               display: 'Copyright Text'
           -

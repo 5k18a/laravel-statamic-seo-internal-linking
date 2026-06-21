@@ -4,15 +4,15 @@
 # Aktualizowany po każdym zakończonym zadaniu
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-20-2300
+state_version: 2026-06-21-EOD
 active_task_id: none
 active_task_name: Brak aktywnego zadania
 active_task_status: closed
 active_task_source: BRIEF_CODEX.md
-last_sync: 2026-06-20 23:00 Europe/Warsaw
+last_sync: 2026-06-21 21:30 Europe/Warsaw
 last_synced_by: Claude
-last_closed: HOTFIX-entries-picker-default-mode
-next_after_active: Wybór z backlogu (chatbot AI multi-provider / Formularze kontaktowe / pozostałe warianty Services Grid / kolejne idee)
+last_closed: HOTFIX-gallery-tags-fieldtype
+next_after_active: Wybór z backlogu (cleanup demo Orion content / chatbot AI PoC / Formularze kontaktowe / pozostałe warianty Services Grid)
 <!-- PROJECT_SYNC_END -->
 
 > **Stała lokalnego dev (2026-06-20)**: frontend działa na `http://127.0.0.1:8001/` (nie `8000`). Komenda PHP lokalnie: `php artisan` (na serwerze: `php84`). Te stałe stosować w briefach walidacyjnych.
@@ -271,7 +271,7 @@ Zadania #4–6: pomysły zgłoszone 2026-06-19 w kontekście SEO 100/100. Szczeg
 
 ## Aktywny brief
 
-Brak aktywnego zadania. Sesja 2026-06-19 zamknięta.
+Brak aktywnego zadania. Sesja 2026-06-21 zamknięta — 6 zadań + 5 deployów + sync z serwera. Last closed: `HOTFIX-gallery-tags-fieldtype`. Czeka na decyzję usera o kolejnym priorytecie z backlogu.
 
 ## Ostatnio zamknięte
 
@@ -369,7 +369,7 @@ Z `CODEX_SUGGESTIONS.md` (2026-06-05, SEO-Pro):
 
 ### Ostatni brief dla Codex
 
-`BRIEF_CODEX.md` (state_version 2026-06-20-1500, FEATURE-services-grid-section-soft) — zamknięty po audycie 2026-06-20-1700. Brief zarchiwizowany w `briefs/archive/2026-06-20-feature-services-grid-section-soft.md`.
+`BRIEF_CODEX.md` (state_version 2026-06-21-EOD, **HOTFIX-gallery-tags-fieldtype**) — ZAMKNIĘTY 2026-06-21 21:30. W sesji 2026-06-21 zamknięto łącznie 6 zadań: `HOTFIX-gallery-tags-fieldtype` (terms zamiast taxonomy), `FEATURE-gallery-tags-taxonomy` (natywny Statamic), `HOTFIX-services-icon-svg-store-as` (przywrócony svg_data), `FEATURE-services-pagebuilder-defaults` (5 default setów), sync 12 nowych usług + 24 lokalizacji galerii, `FEATURE-mega-menu-globals-i18n` (główne ACCEPTED). 5 deployów w sesji. Pełen brief mega_menu zarchiwizowany w `briefs/archive/2026-06-21-feature-mega-menu-globals-i18n.md`.
 
 ### Ostatni feedback Codex
 
@@ -456,6 +456,38 @@ Dodane do `.gitignore`: `ADMIN_ACCESS.txt`, `/users/*.yaml`
 ---
 
 ## Dziennik sesji
+
+### 2026-06-21 (cała sesja — 6 zadań + 5 deployów + sync)
+
+**Główne wydarzenia:**
+
+1. **FEATURE-mega-menu-globals-i18n** (ACCEPTED) — Codex zaimplementował brief, audyt PASSED. Nowy global `mega_menu` (3 pola `localizable: true`), refactor 4 headerów na override-z-globalem, 11 locale DeepL, czystka demo Orion z nav trees PL/EN + footer EN. Deploy 23 plików.
+2. **Sync z serwera** — 12 nowych usług PL+EN demo Orion + 2 polskie (`sztuczne-skaly`, `sztuczna-rafa-koralowa`) + 24 lokalizacji galerii + edycja nav PL Oferta (7 demo→2 realne) + edycja `oferta.md` `section_title: 'Lista Usług'`. **Regresja blueprintu service.yaml**: user usunął `store_as: svg_data` z `icon_svg` przy edycji CP.
+3. **Diagnoza `confidence_section` duplicate field** (NIE wprowadzono zmian) — user próbował dodać confidence_section do blueprintu service przez CP Blueprint Editor, dostawał `DuplicateFieldException` na polach `description`/`image`. Przyczyna: confidence_section.yaml top-level pola kolidowały z service top-level. User samodzielnie usunie próby.
+4. **FEATURE-services-pagebuilder-defaults** — `config.page_builder.default` z 5 setami (overview/image_with_text/how_it_works/skalisty_gallery/confidence). Mechanizm: `import: + config: <handle>: <overrides>` per Statamic Fields.php:286-291.
+5. **HOTFIX-services-icon-svg-store-as** — przywrócone `store_as: svg_data` w `icon_svg`.
+6. **FEATURE-gallery-tags-taxonomy** — natywny Statamic taxonomy + pole w sidebar galleries. Decyzje user: `gallery_tags`, bez route, nie multilingual, demo `categories` zostawione.
+7. **HOTFIX-gallery-tags-fieldtype** — `type: taxonomy` → `type: terms` (Statamic nie ma fieldtype `taxonomy`).
+
+**Wnioski techniczne (do pamięci):**
+- **Override import config** wymaga mapy per handle pola: `config: <handle>: <overrides>`, nie flat (vendor Fields.php:286-291)
+- **Fieldtype dla termów taxonomy w blueprintcie = `terms`**, nie `taxonomy`
+- **`default:` dla replicatora** = lista obiektów setów `- type: <handle>, enabled: true` (wzór jak `projects.details` z 2026-06-19)
+- **`store_as: svg_data` w polach Iconify**: jawnie zawsze, nawet jeśli config global ma default
+- **Auto-mode Claude Code v2.1.15x blokuje SSH writes na production** — user wyłącza `/auto` przed deployem
+
+**Otwarte (na następną sesję):**
+- 12 demo Orion PL services `published: false` — zachować/usunąć?
+- `architectural-design` EN-only — decyzja
+- Cleanup demo Orion content (testimoniale + cookie popup + newsletter)
+- Re-zapis 2 PL services przez CP → `icon_svg` jako inline SVG
+
+**Stan na koniec sesji:**
+- `state_version: 2026-06-21-EOD`, `active_task_id: none`, `last_closed: HOTFIX-gallery-tags-fieldtype`
+- Lokalny stan = serwer dev.skalisty.pl (po 5 deployach + pull sync)
+- 5 deployów udokumentowane w `server_deploy/DEPLOYMENT.md`
+
+---
 
 ### 2026-06-20
 

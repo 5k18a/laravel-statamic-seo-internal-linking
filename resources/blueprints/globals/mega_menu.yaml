@@ -1,0 +1,30 @@
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: copyright_text
+            field:
+              type: text
+              display: 'Copyright Text'
+              instructions: 'Tekst copyright wyświetlany w stopce mega menu (wspólny dla wszystkich mega menu). Override per nav item: pole "Copyright Text" w CP > Content > Navigation > [nav item].'
+              localizable: true
+              default: '© Wszelkie prawa zastrzeżone przez Skalisty Group sp. z o.o.'
+          -
+            handle: projects_button_text
+            field:
+              type: text
+              display: 'Projects Button Text'
+              instructions: 'CTA mega menu sekcji Realizacje. Override per nav item: pole "Button Text" w CP > Navigation > Realizacje.'
+              localizable: true
+              default: 'Przeglądaj Realizacje'
+          -
+            handle: services_button_text
+            field:
+              type: text
+              display: 'Services Button Text'
+              instructions: 'CTA mega menu sekcji Oferta. Override per nav item: pole "Button Text" w CP > Navigation > Oferta.'
+              localizable: true
+              default: 'Sprawdź Naszą Ofertę'

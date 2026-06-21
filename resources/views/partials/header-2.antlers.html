@@ -193,12 +193,30 @@
                                        class="m-0 font-lexend font-light normal-case sm:text-center text-start text-black cursor-default">
                                        {{ copyright_text }}
                                     </p>
+                                    {{ else }}
+                                    {{ mega_menu }}
+                                    {{ if copyright_text }}
+                                    <p
+                                       class="m-0 font-lexend font-light normal-case sm:text-center text-start text-black cursor-default">
+                                       {{ copyright_text }}
+                                    </p>
+                                    {{ /if }}
+                                    {{ /mega_menu }}
                                     {{ /if }}
                                     {{ if button_text }}
                                     <a href="{{ button_page }}{{ url }}{{ /button_page }}"
                                        class="!tracking-[3px] btn-border-b btn font-messiri !p">
                                        {{ button_text }}
                                     </a>
+                                    {{ else }}
+                                    {{ mega_menu }}
+                                    {{ if projects_button_text }}
+                                    <a href="{{ button_page }}{{ url }}{{ /button_page }}"
+                                       class="!tracking-[3px] btn-border-b btn font-messiri !p">
+                                       {{ projects_button_text }}
+                                    </a>
+                                    {{ /if }}
+                                    {{ /mega_menu }}
                                     {{ /if }}
                                  </div>
                               </div>
@@ -257,12 +275,30 @@
                                        class="m-0 font-lexend font-light normal-case sm:text-center text-start text-black cursor-default">
                                        {{ copyright_text }}
                                     </p>
+                                    {{ else }}
+                                    {{ mega_menu }}
+                                    {{ if copyright_text }}
+                                    <p
+                                       class="m-0 font-lexend font-light normal-case sm:text-center text-start text-black cursor-default">
+                                       {{ copyright_text }}
+                                    </p>
+                                    {{ /if }}
+                                    {{ /mega_menu }}
                                     {{ /if }}
                                     {{ if button_text }}
                                     <a href="{{ button_page }}{{ url }}{{ /button_page }}"
                                        class="!tracking-[3px] btn-border-b btn font-messiri !p">
                                        {{ button_text }}
                                     </a>
+                                    {{ else }}
+                                    {{ mega_menu }}
+                                    {{ if services_button_text }}
+                                    <a href="{{ button_page }}{{ url }}{{ /button_page }}"
+                                       class="!tracking-[3px] btn-border-b btn font-messiri !p">
+                                       {{ services_button_text }}
+                                    </a>
+                                    {{ /if }}
+                                    {{ /mega_menu }}
                                     {{ /if }}
                                  </div>
                               </div>

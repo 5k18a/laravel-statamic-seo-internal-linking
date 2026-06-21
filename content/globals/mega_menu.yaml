@@ -1,0 +1,26 @@
+title: 'Mega Menu'
+sites:
+  pl:
+    origin: null
+  en:
+    origin: pl
+  sv:
+    origin: pl
+  no:
+    origin: pl
+  nl:
+    origin: pl
+  lv:
+    origin: pl
+  it:
+    origin: pl
+  fr:
+    origin: pl
+  es:
+    origin: pl
+  de:
+    origin: pl
+  da:
+    origin: pl
+  cs:
+    origin: pl

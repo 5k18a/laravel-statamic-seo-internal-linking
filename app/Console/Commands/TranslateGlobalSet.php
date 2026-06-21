@@ -29,6 +29,11 @@ class TranslateGlobalSet extends Command
             'offices.*.country',
             'offices.*.address',
         ],
+        'mega_menu' => [
+            'copyright_text',
+            'projects_button_text',
+            'services_button_text',
+        ],
     ];
 
     public function handle(): int

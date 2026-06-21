@@ -4,7 +4,7 @@ blueprint: page
 title: Oferta
 author: 15c0f104-0188-406c-b4ef-af40e61a13db
 updated_by: 07f72358-0580-4aaf-b00c-6a3760228419
-updated_at: 1781968897
+updated_at: 1782030135
 template: service/show
 page_builder:
   -
@@ -46,6 +46,7 @@ page_builder:
     card_button_text: 'Dowiedz się więcej'
     type: services_grid_section
     enabled: true
+    section_title: 'Lista Usług'
 parent: b2f27011-9af8-4287-b2f6-e0c411ff4ed6
 image: galeria/bel-mare-miedzyzdroje/park-wodny-bel-mare-sztuczne-skaly-04.webp
 ---

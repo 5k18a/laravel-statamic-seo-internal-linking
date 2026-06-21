@@ -15,9 +15,7 @@ tree:
         - 776d6513-d845-4f20-96a7-0268d19c0409
         - 461858ae-a693-47e7-917b-f8657281eb58
         - ccdaf420-c608-44dc-978f-c350d0650089
-      button_text: 'Przeglądaj Realizacje'
       button_page: 4fbd395d-12b2-4384-8433-056daccc8bde
-      copyright_text: '© Wszelkie prawa zastrzeżone przez Skalisty Group sp. z o.o.'
   -
     id: 0f64feda-3c94-4b43-98f5-0e39fadceca2
     title: Oferta
@@ -25,16 +23,9 @@ tree:
     data:
       menu_type: service-list
       service_entries:
-        - 6608109f-ac6b-4364-a68e-98522c04c8fe
-        - cf7f6782-ba10-476a-9ee0-83878500a520
-        - 51297aee-5cc5-468c-b966-afe9d983a98e
-        - 32297519-f0c1-479f-adaa-9bc6194d2a1c
-        - 7184853b-de2c-40cd-9c2e-80322aa4f918
-        - 9fcd3c44-26b5-4ca9-8263-86273e6b71ee
-        - c7285522-8701-40c5-989c-454fd29bc371
-      button_text: 'View Services'
+        - cb338a28-c5c7-4af1-9ac3-93e5e0b7c4ef
+        - c17181eb-b81d-4321-8f30-57c00ff23162
       button_page: 068133ec-7b84-40f4-9122-53373a1c74b5
-      copyright_text: '© All rights reserved to Orion Constructions'
   -
     id: 5e6e966f-4559-408b-85f3-b4ddfbaad27c
     title: Careers
