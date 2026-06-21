@@ -68,6 +68,8 @@ The modifier also works on any string or HTML field:
 
 The `internal_links` collection is managed from a single admin language (e.g. `pl`). Create one entry per target page.
 
+Set the **Blog collection** field to the handle of your blog collection (e.g. `blog`, `posts`, `articles`). The modifier only runs on entries belonging to that collection — it skips all other pages silently.
+
 Each keyword item in the replicator has two fields:
 - **Keyword / phrase** — the text to match (case-insensitive)
 - **Language** — optional locale code (`en`, `de`, `fr`, …). Leave empty to apply to all languages.
@@ -96,6 +98,7 @@ The modifier automatically:
 
 ## Blueprint Fields
 
+- `blog_collection` — collections picker (required — select your blog collection handle)
 - `target_entry` — entries picker (pages, services, projects)
 - `keywords` — replicator with `keyword` (text) and `locale` (select, optional)
 - `weight` — processing priority (higher = first)
