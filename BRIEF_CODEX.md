@@ -1,15 +1,15 @@
 # BRIEF_CODEX.md
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-21-2200
-active_task_id: FEATURE-seo-errors-manager
-active_task_name: SEO Errors Manager (CP panel + CLI prune)
+state_version: 2026-06-21-2300
+active_task_id: FEATURE-internal-links-addon-mvp
+active_task_name: Internal Links Addon — Wariant A (MVP)
 active_task_status: active
 active_task_source: BRIEF_CODEX.md
-last_sync: 2026-06-21 22:00 Europe/Warsaw
+last_sync: 2026-06-21 23:00 Europe/Warsaw
 last_synced_by: Claude
-last_closed: HOTFIX-gallery-tags-fieldtype
-next_after_active: Wybór z backlogu (cleanup demo Orion content / chatbot AI PoC / Formularze kontaktowe / pozostałe warianty Services Grid)
+last_closed: FIX-service-section-button-entry
+next_after_active: Wariant B Internal Links (production-ready: settings + cron + exclusions)
 <!-- PROJECT_SYNC_END -->
 
 ---
@@ -20,476 +20,586 @@ next_after_active: Wybór z backlogu (cleanup demo Orion content / chatbot AI Po
 
 ## Cel zadania
 
-Wdrożyć w aplikacji **paralelny panel CP "SEO Errors Manager"** (sekcja Tools) do zarządzania błędami 404 logowanymi przez addon `statamic/seo-pro` — z możliwością kasowania pojedynczych wpisów + bulk delete + filtrowania po locale + sortowania, plus opcjonalny link do natywnego "Create Redirect" SEO Pro. Dodatkowo: artisan command `seo:errors:prune` do bulk delete z parametrami filtrującymi (locale, wiek, liczba hits) — dla cron jobów i batch cleanup bez UI.
+Zaimplementować **Wariant A (MVP)** samodzielnego addonu Statamic `skalisty/internal-links` — auto-linkowanie słów kluczowych w content na podstawie listy mappings (keyword → entry). Wzorzec adaptowany z WordPress plugin `wptypek-internal-links` (referencja: `/home/pestycyd/Dokumenty/Skalisty-New-2/example-addon-wordpress/typek-internal-links/`), ale wykorzystujący natywne mechanizmy Statamic 6 + multilingual gratis przez Statamic Collections.
 
-**Bez modyfikacji vendora `statamic/seo-pro`** — wykorzystujemy publiczne API SEO Pro (`Statamic\SeoPro\Facades\Error::all()`, `Error::find()`, `Error::delete()`), `composer update statamic/seo-pro` ma działać normalnie po wdrożeniu.
+**Cel długoterminowy** (poza scope MVP): po stabilizacji v1.0 addon zostanie wydzielony do **standalone repo GitHub** (analogicznie do `5k18a/laravel-statamic-ai-chatbot` z 2026-06-20). Plus Wariant B i C w kolejnych briefach.
 
 ## Kontekst
 
-SEO Pro v7.11.0 natywnie loguje błędy 404 do `storage/statamic/seopro/errors/<locale>/<slug>.yaml` (po jednym pliku per error, format YAML z polami `url`, `hits`, `last_hit_at`). Natywny widok CP `/cp/seo-pro/errors` to **read-only listing (Vue + Inertia)** z jedynym przyciskiem "Create Redirect" w każdym wierszu — **brak akcji delete**, mimo że wewnętrznie SEO Pro ma `ErrorRepository::delete(Error $error): void` i `Error::delete(): bool` (publiczne metody na repozytorium/modelu).
+User posługuje się WordPress plugin który robi to samo (`typek-internal-links`) — przeanalizowane przez Claude 2026-06-21. Mechanizm:
 
-User chce regularnie kasować błędy 404 które są mu znane i nieistotne (nie wymagają redirecta), żeby lista nie rozrastała się i była bardziej użyteczna do śledzenia faktycznych problemów.
+1. **Storage:** Custom Post Type per link mapping (keyword → URL + opcje)
+2. **Substitution:** filter `the_content` z parserem regex ukrywającym `<h>`, `<a>`, `<img>`, `<figure>`, `<iframe>`, embeds
+3. **Pre-computation:** cron batch process (poza scope MVP)
+4. **Settings:** global limity per post (Wariant B)
+5. **Logs / Suggestions / Custom UI:** Wariant C
+
+W naszym projekcie:
+- Statamic 6.22.0 / Laravel 13.16.1 / PHP 8.4
+- Wzorzec lokalnego addonu już ugruntowany: `addons/skalisty/wysiwyg-html-fieldtype/` (v1.1.0, path repository w `composer.json`, ServiceProvider extends `AddonServiceProvider`)
+- Wzorzec entries picker dla multilingual URL: `services_grid_section.section_button_entry` (2026-06-20) + `service_section.button_entry` (2026-06-21) — używać tego samego dla `target_entry` field
 
 ## Problem do rozwiązania
 
-Brak UI do kasowania błędów 404 w SEO Pro. Natywny widok nie wspiera Statamic Action system (Vue/Inertia hermetyzacja), więc rozszerzenie naturalnym `Action::register()` nie działa. Modyfikacja vendora ("psucie pluginu") odrzucona — chcemy zachować możliwość bezproblemowego `composer update`.
+Aktualnie brak mechanizmu auto-linkowania w projekcie skalisty-orion. Wszystkie wewnętrzne linki w content (Bard, Free Text Section, WYSIWYG HTML, plain text fields) wymagają ręcznego dodawania `<a href="...">` — żmudne dla SEO, łatwo o pominięcie keywords, hardcoded URL nie multilingual.
+
+**MVP rozwiązuje:** automatyczne podstawienie predefiniowanej listy keyword → entry mappings podczas renderowania content, z respektowaniem multilingual routingu (PL/EN/inne).
 
 ## Analiza gotowych rozwiązań
 
 ### Czy zadanie dotyczy nowej większej funkcjonalności?
 
-TAK — nowy panel CP + nowy CLI command + zmiany w 4 plikach aplikacji.
+**TAK** — nowy addon Statamic, nowa Collection, nowy Antlers modifier, nowa klasa Support, ~80-150 linii kodu w nowej strukturze.
 
-### Dostępne rozwiązania (sprawdzone 2026-06-21)
+### Sprawdzone rozwiązania (Claude, 2026-06-21)
 
 | Rozwiązanie | Werdykt |
 |---|---|
-| Statamic `Action::register()` system | **Odrzucone** — SEO Pro Errors używa Inertia/Vue widok, nie standardowych Statamic Resource Listings; Action::register nie działa na tym widoku |
-| JS injection do natywnego Inertia view | **Odrzucone** — Vue/Inertia jest hermetyczne, każdy update SEO Pro może złamać DOM, kruche |
-| Composer-patches patch (analogicznie HOTFIX-18) | **Odrzucone** — psuje plugin, każda nowa wersja wymaga aktualizacji patcha |
-| Fork SEO Pro | **Odrzucone** — overkill dla 2 endpointów |
-| **Custom CP panel paralelny** w sekcji Tools (wzór: `CollectionRoutesController`, `UiTranslationsController`, `TranslatorApiController`) | **REKOMENDOWANE** — pełna kontrola, zero zależności od wewnętrznej struktury vendor, wykorzystuje publiczne API `Facades\Error::*` |
-| **Artisan CLI command** dla batch operacji | **REKOMENDOWANE** jako uzupełnienie — przydatne dla cron jobów |
+| Natywne Statamic content augmenters | Częściowo używamy — to mechanizm dostarczenia logiki podmiany. Nie rozwiązuje full problem (brak central storage keywords) |
+| Statamic Marketplace addon | Brak istniejącego addonu Statamic 6 do internal linking z multilingual support i tego typu featureami |
+| **WordPress plugin port** (typek-internal-links) | **Wybrane jako wzorzec architektury** — sprawdzona logika `LinkableContentParser` regex; natywny port do PHP/Statamic |
+| `mariohamann/statamic-bard-mutator` | Nieadekwatne — modyfikuje Bard ProseMirror JSON, my chcemy działać na HTML output (uniwersalne dla wszystkich content types) |
+| Custom from scratch bez wzorca WP | Odrzucone — istniejący sprawdzony pattern WP eliminuje większość ryzyka projektowego |
 
 ### Rekomendacja Claude
 
-**Custom CP panel "SEO Errors Manager"** + **artisan command `seo:errors:prune`**.
+**Lokalny Statamic addon `skalisty/internal-links`** w `addons/skalisty/internal-links/` (wzorzec wysiwyg-html-fieldtype), z core MVP:
+- Collection `internal_links` (storage)
+- Antlers modifier `apply_internal_links` (substitution trigger)
+- `LinkableContentParser` PHP class (regex hide tags, port z WP plugin)
+- Real-time substitution (bez cron — Wariant B)
 
-### Uzasadnienie
+### Uzasadnienie rekomendacji
 
-- Panel CP nie modyfikuje wnętrza `vendor/statamic/seo-pro/` — wykorzystuje **publiczne API** (`Statamic\SeoPro\Facades\Error::all()`, `Error::find($id)`, `Error::delete()` na modelu)
-- Wzór już ugruntowany w projekcie: `CollectionRoutesController`, `UiTranslationsController`, `TranslatorApiController` (sekcja Tools w nav, prefix routes, Blade views)
-- Permissions SEO Pro można sprawdzić przez `ErrorPolicy` (`User::hasPermission('view seo redirects')`) — wymagamy tej samej permission do delete dla minimal-friction
-- CLI command pozwala na bulk cleanup w cron jobach (np. miesięczne usuwanie errors starszych niż 30 dni z mniej niż 2 hits)
+- **Statamic native** dla storage (Collection) + dla substitution (Antlers modifier) — zero custom DB schemas, natural CMS UX, multilingual gratis
+- **Port WP `LinkableContentParser`** regex logic — sprawdzona przez user'a w produkcji na WP, nie wymyślamy nowych regexów
+- **Lokalny addon** = możliwość późniejszego wydzielenia do standalone repo (jak chatbot AI 2026-06-20) bez przepisywania kodu
+- **Real-time substitution bez cron** — dla <500 linków OK; cron dorzucamy w Wariancie B
 
 ## Zakres pracy
 
-### Krok 1 — Controller `app/Http/Controllers/CP/SeoErrorsController.php`
+### Krok 1 — Struktura addonu
 
-Nowy controller w stylu `UiTranslationsController` (extends `App\Http\Controllers\Controller`):
+Utworzyć katalog `addons/skalisty/internal-links/` ze strukturą:
+
+```
+addons/skalisty/internal-links/
+├── composer.json
+├── LICENSE (MIT)
+├── README.md
+├── CHANGELOG.md
+├── VERSION.md
+├── ROADMAP.md  (etapy A → B → C wypisane)
+├── .gitignore
+├── src/
+│   ├── ServiceProvider.php
+│   ├── Modifiers/
+│   │   └── ApplyInternalLinks.php
+│   └── Support/
+│       └── LinkableContentParser.php
+└── resources/
+    └── blueprints/
+        └── collections/
+            └── internal_links/
+                └── internal_link.yaml
+```
+
+### Krok 2 — `composer.json` addonu
+
+Analogiczny do `addons/skalisty/wysiwyg-html-fieldtype/composer.json`:
+
+```json
+{
+    "name": "skalisty/internal-links",
+    "description": "Statamic 6 addon — automatyczne wewnętrzne linkowanie słów kluczowych z multilingual support",
+    "version": "0.1.0",
+    "license": "MIT",
+    "authors": [{"name": "Marcin Skibicki", "homepage": "https://skalisty.pl"}],
+    "keywords": ["statamic", "statamic-addon", "internal-links", "seo", "auto-link"],
+    "autoload": {
+        "psr-4": {"Skalisty\\InternalLinks\\": "src"}
+    },
+    "extra": {
+        "statamic": {
+            "name": "Internal Links",
+            "description": "Auto-linkowanie słów kluczowych w content"
+        },
+        "laravel": {
+            "providers": ["Skalisty\\InternalLinks\\ServiceProvider"]
+        }
+    },
+    "require": {
+        "php": "^8.2",
+        "statamic/cms": "^6.0"
+    }
+}
+```
+
+### Krok 3 — `ServiceProvider.php`
 
 ```php
 <?php
 
-namespace App\Http\Controllers\CP;
+namespace Skalisty\InternalLinks;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\View\View;
-use Statamic\Facades\User;
-use Statamic\SeoPro\Facades\Error;
+use Statamic\Facades\Modifier;
+use Statamic\Providers\AddonServiceProvider;
+use Skalisty\InternalLinks\Modifiers\ApplyInternalLinks;
 
-class SeoErrorsController extends Controller
+class ServiceProvider extends AddonServiceProvider
 {
-    public function index(Request $request): View
+    protected $modifiers = [
+        ApplyInternalLinks::class,
+    ];
+
+    public function bootAddon()
     {
-        $this->authorize();
-
-        $locale = $request->get('locale');
-        $sort = $request->get('sort', 'last_hit_at'); // 'last_hit_at' | 'hits' | 'url'
-        $order = $request->get('order', 'desc');
-
-        $query = Error::query();
-        if ($locale) {
-            $query->where('locale', $locale);
-        }
-        // sortowanie via collection po fetchu (Error::all() zwraca Collection)
-        $errors = $query->get()
-            ->sortBy($sort, SORT_REGULAR, $order === 'desc')
-            ->values();
-
-        $locales = collect($errors)->pluck('locale')->unique()->sort()->values();
-        $availableSites = \Statamic\Facades\Site::all()->map->handle()->values();
-
-        return view('cp.seo_errors.index', [
-            'errors' => $errors,
-            'locales' => $locales,
-            'sites' => $availableSites,
-            'currentLocale' => $locale,
-            'currentSort' => $sort,
-            'currentOrder' => $order,
-        ]);
+        // Auto-publish blueprint dla collection internal_links
+        $this->publishes([
+            __DIR__.'/../resources/blueprints' => resource_path('blueprints'),
+        ], 'internal-links-blueprints');
     }
+}
+```
 
-    public function destroy(string $id): JsonResponse
+### Krok 4 — `Modifiers/ApplyInternalLinks.php`
+
+```php
+<?php
+
+namespace Skalisty\InternalLinks\Modifiers;
+
+use Statamic\Modifiers\Modifier;
+use Statamic\Facades\Entry;
+use Skalisty\InternalLinks\Support\LinkableContentParser;
+
+class ApplyInternalLinks extends Modifier
+{
+    /**
+     * Usage:
+     *   {{ content | apply_internal_links }}
+     *   {{ free_text_content | apply_internal_links }}
+     *
+     * Pobiera wszystkie published wpisy z collection `internal_links` w aktualnym site,
+     * iteruje keywords i podmienia w content na <a href="{entry url}">.
+     * Respektuje hide tags (h1-6, a, img, figure, iframe, embeds).
+     */
+    public function index($value, $params, $context)
     {
-        $this->authorize();
-
-        $error = Error::find($id);
-        if (!$error) {
-            return response()->json(['ok' => false, 'message' => 'Error nie znaleziony'], 404);
+        if (! is_string($value) || empty($value)) {
+            return $value;
         }
 
-        $error->delete();
+        $currentSite = $context['site'] ?? \Statamic\Facades\Site::current()->handle();
 
-        return response()->json(['ok' => true]);
-    }
+        $links = Entry::query()
+            ->where('collection', 'internal_links')
+            ->where('site', $currentSite)
+            ->where('enabled', true)
+            ->orderBy('weight', 'desc')  // wyższy weight = pierwszy
+            ->get();
 
-    public function bulkDelete(Request $request): JsonResponse
-    {
-        $this->authorize();
-
-        $ids = $request->input('ids', []);
-        if (empty($ids) || !is_array($ids)) {
-            return response()->json(['ok' => false, 'message' => 'Brak wybranych ID'], 400);
+        if ($links->isEmpty()) {
+            return $value;
         }
 
-        $deleted = 0;
-        foreach ($ids as $id) {
-            $error = Error::find($id);
-            if ($error) {
-                $error->delete();
-                $deleted++;
+        $parser = new LinkableContentParser($value);
+
+        foreach ($links as $link) {
+            $targetEntry = $link->augmentedValue('target_entry')->value();
+            $targetEntry = is_iterable($targetEntry) ? collect($targetEntry)->first() : $targetEntry;
+
+            if (! $targetEntry) continue;
+
+            $targetUrl = $targetEntry->url();
+            $maxPerPage = (int) $link->get('max_per_page', 1);
+            $nofollow = (bool) $link->get('nofollow', false);
+            $openInNewWindow = (bool) $link->get('open_in_new_window', false);
+
+            $keywords = $link->get('keywords', []);
+            // keywords to replicator: [{keyword: 'foo', amount: 1}, ...]
+            foreach ($keywords as $kwItem) {
+                $keyword = $kwItem['keyword'] ?? null;
+                if (! $keyword) continue;
+
+                $parser->replaceKeyword($keyword, $targetUrl, [
+                    'max' => $maxPerPage,
+                    'nofollow' => $nofollow,
+                    'target_blank' => $openInNewWindow,
+                ]);
             }
         }
 
-        return response()->json(['ok' => true, 'deleted' => $deleted]);
+        return $parser->getContent();
+    }
+}
+```
+
+### Krok 5 — `Support/LinkableContentParser.php`
+
+Port z WP `LinkableContentParser` (WP plugin file: `example-addon-wordpress/typek-internal-links/includes/class-linkablecontentparser.php`):
+
+```php
+<?php
+
+namespace Skalisty\InternalLinks\Support;
+
+class LinkableContentParser
+{
+    private const HIDE_REGEXES = [
+        'headings' => '/<h[1-6][^>]*>.*?<\/h[1-6]>/is',
+        'links'    => '/<a[^>]*>.*?<\/a>/is',
+        'figures'  => '/<figure[^>]*>.*?<\/figure>/is',
+        'images'   => '/<img[^>]*>/is',
+        'iframes'  => '/<iframe[^>]*>.*?<\/iframe>/is',
+    ];
+
+    private string $content;
+    private array $hidden = [];
+
+    public function __construct(string $content)
+    {
+        $this->content = $content;
+        $this->hideTags();
     }
 
-    private function authorize(): void
+    public function replaceKeyword(string $keyword, string $url, array $options = []): self
     {
-        $user = User::current();
-        if (!$user) {
-            abort(401);
+        $max = $options['max'] ?? 1;
+        $nofollow = $options['nofollow'] ?? false;
+        $targetBlank = $options['target_blank'] ?? false;
+
+        $attrs = [];
+        if ($nofollow) $attrs[] = 'rel="nofollow"';
+        if ($targetBlank) $attrs[] = 'target="_blank"';
+
+        $href = sprintf(
+            '<a href="%s"%s>%s</a>',
+            htmlspecialchars($url, ENT_QUOTES),
+            $attrs ? ' '.implode(' ', $attrs) : '',
+            '$0'  // preg_replace zachowuje original match
+        );
+
+        // case-insensitive, word boundary, max N replacements
+        $pattern = '/\b' . preg_quote($keyword, '/') . '\b/i';
+        $this->content = preg_replace($pattern, $href, $this->content, $max);
+
+        return $this;
+    }
+
+    public function getContent(): string
+    {
+        // restore hidden tags
+        foreach ($this->hidden as $hash => $original) {
+            $this->content = str_replace($hash, $original, $this->content);
         }
-        if ($user->isSuper()) {
-            return;
-        }
-        if (!$user->hasPermission('view seo redirects')) {
-            abort(403);
+        return $this->content;
+    }
+
+    private function hideTags(): void
+    {
+        foreach (self::HIDE_REGEXES as $type => $regex) {
+            preg_match_all($regex, $this->content, $matches);
+            if (empty($matches[0])) continue;
+
+            foreach ($matches[0] as $match) {
+                $hash = '###IL_HIDDEN_' . md5($match . microtime(true)) . '###';
+                $this->hidden[$hash] = $match;
+                $this->content = str_replace($match, $hash, $this->content);
+            }
         }
     }
 }
 ```
 
-Uwagi:
-- `Statamic\SeoPro\Facades\Error::all()` zwraca **Eloquent-style Collection of `Error` models** — sprawdzić w `vendor/statamic/seo-pro/src/Redirects/Error.php` jak konstruowany jest `id` modelu (prawdopodobnie kombinacja `locale + slug` — sprawdź `getKey()` lub `getRouteKey()`)
-- Jeśli `Error::query()` nie obsługuje `->where('locale', ...)` (sprawdź `ErrorQueryBuilder.php`), filtruj w PHP po `Error::all()->where('locale', $locale)`
-- `Error::find($id)` — sprawdzić sygnaturę, może być `find(string $locale, string $slug)` lub composite key
+### Krok 6 — Blueprint `internal_link.yaml`
 
-### Krok 2 — Widok Blade `resources/views/cp/seo_errors/index.blade.php`
+`addons/skalisty/internal-links/resources/blueprints/collections/internal_links/internal_link.yaml`:
 
-Wzór z `resources/views/cp/collection_routes/index.blade.php`. Tabela z checkboxami, bulk delete button w toolbar, delete button per row, filter dropdown locale, sort linki w nagłówkach kolumn, link "Create Redirect" do natywnego `/cp/seo-pro/redirects/create?source=<url>` per row.
-
-Wymagania UI:
-- `@extends('statamic::layout')`
-- `@section('title', 'SEO Errors Manager')`
-- Toolbar:
-  - Bulk delete button (disabled gdy nic nie wybrane)
-  - Filter dropdown locale (12 site handles + opcja "Wszystkie")
-  - Licznik: "Wyświetlono X błędów (Y zaznaczonych)"
-- Tabela `data-table`:
-  - Checkbox "select all" w nagłówku
-  - Kolumny: checkbox, URL (sortowalna), Locale, Hits (sortowalna), Last Hit At (sortowalna), Akcje
-  - Akcje per row: Delete (czerwony) + Create Redirect (link do `/cp/seo-pro/redirects/create?source={{ $error->url }}`)
-- Confirm modal dla pojedynczego delete: standardowy `confirm()` JS lub Statamic's `confirmation-modal` component
-- AJAX delete (fetch z CSRF token z `meta[name=csrf-token]`)
-- Po delete: usunąć wiersz z DOM bez przeładowania strony (lub przeładować — minimalizm)
-- Bulk delete: zbierz wszystkie `checked` checkboxes, POST do `bulk-delete` endpoint, po success usunąć wiersze
-- Empty state: "Brak błędów 404. Świetna robota!" gdy filter zwraca 0 wyników
-
-Klasy Tailwind CP używać tych samych co istniejące widoki (`card`, `data-table`, `btn btn-danger`, `btn btn-primary`, `text-grey-60`, `font-mono text-sm`).
-
-JS może być vanilla (bez Vue/Alpine — wzór CollectionRoutes). Z mojej strony rekomendacja: vanilla `<script>` na końcu widoku z `addEventListener` na buttonach.
-
-### Krok 3 — Routes w `routes/cp.php`
-
-Dodać na końcu pliku:
-
-```php
-use App\Http\Controllers\CP\SeoErrorsController;
-
-Route::prefix('seo-errors-manager')->name('seo-errors-manager.')->group(function () {
-    Route::get('/', [SeoErrorsController::class, 'index'])->name('index');
-    Route::delete('/{id}', [SeoErrorsController::class, 'destroy'])->name('destroy');
-    Route::post('/bulk-delete', [SeoErrorsController::class, 'bulkDelete'])->name('bulk-delete');
-});
+```yaml
+title: 'Internal Link'
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              display: 'Nazwa (administracyjna, nie wyświetlana)'
+              instructions: 'Np. "Skały do akwarium → Strona Dekoracje Akwarystyczne"'
+              validate: [required]
+          -
+            handle: target_entry
+            field:
+              type: entries
+              display: 'Strona docelowa'
+              instructions: 'Wybierz wpis do którego linki będą podstawiane. URL dopasuje się automatycznie do języka.'
+              max_items: 1
+              collections: [pages, services, projects]
+              required: true
+              validate: [required]
+          -
+            handle: keywords
+            field:
+              type: replicator
+              display: 'Słowa kluczowe'
+              instructions: 'Lista słów które będą zamieniane na link.'
+              sets:
+                main:
+                  sets:
+                    keyword:
+                      display: 'Słowo kluczowe'
+                      fields:
+                        -
+                          handle: keyword
+                          field:
+                            type: text
+                            display: 'Słowo'
+                            instructions: 'Np. "akwarium", "sztuczne skały"'
+                            required: true
+                            validate: [required]
+              required: true
+              validate: [required]
+              min_sets: 1
+          -
+            handle: max_per_page
+            field:
+              type: integer
+              display: 'Max wystąpień na stronie'
+              instructions: 'Ile razy ten link może wystąpić na pojedynczej stronie.'
+              default: 1
+              min: 1
+              max: 10
+              localizable: false
+          -
+            handle: weight
+            field:
+              type: integer
+              display: 'Priorytet (waga)'
+              instructions: 'Wyższy = pierwszy podmieniany przy konflikcie keywords.'
+              default: 0
+              localizable: false
+          -
+            handle: nofollow
+            field:
+              type: toggle
+              display: 'nofollow'
+              default: false
+              localizable: false
+          -
+            handle: open_in_new_window
+            field:
+              type: toggle
+              display: 'Otwieraj w nowej karcie'
+              default: false
+              localizable: false
+          -
+            handle: enabled
+            field:
+              type: toggle
+              display: 'Aktywne'
+              default: true
+              localizable: false
 ```
 
-**WAŻNE (lekcja UI-Translations-Panel z 2026-06-02):** `routes/cp.php` NIE jest auto-ładowany w Statamic 6 — wymaga ręcznej rejestracji przez `Statamic::pushCpRoutes()` w `AppServiceProvider::boot()`. Sprawdzić w `app/Providers/AppServiceProvider.php` czy jest już wywołanie `Statamic::pushCpRoutes(function () { require __DIR__ . '/../../routes/cp.php'; });` (powinno być z poprzednich paneli). Jeśli jest — nic nie trzeba dodawać, wystarczy dopisać routes.
+### Krok 7 — Rejestracja Collection + path repository
 
-### Krok 4 — Nav item w `app/Providers/AppServiceProvider.php`
+W głównym `composer.json` projektu skalisty-orion dodać:
 
-Wewnątrz istniejącego `Nav::extend()` (po `Translator API`) dodać:
-
-```php
-$nav->create('SEO Errors')
-    ->section('Tools')
-    ->url(cp_route('seo-errors-manager.index'))
-    ->icon('alert');
-```
-
-Ikona `alert` (Statamic ma `alert`, `alert-triangle`, `bug`, `error` — wybrać semantycznie pasującą do błędów).
-
-### Krok 5 — Artisan command `app/Console/Commands/SeoErrorsPrune.php`
-
-Nowa komenda do bulk cleanup w cron / CLI:
-
-```php
-<?php
-
-namespace App\Console\Commands;
-
-use Illuminate\Console\Command;
-use Statamic\SeoPro\Facades\Error;
-use Carbon\Carbon;
-
-class SeoErrorsPrune extends Command
-{
-    protected $signature = 'seo:errors:prune
-                            {--locale= : Filtr per locale (np. pl, en)}
-                            {--older-than= : Wiek (np. 30d, 7d, 1y)}
-                            {--hits-lt= : Tylko wpisy z liczbą hits mniejszą niż X}
-                            {--all : Usuń wszystkie wpisy (wymaga --confirm)}
-                            {--confirm : Potwierdź usunięcie bez interaktywnego prompta}
-                            {--dry-run : Pokaż co byłoby usunięte, nic nie zapisuj}';
-
-    protected $description = 'Bulk delete SEO Pro 404 error entries with filtering';
-
-    public function handle(): int
+```json
+"repositories": [
+    ...
     {
-        $errors = Error::all();
-        $original = $errors->count();
-
-        if ($this->option('locale')) {
-            $errors = $errors->where('locale', $this->option('locale'));
-        }
-
-        if ($this->option('older-than')) {
-            $threshold = $this->parseOlderThan($this->option('older-than'));
-            if (!$threshold) {
-                $this->error('Niewłaściwy format --older-than (oczekiwane: 30d, 7d, 1y)');
-                return self::FAILURE;
-            }
-            $errors = $errors->filter(fn($e) => Carbon::parse($e->last_hit_at)->lt($threshold));
-        }
-
-        if ($this->option('hits-lt')) {
-            $errors = $errors->filter(fn($e) => (int) $e->hits < (int) $this->option('hits-lt'));
-        }
-
-        if (!$this->option('all') && !$this->option('locale') && !$this->option('older-than') && !$this->option('hits-lt')) {
-            $this->error('Musisz podać co najmniej jeden filtr lub --all');
-            return self::FAILURE;
-        }
-
-        $count = $errors->count();
-
-        if ($count === 0) {
-            $this->info('Brak wpisów spełniających filtry (z ' . $original . ' łącznie).');
-            return self::SUCCESS;
-        }
-
-        $this->info("Wpisów do usunięcia: <fg=yellow>{$count}</> (z {$original} łącznie).");
-
-        if ($this->option('dry-run')) {
-            $this->line('--dry-run: poniżej lista wpisów, nic nie usunięto');
-            foreach ($errors as $e) {
-                $this->line("  {$e->locale} → {$e->url} (hits={$e->hits}, last={$e->last_hit_at})");
-            }
-            return self::SUCCESS;
-        }
-
-        if (!$this->option('confirm') && !$this->confirm("Czy na pewno usunąć {$count} wpisów?")) {
-            $this->info('Anulowane.');
-            return self::SUCCESS;
-        }
-
-        $deleted = 0;
-        foreach ($errors as $error) {
-            $error->delete();
-            $deleted++;
-        }
-
-        $this->info("Usunięto: <fg=green>{$deleted}</>");
-        return self::SUCCESS;
+        "type": "path",
+        "url": "./addons/skalisty/internal-links"
     }
-
-    private function parseOlderThan(string $value): ?Carbon
-    {
-        if (preg_match('/^(\d+)([dmy])$/', $value, $m)) {
-            $n = (int) $m[1];
-            return match ($m[2]) {
-                'd' => Carbon::now()->subDays($n),
-                'm' => Carbon::now()->subMonths($n),
-                'y' => Carbon::now()->subYears($n),
-            };
-        }
-        return null;
-    }
+],
+"require": {
+    ...
+    "skalisty/internal-links": "@dev"
 }
 ```
 
-Komenda Laravelowa auto-rejestruje się przez `app/Console/Kernel.php` → `commands($this->load(...))` (default Laravel). Sprawdzić — jeśli używamy `app/Console/Commands/` katalog, default load go pickuje.
+Plus `composer require skalisty/internal-links @dev`.
 
-Przykłady użycia:
-- `php artisan seo:errors:prune --dry-run --older-than=30d`
-- `php artisan seo:errors:prune --locale=pl --hits-lt=2 --confirm`
-- `php artisan seo:errors:prune --all --confirm` (z `--confirm` żeby ominąć prompt — niebezpieczne, dla cron)
+Plus utworzyć `content/collections/internal_links.yaml`:
 
-### Krok 6 — Sanity check + Stache
+```yaml
+title: 'Internal Links'
+revisions: false
+sites: [pl, en, sv, no, nl, lv, it, fr, es, de, da, cs]
+propagate: false  # każdy locale ma osobne mappingi
+template: null  # nie ma frontu - tylko CP
+```
 
-Po wdrożeniu plików:
+### Krok 8 — Walidacja
 
 ```bash
-php artisan view:clear
-php artisan cache:clear
-php artisan route:list | grep seo-errors
-# Oczekiwane: 3 routy (index GET, destroy DELETE, bulk-delete POST)
-php artisan list seo:errors
-# Oczekiwane: seo:errors:prune
+composer require skalisty/internal-links @dev
+php artisan vendor:publish --tag=internal-links-blueprints --force
+php artisan statamic:stache:refresh
+php artisan test  # 2 passed expected
 ```
 
-### Krok 7 — Walidacja end-to-end
+**Manualny test w CP:**
+1. Otwórz `/cp` → w lewej belce powinna pojawić się "Internal Links" Collection (sekcja Content)
+2. Klik "Create Entry" → wypełnij:
+   - Title: "Test: akwarium → Sztuczna rafa koralowa"
+   - Target Entry: wybierz `sztuczna-rafa-koralowa`
+   - Keywords: dodaj `akwarium`
+   - Max per page: 1
+   - Enabled: true
+3. Save
 
-- `php artisan test` — 2 passed (smoke)
-- Lokalnie zalogowany w `/cp`:
-  - `/cp/seo-errors-manager` — 200, tabela renderuje istniejące błędy (lokalnie powinno być kilka — `storage/statamic/seopro/errors/pl/*.yaml` ma kilka wpisów)
-  - Klik Delete na pojedynczym wierszu → confirm → usuwa wpis (sprawdzić że plik YAML w storage znika)
-  - Wybór 2-3 checkboxów → Bulk Delete → znika z listy + storage
-  - Filter po locale → tylko PL/EN/etc.
-  - Sort po kolumnach (URL/Hits/Last Hit At) działa
-  - Link "Create Redirect" otwiera `/cp/seo-pro/redirects/create?source=...` (natywny widok SEO Pro z prefilled source)
-- CLI: `php artisan seo:errors:prune --dry-run --older-than=30d` — pokazuje listę, nic nie usuwa
-- CLI: `php artisan seo:errors:prune --locale=cs --confirm` — usuwa wpisy CS, raportuje liczbę
+**Test w widoku Antlers:**
+1. Edytuj widok `resources/views/page_builder/free_text_section.antlers.html` (lub inny używający content) — zamień `{{ content }}` na `{{ content | apply_internal_links }}`
+2. W CP dodaj do strony Free Text Section z tekstem zawierającym "akwarium"
+3. Render strony → słowo "akwarium" powinno być linkiem do `/oferta/sztuczna-rafa-koralowa` (PL) lub locale-specific URL
+
+**Test exclusion regex:**
+1. Dodaj tekst w Free Text z `<h2>akwarium w nagłówku</h2>` + `<p>akwarium w paragrafie</p>`
+2. Render: w `<h2>` keyword NIE powinno być zlinkowane, w `<p>` powinno być
 
 ## Pliki do sprawdzenia
 
-- `vendor/statamic/seo-pro/src/Redirects/Error.php` — model, klucze (`getKey()`, `getRouteKey()`), atrybuty (`locale`, `url`, `hits`, `last_hit_at`), metoda `delete(): bool`
-- `vendor/statamic/seo-pro/src/Redirects/ErrorRepository.php` — `all()`, `find($id)`, `delete(Error)`, czy `query()` jest dostępne
-- `vendor/statamic/seo-pro/src/Redirects/ErrorQueryBuilder.php` — czy `->where('locale', ...)` jest możliwe na queryBuilderze, czy filtruje się na Collection
-- `vendor/statamic/seo-pro/src/Facades/Error.php` — facade, jakie metody są publiczne (`Error::all()`, `Error::find()`, `Error::query()`)
-- `vendor/statamic/seo-pro/src/Policies/ErrorPolicy.php` — permission `'view seo redirects'`
-- `vendor/statamic/seo-pro/routes/cp.php` — natywna route `redirects/create` (dla linku "Create Redirect")
-- `storage/statamic/seopro/errors/<locale>/*.yaml` — format pliku error (url, hits, last_hit_at)
-- `app/Http/Controllers/CP/UiTranslationsController.php` — **wzór controller pattern** (namespace, View return, Statamic facades, route)
-- `app/Http/Controllers/CP/CollectionRoutesController.php` — **wzór controller pattern** (alternatywny)
-- `resources/views/cp/collection_routes/index.blade.php` — **wzór Blade view** (Tailwind classes, data-table, btn classes)
-- `routes/cp.php` — istniejące routes per panel, wzór prefix+name group
-- `app/Providers/AppServiceProvider.php` — istniejące `Nav::extend()` z 3 panelami Tools, `Statamic::pushCpRoutes()` rejestracja
+- `/home/pestycyd/Dokumenty/Skalisty-New-2/example-addon-wordpress/typek-internal-links/includes/class-linkablecontentparser.php` — source regex logic (port)
+- `/home/pestycyd/Dokumenty/Skalisty-New-2/example-addon-wordpress/typek-internal-links/includes/class-linker.php` — substitution logic
+- `addons/skalisty/wysiwyg-html-fieldtype/composer.json` — wzorzec composer manifest
+- `addons/skalisty/wysiwyg-html-fieldtype/src/ServiceProvider.php` — wzorzec service provider
+- `composer.json` (głównego projektu) — gdzie dodać path repository (jest sekcja "repositories" z istniejącym `./addons/skalisty/wysiwyg-html-fieldtype`)
+- `resources/views/page_builder/free_text_section.antlers.html` + inne views z `{{ content }}` — gdzie aplikować modifier
 
 ## Pliki do zmiany
 
-**Nowe:**
-- `app/Http/Controllers/CP/SeoErrorsController.php` (~100 linii)
-- `app/Console/Commands/SeoErrorsPrune.php` (~90 linii)
-- `resources/views/cp/seo_errors/index.blade.php` (~150 linii — Blade + inline `<script>`)
+**Nowe (10 plików):**
+- `addons/skalisty/internal-links/composer.json`
+- `addons/skalisty/internal-links/LICENSE` (MIT)
+- `addons/skalisty/internal-links/README.md`
+- `addons/skalisty/internal-links/CHANGELOG.md`
+- `addons/skalisty/internal-links/VERSION.md`
+- `addons/skalisty/internal-links/ROADMAP.md` (etapy A → B → C)
+- `addons/skalisty/internal-links/.gitignore`
+- `addons/skalisty/internal-links/src/ServiceProvider.php`
+- `addons/skalisty/internal-links/src/Modifiers/ApplyInternalLinks.php`
+- `addons/skalisty/internal-links/src/Support/LinkableContentParser.php`
+- `addons/skalisty/internal-links/resources/blueprints/collections/internal_links/internal_link.yaml`
+- `content/collections/internal_links.yaml` (rejestracja collection w głównym projekcie)
 
-**Edytowane:**
-- `routes/cp.php` — dodać 3 routy (~6 linii)
-- `app/Providers/AppServiceProvider.php` — dodać 1 nav item (~4 linie)
+**Edytowane (2 pliki):**
+- `composer.json` (głównego projektu) — path repository + require
+- `composer.lock` (auto regenerowany)
+
+**Opcjonalnie (przykład użycia):**
+- `resources/views/page_builder/free_text_section.antlers.html` — zamiana `{{ content }}` → `{{ content | apply_internal_links }}` (lub osobny brief po testach MVP)
 
 ## Wymagania techniczne
 
-- **Bez modyfikacji `vendor/statamic/seo-pro/`** — pełne wykorzystanie publicznych API:
-  - `Statamic\SeoPro\Facades\Error::all()` — kolekcja wszystkich errors
-  - `Statamic\SeoPro\Facades\Error::find($id)` — pojedynczy error po ID
-  - `$error->delete()` — instance method
-- Standard Statamic CP layout (`@extends('statamic::layout')`)
-- Statamic Permissions check (`User::current()->hasPermission('view seo redirects')` lub `isSuper()`)
-- CSRF token w POST/DELETE requests (`@csrf` lub `<meta name="csrf-token">` + JS)
-- Bez nowych dependencies composer/npm
-- AJAX requests (delete + bulk-delete) — vanilla `fetch()` z CSRF, response JSON `{ok: bool, ...}`
-- Vanilla JS na końcu widoku (bez Vue/Alpine — wzór z innych paneli)
+- Statamic 6.22+, Laravel 13, PHP 8.4
+- PSR-4 autoload `Skalisty\InternalLinks\\` → `src/`
+- AddonServiceProvider extends pattern
+- Brak nowych dependencies composer/npm (czysty PHP/Statamic)
+- Multilingual native przez Statamic Collection (osobne entries per locale lub `propagate: false`)
+- Regex hide tags: h1-6, a, img, figure, iframe — port z WP plugin (`LinkableContentParser.php`)
+- Modyfikator Antlers `apply_internal_links` — uniwersalny dla wszystkich string content
 
 ## Ograniczenia
 
-- **Nie** modyfikować `vendor/statamic/seo-pro/` (główna decyzja architektoniczna — bez patcha composer-patches)
-- **Nie** dodawać nowych zależności composer/npm
-- **Nie** dotykać istniejących panels CP (CollectionRoutes, UiTranslations, TranslatorApi)
-- **Nie** dotykać natywnego widoku SEO Pro `/cp/seo-pro/errors` (panel paralelny, nie alternatywa)
-- **Nie** zmieniać konfiguracji SEO Pro (`config/statamic/seo-pro.php`)
-- **Nie** zmieniać formatu plików storage SEO Pro (`storage/statamic/seopro/errors/`)
-- Wszystkie teksty UI **po polsku** (zgodnie z konwencją innych Tools panels — "Trasy URL kolekcji", "Tłumaczenia UI", "Translator API")
-- Klasy CSS Tailwind: tylko te które są w `output.css` (wzór z innych Blade views)
-- Permission check: minimum `'view seo redirects'` (taka sama jak natywny listing) — dla delete nie tworzymy osobnej permission (uproszczenie)
+- **Nie** modyfikować `vendor/statamic/cms/` (HOTFIX-18 pattern — patches tylko jeśli must-have)
+- **Nie** dotykać Bard ProseMirror JSON — działamy na HTML output przez Antlers modifier (uniwersalne dla wszystkich content sources)
+- **Nie** dodawać nowych dependencies composer/npm (czysty PHP-only)
+- **Nie** robić cron / pre-computation w MVP — to Wariant B
+- **Nie** robić custom CP panel ani logs — to Wariant C
+- **Nie** robić auto-suggestions z analizy slugów — to backlog #4 (PROJECT_STATUS_CODEX) integrowane w Wariancie C
+- Kod ma być **łatwo wydzielalny do standalone repo GitHub** — `addons/skalisty/internal-links/` ma być pełnym standalone projektem (composer.json, README, LICENSE, etc.) bez zewnętrznych zależności od plików w `skalisty-orion/`
+- Texty UI w blueprintcie po polsku (zgodnie z konwencją skalisty-orion); nazwy klas/metod po angielsku (zgodnie z PSR)
 
 ## Kryteria akceptacji
 
-- [ ] Plik `app/Http/Controllers/CP/SeoErrorsController.php` z metodami `index`, `destroy`, `bulkDelete` + private `authorize()`
-- [ ] Plik `app/Console/Commands/SeoErrorsPrune.php` z signature `seo:errors:prune {--locale=} {--older-than=} {--hits-lt=} {--all} {--confirm} {--dry-run}`
-- [ ] Plik `resources/views/cp/seo_errors/index.blade.php` — Blade view z tabelą, checkboxami, bulk delete button, filter, sort, akcjami per row
-- [ ] `routes/cp.php` zawiera 3 routy w prefix `seo-errors-manager` z properly named (`seo-errors-manager.index`, `.destroy`, `.bulk-delete`)
-- [ ] `AppServiceProvider::boot()` `Nav::extend` zawiera nowy item "SEO Errors" w sekcji Tools
-- [ ] `php artisan route:list | grep seo-errors` — pokazuje 3 routy
-- [ ] `php artisan list seo:errors` — pokazuje komendę `seo:errors:prune`
-- [ ] `php artisan test` — 2 passed
-- [ ] HTTP `/cp/seo-errors-manager` (zalogowany super-admin) → 200, tabela renderuje istniejące błędy z `storage/statamic/seopro/errors/`
-- [ ] Delete pojedynczy: klik → confirm → AJAX DELETE → JSON `{ok: true}` → wiersz znika + plik YAML w storage usunięty
-- [ ] Bulk delete: zaznacz 2-3 → klik Bulk Delete → AJAX POST → JSON `{ok: true, deleted: N}` → wiersze znikają + pliki usunięte
-- [ ] Filter locale: dropdown zmienia query string, listing pokazuje tylko wybrane locale
-- [ ] Sort: klik na nagłówek kolumny zmienia order (ASC/DESC toggle)
-- [ ] Link "Create Redirect": klik otwiera `/cp/seo-pro/redirects/create?source=<URL>` (natywny SEO Pro)
-- [ ] Empty state: jeśli filter zwraca 0 wyników, widok pokazuje "Brak błędów 404"
-- [ ] CLI `seo:errors:prune --dry-run --older-than=30d` — pokazuje listę, nic nie usuwa
-- [ ] CLI `seo:errors:prune --locale=pl --hits-lt=2 --confirm` — usuwa, raportuje liczbę
-- [ ] CLI bez żadnego filtra ani `--all` → error "Musisz podać co najmniej jeden filtr lub --all"
-- [ ] Po `composer update statamic/seo-pro` (jeśli pojawi się update) — panel nadal działa (zero modyfikacji vendora)
+- [ ] Katalog `addons/skalisty/internal-links/` z 12 plikami (10 nowych + 2 edytowane)
+- [ ] `composer.json` addonu zgodny ze wzorcem `wysiwyg-html-fieldtype` (autoload, statamic.name, laravel.providers)
+- [ ] `ServiceProvider` extends `AddonServiceProvider`, rejestruje modifier
+- [ ] `ApplyInternalLinks` modifier (Statamic Modifier class) z metodą `index($value, $params, $context)`
+- [ ] `LinkableContentParser` PHP class z `hideTags()` regex (5 typów) + `replaceKeyword()` + `getContent()` (restore hidden)
+- [ ] Blueprint `internal_link.yaml` z polami: title, target_entry (entries picker pages+services+projects, single), keywords (replicator), max_per_page (default 1), weight (default 0), nofollow, open_in_new_window, enabled (default true)
+- [ ] Collection `internal_links.yaml` w głównym `content/collections/` z 12 sites
+- [ ] Path repository + require w głównym `composer.json`
+- [ ] `composer require skalisty/internal-links @dev` przeszło bez błędów
+- [ ] `php artisan vendor:publish --tag=internal-links-blueprints --force` skopiowało blueprint
+- [ ] `php artisan stache:refresh` widzi Collection
+- [ ] CP `/cp` lewa belka pokazuje "Internal Links" Collection
+- [ ] Manualny test create entry → save → reload → entry istnieje
+- [ ] Manualny test render: dodać Internal Link "akwarium" → modyfikator w widoku Free Text → render strony → "akwarium" zamienione na `<a href="/oferta/sztuczna-rafa-koralowa">akwarium</a>` (PL)
+- [ ] Test exclusion: `<h2>akwarium</h2>` w content → NIE zostaje zlinkowane; `<p>akwarium</p>` → zostaje zlinkowane
+- [ ] Multilingual: ten sam Internal Link w EN ma keyword "aquarium" → URL `/services/coral-reef-decoration` (lub locale-specific)
+- [ ] README.md addonu zawiera: instalacja, użycie modyfikatora, przykład blueprintu, planowane etapy A → B → C
+- [ ] ROADMAP.md addonu z opisem etapów
+- [ ] `php artisan test` 2 passed
+- [ ] HTTP `/` 200, `/en/` 200 (lub 301→200), `/cp/auth/login` 200
 
 ## Testowanie
 
 Codex powinien wykonać:
 
 ```bash
+# Po utworzeniu plików
+composer require skalisty/internal-links @dev --no-interaction
+php artisan vendor:publish --tag=internal-links-blueprints --force
+php artisan statamic:stache:refresh
 php artisan view:clear
-php artisan cache:clear
-php artisan route:list | grep seo-errors
-php artisan list seo:errors
 php artisan test
 
-# Sanity check storage przed/po delete (lokalnie):
-ls storage/statamic/seopro/errors/pl/  # przed
-# (manualnie w CP) Delete 1 wpis
-ls storage/statamic/seopro/errors/pl/  # po — jeden mniej
+# Smoke tests
+curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1:8001/
+curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1:8001/en/
+curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1:8001/cp/auth/login
 
-# CLI dry-run:
-php artisan seo:errors:prune --dry-run --older-than=1d  # pokazuje wszystkie (lokalne są starsze niż 1d)
-
-# CLI prune (na własnym ryzyku w lokalnym storage):
-php artisan seo:errors:prune --locale=de --confirm
+# Manual CP test wymaga sesji admina:
+# 1. /cp/collections/internal_links/entries/create
+# 2. Wypełnij formularz, save
+# 3. Sprawdź storage/.../internal_links/pl/*.md utworzony
 ```
 
-Jeżeli testów manualnych w CP nie da się uruchomić w sandboxie Codexa (brak sesji admina), Codex zapisuje w `CODEX_SUGGESTIONS.md` jakie testy zostawia do walidacji przez Claude i user'a.
+Jeżeli testów manualnych w CP nie da się uruchomić w sandboxie Codexa (brak sesji admin), Codex zapisuje w `CODEX_SUGGESTIONS.md` jakie testy zostawia do walidacji przez Claude i user'a.
 
 ## Synchronizacja dokumentacji
 
-- [x] `PROJECT_STATUS_CODEX.md` ma `active_task_id: FEATURE-seo-errors-manager`
+- [x] `PROJECT_STATUS_CODEX.md` ma `active_task_id: FEATURE-internal-links-addon-mvp`
 - [x] `PROJECT_STATUS_CODEX.md` pokazuje to zadanie w `W trakcie`
-- [x] `CLAUDE_MEMORY.md` ma `active_task_id: FEATURE-seo-errors-manager`
+- [x] `CLAUDE_MEMORY.md` ma `active_task_id`
 - [x] `CLAUDE_MEMORY.md` pokazuje ten brief jako ostatni brief dla Codex
-- [x] Poprzedni `last_closed: HOTFIX-gallery-tags-fieldtype` zachowany
-- [x] Nie ma wpisu "Brak aktywnych zadań" gdy brief jest aktywny
+- [x] Poprzedni `last_closed: FIX-service-section-button-entry` zachowany
 
 ## Informacje do zapisania w CODEX_SUGGESTIONS.md (ACTIVE_FOR_CLAUDE_REVIEW)
 
-Po zakończeniu Codex dopisuje:
-
-- Co wykonane (lista 7 kroków + status każdego)
-- Zmienione/dodane pliki (5 plików: 3 nowe + 2 edytowane)
-- Sygnatura `Error::find($id)` (po sprawdzeniu vendora) — jak konstruowany jest ID, czy composite key
-- Czy `Error::query()->where('locale', $locale)` zadziałało, czy trzeba było filtrować w Collection
-- Permissions: czy minimal `'view seo redirects'` wystarczyło, czy wymagana inna
-- Czy `Statamic::pushCpRoutes()` było już zarejestrowane (powinno być z poprzednich paneli)
-- Próbka HTTP requestów: status code z `/cp/seo-errors-manager`, DELETE response body
-- CLI: testowe wywołanie z `--dry-run` — pełen output
+- Co wykonane (lista 8 kroków + status)
+- Zmienione/dodane pliki (12 plików + struktura katalogu)
+- Czy `composer require skalisty/internal-links @dev` przeszło bez konfliktów (zgłosić jeśli wystąpiły)
+- Czy blueprint replicator dla `keywords` był edytowalny w CP (replicator sets format może wymagać tweakowania)
+- Próbka HTML przed/po `apply_internal_links` modifier — z exclusion test (h2 vs p)
+- Czy `target_entry` (entries picker) zwraca proper Augmented entry — wzorzec z services_grid_section
+- Multilingual: czy PL/EN linki działają poprawnie
 - Doc drift (jeśli wystąpił)
-- Gotowe rozwiązania zauważone podczas pracy (jeśli warto rozważyć w przyszłości)
-- Sugestie dla Claude
+- Sugestie dla Claude (np. czy ROADMAP zawiera proper opis etapów A/B/C)
 
 ## Informacje do zapisania w codex-memory.md
 
-- Wzorzec rozszerzania funkcjonalności addonu bez modyfikacji vendora — własny CP panel + endpoints + CLI command, wykorzystując publiczne facade addonu
-- Konwencja paneli Tools w projekcie skalisty: prefix routes, name group, nav item w `AppServiceProvider::boot()` z `Nav::extend`, Blade view w `resources/views/cp/<name>/index.blade.php`, vanilla JS
-- Statamic Facade SEO Pro: `Statamic\SeoPro\Facades\Error::*` jako stabilne publiczne API
-- Wzór permission check minimal: `User::current()->isSuper() || hasPermission('view seo redirects')`
+- Wzorzec lokalnego addonu Statamic (`addons/skalisty/internal-links/`) z full standalone strukturą — łatwe wydzielenie do osobnego repo GitHub w przyszłości
+- Mechanizm Antlers modifier ` apply_internal_links` jako uniwersalny content transformer (działa dla Free Text, WYSIWYG HTML, Bard augmented HTML, plain text)
+- `LinkableContentParser` regex hide tags pattern — port z WP plugin sprawdzony w produkcji
 
-## Informacje do zapisania w CONCLUSIONS_CODEX.md (jeśli istotne)
+## Informacje do zapisania w CONCLUSIONS_CODEX.md (jeśli warto)
 
-Jeśli pojawi się odkrycie:
-- Czy istnieje sposób na rozszerzenie natywnego widoku Inertia SEO Pro przez Statamic hook (raczej nie, ale warto zaznaczyć w wnioskach)
-- Czy SEO Pro w przyszłych wersjach planuje dodać delete UI (sprawdzić GitHub issues addonu jeśli ma znaczenie dla architektury)
+- Czy odkryte alternatywne mechanizmy podmiany content w Statamic 6.22 (np. nowe hooks, Bard mutator API)
+- Performance observation: ile czasu zajmuje `apply_internal_links` dla X linków × Y długości content (do oceny czy cron z Wariantu B będzie konieczny w realnych warunkach skalisty-orion)
 
 ---
 
-*Brief utrzymywany przez Claude. Lokalny dev: frontend `http://127.0.0.1:8001/`, PHP `php artisan` (na dhosting: `php84`).*
+*Brief utrzymywany przez Claude. Wzór adaptowany z WordPress plugin `typek-internal-links` (`example-addon-wordpress/`). Lokalny dev: frontend `http://127.0.0.1:8001/`, PHP `php artisan` (na dhosting: `php84`).*
+
+*Po acceptance MVP: kolejny brief dla Wariant B (production-ready: settings global + Laravel Scheduler pre-computation + exclusions per entry). Po B: Wariant C (logs DB + custom CP panel + auto-suggestions — integracja z backlog #4).*
+
+*Po stabilizacji v1.0 (Wariant C zaakceptowany): wydzielenie do standalone repo GitHub (analogicznie do `5k18a/laravel-statamic-ai-chatbot` z 2026-06-20).*

@@ -1,15 +1,15 @@
 # PROJECT_STATUS_CODEX.md
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-21-2200
-active_task_id: FEATURE-seo-errors-manager
-active_task_name: SEO Errors Manager (CP panel + CLI prune)
+state_version: 2026-06-21-2300
+active_task_id: FEATURE-internal-links-addon-mvp
+active_task_name: Internal Links Addon — Wariant A (MVP)
 active_task_status: active
 active_task_source: BRIEF_CODEX.md
-last_sync: 2026-06-21 22:00 Europe/Warsaw
+last_sync: 2026-06-21 23:00 Europe/Warsaw
 last_synced_by: Claude
-last_closed: HOTFIX-gallery-tags-fieldtype
-next_after_active: Wybór z backlogu (cleanup demo Orion content / chatbot AI PoC / Formularze kontaktowe / pozostałe warianty Services Grid)
+last_closed: FIX-service-section-button-entry
+next_after_active: Wariant B Internal Links (production-ready: settings + cron + exclusions)
 <!-- PROJECT_SYNC_END -->
 
 ---
@@ -166,14 +166,26 @@ next_after_active: Wybór z backlogu (cleanup demo Orion content / chatbot AI Po
 
 ## W trakcie
 
-### FEATURE-seo-errors-manager — SEO Errors Manager (CP panel + CLI prune)
+### FEATURE-internal-links-addon-mvp — Internal Links Addon (Wariant A: MVP)
 
-- **Status:** active (brief aktywowany 2026-06-21 22:00, czeka na implementację Codex)
+- **Status:** active (brief aktywowany 2026-06-21 23:00, czeka na implementację Codex)
 - **Źródło wykonawcze:** `BRIEF_CODEX.md`
-- **Cel:** paralelny panel CP w sekcji Tools ("SEO Errors") do zarządzania błędami 404 logowanymi przez `statamic/seo-pro` v7.11.0 — delete pojedynczo + bulk delete + filter locale + sort + link do natywnego "Create Redirect" SEO Pro. Plus artisan command `seo:errors:prune` z filtrami (`--locale`, `--older-than`, `--hits-lt`, `--all`, `--confirm`, `--dry-run`).
-- **Powód:** SEO Pro natywnie loguje 404 do `storage/statamic/seopro/errors/<locale>/*.yaml`, ale UI nie ma akcji delete (tylko "Create Redirect"). User chce regularnie kasować znane mu, nieistotne błędy. SEO Pro wewnętrznie ma `Error::delete()` i `ErrorRepository::delete()` — wykorzystujemy publiczne API.
-- **Architektura:** **bez modyfikacji vendora SEO Pro** — własny CP controller w `app/Http/Controllers/CP/SeoErrorsController.php`, własny widok Blade `resources/views/cp/seo_errors/index.blade.php`, routes w `routes/cp.php`, nav item w `AppServiceProvider::boot()`, artisan command `app/Console/Commands/SeoErrorsPrune.php`. Wzorzec: `CollectionRoutesController`, `UiTranslationsController`, `TranslatorApiController` (już ugruntowane w projekcie).
-- **Ryzyka:** (1) `Error::find($id)` może mieć composite key (locale+slug) — Codex sprawdza vendor i adaptuje; (2) `Error::query()->where('locale', ...)` może nie działać — fallback do Collection filtering; (3) Bulk delete na dużej liście może timeoutować — w przyszłej iteracji można dodać queue job (na razie sync OK dla <500 wpisów); (4) Permission check minimal `'view seo redirects'` — uproszczenie, dla delete nie tworzymy osobnej permission.
+- **Cel:** samodzielny addon Statamic `skalisty/internal-links` (lokalny w `addons/skalisty/internal-links/`) do auto-linkowania słów kluczowych. MVP zawiera: Collection `internal_links` z blueprint (target_entry picker — multilingual gratis, keywords replicator, max_per_page, nofollow, open_in_new_window, weight, enabled), Antlers modifier `apply_internal_links` aplikowany przez `{{ content | apply_internal_links }}`, `LinkableContentParser` PHP class z regex hide tags (h1-6, a, img, figure, iframe) — port z WP plugin `typek-internal-links` (referencja: `example-addon-wordpress/typek-internal-links/`).
+- **Architektura roll-out etapowy:**
+  - **Wariant A (MVP)** — TERAZ. ~80-150 linii kodu. Storage + substitution + multilingual.
+  - **Wariant B (production-ready)** — kolejny brief po acceptance MVP. Settings global + Laravel Scheduler pre-computation + exclusions per entry.
+  - **Wariant C (pełna parytet WP)** — 1-2 sprinty. Logs DB + custom CP panel + auto-suggestions (integracja z backlog #4).
+- **Wzorzec lokalnego addonu:** `addons/skalisty/wysiwyg-html-fieldtype/` (v1.1.0, path repository w composer.json + require). Po stabilizacji v1.0 (Wariant C ACCEPTED) → wydzielenie do **standalone repo GitHub** analogicznie do `5k18a/laravel-statamic-ai-chatbot` (2026-06-20).
+- **Ryzyka:** (1) Regex hide tags może uciec edge cases (vłaściciel WP plugin sprawdził w produkcji, ale Statamic content może być inny); (2) Performance dla >500 linków może wymagać cron z Wariantu B; (3) `target_entry` multilingual wymaga proper augmenter handling — wzorzec już mamy z services_grid_section.section_button_entry.
+- **Out-of-scope MVP (do Wariantu B/C):** cron pre-computation, Settings global, custom CP panel, logs, auto-suggestions, import/export CSV.
+
+### Notatka projektowa
+
+User explicit zaznaczył (2026-06-21):
+- Etapowo: A → B → C
+- Końcowo: standalone addon Statamic do reuse na innych instalacjach
+- **Po stabilizacji:** osobny repo GitHub (przypomnieć przy kolejnej sesji jeśli user już utworzył)
+- Plan analogiczny do chatbot AI (`5k18a/laravel-statamic-ai-chatbot` z 2026-06-20)
 
 ---
 
@@ -425,7 +437,36 @@ Stała lokalnego dev (2026-06-20): frontend działa na `http://127.0.0.1:8001/`.
 
 ## Do wykonania
 
-### 1. Wtyczka chatbota AI multi-provider ⚡ duża inicjatywa, kandydat do osobnego repo GitHub
+### 1. Internal Links Addon — Wariant B + C (kontynuacja MVP) ⚡ duża inicjatywa, kandydat do osobnego repo GitHub
+
+**Wizja:** samodzielny addon Statamic `skalisty/internal-links` do auto-linkowania słów kluczowych w content (analog WP plugin `wptypek-internal-links`). MVP (Wariant A) w trakcie implementacji jako aktywny brief. Po stabilizacji → standalone repo GitHub.
+
+**Etapy roll-out:**
+
+- **Wariant A (MVP)** ← AKTUALNIE W TRAKCIE (`FEATURE-internal-links-addon-mvp`). Collection + modifier + parser. ~80-150 linii.
+- **Wariant B (production-ready)** ← kolejny brief po acceptance MVP
+  - Global settings `internal_links_settings` (max links per page, excluded entries IDs, random order)
+  - Laravel Scheduler dla pre-computation (cron cache w Stache, schedule daily → batch process)
+  - Statamic action button "Wyklucz to entry z auto-linkowania" (toggle w sidebar pages/projects/services)
+  - Excluded entries filter w modifier
+- **Wariant C (pełna parytet WP plugin)** ← 1-2 sprinty
+  - Logs DB table `internal_links_logs` (history: keyword + source entry + target entry + timestamp)
+  - Custom CP panel "Historia linkowania" (search, filter, batch delete) — wzorzec SeoErrorsController
+  - Statistics widget (top linked, broken links detector — które linki celują w usunięte entries)
+  - Import/export linków CSV (artisan command + CP panel)
+  - **Auto-suggestions** — analiza titles/slugów wszystkich entries → propozycje keyword-to-entry mappings (integracja z backlog #4 "Panel sugestii linkowania wewnętrznego")
+- **Po stabilizacji v1.0 (C ACCEPTED):** wydzielenie do **standalone repo GitHub** analogicznie do `5k18a/laravel-statamic-ai-chatbot` (2026-06-20):
+  - Pełna dokumentacja: README, ROADMAP, CHANGELOG, LICENSE, CONTRIBUTING, SECURITY, docs/
+  - composer.json statamic-addon type + publikacja Packagist (opcjonalnie)
+  - Demo videos, screenshots
+
+**Wzorzec techniczny:** lokalny addon `addons/skalisty/internal-links/` w path repository (jak `wysiwyg-html-fieldtype` v1.1.0). Po wycinkę do standalone — proste `git init` w katalogu addonu + push do nowego repo.
+
+**Reference:** WP plugin source w `example-addon-wordpress/typek-internal-links/` (przeanalizowane 2026-06-21).
+
+---
+
+### 2. Wtyczka chatbota AI multi-provider ⚡ duża inicjatywa, kandydat do osobnego repo GitHub
 
 **Wizja:** pełnoprawna wtyczka Statamic / Laravel — chatbot AI na stronie z konfigurowanym dostawcą LLM (DeepSeek / OpenAI / Anthropic Claude / lokalny Ollama itp.), własną knowledge base (plik MD lub kolekcja Statamic), widget UI w rogu strony, logi konwersacji, panel CP do zarządzania. Po wdrożeniu i stabilizacji → osobny projekt + repo GitHub poświęcone wyłącznie tej wtyczce (open-source albo własny).
 

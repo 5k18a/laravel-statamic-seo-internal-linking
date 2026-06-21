@@ -4,15 +4,15 @@
 # Aktualizowany po każdym zakończonym zadaniu
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-21-2200
-active_task_id: FEATURE-seo-errors-manager
-active_task_name: SEO Errors Manager (CP panel + CLI prune)
+state_version: 2026-06-21-2300
+active_task_id: FEATURE-internal-links-addon-mvp
+active_task_name: Internal Links Addon — Wariant A (MVP)
 active_task_status: active
 active_task_source: BRIEF_CODEX.md
-last_sync: 2026-06-21 22:00 Europe/Warsaw
+last_sync: 2026-06-21 23:00 Europe/Warsaw
 last_synced_by: Claude
-last_closed: HOTFIX-gallery-tags-fieldtype
-next_after_active: Wybór z backlogu (cleanup demo Orion content / chatbot AI PoC / Formularze kontaktowe / pozostałe warianty Services Grid)
+last_closed: FIX-service-section-button-entry
+next_after_active: Wariant B Internal Links (production-ready: settings + cron + exclusions)
 <!-- PROJECT_SYNC_END -->
 
 > **Stała lokalnego dev (2026-06-20)**: frontend działa na `http://127.0.0.1:8001/` (nie `8000`). Komenda PHP lokalnie: `php artisan` (na serwerze: `php84`). Te stałe stosować w briefach walidacyjnych.
@@ -271,7 +271,11 @@ Zadania #4–6: pomysły zgłoszone 2026-06-19 w kontekście SEO 100/100. Szczeg
 
 ## Aktywny brief
 
-**FEATURE-seo-errors-manager** (aktywowany 2026-06-21 22:00) — paralelny CP panel "SEO Errors" w sekcji Tools do zarządzania błędami 404 logowanymi przez addon `statamic/seo-pro` v7.11.0. Plus artisan command `seo:errors:prune`. Bez modyfikacji vendora — wykorzystanie publicznych facade `Statamic\SeoPro\Facades\Error::*`. Wzorzec: istniejące Tools panels (`CollectionRoutesController`, `UiTranslationsController`, `TranslatorApiController`). Brief w `BRIEF_CODEX.md` — czeka na implementację Codex.
+**FEATURE-internal-links-addon-mvp** (aktywowany 2026-06-21 23:00) — samodzielny addon Statamic `skalisty/internal-links` (lokalny w `addons/skalisty/internal-links/`) do auto-linkowania słów kluczowych w content. Wariant A (MVP): Collection + Antlers modifier `apply_internal_links` + `LinkableContentParser` z regex hide tags (port z WP plugin `typek-internal-links`). Etapowo: A → B (production-ready: settings + cron + exclusions) → C (logs + custom CP panel + auto-suggestions). Po stabilizacji v1.0 → standalone repo GitHub (analogicznie do chatbot AI 2026-06-20). Brief w `BRIEF_CODEX.md` — czeka na implementację Codex.
+
+**Przypomnienie persistent:** kiedy user utworzy osobny repo GitHub dla tego addonu — pomóc wypchnąć zawartość `addons/skalisty/internal-links/` jako standalone. Memory: `~/.claude/.../memory/project_internal_links_addon.md`.
+
+**Poprzedni aktywny brief:** SEO Errors Manager (zamknięty wcześniej tej sesji jako ACCEPTED + DEPLOYED).
 
 ## Ostatnio zamknięte
 

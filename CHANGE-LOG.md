@@ -4,6 +4,40 @@ Changelog projektu `skalisty-orion` — prowadzony przez Claude po każdym zako�
 
 ---
 
+## 2026-06-21 (aktywacja briefu FEATURE-internal-links-addon-mvp)
+
+### Aktywowano
+
+- **FEATURE-internal-links-addon-mvp** (`BRIEF_CODEX.md` state_version 2026-06-21-2300, status active) — brief dla Codex: samodzielny addon Statamic `skalisty/internal-links` (lokalny w `addons/skalisty/internal-links/`) do auto-linkowania słów kluczowych. **Wariant A (MVP):** Collection + Antlers modifier + `LinkableContentParser` z regex hide tags (port z WP plugin `typek-internal-links` analizowanego 2026-06-21).
+- **12 plików w briefie** (10 nowych + 2 edytowane): struktura addonu (composer.json, ServiceProvider, Modifier, Support class, blueprint, README, ROADMAP, etc.) + edycja głównego `composer.json` (path repository + require).
+
+### Decyzje techniczne
+
+- **Roll-out etapowy A → B → C** (decyzja user'a 2026-06-21):
+  - **Wariant A (MVP, ~80-150 linii)** — Collection storage + Antlers modifier substitution + multilingual native przez entries picker. Real-time bez cron.
+  - **Wariant B (production-ready)** — kolejny brief po acceptance MVP. Global settings + Laravel Scheduler pre-computation + exclusions per entry.
+  - **Wariant C (pełna parytet WP plugin)** — 1-2 sprinty. Logs DB + custom CP panel + auto-suggestions (integracja z backlog #4).
+- **Po stabilizacji v1.0 (Wariant C ACCEPTED)** — wydzielenie do **standalone repo GitHub** analogicznie do `5k18a/laravel-statamic-ai-chatbot` (2026-06-20). Plan przypomnienia w memory persistent `~/.claude/.../memory/project_internal_links_addon.md`.
+- **Wzorzec lokalnego addonu:** `addons/skalisty/wysiwyg-html-fieldtype/` (v1.1.0) — path repository w composer.json + require. Po wydzieleniu do standalone — proste `git init` w katalogu addonu + push.
+- **Reference source:** WP plugin `typek-internal-links` w `example-addon-wordpress/` (5 KB, przeanalizowany 2026-06-21). `LinkableContentParser` regex hide tags (h1-6, a, img, figure, iframe, embeds) portowany 1:1 do PHP/Statamic.
+
+### Analiza gotowych rozwiązań
+
+| Rozwiązanie | Werdykt |
+|---|---|
+| Statamic Marketplace addon do internal linking | Brak istniejącego addonu Statamic 6 z tymi featureami |
+| `mariohamann/statamic-bard-mutator` | Nieadekwatne — modyfikuje Bard ProseMirror JSON, my chcemy HTML output (uniwersalne) |
+| Custom from scratch bez wzorca | Odrzucone — istniejący sprawdzony pattern WP eliminuje większość ryzyka |
+| **WordPress plugin port** | **Wybrane jako wzorzec architektury** — sprawdzona logika regex hide tags + multilingual upgrade w Statamic |
+
+### Uwagi
+
+- Brief długi (~500 linii) — pełny standalone projekt + plan etapów A→B→C
+- TODO w backlog "Do wykonania" #1: Internal Links Wariant B+C jako kandydat do osobnego repo GitHub
+- Atomowa synchronizacja BRIEF + STATUS + MEMORY + persistent memory + CHANGE-LOG
+
+---
+
 ## 2026-06-21 (FIX-service-section-button-entry — i18n button URL via entry picker)
 
 ### Naprawiono
