@@ -2,6 +2,7 @@
 
 namespace Skalisty\InternalLinks;
 
+use Skalisty\InternalLinks\Console\InstallCommand;
 use Skalisty\InternalLinks\Modifiers\ApplyInternalLinks;
 use Statamic\Providers\AddonServiceProvider;
 
@@ -11,10 +12,18 @@ class ServiceProvider extends AddonServiceProvider
         ApplyInternalLinks::class,
     ];
 
+    protected $commands = [
+        InstallCommand::class,
+    ];
+
     public function bootAddon()
     {
         $this->publishes([
             __DIR__.'/../resources/blueprints' => resource_path('blueprints'),
         ], 'internal-links-blueprints');
+
+        $this->publishes([
+            __DIR__.'/../resources/collections/internal_links.yaml' => base_path('content/collections/internal_links.yaml'),
+        ], 'internal-links-collection');
     }
 }

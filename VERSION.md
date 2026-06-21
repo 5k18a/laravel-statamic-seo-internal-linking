@@ -2,4 +2,4 @@
 
 Current version: `0.1.0`
 
-Status: Wariant A MVP
+Status: Variant A MVP — fully functional as a local path package

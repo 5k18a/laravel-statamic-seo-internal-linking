@@ -1,25 +1,29 @@
 # Roadmap
 
-## Wariant A - MVP
+## Variant A — MVP (current)
 
-- Lokalna kolekcja Statamic `internal_links`.
-- Mapping keyword -> target entry.
-- Antlers modifier `apply_internal_links`.
-- Parser HTML ukrywajacy naglowki, istniejace linki, media i embed comments.
-- Real-time substitution podczas renderowania.
+- [x] Native Statamic `internal_links` collection as storage
+- [x] Keyword → target entry mapping
+- [x] Antlers modifier `apply_internal_links`
+- [x] HTML-aware parser protecting headings, existing links, media, and embed comments
+- [x] Per-locale keywords in a single entry (no multisite propagation required)
+- [x] Target URL resolves to correct language version automatically
+- [x] Deduplication: each target URL linked at most once per page
+- [x] `php artisan internal-links:install` command
+- [x] Real-time substitution at render time
 
-## Wariant B - Production-ready
+## Variant B — Production-ready
 
-- Global settings dla limitow.
-- Exclusions per entry.
-- Laravel Scheduler / cron dla pre-computation.
-- Cache wynikow dla duzych zestawow mappingow.
-- Szersze testy performance dla wielu linkow i dlugich tresci.
+- [ ] Global settings (per-site limits, exclusion rules)
+- [ ] Per-entry exclusions (exclude specific pages from being linked)
+- [ ] Laravel Scheduler / cron for pre-computation and caching
+- [ ] Performance cache for large keyword sets and long content
+- [ ] Expanded test coverage
 
-## Wariant C - Full parity
+## Variant C — Full feature parity
 
-- Custom CP panel.
-- Logs DB dla wykonanych auto-linkow.
-- Auto-suggestions na podstawie slugow i tresci.
-- Import/export CSV.
-- Przygotowanie addonu do standalone repo GitHub.
+- [ ] Custom CP panel for link overview
+- [ ] Database logs for executed auto-links
+- [ ] Auto-suggestions based on slugs and content analysis
+- [ ] CSV import / export
+- [ ] Packagist release

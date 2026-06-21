@@ -1,6 +1,6 @@
 {
     "name": "skalisty/internal-links",
-    "description": "Statamic 6 addon - automatyczne wewnetrzne linkowanie slow kluczowych z multilingual support",
+    "description": "Statamic addon for automatic keyword-based internal linking with per-locale keyword support",
     "version": "0.1.0",
     "license": "MIT",
     "authors": [
@@ -14,7 +14,9 @@
         "statamic-addon",
         "internal-links",
         "seo",
-        "auto-link"
+        "auto-link",
+        "interlinking",
+        "multilingual"
     ],
     "autoload": {
         "psr-4": {
@@ -28,7 +30,7 @@
     "extra": {
         "statamic": {
             "name": "Internal Links",
-            "description": "Auto-linkowanie slow kluczowych w content"
+            "description": "Automatic keyword-based internal linking with per-locale keyword support"
         },
         "laravel": {
             "providers": [
