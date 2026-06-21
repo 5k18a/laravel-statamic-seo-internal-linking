@@ -51,7 +51,7 @@ Proszę zsynchronizować tekstową sekcję `W trakcie` w `PROJECT_STATUS_CODEX.m
 
 #### Status
 
-new
+read
 
 #### Treść
 
@@ -78,8 +78,8 @@ Decyzja user'a podjęta po aktywacji briefu, w trakcie pracy Codex'a. Nie modyfi
 
 #### Potwierdzenie Codex (wypełnia Codex)
 
-- data:
-- status:
+- data: 2026-06-21 22:12 Europe/Warsaw
+- status: przeczytane i zastosowane — testy `FEATURE-internal-links-bard` wykonane wyłącznie lokalnie na `http://127.0.0.1:8001/`; bez deployu na `dev.skalisty.pl` i bez zmian produkcyjnych.
 
 ---
 
@@ -512,6 +512,149 @@ doprecyzowanie workflow — zmiana konstytucyjna w `AGENTS.md`, nie zmienia scop
 ---
 
 ## ACTIVE_FOR_CLAUDE_REVIEW
+
+### 2026-06-21 22:46 — FEATURE-internal-links-collection-scope-dedup / Internal Links kolekcje + dedup URL
+
+#### Status
+
+Wykonane lokalnie przez Codex — wymaga audytu Claude.
+
+#### Wykonane zmiany
+
+- Dodano pole `limit_to_collections` w obu blueprintach Internal Links:
+  - `addons/skalisty/internal-links/resources/blueprints/collections/internal_links/internal_link.yaml`
+  - `resources/blueprints/collections/internal_links/internal_link.yaml`
+- Rozszerzono `ApplyInternalLinks` o:
+  - statyczny set użytych target URL-i per request: `private static array $usedTargetUrls = []`
+  - wykrywanie bieżącej kolekcji z `collection`, `current_entry` lub `entry`
+  - filtr reguł po `limit_to_collections`
+  - deduplikację URL-i dopiero po faktycznej zmianie treści przez parser
+- `max_per_page` jest w tej ścieżce celowo capowane do `1`, bo nowy wymóg mówi, że jeden unikalny target URL może zostać podlinkowany maksymalnie raz na renderowaną stronę.
+- Nie zmieniono template’ów Antlers, ServiceProvidera ani innych plików addonu.
+- Nie wykonano deployu i nie commitowano, zgodnie z briefem i regułą local-only dla Internal Links.
+
+#### Walidacja funkcjonalna
+
+Tymczasowo dodano 3 wpisy `content/collections/internal_links/pl/codex-test-*`, wszystkie z `limit_to_collections: [blogs]`:
+
+- `Laser levels` → `/` (`Home`)
+- `Chalk lines` → `/` (`Home`, duplikat target URL)
+- `Hand saws` → `/oferta/sztuczna-rafa-koralowa`
+
+Bezpośredni test modifiera przez świeży bootstrap Laravel/Statamic:
+
+- Kontekst `collection => blogs`:
+  - wynik: `<a href="/">Laser levels</a> and Chalk lines and <a href="/oferta/sztuczna-rafa-koralowa">Hand saws</a>.`
+  - potwierdza: pierwszy URL `/` został użyty raz, `Chalk lines` zostało bez linku, inny target URL nadal został podlinkowany.
+- Kontekst `collection => pages`:
+  - wynik: `Laser levels and Chalk lines and Hand saws.`
+  - potwierdza: reguły ograniczone do `blogs` nie działają na `pages`.
+- Kontekst z realnym wpisem bloga przez `entry`:
+  - wynik taki sam jak dla `collection => blogs`
+  - potwierdza: helper rozpoznaje kolekcję także z obiektu Entry.
+
+#### Testy i komendy kontrolne
+
+Uruchomiono:
+
+- `php -l addons/skalisty/internal-links/src/Modifiers/ApplyInternalLinks.php` — OK
+- `php artisan view:clear` — OK
+- `php artisan statamic:stache:refresh` — OK po dodaniu i po usunięciu wpisów testowych
+- `php artisan test` — OK (`2 passed`)
+- `curl -I http://127.0.0.1:8001/` poza sandboxem — `200 OK`
+- `curl -I http://127.0.0.1:8001/en/` poza sandboxem — `200 OK`
+- `curl` bloga `/blog/benefits-of-modular-building` poza sandboxem — `200 OK`
+
+#### Porządek po testach
+
+- Tymczasowe wpisy `content/collections/internal_links/pl/codex-test-*` zostały usunięte.
+- Po usunięciu wpisów wykonano `php artisan statamic:stache:refresh`.
+- `git status` nie pokazuje pozostawionych plików testowych.
+
+#### Logi
+
+- `storage/logs/laravel.log` nie ma nowych wpisów błędów po `2026-06-21 20:18`.
+- Ostatnie błędy w logu dotyczą wcześniejszego problemu Laravel Boost guidelines i nie są związane z tym zadaniem ani addonem Internal Links.
+
+#### Uwagi / ryzyka
+
+- Realny HTTP na `8001` potwierdza dostępność stron, ale długodziałający proces lokalnego serwera nie odzwierciedlił tymczasowych wpisów testowych w HTML bloga podczas tej sesji. Krytyczna logika addonu została więc potwierdzona świeżym bootstrappingiem Laravel/Statamic, który widział wpisy testowe po `stache:refresh`.
+- Próba uruchomienia osobnego testowego `php artisan serve` na `8012` w sandboxie wystartowała, ale osobny `curl` w tej konfiguracji nie mógł połączyć się z tym procesem; serwer testowy został zatrzymany.
+- Kod celowo nie oznacza URL-a jako użytego, jeśli keyword nie został znaleziony i parser nie zmienił treści.
+
+---
+
+### 2026-06-21 22:12 — FEATURE-internal-links-bard / Internal Links w Bardzie blogów
+
+#### Status
+
+Wykonane lokalnie przez Codex — wymaga audytu Claude.
+
+#### Wykonane zmiany
+
+- W czterech szablonach blog detail dodano modifier `apply_internal_links` wyłącznie do `{{ text }}` w gałęzi `{{ else }}` pętli Barda.
+- Nie zmieniono addonu `skalisty/internal-links`.
+- Nie zmieniono blueprintów ani kolekcji.
+- Nie uruchamiano `npm run build`, zgodnie z briefem.
+- Nie wykonano deployu, zgodnie z regułą Claude: internal-links testować lokalnie do finalnej decyzji user'a.
+
+#### Zmienione pliki i linie
+
+- `resources/views/blog-detail-one.antlers.html:82` — `{{ text | apply_internal_links }}`
+- `resources/views/blog-detail-two.antlers.html:109` — `{{ text | apply_internal_links }}`
+- `resources/views/blog-detail-three.antlers.html:89` — `{{ text | apply_internal_links }}`
+- `resources/views/blog-detail-four.antlers.html:99` — `{{ text | apply_internal_links }}`
+
+#### Walidacja zakresu
+
+- `blog-detail-four.antlers.html` byl jednoznaczny:
+  - poprawiony tylko `{{ text }}` w pętli `{{ blog_description }}`
+  - `{{ text | slugify }}` przy TOC zostalo nietkniete (`:417`, `:471`)
+- `quote_section`, `list_section` i `image_section` nie dostaly modifiera.
+- `grep` potwierdza 4 nowe wystapienia w blog-detail plus istniejace 3 wystapienia w page builderze.
+
+#### Test internal_links
+
+- Dodano tymczasowy wpis:
+  - `content/collections/internal_links/pl/codex-test-internal-link.md`
+- Keyword testowy:
+  - `Laser levels`
+- Target:
+  - `Home` (`b2f27011-9af8-4287-b2f6-e0c411ff4ed6`)
+- Testowany URL:
+  - `http://127.0.0.1:8001/blog/benefits-of-modular-building`
+- Wynik przed dodaniem wpisu:
+  - tekst `Laser levels` byl obecny bez linka.
+- Wynik po dodaniu wpisu i `statamic:stache:refresh`:
+  - HTML zawieral `<a href="/">Laser Levels</a>` w paragrafie Barda.
+  - Parser zachowal kapitalizacje z renderu HTML (`Laser Levels`).
+- Po teście plik tymczasowy usunieto i wykonano `statamic:stache:refresh`.
+- Końcowa kontrola po usunieciu:
+  - `Laser Levels` widoczny ponownie jako zwykly tekst, bez `<a>`.
+  - `content/collections/internal_links/` nie zawiera plikow testowych.
+
+#### Testy i komendy kontrolne
+
+Uruchomiono:
+
+- `php artisan view:clear` — OK
+- `php artisan statamic:stache:refresh` — OK po dodaniu i po usunieciu wpisu testowego
+- `curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8001/` — `200`
+- `curl -Ls -o /dev/null -w "%{http_code}" http://127.0.0.1:8001/en/` — `200`
+- `curl` bloga testowego — `200`
+- `php artisan test` — `2 passed`
+
+#### Logi
+
+- W `storage/logs/laravel.log` istnieja starsze wpisy `Modifier [apply_internal_links] not found` z `2026-06-21 19:41-19:42`.
+- Po aktualnych testach ok. `2026-06-21 22:11` nie pojawil sie nowy blad modifiera.
+- Aktualny render bloga z linkiem potwierdzil, ze modifier jest juz dostepny runtime.
+
+#### Uwagi / ryzyka
+
+- Pierwsze proby `curl` w sandboxie zwracaly `000`; po uruchomieniu poza sandboxem na wskazanym przez user'a `8001` testy HTTP przeszly.
+- Na chwilę uruchomiono zapasowy serwer testowy `8011`, ale zostal zatrzymany po potwierdzeniu, ze wlasciwy serwer dziala na `8001`.
+- Nie commitowano, zgodnie z briefem.
 
 ### 2026-06-21 18:00 — FEATURE-internal-links-addon-mvp / Internal Links Addon Wariant A
 

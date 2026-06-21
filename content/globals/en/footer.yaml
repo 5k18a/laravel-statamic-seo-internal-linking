@@ -9,49 +9,7 @@ privacy_policy_label: 'Privacy policy'
 terms_conditions_url: /en/terms-and-conditions
 terms_conditions_label: 'Terms & conditions'
 footer_image: images/footer-bg.webp
-links:
-  -
-    id: mgt4dkau
-    title: Home
-    url: /en
-    type: new_set
-    enabled: true
-  -
-    id: mgt4efzw
-    title: 'About Us'
-    url: /en/about-us
-    type: new_set
-    enabled: true
-  -
-    id: mgt4f1bo
-    title: 'Our Services'
-    url: /en/services
-    type: new_set
-    enabled: true
-  -
-    id: mgt4f78t
-    title: Projects
-    url: /en/projects
-    type: new_set
-    enabled: true
-  -
-    id: mgt4fgc3
-    title: 'Our Blogs'
-    url: /en/blogs
-    type: new_set
-    enabled: true
-  -
-    id: mgt4fmjv
-    title: Careers
-    url: /en/career
-    type: new_set
-    enabled: true
-  -
-    id: mgt4fy8c
-    title: 'Contact Us'
-    url: /en/contact-us
-    type: new_set
-    enabled: true
+links: []
 branches:
   -
     id: mgt4dlwc

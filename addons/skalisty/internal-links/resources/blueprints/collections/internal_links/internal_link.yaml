@@ -11,7 +11,7 @@ tabs:
               type: text
               required: true
               display: 'Nazwa (administracyjna, nie wyświetlana)'
-              instructions: 'Np. "Skały do akwarium → Strona Dekoracje Akwarystyczne"'
+              instructions: 'Np. "Skały do akwarium → Strona Dekoracje Akwarystyczne". Uwaga: linkowanie działa wyłącznie w treści wpisów blogowych (kolekcja Blogs).'
               validate:
                 - required
           -
@@ -53,16 +53,6 @@ tabs:
               validate:
                 - required
               min_sets: 1
-          -
-            handle: max_per_page
-            field:
-              type: integer
-              display: 'Max wystąpień na stronie'
-              instructions: 'Ile razy ten link może wystąpić na pojedynczej stronie.'
-              default: 1
-              min: 1
-              max: 10
-              localizable: false
           -
             handle: weight
             field:

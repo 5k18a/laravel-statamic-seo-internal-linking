@@ -30,5 +30,17 @@
   <link rel="stylesheet" href="{{ theme:asset src='assets/css/all-fontawesome.min.css' }}?v={{ now format="YmdHis" }}">
   <!-- Custom Styles -->
   <link href="{{ theme:asset src='assets/css/output.css' }}?v={{ now format="YmdHis" }}" rel="stylesheet" />
+  <!-- CMS content link styles (blog Bard, free_text_section, wysiwyg_html_block only) -->
+  <style>
+    .cms-content a:not([class]),
+    .blog-details-content a:not([class]) {
+      color: var(--color-primary-900);
+      text-decoration: underline;
+    }
+    .cms-content a:not([class]):hover,
+    .blog-details-content a:not([class]):hover {
+      color: #2563eb;
+    }
+  </style>
   {{ super_admin_toolbar }}
 </head>

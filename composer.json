@@ -33,8 +33,10 @@
         "superinteractive/statamic-super-admin-toolbar": "^2.1"
     },
     "require-dev": {
+        "chrisvasey/statamic-boost": "^1.2",
         "fakerphp/faker": "^1.23",
         "fruitcake/laravel-debugbar": "^4.0",
+        "laravel/boost": "^2.4",
         "laravel/pail": "^1.2.5",
         "laravel/pint": "^1.27",
         "laravel/sail": "^1.41",

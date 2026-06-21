@@ -13,8 +13,10 @@ use Statamic\Modifiers\Modifier;
 
 class ApplyInternalLinks extends Modifier
 {
+    private static array $usedTargetUrls = [];
+
     /**
-     * Usage: {{ content | apply_internal_links }}
+     * Usage: {{ text | apply_internal_links }} (blog-detail templates only)
      */
     public function index($value, $params, $context)
     {
@@ -41,8 +43,9 @@ class ApplyInternalLinks extends Modifier
 
         foreach ($links as $link) {
             $targetEntry = $this->targetEntry($link, $currentSite);
+            $targetUrl = $targetEntry?->url();
 
-            if (! $targetEntry || ! $targetEntry->url()) {
+            if (! is_string($targetUrl) || $targetUrl === '' || isset(self::$usedTargetUrls[$targetUrl])) {
                 continue;
             }
 
@@ -53,11 +56,18 @@ class ApplyInternalLinks extends Modifier
                     continue;
                 }
 
-                $parser->replaceKeyword($keyword, $targetEntry->url(), [
-                    'max' => (int) $link->get('max_per_page', 1),
+                $contentBefore = $parser->getContent();
+
+                $parser->replaceKeyword($keyword, $targetUrl, [
+                    'max' => 1,
                     'nofollow' => (bool) $link->get('nofollow', false),
                     'target_blank' => (bool) $link->get('open_in_new_window', false),
                 ]);
+
+                if ($parser->getContent() !== $contentBefore) {
+                    self::$usedTargetUrls[$targetUrl] = true;
+                    break;
+                }
             }
         }
 

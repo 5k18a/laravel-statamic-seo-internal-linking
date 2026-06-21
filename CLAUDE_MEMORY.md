@@ -4,14 +4,14 @@
 # Aktualizowany po każdym zakończonym zadaniu
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-21-EOD2
-active_task_id: none
-active_task_name: Brak aktywnego zadania
-active_task_status: closed
+state_version: 2026-06-21-2300
+active_task_id: FEATURE-internal-links-collection-scope-dedup
+active_task_name: Internal Links — filtr kolekcji + deduplicacja linków per strona
+active_task_status: active
 active_task_source: BRIEF_CODEX.md
-last_sync: 2026-06-21 23:50 Europe/Warsaw
+last_sync: 2026-06-21 23:00 Europe/Warsaw
 last_synced_by: Claude
-last_closed: FEATURE-internal-links-addon-mvp
+last_closed: FEATURE-internal-links-bard
 next_after_active: Wariant B Internal Links Addon (production-ready) lub inny element z backlogu
 <!-- PROJECT_SYNC_END -->
 

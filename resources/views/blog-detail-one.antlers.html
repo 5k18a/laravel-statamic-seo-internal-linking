@@ -79,7 +79,7 @@
                         </div>
 
                         {{ else }}
-                        {{ text }}
+                        {{ text | apply_internal_links }}
                         {{ /if }}
                         {{ /content }}
 

@@ -4,6 +4,14 @@ Changelog projektu `skalisty-orion` — prowadzony przez Claude po każdym zako�
 
 ---
 
+## 2026-06-21 (FEATURE-internal-links-bard — closed/accepted)
+
+### Zmieniono
+
+- **Modifier `apply_internal_links` rozszerzony na Bard blogów** — `{{ text | apply_internal_links }}` dodane w gałęzi `{{ else }}` pętli Barda w czterech szablonach: `blog-detail-one.antlers.html:82`, `blog-detail-two.antlers.html:109`, `blog-detail-three.antlers.html:89`, `blog-detail-four.antlers.html:99`. Nagłówki TOC w `blog-detail-four` (linie 417, 471) niezmienione. Auto-linkowanie słów kluczowych działa teraz w treści blogowej tak samo jak w page builderze.
+
+---
+
 ## 2026-06-21 (FEATURE-internal-links-addon-mvp — closed/accepted + push do standalone repo)
 
 ### Dodano

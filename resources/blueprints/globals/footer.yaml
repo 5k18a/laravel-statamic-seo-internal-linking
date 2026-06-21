@@ -75,26 +75,16 @@ tabs:
           -
             handle: links
             field:
-              type: replicator
+              type: entries
               display: Links
-              collapse: true
-              sets:
-                new_set_group:
-                  display: 'New Set Group'
-                  sets:
-                    new_set:
-                      display: 'New Set'
-                      fields:
-                        -
-                          handle: title
-                          field:
-                            type: text
-                            display: 'Link Text'
-                        -
-                          handle: url
-                          field:
-                            type: text
-                            display: Url
+              instructions: 'Wybierz strony które mają się pojawić w sekcji "Przydatne linki" w stopce.'
+              mode: select
+              collections:
+                - pages
+                - services
+                - projects
+                - blogs
+              localizable: true
           -
             handle: branches
             field:

@@ -1,5 +1,75 @@
 # Codex Memory
 
+## Ostatnia sesja — 2026-06-21 — FEATURE-internal-links-collection-scope-dedup
+
+- Aktywny brief:
+  - `FEATURE-internal-links-collection-scope-dedup`
+- Cel:
+  - dodać ograniczanie reguł Internal Links do wybranych kolekcji
+  - dodać deduplikację target URL-i per render/request: jeden URL docelowy maksymalnie raz na stronę
+- Wykonane:
+  - `addons/skalisty/internal-links/src/Modifiers/ApplyInternalLinks.php`
+  - `addons/skalisty/internal-links/resources/blueprints/collections/internal_links/internal_link.yaml`
+  - `resources/blueprints/collections/internal_links/internal_link.yaml`
+- Ważne decyzje techniczne:
+  - `limit_to_collections` dodane jako fieldtype `collections`, puste pole oznacza regułę globalną
+  - helper bieżącej kolekcji sprawdza `collection`, `current_entry`, `entry`
+  - dedup używa `private static array $usedTargetUrls = []`
+  - URL jest oznaczany jako użyty dopiero gdy `LinkableContentParser` faktycznie zmieni treść
+  - po pierwszym trafieniu dla danego target URL przerywany jest loop keywords tej reguły
+  - `max_per_page` jest capowane do `1`, bo nowy wymóg URL-once-per-page jest silniejszy niż stare ustawienie wielu wystąpień
+- Walidacja:
+  - `php -l ApplyInternalLinks.php` — OK
+  - `php artisan view:clear` — OK
+  - `php artisan statamic:stache:refresh` — OK po dodaniu i po usunięciu wpisów testowych
+  - `php artisan test` — OK (`2 passed`)
+  - HTTP poza sandboxem na `127.0.0.1:8001`: `/` 200, `/en/` 200, blog testowy 200
+  - direct modifier bootstrap:
+    - `blogs`: `<a href="/">Laser levels</a> and Chalk lines and <a href="/oferta/sztuczna-rafa-koralowa">Hand saws</a>.`
+    - `pages`: `Laser levels and Chalk lines and Hand saws.`
+    - realny blog Entry przez `entry`: wynik jak `blogs`
+- Porządek po teście:
+  - tymczasowe wpisy `content/collections/internal_links/pl/codex-test-*` usunięte
+  - finalny `statamic:stache:refresh` wykonany
+- Uwagi:
+  - realny długo działający serwer `8001` odpowiadał 200, ale nie odzwierciedlił testowych wpisów w HTML bloga w tej sesji; logikę addonu potwierdzono świeżym bootstrappingiem Laravel/Statamic
+  - próba świeżego serwera `8012` w sandboxie wystartowała, ale osobny `curl` nie mógł się połączyć; serwer został zatrzymany
+  - brak nowych błędów w `storage/logs/laravel.log` po `2026-06-21 20:18`
+  - bez deployu i bez commita
+
+## Ostatnia sesja — 2026-06-21 — FEATURE-internal-links-bard
+
+- Aktywny brief:
+  - `FEATURE-internal-links-bard`
+- Cel:
+  - rozszerzyć działanie `apply_internal_links` na blogowe treści Bard
+  - zastosować architekturę z briefu: modifier tylko na `{{ text }}` w gałęzi `{{ else }}`, nigdy na `{{ content }}` jako całość
+- Wykonane:
+  - `resources/views/blog-detail-one.antlers.html:82`
+  - `resources/views/blog-detail-two.antlers.html:109`
+  - `resources/views/blog-detail-three.antlers.html:89`
+  - `resources/views/blog-detail-four.antlers.html:99`
+  - wszystkie cztery miejsca zmienione z `{{ text }}` na `{{ text | apply_internal_links }}`
+- Ważny wzorzec:
+  - `apply_internal_links` działa teraz w page builderze (`free_text_section`, `wysiwyg_html_block`) oraz w Bardzie blogów (`blog-detail-*`)
+  - w Bardzie modifier idzie wyłącznie na `{{ text }}` w domyślnym secie tekstowym
+  - `quote_section`, `list_section`, `image_section` pozostają bez modifiera
+  - w `blog-detail-four` nie ruszać `{{ text | slugify }}` przy TOC
+- Walidacja:
+  - test lokalny tylko, zgodnie z notatką Claude dla internal-links
+  - `/` na `127.0.0.1:8001` — `200`
+  - `/en/` z redirectami — `200`
+  - testowy wpis `internal_links` dla keywordu `Laser levels` na blogu `/blog/benefits-of-modular-building` dał `<a href="/">Laser Levels</a>`
+  - po usunięciu wpisu testowego link zniknął
+  - `php artisan test` — OK (`2 passed`)
+- Porządek po teście:
+  - tymczasowy plik `content/collections/internal_links/pl/codex-test-internal-link.md` został usunięty
+  - `php artisan statamic:stache:refresh` wykonany po dodaniu i po usunięciu
+- Uwagi:
+  - stare błędy `Modifier [apply_internal_links] not found` w logu pochodzą z 19:41-19:42; aktualny render ok. 22:11 działał poprawnie
+  - pierwsze `curl` w sandboxie dawały `000`; poprawne testy HTTP wykonano poza sandboxem na działającym porcie `8001`
+  - brak deployu i brak commita
+
 ## Ostatnia sesja — 2026-06-21 — FEATURE-internal-links-addon-mvp
 
 - Aktywny brief:

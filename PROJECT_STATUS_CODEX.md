@@ -1,14 +1,14 @@
 # PROJECT_STATUS_CODEX.md
 
 <!-- PROJECT_SYNC_START -->
-state_version: 2026-06-21-EOD2
-active_task_id: none
-active_task_name: Brak aktywnego zadania
-active_task_status: closed
+state_version: 2026-06-21-2300
+active_task_id: FEATURE-internal-links-collection-scope-dedup
+active_task_name: Internal Links — filtr kolekcji + deduplicacja linków per strona
+active_task_status: active
 active_task_source: BRIEF_CODEX.md
-last_sync: 2026-06-21 23:50 Europe/Warsaw
+last_sync: 2026-06-21 23:00 Europe/Warsaw
 last_synced_by: Claude
-last_closed: FEATURE-internal-links-addon-mvp
+last_closed: FEATURE-internal-links-bard
 next_after_active: Wariant B Internal Links Addon (production-ready) lub inny element z backlogu
 <!-- PROJECT_SYNC_END -->
 
@@ -166,7 +166,13 @@ next_after_active: Wariant B Internal Links Addon (production-ready) lub inny el
 
 ## W trakcie
 
-Brak aktywnych zadań.
+### FEATURE-internal-links-collection-scope-dedup (2026-06-21, aktywne)
+
+Rozszerzenie addonu `skalisty/internal-links` o filtr kolekcji (pole `limit_to_collections` w blueprincie) i deduplicację URL docelowych per request (static property w modifierze). Zmiany tylko w addonie — bez zmian szablonów Antlers.
+
+### ✅ FEATURE-internal-links-bard (2026-06-21, ACCEPTED)
+
+`{{ text | apply_internal_links }}` dodane w gałęzi `{{ else }}` pętli Barda w czterech szablonach `blog-detail-*.antlers.html`. Potwierdzone przez Codex testem z wpisem testowym.
 
 ---
 
