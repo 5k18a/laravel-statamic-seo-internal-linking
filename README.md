@@ -123,6 +123,13 @@ Output:
 
 Headings are protected from replacement. Only the first occurrence of each target URL is linked per page.
 
+## License
+
+This is a **commercial addon** for Statamic CMS. A valid license purchased through
+the [Statamic Marketplace](https://statamic.com/addons) is required per site.
+
+See [LICENSE](LICENSE) for full terms.
+
 ## Roadmap
 
 - Variant A (current): runtime modifier + HTML parser + CP collection storage
